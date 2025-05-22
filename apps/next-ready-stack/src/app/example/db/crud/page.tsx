@@ -1,7 +1,8 @@
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Input } from '@monorepo-starter/ui/components/input';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { format } from 'date-fns';
+
+import { formatDate } from '@monorepo-starter/utils/date';
 import { PencilIcon, ToggleLeft, ToggleRight, TrashIcon } from 'lucide-react';
 import Image from 'next/image';
 import { Fragment } from 'react';
@@ -67,11 +68,9 @@ export default async function DbPage() {
                 )}
                 <div>{user.id}</div>
                 <div className="ml-auto flex flex-col">
-                  <span className={cn('text-gray-500')}>
-                    created: {format(user.createdAt * 1000, 'yyyy-MM-dd HH:mm:ss')}
-                  </span>
+                  <span className={cn('text-gray-500')}>created: {formatDate(user.createdAt * 1000, 'iso9075')}</span>
                   <span className={cn('text-gray-500', user.updatedAt > user.createdAt && 'text-red-700')}>
-                    updated: {format(user.updatedAt * 1000, 'yyyy-MM-dd HH:mm:ss')}
+                    updated: {formatDate(user.updatedAt * 1000, 'iso9075')}
                   </span>
                 </div>
               </div>

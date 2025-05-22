@@ -1,7 +1,5 @@
 'use client';
 
-import { TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from '@monorepo-starter/ui/components/table';
-import { cn } from '@monorepo-starter/ui/lib/utils';
 import {
   closestCenter,
   DndContext,
@@ -17,6 +15,15 @@ import {
   SortableContext,
   sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable';
+import {
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@monorepo-starter/ui/components/table';
+import { cn } from '@monorepo-starter/ui/lib/utils';
 import {
   flexRender,
   getCoreRowModel,

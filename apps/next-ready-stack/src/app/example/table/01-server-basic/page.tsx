@@ -1,6 +1,6 @@
 import { ScrollArea, ScrollBar } from '@monorepo-starter/ui/components/scroll-area';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@monorepo-starter/ui/components/table';
-import { format } from 'date-fns';
+import { formatDate } from '@monorepo-starter/utils/date';
 import Image from 'next/image';
 import { cachedGetUsers } from '~/db/users';
 
@@ -51,8 +51,8 @@ export default async function TableServerBasicPage() {
                   <TableCell className="text-center">{item.contact}</TableCell>
                   <TableCell>{item.bio}</TableCell>
                   <TableCell className="text-center">{item.status}</TableCell>
-                  <TableCell className="text-center">{format(item.createdAt * 1000, 'yyyy-MM-dd HH:mm:ss')}</TableCell>
-                  <TableCell className="text-center">{format(item.updatedAt * 1000, 'yyyy-MM-dd HH:mm:ss')}</TableCell>
+                  <TableCell className="text-center">{formatDate(item.createdAt * 1000, 'iso9075')}</TableCell>
+                  <TableCell className="text-center">{formatDate(item.updatedAt * 1000, 'iso9075')}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

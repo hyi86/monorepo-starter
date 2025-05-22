@@ -1,6 +1,7 @@
 {
   "extends": "@monorepo-starter/typescript-config/base.json",
   "compilerOptions": {
+    "lib": ["es2022", "DOM", "DOM.Iterable", "WebWorker"],
     "module": "esnext",
     "moduleResolution": "bundler",
     "outDir": "dist",

@@ -1,6 +1,6 @@
 // NOTE: 환경변수 관리 파일 및 유틸리티 함수 - Edge Runtime, Node.js 환경에서 같이 사용(node 전용 함수 사용 불가)
+import { parseDurationToSeconds } from '@monorepo-starter/utils/date';
 import { createEnv } from '@t3-oss/env-nextjs';
-import parseDuration from 'parse-duration'; // Edge OK
 import { z } from 'zod';
 
 export const env = createEnv({
@@ -15,10 +15,10 @@ export const env = createEnv({
     CODE_EDITOR: z.enum(['cursor', 'vscode', 'windsurf', 'webstorm', 'intellij', 'neovim', 'sublimetext', 'emacs']),
     // Tokens
     ACCESS_TOKEN_SECRET: z.string(),
-    ACCESS_TOKEN_SECRET_TIME: z.string().refine((value) => parseDuration(value, 's') !== null),
-    REFRESH_TOKEN_SECRET: z.string(),
-    REFRESH_TOKEN_SECRET_TIME: z.string().refine((value) => parseDuration(value, 's') !== null),
+    ACCESS_TOKEN_SECRET_TIME: z.string().refine((value) => parseDurationToSeconds(value) !== null),
     ACCESS_TOKEN_COOKIE_NAME: z.string().default('access-token'),
+    REFRESH_TOKEN_SECRET: z.string(),
+    REFRESH_TOKEN_SECRET_TIME: z.string().refine((value) => parseDurationToSeconds(value) !== null),
     REFRESH_TOKEN_COOKIE_NAME: z.string().default('refresh-token'),
   },
   client: {

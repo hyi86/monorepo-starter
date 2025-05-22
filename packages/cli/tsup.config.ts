@@ -3,7 +3,7 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig({
   entry: ['src/*.ts', '!src/*.test.ts'],
-  outDir: 'dist',
+  outDir: 'scripts',
   format: ['esm'],
   external: ['ts-morph', '@clack/prompts', 'fast-glob'],
   splitting: true,

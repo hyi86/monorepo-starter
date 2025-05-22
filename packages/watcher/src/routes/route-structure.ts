@@ -39,7 +39,7 @@ export async function getRouteStructure() {
     page: 'Page',
   };
 
-  const routes = await FastGlob(`src/app/**/{page,layout,loading,not-found,error,template}.{ts,tsx,mdx}`);
+  const routes = FastGlob.sync('src/app/**/{page,layout,loading,not-found,error,template}.{ts,tsx,mdx}');
   const pagePathList = updatePageRoutesBySegments(routes.filter((route) => route.match(/\/page\.(ts|tsx|mdx)$/)));
 
   const pageRoutes = routes.filter((route) => route.endsWith('page.tsx') || route.endsWith('page.mdx'));

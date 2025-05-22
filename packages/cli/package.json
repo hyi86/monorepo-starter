@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "tsup",
-    "dev": "tsx",
+    "dev": "tsx watch",
+    "start": "tsx",
     "lint": "eslint . --max-warnings 20",
     "check-types": "tsc --noEmit",
     "test": "vitest"
@@ -16,10 +17,8 @@
     "@monorepo-starter/typescript-config": "workspace:*",
     "@monorepo-starter/utils": "workspace:*",
     "@types/node": "catalog:",
-    "diff": "^8.0.1",
     "eslint": "catalog:",
     "fast-glob": "^3.3.3",
-    "handlebars": "^4.7.8",
     "nanoid": "^5.1.5",
     "ts-morph": "^26.0.0",
     "tsup": "^8.5.0",

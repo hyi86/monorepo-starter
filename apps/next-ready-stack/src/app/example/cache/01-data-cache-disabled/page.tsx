@@ -1,11 +1,10 @@
-import { format, formatDistanceToNow } from 'date-fns';
-import { ko } from 'date-fns/locale/ko';
+import { formatDate, formatDistanceToNow, localeKo } from '@monorepo-starter/utils/date';
 
 export default async function DataCacheDisabledPage() {
   const response = await fetch(`https://jsonplaceholder.typicode.com/todos/20`);
   const responseTime = new Date(response.headers.get('Date')!);
-  const fromNow = formatDistanceToNow(responseTime, { addSuffix: true, includeSeconds: true, locale: ko });
-  const formattedResponseTime = format(responseTime, 'HH:mm:ss');
+  const fromNow = formatDistanceToNow(responseTime, { addSuffix: true, includeSeconds: true, locale: localeKo });
+  const formattedResponseTime = formatDate(responseTime, 'HH:mm:ss');
 
   return (
     <div>

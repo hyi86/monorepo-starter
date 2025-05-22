@@ -1,5 +1,5 @@
 import { Button } from '@monorepo-starter/ui/components/button';
-import { format } from 'date-fns';
+import { formatDate } from '@monorepo-starter/utils/date';
 import { revalidatePath } from 'next/cache';
 
 export const dynamic = 'force-static';
@@ -7,7 +7,7 @@ export const revalidate = 15;
 
 export default async function FullRouteCacheRevalidatePage() {
   const renderTime = new Date();
-  const formattedRenderTime = format(renderTime, 'HH:mm:ss');
+  const formattedRenderTime = formatDate(renderTime, 'iso9075/time');
 
   async function handleRevalidatePath() {
     'use server';

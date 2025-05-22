@@ -13,9 +13,9 @@ process.chdir(path.join(import.meta.dirname, '../../..'));
 const initHonoApi = () => {
   const dirname = 'apps/hono-api';
 
-  child.execSync(`cp .env.example .env`, { cwd: dirname });
-  child.execSync(`pnpm db:generate`, { cwd: dirname });
-  child.execSync(`pnpm db:migrate`, { cwd: dirname });
+  child.execSync('cp .env.example .env', { cwd: dirname });
+  child.execSync('pnpm db:generate', { cwd: dirname });
+  child.execSync('pnpm db:migrate', { cwd: dirname });
 };
 
 /**
@@ -30,7 +30,7 @@ const initNextReadyStack = () => {
   envJson['ACCESS_TOKEN_SECRET'] = nanoid(32);
   envJson['REFRESH_TOKEN_SECRET'] = nanoid(32);
 
-  const generateVapidKeys = child.execSync(`pnpx web-push generate-vapid-keys --json`, { encoding: 'utf-8' });
+  const generateVapidKeys = child.execSync('pnpx web-push generate-vapid-keys --json', { encoding: 'utf-8' });
   const generateVapidKeysJson = JSON.parse(generateVapidKeys);
 
   envJson['NEXT_PUBLIC_VAPID_PUBLIC_KEY'] = generateVapidKeysJson.publicKey;
@@ -39,8 +39,8 @@ const initNextReadyStack = () => {
   const envString = convertJsonToEnv(envJson);
   fs.writeFileSync(`${dirname}/.env`, envString, 'utf-8');
 
-  child.execSync(`pnpm db:generate`, { cwd: dirname });
-  child.execSync(`pnpm db:migrate`, { cwd: dirname });
+  child.execSync('pnpm db:generate', { cwd: dirname });
+  child.execSync('pnpm db:migrate', { cwd: dirname });
 };
 
 /**

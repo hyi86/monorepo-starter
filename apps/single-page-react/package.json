@@ -12,8 +12,8 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@monorepo-starter/ui": "workspace:^",
-    "@monorepo-starter/utils": "workspace:^",
+    "@monorepo-starter/ui": "workspace:*",
+    "@monorepo-starter/utils": "workspace:*",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-router": "^7.6.0",

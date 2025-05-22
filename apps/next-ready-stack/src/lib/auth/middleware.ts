@@ -1,8 +1,8 @@
 import { devLog } from '@monorepo-starter/utils/console';
-import { NextRequest, NextResponse } from 'next/server';
-import parseDuration from 'parse-duration';
+import { parseDurationToSeconds } from '@monorepo-starter/utils/date';
+import { generateToken, verifyToken } from '@monorepo-starter/utils/jwt';
+import { type NextRequest, NextResponse } from 'next/server';
 import { env, utils } from '~/env';
-import { generateAccessToken, verifyAccessToken, verifyRefreshToken } from './jwt';
 
 /**
  * 인증관련 설정 - 접근 제한 페이지
@@ -22,7 +22,7 @@ export async function authMiddleware(request: NextRequest, response: NextRespons
   // 엑세스 토큰이 있으면, 엑세스 토큰 검증 결과 리턴
   if (accessToken) {
     try {
-      await verifyAccessToken(accessToken);
+      await verifyToken({ token: accessToken, secret: env.ACCESS_TOKEN_SECRET });
       return response;
     } catch (error) {
       devLog('error', error);
@@ -33,9 +33,13 @@ export async function authMiddleware(request: NextRequest, response: NextRespons
   // 리프레시 토큰이 있으면, 리프레시 토큰 검증 > 새로운 엑세스 토큰 생성 > 쿠키에 저장 후 리턴
   if (refreshToken) {
     try {
-      const { sub } = await verifyRefreshToken(refreshToken);
-      const newAccessToken = await generateAccessToken(sub!);
-      const maxAge = parseDuration(env.ACCESS_TOKEN_SECRET_TIME, 's') || 60 * 15;
+      const { sub } = await verifyToken({ token: refreshToken, secret: env.REFRESH_TOKEN_SECRET });
+      const newAccessToken = await generateToken({
+        userId: sub!,
+        expiresIn: env.ACCESS_TOKEN_SECRET_TIME,
+        secret: env.ACCESS_TOKEN_SECRET,
+      });
+      const maxAge = parseDurationToSeconds(env.ACCESS_TOKEN_SECRET_TIME) || 60 * 15;
       response.cookies.set('access-token', newAccessToken, { httpOnly: true, secure: true, maxAge });
       return response;
     } catch (error) {

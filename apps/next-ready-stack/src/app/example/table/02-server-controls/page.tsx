@@ -1,6 +1,6 @@
 import { ScrollArea, ScrollBar } from '@monorepo-starter/ui/components/scroll-area';
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@monorepo-starter/ui/components/table';
-import { format } from 'date-fns';
+import { formatDate } from '@monorepo-starter/utils/date';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import { SearchParams } from 'nuqs/server';
@@ -97,8 +97,8 @@ export default async function TableServerControlsPage({ searchParams }: { search
                   <TableCell className="text-center">{item.contact}</TableCell>
                   <TableCell>{item.bio}</TableCell>
                   <TableCell className="text-center">{item.status}</TableCell>
-                  <TableCell className="text-center">{format(item.createdAt * 1000, 'yyyy-MM-dd HH:mm:ss')}</TableCell>
-                  <TableCell className="text-center">{format(item.updatedAt * 1000, 'yyyy-MM-dd HH:mm:ss')}</TableCell>
+                  <TableCell className="text-center">{formatDate(item.createdAt * 1000, 'iso9075')}</TableCell>
+                  <TableCell className="text-center">{formatDate(item.updatedAt * 1000, 'iso9075')}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
