@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "tsup",
-    "dev": "tsx",
+    "dev": "tsx watch",
+    "start": "tsx",
     "lint": "eslint . --max-warnings 20",
     "check-types": "tsc --noEmit",
     "test": "vitest"

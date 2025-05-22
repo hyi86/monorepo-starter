@@ -1,71 +1,75 @@
 # 📦 Monorepo Starter
 
 <p align="left">
-  <img alt="Next.js" src="https://img.shields.io/badge/next.js-15-black?logo=nextdotjs" />
-  <img alt="React" src="https://img.shields.io/badge/React-19-61DAFB?logo=react" />
+  <img alt="Turborepo" src="https://img.shields.io/badge/Turborepo-monorepo-3178C6?logo=turbo" />
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-Strict-blue?logo=typescript" />
   <img alt="pnpm" src="https://img.shields.io/badge/pnpm-10-F69220?logo=pnpm" />
-  <img alt="Turborepo" src="https://img.shields.io/badge/Turborepo-monorepo-3178C6?logo=turbo" />
+  <img alt="Next.js" src="https://img.shields.io/badge/next.js-15-black?logo=nextdotjs" />
+  <img alt="React" src="https://img.shields.io/badge/React-19-61DAFB?logo=react" />
   <img alt="Code Style" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" />
-  <img alt="Linting" src="https://img.shields.io/badge/lint-9-3178C6?logo=eslint" />
+  <img alt="Linting" src="https://img.shields.io/badge/eslint-9-3178C6?logo=eslint" />
   <br />
   <img alt="License" src="https://img.shields.io/github/license/hyi86/monorepo-starter" />
   <img alt="Last Commit" src="https://img.shields.io/github/last-commit/hyi86/monorepo-starter" />
 </p>
 
-A **monorepo template** designed for modern frontend development using `pnpm` and `Turborepo`.
+최신 프론트엔드 개발을 위해 `pnpm`과 `Turborepo`를 사용하는 **모노레포 템플릿**입니다.
 
-This project is structured to allow experimentation and operation with various stacks such as `Next.js`, `React SPA`, `Hono API`, and `Vanilla JS` in a unified environment.
+이 프로젝트는 `Next.js`, `React SPA`, `Hono API`, `Vanilla JS` 등 다양한 스택을 하나의 환경에서 실험하고 운영할 수 있도록 구성되어 있습니다.
 
 <br />
 
 ## 🛠️ Features
 
-### Third-Party Dependency
+### Third-Party Dependencies
 
-- 📦 **Monorepo**: Efficiently manage projects and packages in a single repository using [`pnpm`](https://pnpm.io) and [`Turborepo`](https://turbo.build).
-- 🧩 **Frontend/Backend Frameworks**:
-  Includes frontend frameworks like [`Next.js`](https://nextjs.org), [`react-router(Declarative mode)`](https://reactrouter.com/start/declarative/installation), and `Vanilla JS (vite-ts)`, as well as a high-performance, lightweight backend framework [`Hono`](https://hono.dev).
+- 📦 **Monorepo**: 
+  [`pnpm`](https://pnpm.io) 기반의 [`Turborepo`](https://turbo.build) 모노레포 템플릿으로 하나의 저장소에서 여러 프로젝트와 패키지를 효율적으로 관리할 수 있습니다.
+- 🧩 **Frameworks**:
+  [`Next.js`](https://nextjs.org), [`react-router(Declarative mode)`](https://reactrouter.com/start/declarative/installation), `Vanilla JS`와 같은 프론트엔드 프레임워크와, 
+  백엔드 프레임워크로 [`Hono`](https://hono.dev)를 포함합니다.
 - 🗄️ **Data Layer/ORM**:
-  Easily and safely manage data without external APIs using [`Drizzle ORM`](https://orm.drizzle.team) based on [`SQLite`](https://www.sqlite.org).
+  외부 API 없이도 `SQLite` 기반의 [`Drizzle ORM`](https://orm.drizzle.team)으로 데이터를 쉽고 안전하게 관리할 수 있습니다.
 - 🎨 **Styling**:
-  [`Shadcn UI`](https://ui.shadcn.com) with [`Tailwind CSS v4`](https://tailwindcss.com) is set up in the monorepo, providing consistent and scalable styling.
-- 🧪 **Testing**: Unit tests with [`Vitest`](https://vitest.dev) and E2E (end-to-end) tests with [`Playwright`](https://playwright.dev).
-- 🐳 **Deployment**: Ready-to-run [`Docker`](https://www.docker.com) environment provided.
-- 📜 **Code Formatting/Linting**: Integrated [`Prettier`](https://prettier.io) and [`ESLint`](https://eslint.org).
-- 🔄 **Data Fetching/State Management**: Efficient data fetching and state management for both client and server environments using libraries like [`TanStack Query`](https://tanstack.com/query/latest), [`Zustand`](https://zustand-demo.pmnd.rs), and [`Nuqs`](https://nuqs.47ng.com).
-- 📄 **Logging**: Fast and structured logging with [`Pino`](https://getpino.io).
-- 🖍️ **Code Blocks**: Code highlighting with [`Shiki`](https://shiki.style) and real-time code editing with [`Monaco Editor`](https://github.com/microsoft/monaco-editor).
+  디자인 시스템으로 [`Shadcn UI`](https://ui.shadcn.com)와 [`Tailwind CSS v4`](https://tailwindcss.com)가 세팅되어 일관되고 확장성 있는 스타일링을 제공합니다.
+- 🧪 **Testing**: 
+  단위 테스트([`Vitest`](https://vitest.dev))와 E2E(엔드 투 엔드) 테스트([`Playwright`](https://playwright.dev)) 환경이 구축되어 있습니다.
+- 🐳 **Deployment**: 
+  즉시 실행 가능한 `Docker` 환경괴 [`Vercel`](https://vercel.com) 배포 환경을 제공합니다.
+- 📜 **Code Formatting/Linting**: 
+  코드 포맷팅과 린팅을 위한 [`Prettier`](https://prettier.io)와 [`ESLint`](https://eslint.org)가 통합되어 있습니다.
+- 🔄 **Data Fetching/State Management**: 
+  [`TanStack Query`](https://tanstack.com/query/latest), [`Zustand`](https://zustand-demo.pmnd.rs), [`Nuqs`](https://nuqs.47ng.com) 등 라이브러리를 활용, `Client`와 `Server` 환경 모두에서 효율적인 데이터 패칭과 상태 관리를 지원합니다.
+- 🖍️ **Code Blocks**: 
+  [`Shiki`](https://shiki.style)를 이용한 Code highlighting 과 [`Monaco Editor`](https://github.com/microsoft/monaco-editor)를 통한 Real-time Code Editing 기능을 제공합니다.
 - 📦 **Others**:
-  - Date and time operations with [`date-fns`](https://date-fns.org).
-  - Added [`@mantine/hooks`](https://mantine.dev/hooks/package) for useful utility hooks.
-  - Includes [`WebPush Notification`](https://github.com/web-push-libs/web-push) (can send on `localhost`).
-  - Implement drag & drop interactions with [`Dnd Kit`](https://dndkit.com).
-  - Table UI with [`TanStack Table`](https://tanstack.com/table/latest) and optimized large lists/virtualization with [`TanStack Virtual`](https://tanstack.com/virtual/latest).
-  - Data schema validation with [`Zod`](https://zod.dev) and dummy data generation with [`faker.js`](https://fakerjs.dev) for improved development productivity.
-  - Route exploration and AST structure analysis with [`ts-morph`](https://ts-morph.com).
+  - 🛟 **Env**: [`t3-env`](https://env.t3.gg)
+  - 📄 **Logging**: [`pino`](https://getpino.io)
+  - 📅 **Date & Time**: [`date-fns`](https://date-fns.org)
+  - 📦 **Useful Hooks**: [`@mantine/hooks`](https://mantine.dev/hooks/package)
+  - 🔔 **Notification**: [`web-push`](https://github.com/web-push-libs/web-push)
+  - 📝 **Drag & Drop**: [`Dnd Kit`](https://dndkit.com)
+  - 📊 **Table UI**: [`TanStack Table`](https://tanstack.com/table/latest)
+  - 📦 **Large List/Virtualization**: [`TanStack Virtual`](https://tanstack.com/virtual/latest)
+  - 📝 **Data Schema Validation**: [`Zod`](https://zod.dev)
+  - 🪄 **Dummy Data Generation**: [`faker.js`](https://fakerjs.dev)
+  - 📝 **Route Exploration & AST Structure Analysis**: [`ts-morph`](https://ts-morph.com)
 
 ### In-house Implementations
 
-- [`hybrid-api-cache`](./apps/next-ready-stack/src/app/example/experimental/api-cache/page.tsx)
-  - Custom API data cache based on the file system and local SQLite DB.
-- [`large-file-upload`](./apps/next-ready-stack/src/app/example/experimental/file-upload/page.tsx)
-  - Implementation for large, multi, chunked, and streaming uploads of videos and images.
-- [`Unused Import Finder`](./packages/cli/src/unused-import.ts)
-  - Script to find unused import statements following the `Next.js` convention.
-- [`Next Component Devtools`](./apps/next-ready-stack/src/components/command/devtools.tsx)
-  - Visualization tool for the `Next.js` component tree structure.
-- [`Typesafe Code Generator`](./packages/utils/src/codegen.ts)
-  - Whenever `src/app` changes, automatically generate all accessible routes for the app.
-  - Automatically type all files in the `src/dictionaries` folder for internationalization.
-- [`Authentication`](./apps/next-ready-stack/src/app/example/auth/page.mdx)
-  - **Custom-built authentication system** without external libraries like `Next Auth` or `clerk`.
-  - Server-only authentication system based on `JWT`.
-  - Dual token structure using both `Access Token` and `Refresh Token`, with automatic renewal on token expiration.
-  - Security best practices such as `HTTP Only` and `Secure Flag` applied.
+- [`Hybrid API Cache`](./apps/next-ready-stack/src/app/example/experimental/api-cache/page.tsx): 
+  `File System`과 `Local SQLite DB`를 기반으로 하는 **Custom API Data Cache** 구현.
+- [`Large File Uploader`](./apps/next-ready-stack/src/app/example/experimental/file-upload/page.tsx): 
+  페이지 이동중에도 끊기지 않는 **Large Multi-Chunk Streaming File Uploader** 구현.
+- [`Unused Import Finder`](./packages/cli/src/find-unused-import.ts): 
+  `Next.js` 라우트 규칙을 따르는, **Unused Import File**을 찾는 Script 포함.
+- [`Next Route Tree Visualizer`](./apps/next-ready-stack/src/components/command/command-provider.tsx): 
+  `Next.js` 컴포넌트 트리 구조를 시각화하는 도구 및 전역 커멘드 프로바이더.
+- [`Authentication`](./apps/next-ready-stack/src/app/example/auth/page.mdx): 
+  외부 라이브러리 없이, `JWT Access/Refresh Token` 기반의 **Server-only Authentication System** 구축.
 - [`Internationalization`](./apps/next-ready-stack/src/app/example/[lang]/page.tsx)
-  - **Custom-built** i18n feature without external libraries like `next-intl` or `react-i18next`.
-  - Designed for easy internationalization of selected pages.
+  외부 라이브러리 없이, 선택적 페이지의 쉬운 국제화를 위한 설계.
+- [`Typesafe Code Generator`](./packages/watcher/src/index.ts): 개발 모드에서, **Accessible All Links** 와 **Typesafe Internationalization File** 을 자동으로 생성하는 스크립트 포함.
 
 <br />
 
@@ -75,87 +79,9 @@ This project is structured to allow experimentation and operation with various s
 git clone https://github.com/hyi86/monorepo-starter.git
 cd monorepo-starter
 pnpm install
-pnpm run cli init # drizzle-related files that appear after this command are optional to push
+pnpm --filter @monorepo-starter/cli run start src/init-project.ts # Drizzle 관련 파일은 선택적으로 푸시하시면 됩니다
 pnpm dev
 ```
-
-<br />
-
-## 📂 Directory Structure
-
-### `apps`
-- [`hono-api`](./apps/hono-api/README.md): Mock API server based on Hono
-- [`next-ready-stack`](./apps/next-ready-stack/README.md): Web application based on Next.js
-- [`single-page-react`](./apps/single-page-react/README.md): SPA (React Router Declarative) web application
-- [`vanilla-ts`](./apps/vanilla-ts/README.md): Vanilla JS-based web application
-
-### `packages`
-- [`cli`](./packages/cli/README.md): Common CLI scripts
-- [`eslint-config`](./packages/eslint-config/README.md): Shared ESLint configuration
-- [`typescript-config`](./packages/typescript-config/README.md): Shared TypeScript configuration
-- [`ui`](./packages/ui/README.md): Shared UI components
-- [`utils`](./packages/utils/README.md): Shared utility functions
-
-<br />
-
-## 📦 Examples
-
-- [`Next.js Caching`](./apps/next-ready-stack/src/app/example/cache/page.mdx)
-  - Basic usage examples of `data cache`, `full route cache`, and `ISR`
-- [`Code Block and Editor`](./apps/next-ready-stack/src/app/example/code-block/page.mdx)
-  - Syntax highlighting with `shiki`: word/line highlight, warning/error display, automatic line numbers, theme support, etc.
-  - `MDX` integration: automatic code block highlighting in markdown
-  - Code editor implementation based on `Monaco Editor`
-  - Filesystem-based panel: real-time code editing, highlighting, copy, open in editor, and more
-- [`Local Database`](./apps/next-ready-stack/src/app/example/db/page.mdx)
-  - Local database built with `Drizzle ORM` and `Sqlite`
-  - Real-time data updates, cache invalidation, and type safety
-  - Random data generation with `faker.js`
-- [`Drag and Drop Sortable`](./apps/next-ready-stack/src/app/example/dnd/page.mdx)
-  - Sortable UI implemented with [`@dnd-kit/sortable`](https://docs.dndkit.com/presets/sortable)
-  - Examples for horizontal, vertical, and grid sortable lists
-  - Keyboard navigation for accessibility
-- [`Server Action & react-hook-form`](./apps/next-ready-stack/src/app/example/form/page.mdx)
-  - Various usage examples of `Server Action` and `Server Component`
-  - Form validation with `zod`
-  - Client-side form state management with `react-hook-form`
-  - Example of client-side form state management using `useOptimistic`
-  - Examples using various technologies such as `Virtual List`, `Drag and Drop`, `Nested List`, etc.
-- [`Nuqs State management`](./apps/next-ready-stack/src/app/example/nuqs/page.mdx)
-  - Basic usage and examples of `nuqs`
-  - Demo of various query parameter handling methods
-  - Query management in client/server/hybrid environments
-  - Practical patterns and tips for real-world usage
-- [`Web Push Notification`](./apps/next-ready-stack/src/app/example/push/page.mdx)
-  - Basic usage and examples of `web-push`
-  - Includes `service-worker`
-- [`Tanstack Query SSR`](./apps/next-ready-stack/src/app/example/query/page.mdx)
-  - Basic usage and examples of `Tanstack Query`
-    - **Prefetching**: Fetch query data on the server and deliver it to the client
-    - **Streaming**: Example of handling multiple queries in a streaming manner with Suspense
-  - Various usage patterns for query options, caching, data fetching, and real-world scenarios
-- [`Next.js Advanced Routing`](./apps/next-ready-stack/src/app/example/route/page.mdx)
-  - Practical examples of advanced routing features in Next.js
-    - **Parallel Routes**: Routing pattern for rendering multiple UI areas in parallel
-    - **Intercepting Routes**: Pattern for intercepting existing route flows
-- [`Table`](./apps/next-ready-stack/src/app/example/table/page.mdx)
-  - Practical examples of various Table UI/UX patterns
-  - Utilizes libraries such as `Tanstack Table`, `Shadcn/ui`, and `Nuqs`
-    - **Server Basic**: Basic table rendering with server components
-    - **Server Controls**: Filtering, sorting, pagination, and other controls with server components
-    - **Client Full**: Data grid with client components
-      - Includes filtering, sorting, pagination, row/column selection, resizing, fixed rows/columns, virtualization, drag & drop, and more
-- [`Virtual List`](./apps/next-ready-stack/src/app/example/virtual/page.mdx)
-  - Practical examples of rendering performance optimization for large lists/grids
-    - **Fixed Row/Column/Grid**: Virtual scrolling for fixed-size rows/columns/grids
-    - **Fixed Masonry (Vertical/Horizontal)**: Fixed-type virtualization for Masonry layouts
-    - **Dynamic Row/Column/Grid**: Virtualization for dynamic (variable) size rows/columns/grids
-    - **Infinite Scroll**: Infinite scroll-based data loading and virtualization
-    - **Sortable Row/Column**: Combination of drag & drop sorting and virtualization for rows/columns
-    - **Parallel Route**: Practical examples of rendering performance optimization for large lists/grids
-  - Each example includes advanced patterns frequently used in real-world scenarios, such as scroll/render optimization, drag & drop, Masonry, infinite scroll, etc.
-- [`Zustand State Management`](./apps/next-ready-stack/src/app/example/zustand/page.mdx)
-  - Example of basic usage of `zustand` in server components
 
 <br />
 
@@ -189,13 +115,70 @@ docker-compose exec ${APP_NAME} /bin/bash
 docker-compose logs -f
 ```
 
-<br />
+## 📦 Examples
+
+- [`Next.js Caching`](./apps/next-ready-stack/src/app/example/cache/page.mdx)
+  - `data cache`, `full route cache`, `ISR`의 기본 사용 예시
+- [`Code Block and Editor`](./apps/next-ready-stack/src/app/example/code-block/page.mdx)
+  - `shiki`를 활용한 구문 강조: 단어/라인 하이라이트, 경고/에러 표시, 자동 줄번호, 테마 지원 등
+  - `MDX` 통합: 마크다운에서 자동 코드블록 하이라이팅
+  - `Monaco Editor` 기반 코드 에디터 구현
+  - 파일 시스템 기반 패널: 실시간 코드 편집, 하이라이팅, 복사, 에디터에서 열기 등 다양한 기능 제공
+- [`Local Database`](./apps/next-ready-stack/src/app/example/db/page.mdx)
+  - `Drizzle ORM`과 `Sqlite`로 구축한 로컬 데이터베이스
+  - 실시간 데이터 업데이트, 캐시 무효화, 타입 안전성 제공
+  - `faker.js`로 랜덤 데이터 생성
+- [`Drag and Drop Sortable`](./apps/next-ready-stack/src/app/example/dnd/page.mdx)
+  - `@dnd-kit/sortable`로 구현한 정렬 가능한 UI
+  - 가로, 세로, 그리드 정렬 리스트 예시
+  - 접근성을 위한 키보드 네비게이션 지원
+- [`Server Action & react-hook-form`](./apps/next-ready-stack/src/app/example/form/page.mdx)
+  - `Server Action`과 `Server Component`의 다양한 사용 예시
+  - `zod`를 활용한 폼 검증
+  - `react-hook-form`을 활용한 클라이언트 폼 상태 관리
+  - `useOptimistic`을 활용한 클라이언트 폼 상태 관리 예시
+  - `Virtual List`, `Drag and Drop`, `Nested List` 등 다양한 기술 활용 예시
+- [`Nuqs State management`](./apps/next-ready-stack/src/app/example/nuqs/page.mdx)
+  - `nuqs`의 기본 사용법 및 예시
+  - 다양한 쿼리 파라미터 처리 방법 데모
+  - 클라이언트/서버/하이브리드 환경에서의 쿼리 관리
+  - 실제 서비스에서 활용할 수 있는 실전 패턴과 팁
+- [`Web Push Notification`](./apps/next-ready-stack/src/app/example/push/page.mdx)
+  - `web-push`의 기본 사용법 및 예시
+  - `service-worker` 포함
+- [`Tanstack Query SSR`](./apps/next-ready-stack/src/app/example/query/page.mdx)
+  - `Tanstack Query`의 기본 사용법 및 예시
+    - **Prefetching**: 서버에서 쿼리 데이터를 미리 가져와 클라이언트에 전달
+    - **Streaming**: Suspense와 함께 여러 쿼리를 스트리밍 방식으로 처리하는 예시
+  - 쿼리 옵션, 캐싱, 데이터 패칭, 실전 활용 등 다양한 패턴 예시
+- [`Next.js Advanced Routing`](./apps/next-ready-stack/src/app/example/route/page.mdx)
+  - Next.js의 고급 라우팅 기능 실전 예시
+    - **Parallel Routes**: 여러 UI 영역을 병렬로 렌더링하는 라우팅 패턴
+    - **Intercepting Routes**: 기존 라우트 흐름을 가로채는 패턴
+- [`Table`](./apps/next-ready-stack/src/app/example/table/page.mdx)
+  - 다양한 Table UI/UX 패턴 실전 예시
+  - `Tanstack Table`, `Shadcn/ui`, `Nuqs` 등 라이브러리 활용
+    - **Server Basic**: 서버 컴포넌트 기반 기본 테이블 렌더링
+    - **Server Controls**: 서버 컴포넌트 기반 필터, 정렬, 페이지네이션 등 제어 기능
+    - **Client Full**: 클라이언트 컴포넌트 기반 데이터 그리드
+      - 필터, 정렬, 페이지네이션, 행/열 선택, 크기 조절, 고정 행/열, 가상화, 드래그&드롭 등 다양한 기능 포함
+- [`Virtual List`](./apps/next-ready-stack/src/app/example/virtual/page.mdx)
+  - 대용량 리스트/그리드 렌더링 성능 최적화 실전 예시
+    - **Fixed Row/Column/Grid**: 고정 크기 행/열/그리드의 가상 스크롤링
+    - **Fixed Masonry (Vertical/Horizontal)**: Masonry 레이아웃의 고정형 가상화
+    - **Dynamic Row/Column/Grid**: 동적(가변) 크기 행/열/그리드의 가상화
+    - **Infinite Scroll**: 무한 스크롤 기반 데이터 로딩 및 가상화
+    - **Sortable Row/Column**: 행/열 드래그&드롭 정렬과 가상화 결합 예시
+    - **Parallel Route**: 대용량 리스트/그리드 성능 최적화 실전 예시
+  - 실제 서비스에서 자주 쓰이는 스크롤/렌더 최적화, 드래그&드롭, Masonry, 무한 스크롤 등 고급 패턴 포함
+- [`Zustand State Management`](./apps/next-ready-stack/src/app/example/zustand/page.mdx)
+  - 서버 컴포넌트에서 `zustand` 기본 사용 예시
 
 ## 🌍 Goals
 
-- Test various stack combinations
-- Build modular patterns applicable to real projects
-- Provide a base for rapid prototyping and validation
-- Serve as a starting point for open source or side projects
-- Experiment with and validate the latest web development trends and tech stacks
-- Design an architecture that is scalable and easy to maintain 
+- 다양한 스택 조합을 테스트
+- 실제 프로젝트에 적용 가능한 모듈형 패턴 구축
+- 빠른 프로토타이핑과 검증을 위한 베이스 제공
+- 오픈소스 또는 사이드 프로젝트의 시작점 역할
+- 최신 웹 개발 트렌드와 기술 스택을 실험 및 검증
+- 확장성과 유지보수가 쉬운 아키텍처 설계

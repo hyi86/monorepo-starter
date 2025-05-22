@@ -13,7 +13,7 @@ import { ScrollArea, ScrollBar } from '@monorepo-starter/ui/components/scroll-ar
 import { Tooltip, TooltipContent, TooltipTrigger } from '@monorepo-starter/ui/components/tooltip';
 import { CodeEditor } from '@monorepo-starter/ui/composites/code-editor/editor';
 import { highlight } from '@monorepo-starter/ui/composites/code-highlight/highlight-jsx';
-import { useTheme } from '@monorepo-starter/ui/hooks/use-theme.js';
+import { useTheme } from '@monorepo-starter/ui/hooks/use-theme';
 import { Check, Copy, FileCode2, FileTerminal, Loader2, SquarePen } from 'lucide-react';
 import { JSX, useEffect, useState } from 'react';
 
