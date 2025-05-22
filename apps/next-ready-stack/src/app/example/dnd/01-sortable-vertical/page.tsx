@@ -1,10 +1,10 @@
 'use client';
 
+import { fakerKO } from '@faker-js/faker';
 import { ScrollArea } from '@monorepo-starter/ui/components/scroll-area';
 import { Sortable } from '@monorepo-starter/ui/composites/dnd/sortable';
 import { SortableItem } from '@monorepo-starter/ui/composites/dnd/sortable-item';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { fakerKO } from '@faker-js/faker';
 import { useEffect, useState } from 'react';
 
 export default function ExampleDndSortableBasicPage() {

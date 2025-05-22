@@ -1,8 +1,9 @@
 import { devLog } from '@monorepo-starter/utils/console';
 import { debounceAsync } from '@monorepo-starter/utils/fn';
 import { watch } from 'chokidar';
-import { generate as generateDictionaries } from './gen-dictionaries';
-import { generate as generateRouteTypes } from './gen-routes';
+
+import { generate as generateDictionaries } from './dictionaries';
+import { generate as generateRouteTypes } from './routes';
 
 /**
  * 자동 생성 스크립트

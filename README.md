@@ -1,12 +1,13 @@
 # 📦 Monorepo Starter
 
 <p align="left">
-  <img alt="Next.js" src="https://img.shields.io/badge/next.js-15%2B-black?logo=nextdotjs" />
-  <img alt="React" src="https://img.shields.io/badge/React-19+-61DAFB?logo=react" />
+  <img alt="Next.js" src="https://img.shields.io/badge/next.js-15-black?logo=nextdotjs" />
+  <img alt="React" src="https://img.shields.io/badge/React-19-61DAFB?logo=react" />
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-Strict-blue?logo=typescript" />
-  <img alt="pnpm" src="https://img.shields.io/badge/pnpm-10.10-F69220?logo=pnpm" />
+  <img alt="pnpm" src="https://img.shields.io/badge/pnpm-10-F69220?logo=pnpm" />
   <img alt="Turborepo" src="https://img.shields.io/badge/Turborepo-monorepo-3178C6?logo=turbo" />
   <img alt="Code Style" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" />
+  <img alt="Linting" src="https://img.shields.io/badge/lint-9-3178C6?logo=eslint" />
   <br />
   <img alt="License" src="https://img.shields.io/github/license/hyi86/monorepo-starter" />
   <img alt="Last Commit" src="https://img.shields.io/github/last-commit/hyi86/monorepo-starter" />

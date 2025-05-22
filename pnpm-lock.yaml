@@ -163,10 +163,10 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(@types/react@19.1.4)(react@19.1.0)
       '@monorepo-starter/ui':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../packages/ui
       '@monorepo-starter/utils':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../packages/utils
       '@next/mdx':
         specifier: 'catalog:'
@@ -266,11 +266,14 @@ importers:
         specifier: workspace:*
         version: link:../../packages/cli
       '@monorepo-starter/eslint-config':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../packages/eslint-config
       '@monorepo-starter/typescript-config':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../packages/typescript-config
+      '@monorepo-starter/watcher':
+        specifier: workspace:*
+        version: link:../../packages/watcher
       '@playwright/test':
         specifier: ^1.52.0
         version: 1.52.0
@@ -341,10 +344,10 @@ importers:
   apps/single-page-react:
     dependencies:
       '@monorepo-starter/ui':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../packages/ui
       '@monorepo-starter/utils':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../../packages/utils
       react:
         specifier: 'catalog:'
@@ -444,18 +447,12 @@ importers:
       '@types/node':
         specifier: 'catalog:'
         version: 22.15.19
-      diff:
-        specifier: ^8.0.1
-        version: 8.0.1
       eslint:
         specifier: 'catalog:'
         version: 9.27.0(jiti@2.4.2)
       fast-glob:
         specifier: ^3.3.3
         version: 3.3.3
-      handlebars:
-        specifier: ^4.7.8
-        version: 4.7.8
       nanoid:
         specifier: ^5.1.5
         version: 5.1.5
@@ -688,10 +685,10 @@ importers:
         version: 3.25.20
     devDependencies:
       '@monorepo-starter/eslint-config':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../eslint-config
       '@monorepo-starter/typescript-config':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../typescript-config
       '@tailwindcss/postcss':
         specifier: 'catalog:'
@@ -746,10 +743,10 @@ importers:
         version: 19.1.0(react@19.1.0)
     devDependencies:
       '@monorepo-starter/eslint-config':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../eslint-config
       '@monorepo-starter/typescript-config':
-        specifier: workspace:^
+        specifier: workspace:*
         version: link:../typescript-config
       '@testing-library/dom':
         specifier: ^10.4.0
@@ -772,9 +769,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^4.4.1
         version: 4.4.1(vite@6.3.5(@types/node@22.15.19)(jiti@2.4.2)(lightningcss@1.30.1)(tsx@4.19.4)(yaml@2.8.0))
-      chokidar:
-        specifier: ^4.0.3
-        version: 4.0.3
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -790,6 +784,57 @@ importers:
       ts-morph:
         specifier: ^26.0.0
         version: 26.0.0
+      type-fest:
+        specifier: ^4.41.0
+        version: 4.41.0
+      typescript:
+        specifier: 'catalog:'
+        version: 5.8.3
+      vite-tsconfig-paths:
+        specifier: ^5.1.4
+        version: 5.1.4(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.19)(jiti@2.4.2)(lightningcss@1.30.1)(tsx@4.19.4)(yaml@2.8.0))
+      vitest:
+        specifier: ^3.1.4
+        version: 3.1.4(@types/debug@4.1.12)(@types/node@22.15.19)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(tsx@4.19.4)(yaml@2.8.0)
+      yaml:
+        specifier: ^2.8.0
+        version: 2.8.0
+
+  packages/watcher:
+    devDependencies:
+      '@clack/prompts':
+        specifier: ^0.10.1
+        version: 0.10.1
+      '@monorepo-starter/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@monorepo-starter/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@monorepo-starter/utils':
+        specifier: workspace:*
+        version: link:../utils
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.15.19
+      chokidar:
+        specifier: ^4.0.3
+        version: 4.0.3
+      eslint:
+        specifier: 'catalog:'
+        version: 9.27.0(jiti@2.4.2)
+      fast-glob:
+        specifier: ^3.3.3
+        version: 3.3.3
+      ts-morph:
+        specifier: ^26.0.0
+        version: 26.0.0
+      tsup:
+        specifier: ^8.5.0
+        version: 8.5.0(@swc/core@1.11.29)(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.4)(typescript@5.8.3)(yaml@2.8.0)
+      tsx:
+        specifier: ^4.19.4
+        version: 4.19.4
       type-fest:
         specifier: ^4.41.0
         version: 4.41.0
@@ -3476,10 +3521,6 @@ packages:
   devlop@1.1.0:
     resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
 
-  diff@8.0.1:
-    resolution: {integrity: sha512-rEaM3KmVm78zE3dFZaop3aCQa2MTm+T4kcigUFLVU/KbOYdiY6JnL2g2puOYnct3QFw9pjZadaCbCZ1O8ArMlQ==}
-    engines: {node: '>=0.3.1'}
-
   doctrine@2.1.0:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
     engines: {node: '>=0.10.0'}
@@ -4100,11 +4141,6 @@ packages:
 
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
-
-  handlebars@4.7.8:
-    resolution: {integrity: sha512-vafaFqs8MZkRrSX7sFVUdo3ap/eNiLnb4IakshzvP56X5Nr1iGKAIqdX6tMlm6HcNRIkr6AxO5jFEoJzzpT8aQ==}
-    engines: {node: '>=0.4.7'}
-    hasBin: true
 
   has-bigints@1.1.0:
     resolution: {integrity: sha512-R3pbpkcIqv2Pm3dUwgjclDRVmWpTJW2DcMzcIhEXEx1oh/CEMObMm3KLmRJOdvhM7o4uQBnwr8pzRK2sJWIqfg==}
@@ -4869,9 +4905,6 @@ packages:
   negotiator@1.0.0:
     resolution: {integrity: sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==}
     engines: {node: '>= 0.6'}
-
-  neo-async@2.6.2:
-    resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
   next-themes@0.4.6:
     resolution: {integrity: sha512-pZvgD5L0IEvX5/9GWyHMf3m8BKiVQwsCMHfoFosXtXBMnaS0ZnIJ9ST4b4NqLVKDEm8QBxoNNGNaBv2JNF6XNA==}
@@ -5946,11 +5979,6 @@ packages:
   ufo@1.6.1:
     resolution: {integrity: sha512-9a4/uxlTWJ4+a5i0ooc1rU7C7YOw3wT+UGqdeNNHWnOF9qcMBgLRS+4IYUqbczewFx4mLEig6gawh7X6mFlEkA==}
 
-  uglify-js@3.19.3:
-    resolution: {integrity: sha512-v3Xu+yuwBXisp6QYTcH4UbH+xYJXqnq2m/LtQVWKWzYc1iehYnLixoQDN9FH6/j9/oybfd6W9Ghwkl8+UMKTKQ==}
-    engines: {node: '>=0.8.0'}
-    hasBin: true
-
   unbox-primitive@1.1.0:
     resolution: {integrity: sha512-nWJ91DjeOkej/TA8pXQ3myruKpKEYgqvpw9lz4OPHj/NWFNluYrjbz9j01CJ8yKQd2g4jFoOkINCTW2I5LEEyw==}
     engines: {node: '>= 0.4'}
@@ -6192,9 +6220,6 @@ packages:
   word-wrap@1.2.5:
     resolution: {integrity: sha512-BN22B5eaMMI9UMtjrGd5g5eCYPpCPDUy0FJXbYsaT5zYxjFOckS53SQDE3pWkVoWpHXVb3BrYcEN4Twa55B5cA==}
     engines: {node: '>=0.10.0'}
-
-  wordwrap@1.0.0:
-    resolution: {integrity: sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==}
 
   wrap-ansi@7.0.0:
     resolution: {integrity: sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==}
@@ -8799,8 +8824,6 @@ snapshots:
     dependencies:
       dequal: 2.0.3
 
-  diff@8.0.1: {}
-
   doctrine@2.1.0:
     dependencies:
       esutils: 2.0.3
@@ -9530,15 +9553,6 @@ snapshots:
   graceful-fs@4.2.11: {}
 
   graphemer@1.4.0: {}
-
-  handlebars@4.7.8:
-    dependencies:
-      minimist: 1.2.8
-      neo-async: 2.6.2
-      source-map: 0.6.1
-      wordwrap: 1.0.0
-    optionalDependencies:
-      uglify-js: 3.19.3
 
   has-bigints@1.1.0: {}
 
@@ -10471,8 +10485,6 @@ snapshots:
   negotiator@0.6.3: {}
 
   negotiator@1.0.0: {}
-
-  neo-async@2.6.2: {}
 
   next-themes@0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
@@ -11662,9 +11674,6 @@ snapshots:
 
   ufo@1.6.1: {}
 
-  uglify-js@3.19.3:
-    optional: true
-
   unbox-primitive@1.1.0:
     dependencies:
       call-bound: 1.0.4
@@ -11991,8 +12000,6 @@ snapshots:
       string-width: 5.1.2
 
   word-wrap@1.2.5: {}
-
-  wordwrap@1.0.0: {}
 
   wrap-ansi@7.0.0:
     dependencies:

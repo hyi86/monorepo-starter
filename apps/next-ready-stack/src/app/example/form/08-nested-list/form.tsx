@@ -1,5 +1,7 @@
 'use client';
 
+import { faker } from '@faker-js/faker/locale/ko';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Checkbox } from '@monorepo-starter/ui/components/checkbox';
 import {
@@ -13,8 +15,6 @@ import {
 } from '@monorepo-starter/ui/components/form';
 import { Input } from '@monorepo-starter/ui/components/input';
 import { devLog } from '@monorepo-starter/utils/console';
-import { faker } from '@faker-js/faker/locale/ko';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { GripVerticalIcon, Plus, Trash2 } from 'lucide-react';
 import { FieldErrors, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';

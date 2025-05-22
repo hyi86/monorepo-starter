@@ -73,8 +73,8 @@
     "zod": "^3.25.20"
   },
   "devDependencies": {
-    "@monorepo-starter/eslint-config": "workspace:^",
-    "@monorepo-starter/typescript-config": "workspace:^",
+    "@monorepo-starter/eslint-config": "workspace:*",
+    "@monorepo-starter/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "catalog:",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "catalog:",

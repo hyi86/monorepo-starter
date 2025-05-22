@@ -1,3 +1,5 @@
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { Button } from '@monorepo-starter/ui/components/button';
 import {
   DropdownMenu,
@@ -8,8 +10,6 @@ import {
 } from '@monorepo-starter/ui/components/dropdown-menu';
 import { TableHead } from '@monorepo-starter/ui/components/table';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
 import { flexRender, type Header, type Table } from '@tanstack/react-table';
 import {
   ArrowDownWideNarrow,

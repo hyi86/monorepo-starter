@@ -1,6 +1,12 @@
 'use client';
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@monorepo-starter/ui/components/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@monorepo-starter/ui/components/dialog';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import PhotoDetail from '../../../photo-detail';

@@ -11,11 +11,9 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"apps/**/*.{css,html,js,json,md,mdx,mjs,mts,sql,ts,tsx,yml,yaml}\"",
-    "format:single": "prettier --write",
+    "format": "prettier --write \"{apps,packages}/**/*.{css,html,js,mdx,mjs,mts,ts,tsx.yaml,yml}\"",
     "check-types": "turbo run check-types",
-    "test": "turbo run test",
-    "cli": "pnpm -F @monorepo-starter/cli run"
+    "test": "turbo run test"
   },
   "prettier": {
     "organizeImportsSkipDestructiveCodeActions": true,

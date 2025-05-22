@@ -40,7 +40,7 @@ async function findWorkspace() {
   try {
     fs.accessSync(path.join(workspace, 'tsconfig.json'));
     return workspace;
-  } catch (error) {
+  } catch {
     process.exit(0);
   }
 }

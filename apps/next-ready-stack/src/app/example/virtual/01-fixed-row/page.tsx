@@ -1,5 +1,5 @@
-import { format } from '@monorepo-starter/utils/number';
 import { faker } from '@faker-js/faker';
+import { format } from '@monorepo-starter/utils/number';
 import FixedRow from './row';
 
 export type Row = {
