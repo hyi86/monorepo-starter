@@ -57,7 +57,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "catalog:",
-    "@monorepo-starter/cli": "workspace:*",
     "@monorepo-starter/eslint-config": "workspace:*",
     "@monorepo-starter/typescript-config": "workspace:*",
     "@monorepo-starter/watcher": "workspace:*",

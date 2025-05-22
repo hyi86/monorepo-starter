@@ -1,4 +1,3 @@
+# `@monorepo-starter/watcher`
 
-# `@monorepo-starter/cli`
-
-CLi program for monorepo.
+A watcher for monorepo.
