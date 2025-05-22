@@ -16,7 +16,7 @@ run(self);
  */
 function run(self) {
   /**
-   * 서비스 워커 설치 이벤트 처리
+   * 서비스 워커 설치
    */
   self.addEventListener('install', (event) => {
     console.log('Service Worker installing..');
@@ -89,7 +89,6 @@ function run(self) {
   /**
    * 알림 닫기 이벤트 처리
    * @param {NotificationEvent} event
-   * @returns {void}
    */
   self.addEventListener('notificationclose', (event) => {
     console.log('Notification closed:', event.notification);

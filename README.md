@@ -85,13 +85,14 @@ pnpm dev
 
 <br />
 
-## 🚀 Run Docker in Production
+## 🚀 Run Docker in Local Environment
 
-The following applications are configured to run as Docker containers out of the box:
+다음의 애플리케이션들은 로컬 환경에서 Docker 컨테이너로 실행되도록 설정되어 있습니다.
 
 - [`hono-api`](./apps/hono-api/Dockerfile)
 - [`next-ready-stack`](./apps/next-ready-stack/Dockerfile)
 - [`single-page-react`](./apps/single-page-react/Dockerfile)
+
 ```bash
 # If using `colima`, allocate memory with `colima start --memory 4` (default is 2GB)
 colima start --memory 4
