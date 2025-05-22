@@ -1,13 +1,12 @@
 import { Button } from '@monorepo-starter/ui/components/button';
-import { format, formatDistanceToNow } from 'date-fns';
-import { ko } from 'date-fns/locale/ko';
+import { formatDate, formatDistanceToNow, localeKo } from '@monorepo-starter/utils/date';
 import { revalidatePath } from 'next/cache';
 
 export default async function DataCacheTimeBasedPage() {
   const response = await fetch(`https://jsonplaceholder.typicode.com/todos/11`, { next: { revalidate: 10 } });
   const responseTime = new Date(response.headers.get('Date')!);
-  const fromNow = formatDistanceToNow(responseTime, { addSuffix: true, includeSeconds: true, locale: ko });
-  const formattedResponseTime = format(responseTime, 'HH:mm:ss');
+  const fromNow = formatDistanceToNow(responseTime, { addSuffix: true, includeSeconds: true, locale: localeKo });
+  const formattedResponseTime = formatDate(responseTime, 'HH:mm:ss');
 
   async function handleRevalidatePath() {
     'use server';

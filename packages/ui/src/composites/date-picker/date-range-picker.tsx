@@ -6,7 +6,7 @@ import { Input } from '@monorepo-starter/ui/components/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@monorepo-starter/ui/components/popover';
 import { calendarOptions } from '@monorepo-starter/ui/composites/date-picker/options';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { compareAsc, format, parse } from 'date-fns';
+import { compareAsc, formatDate, parse } from '@monorepo-starter/utils/date';
 import { CalendarIcon, MinusIcon, XIcon } from 'lucide-react';
 import { Dispatch, SetStateAction, useEffect, useId, useState } from 'react';
 import { type DateRange } from 'react-day-picker';
@@ -33,7 +33,10 @@ export default function DateRangePicker({
     } else {
       setDate(date);
       setMonth(date.to ?? date.from);
-      setInputValue([date.from ? format(date.from, 'yyyy-MM-dd') : '', date.to ? format(date.to, 'yyyy-MM-dd') : '']);
+      setInputValue([
+        date.from ? formatDate(date.from, 'iso9075/date') : '',
+        date.to ? formatDate(date.to, 'iso9075/date') : '',
+      ]);
     }
   };
 
@@ -58,7 +61,7 @@ export default function DateRangePicker({
       dates.sort(compareAsc);
 
       setDate({ from: dates[0], to: dates[1] });
-      setInputValue([format(dates[0], 'yyyy-MM-dd'), format(dates[1], 'yyyy-MM-dd')]);
+      setInputValue([formatDate(dates[0], 'iso9075/date'), formatDate(dates[1], 'iso9075/date')]);
     }
   };
 

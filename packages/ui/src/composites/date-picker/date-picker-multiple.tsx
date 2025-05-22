@@ -5,7 +5,8 @@ import { Calendar } from '@monorepo-starter/ui/components/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@monorepo-starter/ui/components/popover';
 import { calendarOptions } from '@monorepo-starter/ui/composites/date-picker/options';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { format } from 'date-fns';
+import { formatDate } from '@monorepo-starter/utils/date';
+
 import { CalendarIcon, XIcon } from 'lucide-react';
 import { Dispatch, SetStateAction, useEffect, useId, useState } from 'react';
 
@@ -20,14 +21,14 @@ export default function DatePickerMultiple({
   const [month, setMonth] = useState<Date | undefined>();
   const [dates, setDates] = useState<Date[] | undefined>(value ? value.map((d) => new Date(d)) : undefined);
   const [inputValue, setInputValue] = useState(
-    value ? value.map((d) => format(new Date(d), 'yyyy-MM-dd')).join(', ') : '',
+    value ? value.map((d) => formatDate(new Date(d), 'iso9075/date')).join(', ') : '',
   );
 
   useEffect(() => {
     if (dates && dates.length > 0) {
-      setInputValue(dates.map((d) => format(d, 'yyyy-MM-dd')).join(', '));
+      setInputValue(dates.map((d) => formatDate(d, 'iso9075/date')).join(', '));
       if (onChange) {
-        onChange(dates.map((d) => format(d, 'yyyy-MM-dd')));
+        onChange(dates.map((d) => formatDate(d, 'iso9075/date')));
       }
     } else {
       setInputValue('');

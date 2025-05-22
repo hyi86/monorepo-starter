@@ -18,9 +18,9 @@ import {
   DialogTitle,
 } from '@monorepo-starter/ui/components/dialog';
 import { ScrollArea, ScrollBar } from '@monorepo-starter/ui/components/scroll-area';
+import { useTheme } from '@monorepo-starter/ui/hooks/use-theme';
 import { changeCase } from '@monorepo-starter/utils/string';
 import { ChevronRight, InfoIcon, MoonIcon, Sidebar, SunIcon } from 'lucide-react';
-import { useTheme } from 'next-themes';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { appPathRoutes } from '~/app-path-types';

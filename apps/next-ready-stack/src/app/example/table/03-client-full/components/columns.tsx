@@ -8,8 +8,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@monorepo-starter/ui/components/dropdown-menu';
+import { formatDate, isAfter } from '@monorepo-starter/utils/date';
 import { RowData, type ColumnDef, type Row } from '@tanstack/react-table';
-import { format, isAfter } from 'date-fns';
 import { ArrowDownToLine, ArrowUpToLine, PinIcon, PinOffIcon } from 'lucide-react';
 import { type User } from '~/db/users';
 
@@ -191,7 +191,7 @@ export const columns = [
     filterFn: inTimestampRangeFilterFn, // filter options
     header: '생성일시',
     footer: '생성일시',
-    cell: (info) => <div className="truncate">{format(info.getValue<number>() * 1000, 'yyyy-MM-dd HH:mm:ss')}</div>,
+    cell: (info) => <div className="truncate">{formatDate(info.getValue<number>() * 1000, 'iso9075')}</div>,
   },
   {
     id: 'updatedAt',
@@ -199,7 +199,7 @@ export const columns = [
     filterFn: inTimestampRangeFilterFn, // filter options
     header: '수정일시',
     footer: '수정일시',
-    cell: (info) => <div className="truncate">{format(info.getValue<number>() * 1000, 'yyyy-MM-dd HH:mm:ss')}</div>,
+    cell: (info) => <div className="truncate">{formatDate(info.getValue<number>() * 1000, 'iso9075')}</div>,
   },
 ] as const satisfies ColumnDef<User>[];
 

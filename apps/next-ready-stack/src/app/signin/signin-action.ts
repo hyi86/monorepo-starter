@@ -1,10 +1,10 @@
 'use server';
 
+import { parseDurationToSeconds } from '@monorepo-starter/utils/date';
+import { generateToken } from '@monorepo-starter/utils/jwt';
 import { cookies } from 'next/headers';
-import parseDuration from 'parse-duration';
 import z from 'zod';
 import { env } from '~/env';
-import { generateAccessToken, generateRefreshToken } from '~/lib/auth/jwt';
 
 const signinSchema = z.object({
   loginId: z.string().email(),
@@ -29,11 +29,20 @@ export async function signinAction(
   }
 
   const userId = loginId.split('@')[0] || '';
-  const accessToken = await generateAccessToken(userId);
-  const refreshToken = await generateRefreshToken(userId);
+  const accessToken = await generateToken({
+    userId,
+    expiresIn: env.ACCESS_TOKEN_SECRET_TIME,
+    secret: env.ACCESS_TOKEN_SECRET,
+  });
 
-  const accessTokenMaxAge = parseDuration(env.ACCESS_TOKEN_SECRET_TIME, 's') || 60 * 15;
-  const refreshTokenMaxAge = parseDuration(env.REFRESH_TOKEN_SECRET_TIME, 's') || 60 * 60 * 24 * 7;
+  const refreshToken = await generateToken({
+    userId,
+    expiresIn: env.REFRESH_TOKEN_SECRET_TIME,
+    secret: env.REFRESH_TOKEN_SECRET,
+  });
+
+  const accessTokenMaxAge = parseDurationToSeconds(env.ACCESS_TOKEN_SECRET_TIME) || 60 * 15;
+  const refreshTokenMaxAge = parseDurationToSeconds(env.REFRESH_TOKEN_SECRET_TIME) || 60 * 60 * 24 * 7;
 
   cookieStore.set(env.ACCESS_TOKEN_COOKIE_NAME, accessToken, {
     httpOnly: true,

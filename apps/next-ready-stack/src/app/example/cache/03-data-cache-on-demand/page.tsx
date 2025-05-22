@@ -1,6 +1,5 @@
 import { Button } from '@monorepo-starter/ui/components/button';
-import { format, formatDistanceToNow } from 'date-fns';
-import { ko } from 'date-fns/locale/ko';
+import { formatDate, formatDistanceToNow, localeKo } from '@monorepo-starter/utils/date';
 import { revalidatePath, revalidateTag } from 'next/cache';
 
 export default async function DataCacheOnDemandPage() {
@@ -10,8 +9,8 @@ export default async function DataCacheOnDemandPage() {
     cache: 'force-cache',
   });
   const responseTime = new Date(response.headers.get('Date')!);
-  const fromNow = formatDistanceToNow(responseTime, { addSuffix: true, includeSeconds: true, locale: ko });
-  const formattedResponseTime = format(responseTime, 'HH:mm:ss');
+  const fromNow = formatDistanceToNow(responseTime, { addSuffix: true, includeSeconds: true, locale: localeKo });
+  const formattedResponseTime = formatDate(responseTime, 'HH:mm:ss');
 
   async function handleRevalidateTag() {
     'use server';

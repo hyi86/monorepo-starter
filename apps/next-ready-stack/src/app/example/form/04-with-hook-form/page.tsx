@@ -1,7 +1,6 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { format } from 'date-fns';
 import { CalendarIcon, Check, ChevronsUpDown } from 'lucide-react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { languages, schema, Schema } from './schema';
@@ -35,6 +34,7 @@ import { Switch } from '@monorepo-starter/ui/components/switch';
 import { Textarea } from '@monorepo-starter/ui/components/textarea';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { devLog } from '@monorepo-starter/utils/console';
+import { formatDate } from '@monorepo-starter/utils/date';
 import { action } from './action';
 
 export default function NextServerActionClientWithHookFormPage() {
@@ -118,7 +118,7 @@ export default function NextServerActionClientWithHookFormPage() {
                         variant={'outline'}
                         className={cn('w-[240px] pl-3 text-left font-normal', !field.value && 'text-muted-foreground')}
                       >
-                        {field.value ? format(field.value, 'yyyy-MM-dd') : <span>Pick a date</span>}
+                        {field.value ? formatDate(field.value, 'iso9075/date') : <span>Pick a date</span>}
                         <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                       </Button>
                     </FormControl>

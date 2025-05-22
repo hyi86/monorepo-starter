@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker/locale/ko';
 import { zValidator } from '@hono/zod-validator';
+import { formatDate } from '@monorepo-starter/utils/date';
 import { romanizedSurnames } from '@monorepo-starter/utils/string';
-import { format } from 'date-fns';
 import { and, asc, between, count, desc, eq, getTableColumns, gte, like, lte, sql, SQL } from 'drizzle-orm';
 import { Hono } from 'hono';
 import { z } from 'zod';
@@ -166,7 +166,7 @@ export const users = new Hono()
           name: `${lastName}${firstName}`,
           email: faker.internet.email({ lastName: romanizedLastName, allowSpecialCharacters: false }),
           gender: sex,
-          birth: format(birth, 'yyyy-MM-dd'),
+          birth: formatDate(birth, 'iso/date'),
           contact: `010-${faker.finance.pin(4)}-${faker.finance.pin(4)}`,
           profile: {
             avatar: faker.image.personPortrait({ sex, size: 256 }),

@@ -1,6 +1,5 @@
 import { Button } from '@monorepo-starter/ui/components/button';
-import { format, formatDistanceToNow } from 'date-fns';
-import { ko } from 'date-fns/locale/ko';
+import { formatDate, formatDistanceToNow, localeKo } from '@monorepo-starter/utils/date';
 import { revalidatePath } from 'next/cache';
 
 export const dynamic = 'force-static';
@@ -14,9 +13,9 @@ export default async function ISRPage({ params }: { params: Promise<{ id: string
 
   const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, { cache: 'force-cache' });
   const responseTime = new Date(response.headers.get('Date')!);
-  const fromNow = formatDistanceToNow(responseTime, { addSuffix: true, includeSeconds: true, locale: ko });
-  const formattedResponseTime = format(responseTime, 'HH:mm:ss');
-  const formattedRenderTime = format(new Date(), 'HH:mm:ss');
+  const fromNow = formatDistanceToNow(responseTime, { addSuffix: true, includeSeconds: true, locale: localeKo });
+  const formattedResponseTime = formatDate(responseTime, 'iso9075/time');
+  const formattedRenderTime = formatDate(new Date(), 'iso9075/time');
 
   async function handleRevalidatePath() {
     'use server';

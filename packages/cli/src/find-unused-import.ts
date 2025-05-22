@@ -48,7 +48,7 @@ async function findWorkspace() {
 function findAllFiles(workspace: string) {
   devLog('info', `Workspace: ${workspace}`);
   devLog('info', `process.cwd(): ${process.cwd()}`);
-  devLog('process', `Start unused-import...`);
+  devLog('process', 'Start unused-import...');
   const tsConfigPath = path.join(workspace, 'tsconfig.json');
 
   try {
@@ -72,7 +72,7 @@ function findAllFiles(workspace: string) {
 
   const localImportMap: { filePath: string; imports: string[] }[] = [];
 
-  devLog('process', `find files..`);
+  devLog('process', 'find files..');
   project.getSourceFiles().forEach((sourceFile) => {
     const filePath = sourceFile.getFilePath();
     const relativePath = path.relative(workspace, filePath);

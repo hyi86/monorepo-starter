@@ -1,8 +1,8 @@
 'use server';
 
 import { faker } from '@faker-js/faker/locale/ko';
+import { formatDate } from '@monorepo-starter/utils/date';
 import { romanizedSurnames } from '@monorepo-starter/utils/string';
-import { format } from 'date-fns';
 import { revalidateTag } from 'next/cache';
 import { usersTable } from '~/db/schema';
 import { createUsers, deleteUser, getUser, updateUser } from '~/db/users';
@@ -73,7 +73,7 @@ export async function createRandomUser() {
     name: `${lastName}${firstName}`,
     email: faker.internet.email({ lastName: romanizedLastName, allowSpecialCharacters: false }),
     gender,
-    birth: format(birth, 'yyyy-MM-dd'),
+    birth: formatDate(birth, 'iso9075/date'),
     contact: `010-${faker.finance.pin(4)}-${faker.finance.pin(4)}`,
     profile: {
       avatar: faker.image.personPortrait({ sex: gender, size: 256 }),

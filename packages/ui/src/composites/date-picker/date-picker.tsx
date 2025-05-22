@@ -6,7 +6,7 @@ import { Input } from '@monorepo-starter/ui/components/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@monorepo-starter/ui/components/popover';
 import { calendarOptions } from '@monorepo-starter/ui/composites/date-picker/options';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { format } from 'date-fns';
+import { formatDate } from '@monorepo-starter/utils/date';
 import { CalendarIcon, XIcon } from 'lucide-react';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
@@ -21,7 +21,7 @@ export default function DatePicker({
 }) {
   const [month, setMonth] = useState<Date | undefined>();
   const [date, setDate] = useState<Date | undefined>(value ? new Date(value) : undefined);
-  const [inputValue, setInputValue] = useState(value ? format(new Date(value), 'yyyy-MM-dd') : '');
+  const [inputValue, setInputValue] = useState(value ? formatDate(new Date(value), 'iso9075/date') : '');
 
   const handleDayPickerSelect = (date: Date | undefined) => {
     if (!date) {
@@ -30,7 +30,7 @@ export default function DatePicker({
     } else {
       setDate(date);
       setMonth(date);
-      setInputValue(format(date, 'yyyy-MM-dd'));
+      setInputValue(formatDate(date, 'iso9075/date'));
     }
   };
 
@@ -54,7 +54,7 @@ export default function DatePicker({
   };
 
   useEffect(() => {
-    onChange?.(date ? format(date, 'yyyy-MM-dd') : '');
+    onChange?.(date ? formatDate(date, 'iso9075/date') : '');
   }, [date]);
 
   return (

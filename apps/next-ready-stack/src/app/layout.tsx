@@ -1,6 +1,6 @@
 import { Toaster } from '@monorepo-starter/ui/components/sonner';
+import { ThemeProvider } from '@monorepo-starter/ui/hooks/use-theme';
 import { Viewport, type Metadata } from 'next';
-import { ThemeProvider } from 'next-themes';
 import localFont from 'next/font/local';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { CommandProvider } from '~/components/command/command-provider';
@@ -46,7 +46,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning className={`${pretendard.variable} antialiased`}>
       <body>
-        <ThemeProvider attribute="class" enableSystem defaultTheme="system" disableTransitionOnChange>
+        <ThemeProvider>
           <NuqsAdapter>
             <TanstackQueryProvider>
               <UploaderStoreProvider>
