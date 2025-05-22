@@ -19,6 +19,7 @@ import { ChevronRight, ChevronRightCircle, CopyMinus, CopyPlus, File, Folder, Fo
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import LinkIndicator from './link-indicator';
 
 export default function FileTreeMenuGroup({ routes, folderPaths }: { routes: TreeRoute[]; folderPaths: string[] }) {
   const [openPaths, setOpenPaths] = useState<string[]>([...folderPaths]);
@@ -100,8 +101,10 @@ export function FileTree({
       <SidebarMenuItem>
         <SidebarMenuButton size="sm" isActive={isActive} className={menuItemClassName} asChild>
           {item.hasPath ? (
-            <Link href={item.path} className="pl-8">
-              <File />
+            <Link href={item.path} className="pl-8" prefetch={false}>
+              <LinkIndicator>
+                <File className="size-4" />
+              </LinkIndicator>
               <span>{item.name}</span>
             </Link>
           ) : (
