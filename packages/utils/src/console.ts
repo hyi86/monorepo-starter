@@ -21,6 +21,7 @@ export const colors = {
   warn: rgb('250 204 21'),
   error: rgb('239 68 68'),
   green: rgb('34 197 94'),
+  dim: rgb('156 163 175'),
 };
 
 type LogType = 'process' | 'success' | 'info' | 'warn' | 'error';

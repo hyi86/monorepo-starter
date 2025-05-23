@@ -1,0 +1,36 @@
+{
+  "name": "@monorepo-starter/md-runner",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "start": "tsx src/index.ts",
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@clack/prompts": "^0.11.0",
+    "@monorepo-starter/eslint-config": "workspace:*",
+    "@monorepo-starter/typescript-config": "workspace:*",
+    "@monorepo-starter/utils": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "fast-glob": "^3.3.3",
+    "remark-frontmatter": "^5.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-stringify": "^11.0.0",
+    "tsup": "^8.5.0",
+    "tsx": "^4.19.4",
+    "typescript": "catalog:",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.1.4",
+    "yaml": "^2.8.0"
+  }
+}
