@@ -40,3 +40,4 @@ yarn-error.log*
 backup/
 logs/*.log
 *.db
+*.tar.br
