@@ -79,7 +79,7 @@
 git clone https://github.com/hyi86/monorepo-starter.git
 cd monorepo-starter
 pnpm install
-pnpm --filter @monorepo-starter/cli run start src/init-project.ts # Drizzle 관련 파일은 선택적으로 푸시하시면 됩니다
+make init # Drizzle 관련 파일은 선택적으로 푸시하시면 됩니다
 pnpm dev
 ```
 

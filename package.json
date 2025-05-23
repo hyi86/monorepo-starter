@@ -13,8 +13,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"{apps,packages}/**/*.{css,html,js,mdx,mjs,mts,ts,tsx.yaml,yml}\"",
     "check-types": "turbo run check-types",
-    "test": "turbo run test",
-    "md-runner": "pnpm --filter @monorepo-starter/md-runner start"
+    "test": "turbo run test"
   },
   "prettier": {
     "organizeImportsSkipDestructiveCodeActions": true,
