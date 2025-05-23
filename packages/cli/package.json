@@ -5,14 +5,13 @@
   "type": "module",
   "scripts": {
     "build": "tsup",
-    "dev": "tsx watch",
     "start": "tsx",
     "lint": "eslint . --max-warnings 20",
     "check-types": "tsc --noEmit",
     "test": "vitest"
   },
   "devDependencies": {
-    "@clack/prompts": "^0.10.1",
+    "@clack/prompts": "^0.11.0",
     "@monorepo-starter/eslint-config": "workspace:*",
     "@monorepo-starter/typescript-config": "workspace:*",
     "@monorepo-starter/utils": "workspace:*",

@@ -32,8 +32,8 @@
     "@next/mdx": "catalog:",
     "@shikijs/transformers": "^3.4.2",
     "@t3-oss/env-nextjs": "^0.13.4",
-    "@tanstack/react-query": "^5.76.1",
-    "@tanstack/react-query-devtools": "^5.76.1",
+    "@tanstack/react-query": "^5.76.2",
+    "@tanstack/react-query-devtools": "^5.76.2",
     "@tanstack/react-table": "^8.21.3",
     "@tanstack/react-virtual": "^3.13.9",
     "better-sqlite3": "^11.10.0",
@@ -52,7 +52,7 @@
     "shiki": "^3.4.2",
     "sonner": "^2.0.3",
     "web-push": "^3.6.7",
-    "zod": "^3.25.20",
+    "zod": "^3.25.23",
     "zustand": "^5.0.5"
   },
   "devDependencies": {
@@ -70,7 +70,7 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@types/web-push": "^3.6.4",
-    "@vitejs/plugin-react": "^4.4.1",
+    "@vitejs/plugin-react": "^4.5.0",
     "drizzle-kit": "^0.31.1",
     "eslint": "catalog:",
     "eslint-config-next": "catalog:",
