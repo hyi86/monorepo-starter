@@ -9,8 +9,8 @@
   <img alt="Code Style" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" />
   <img alt="Linting" src="https://img.shields.io/badge/eslint-9-3178C6?logo=eslint" />
   <br />
-  <img alt="License" src="https://img.shields.io/github/license/hyi86/base" />
-  <img alt="Last Commit" src="https://img.shields.io/github/last-commit/hyi86/base" />
+  <img alt="License" src="https://img.shields.io/github/license/hyi86/monorepo-starter" />
+  <img alt="Last Commit" src="https://img.shields.io/github/last-commit/hyi86/monorepo-starter" />
 </p>
 
 최신 프론트엔드 개발을 위해 `pnpm`과 `Turborepo`를 사용하는 **모노레포 템플릿**입니다.
