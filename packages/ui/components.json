@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "tailwind": {
+    "config": "",
+    "css": "src/styles/globals.css",
+    "baseColor": "zinc",
+    "cssVariables": true
+  },
+  "rsc": true,
+  "tsx": true,
+  "aliases": {
+    "utils": "@monorepo-starter/ui/lib/utils",
+    "components": "@monorepo-starter/ui/components",
+    "ui": "@monorepo-starter/ui/components",
+    "lib": "@monorepo-starter/ui/lib",
+    "hooks": "@monorepo-starter/ui/hooks"
+  },
+  "iconLibrary": "lucide"
+}

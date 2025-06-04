@@ -1,0 +1,5 @@
+@import '@monorepo-starter/ui/globals.css';
+
+@theme inline {
+  --font-pretendard: var(--font-pretendard);
+}

@@ -1,0 +1,7 @@
+@import '@monorepo-starter/ui/globals.css';
+
+html,
+body,
+#root {
+  @apply size-full;
+}
