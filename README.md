@@ -82,7 +82,7 @@
 ## 🚀 Getting Started
 
 ```bash
-git clone https://github.com/hyi86/base.git
+git clone https://github.com/hyi86/monorepo-starter.git
 cd base
 make init
 pnpm dev
