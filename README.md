@@ -35,11 +35,11 @@
   `File System`과 `Local SQLite DB`를 기반으로 하는 **Custom API Data Cache** 구현.
 - [`Large File Uploader`](./apps/next-full-stack/src/app/example/experimental/file-upload/page.tsx): 
   페이지 이동중에도 끊기지 않는 **Large Multi-Chunk Streaming File Uploader** 구현.
-- [`Next Command Spotlight`](./apps/next-ready-stack/src/components/command/spotlight.tsx): 
+- [`Next Command Spotlight`](./apps/next-full-stack/src/components/command/spotlight.tsx): 
   `Next.js` 컴포넌트 트리 구조를 시각화하는 도구 및 전역 커멘드 프로바이더.
-- [`Authentication`](./apps/next-ready-stack/src/app/example/auth/page.mdx): 
+- [`Authentication`](./apps/next-full-stack/src/app/example/auth/page.mdx): 
   외부 라이브러리 없이, `JWT Access/Refresh Token` 기반의 **Server-only Authentication System** 구축.
-- [`Internationalization`](./apps/next-ready-stack/src/app/example/[lang]/page.tsx)
+- [`Internationalization`](./apps/next-full-stack/src/app/example/[lang]/page.tsx)
   외부 라이브러리 없이, 선택적 페이지의 쉬운 국제화를 위한 설계.
 
 ### Third-Party Dependencies
@@ -95,7 +95,7 @@ pnpm dev
 다음의 애플리케이션들은 로컬 환경에서 Docker 컨테이너로 실행되도록 설정되어 있습니다.
 
 - [`hono-api`](./apps/hono-api/Dockerfile)
-- [`next-ready-stack`](./apps/next-ready-stack/Dockerfile)
+- [`next-full-stack`](./apps/next-full-stack/Dockerfile)
 - [`single-page-react`](./apps/single-page-react/Dockerfile)
 
 로컬에서 Docker Compose 실행
@@ -129,47 +129,47 @@ docker-compose logs -f
 
 ## 📦 Examples
 
-- [`Next.js Caching`](./apps/next-ready-stack/src/app/example/cache/page.mdx)
+- [`Next.js Caching`](./apps/next-full-stack/src/app/example/cache/page.mdx)
   - `data cache`, `full route cache`, `ISR`의 기본 사용 예시
-- [`Code Block and Editor`](./apps/next-ready-stack/src/app/example/code-block/page.mdx)
+- [`Code Block and Editor`](./apps/next-full-stack/src/app/example/code-block/page.mdx)
   - `shiki`를 활용한 구문 강조: 단어/라인 하이라이트, 경고/에러 표시, 자동 줄번호, 테마 지원 등
   - `MDX` 통합: 마크다운에서 자동 코드블록 하이라이팅
   - `Monaco Editor` 기반 코드 에디터 구현
   - 파일 시스템 기반 패널: 실시간 코드 편집, 하이라이팅, 복사, 에디터에서 열기 등 다양한 기능 제공
-- [`Drag and Drop Sortable`](./apps/next-ready-stack/src/app/example/dnd/page.mdx)
+- [`Drag and Drop Sortable`](./apps/next-full-stack/src/app/example/dnd/page.mdx)
   - `@dnd-kit/sortable`로 구현한 정렬 가능한 UI
   - 가로, 세로, 그리드 정렬 리스트 예시
   - 접근성을 위한 키보드 네비게이션 지원
-- [`Server Action & react-hook-form`](./apps/next-ready-stack/src/app/example/form/page.mdx)
+- [`Server Action & react-hook-form`](./apps/next-full-stack/src/app/example/form/page.mdx)
   - `Server Action`과 `Server Component`의 다양한 사용 예시
   - `zod`를 활용한 폼 검증
   - `react-hook-form`을 활용한 클라이언트 폼 상태 관리
   - `useOptimistic`을 활용한 클라이언트 폼 상태 관리 예시
   - `Virtual List`, `Drag and Drop`, `Nested List` 등 다양한 기술 활용 예시
-- [`Nuqs State management`](./apps/next-ready-stack/src/app/example/nuqs/page.mdx)
+- [`Nuqs State management`](./apps/next-full-stack/src/app/example/nuqs/page.mdx)
   - `nuqs`의 기본 사용법 및 예시
   - 다양한 쿼리 파라미터 처리 방법 데모
   - 클라이언트/서버/하이브리드 환경에서의 쿼리 관리
   - 실제 서비스에서 활용할 수 있는 실전 패턴과 팁
-- [`Web Push Notification`](./apps/next-ready-stack/src/app/example/push/page.mdx)
+- [`Web Push Notification`](./apps/next-full-stack/src/app/example/push/page.mdx)
   - `web-push`의 기본 사용법 및 예시
   - `service-worker` 포함
-- [`Tanstack Query SSR`](./apps/next-ready-stack/src/app/example/query/page.mdx)
+- [`Tanstack Query SSR`](./apps/next-full-stack/src/app/example/query/page.mdx)
   - `Tanstack Query`의 기본 사용법 및 예시
     - **Prefetching**: 서버에서 쿼리 데이터를 미리 가져와 클라이언트에 전달
     - **Streaming**: Suspense와 함께 여러 쿼리를 스트리밍 방식으로 처리하는 예시
   - 쿼리 옵션, 캐싱, 데이터 패칭, 실전 활용 등 다양한 패턴 예시
-- [`Next.js Advanced Routing`](./apps/next-ready-stack/src/app/example/route/page.mdx)
+- [`Next.js Advanced Routing`](./apps/next-full-stack/src/app/example/route/page.mdx)
   - Next.js의 고급 라우팅 기능 실전 예시
     - **Parallel Routes**: 여러 UI 영역을 병렬로 렌더링하는 라우팅 패턴
     - **Intercepting Routes**: 기존 라우트 흐름을 가로채는 패턴
-- [`Table`](./apps/next-ready-stack/src/app/example/table/page.mdx)
+- [`Table`](./apps/next-full-stack/src/app/example/table/page.mdx)
   - 다양한 Table UI/UX 패턴 실전 예시
   - `Tanstack Table`, `Shadcn/ui`, `Nuqs` 등 라이브러리 활용
     - **Server Controls**: 서버 컴포넌트 기반 필터, 정렬, 페이지네이션 등 제어 기능
     - **Client Full**: 클라이언트 컴포넌트 기반 데이터 그리드
       - 필터, 정렬, 페이지네이션, 행/열 선택, 크기 조절, 고정 행/열, 가상화, 드래그&드롭 등 다양한 기능 포함
-- [`Virtual List`](./apps/next-ready-stack/src/app/example/virtual/page.mdx)
+- [`Virtual List`](./apps/next-full-stack/src/app/example/virtual/page.mdx)
   - 대용량 리스트/그리드 렌더링 성능 최적화 실전 예시
     - **Fixed Row/Column/Grid**: 고정 크기 행/열/그리드의 가상 스크롤링
     - **Fixed Masonry (Vertical/Horizontal)**: Masonry 레이아웃의 고정형 가상화
