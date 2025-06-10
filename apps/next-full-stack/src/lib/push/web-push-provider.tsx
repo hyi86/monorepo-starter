@@ -1,8 +1,10 @@
 'use client';
 
-import { devLog } from '@monorepo-starter/utils/console';
+import { webLog } from '@monorepo-starter/utils/console-web';
 import { createContext, ReactNode, useContext, useEffect, useState, useTransition } from 'react';
+import type { PushSubscription } from 'web-push';
 import { env } from '~/env';
+import { sendPushNotificationAction, subscribeAction, unsubscribeAction } from './webpush-actions';
 
 interface SendPushNotificationOptions {
   title: string;
@@ -33,38 +35,14 @@ const WebPushContext = createContext<WebPushContextType | null>(null);
  * 푸시 알림 Provider
  */
 export function WebPushProvider({ children }: { children: ReactNode }) {
+  // 구독 관련 상태
   const [subscription, setSubscription] = useState<PushSubscription | null>(null); // 푸시 알림 구독
   const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null); // 서비스 워커 등록
+
+  // 로딩 관련 상태
   const [subscribeLoading, startSubscribeTransition] = useTransition(); // 푸시 알림 구독 로딩
   const [unsubscribeLoading, startUnsubscribeTransition] = useTransition(); // 푸시 알림 구독 취소 로딩
   const [sendPushLoading, startSendPushTransition] = useTransition(); // 푸시 알림 전송 로딩
-
-  useEffect(() => {
-    async function registerServiceWorker() {
-      try {
-        if (typeof window !== 'undefined' && 'serviceWorker' in navigator && 'Notification' in window) {
-          devLog('process', `Initializing service worker`);
-
-          const registration = await navigator.serviceWorker.register(serviceWorkerPath, { scope: '/' });
-          devLog('success', `Service Worker registered`);
-
-          // Wait for the service worker to be ready
-          await navigator.serviceWorker.ready;
-          devLog('success', `Service Worker is ready`);
-          setRegistration(registration);
-
-          // Check existing subscription
-          const existingSub = await registration.pushManager.getSubscription();
-          devLog('success', `Existing subscription`);
-          setSubscription(existingSub);
-        }
-      } catch (error) {
-        devLog('error', `Service Worker registration failed:`, error);
-      }
-    }
-
-    registerServiceWorker();
-  }, []);
 
   // 푸시 알림 구독
   const subscribeToNotifications = async () => {
@@ -80,30 +58,25 @@ export function WebPushProvider({ children }: { children: ReactNode }) {
           throw new Error('VAPID public key is not set');
         }
 
-        devLog('info', `Subscribing to push notifications...`);
+        if (!registration) {
+          throw new Error('Service worker is not registered');
+        }
+
+        webLog('info', `Subscribing to push notifications...`);
         const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
 
-        const sub = await registration?.pushManager.subscribe({
+        const subscription = await registration.pushManager.subscribe({
           userVisibleOnly: true,
           applicationServerKey,
         });
 
-        if (sub) {
-          devLog('info', `Push subscription created:`, sub);
-          const response = await fetch(`/api/push/subscribe`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(sub),
-          });
-
-          if (!response.ok) {
-            throw new Error('Error occurred while subscribing');
-          }
-
-          setSubscription(sub);
+        if (subscription) {
+          webLog('info', `Push subscription created:`, subscription);
+          await subscribeAction(subscription.toJSON() as PushSubscription);
+          setSubscription(subscription.toJSON() as PushSubscription);
         }
       } catch (error) {
-        devLog('error', `${fileName}`, `Error occurred while subscribing:`, error);
+        webLog('error', `${fileName}`, `Error occurred while subscribing:`, error);
         throw error;
       }
     });
@@ -114,16 +87,11 @@ export function WebPushProvider({ children }: { children: ReactNode }) {
     startUnsubscribeTransition(async () => {
       try {
         if (subscription) {
-          await subscription.unsubscribe();
-          await fetch(`/api/push/unsubscribe`, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(subscription),
-          });
+          await unsubscribeAction(subscription);
           setSubscription(null);
         }
       } catch (error) {
-        devLog('error', `${fileName}`, `Error occurred while unsubscribing:`, error);
+        webLog('error', `${fileName}`, `Error occurred while unsubscribing:`, error);
         throw error;
       }
     });
@@ -137,19 +105,53 @@ export function WebPushProvider({ children }: { children: ReactNode }) {
           throw new Error('Subscription is not found');
         }
 
-        await fetch('/api/push/send', {
-          method: 'POST',
-          body: JSON.stringify({
-            subscription,
-            message: JSON.stringify(options),
-          }),
-        });
+        await sendPushNotificationAction(subscription, JSON.stringify(options));
       } catch (error) {
-        devLog('error', `${fileName}`, `Error occurred while sending push notification:`, error);
+        webLog('error', `${fileName}`, `Error occurred while sending push notification:`, error);
         console.log(error);
       }
     });
   };
+
+  useEffect(() => {
+    async function registerServiceWorker() {
+      try {
+        if (
+          typeof window === 'undefined' ||
+          typeof navigator === 'undefined' ||
+          typeof Notification === 'undefined' ||
+          typeof ServiceWorkerContainer === 'undefined'
+        ) {
+          throw new Error('This browser does not support push notifications');
+        }
+
+        webLog('process', `Initializing service worker`);
+
+        const registration = await navigator.serviceWorker.register(serviceWorkerPath, {
+          scope: '/',
+          updateViaCache: 'none',
+        });
+
+        webLog('success', `Service Worker registered`);
+
+        // Wait for the service worker to be ready
+        await navigator.serviceWorker.ready;
+        webLog('success', `Service Worker is ready`);
+        setRegistration(registration);
+
+        // Check existing subscription
+        const existingSub = await registration.pushManager.getSubscription();
+        if (existingSub) {
+          webLog('success', `Existing subscription`);
+          setSubscription(existingSub.toJSON() as PushSubscription);
+        }
+      } catch (error) {
+        webLog('error', `Service Worker registration failed:`, error);
+      }
+    }
+
+    registerServiceWorker();
+  }, []);
 
   return (
     <WebPushContext.Provider
@@ -211,8 +213,7 @@ export function WebPushProvider({ children }: { children: ReactNode }) {
  * ```
  */
 export function useWebPush() {
-  const context = useContext(WebPushContext); // 푸시 알림 Context
-
+  const context = useContext(WebPushContext);
   if (!context) {
     throw new Error('useWebPush must be used within a WebPushProvider');
   }

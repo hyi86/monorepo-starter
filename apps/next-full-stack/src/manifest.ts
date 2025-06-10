@@ -2,9 +2,9 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Next Ready Stack',
-    short_name: 'Next Ready Stack',
-    description: 'Next Ready Stack',
+    name: 'Next Full Stack',
+    short_name: 'Next Full Stack',
+    description: 'Next Full Stack',
     start_url: '/',
     display: 'standalone',
     background_color: '#000',
