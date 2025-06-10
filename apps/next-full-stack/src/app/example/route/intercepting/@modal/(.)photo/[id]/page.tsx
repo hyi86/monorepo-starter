@@ -7,32 +7,42 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@monorepo-starter/ui/components/dialog';
-import { useParams, useRouter } from 'next/navigation';
-import { useState } from 'react';
-import PhotoDetail from '../../../photo-detail';
+import Image from 'next/image';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 
-export default function AppInterceptingPhotoDetailModalPage() {
-  const { id } = useParams() as { id: string };
+export default function AppInterceptingPhotoDetailPage() {
+  const { id } = useParams();
+  const searchParams = useSearchParams();
+  const width = searchParams.get('width') ?? '640';
+  const height = searchParams.get('height') ?? '640';
+
   const router = useRouter();
-  const [open, setOpen] = useState(true);
 
-  const handleOpenChange = (open: boolean) => {
-    setOpen(open);
-    if (!open) {
-      router.back();
-    }
+  const handleGoBack = () => {
+    router.back();
   };
 
+  if (!id) {
+    return <div>No ID</div>;
+  }
+
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent>
+    <Dialog open>
+      <DialogContent onInteractOutside={handleGoBack} onEscapeKeyDown={handleGoBack}>
         <DialogHeader>
-          <DialogTitle />
-          <DialogDescription />
+          <DialogTitle>{id}</DialogTitle>
+          <DialogDescription className="sr-only">{id}</DialogDescription>
         </DialogHeader>
-        <div>
-          <PhotoDetail id={id} />
-        </div>
+        <figure className="max-w-140">
+          <Image
+            src={`/images/${id}.jpg`}
+            alt={`${id} photo`}
+            width={Number(width)}
+            height={Number(height)}
+            className="size-full bg-zinc-200 object-contain dark:bg-zinc-800"
+          />
+          <figcaption className="text-muted font-bold">{id}</figcaption>
+        </figure>
       </DialogContent>
     </Dialog>
   );

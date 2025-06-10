@@ -19,13 +19,16 @@ type Props = React.ComponentProps<typeof Sidebar>;
 
 export default async function AppSidebar({ ...props }: Props) {
   const { payload } = await checkAuthorization();
-  const allRoutes = appPathRoutes.map((item) => item.href).filter((route) => route !== null);
-  const allRoutesWithoutDynamic = allRoutes.filter((route) => !route.includes('/['));
-  const exampleRoutes = allRoutesWithoutDynamic.filter((route) => route.startsWith('/example/')); // 예제 라우트만 필터링
-  const routesTree = buildTree(exampleRoutes)[0]?.children || [];
+
+  const exampleRoutes = appPathRoutes
+    .filter((route) => !route.isDynamicRoute)
+    .filter((route) => route.href.startsWith('/example/'))
+    .map((route) => route.href);
+
+  const routeTree = buildTree(exampleRoutes)[0]?.children || [];
 
   // 커스텀 라우트 직접 추가
-  routesTree.push({
+  routeTree.push({
     name: 'internationalization',
     path: '/example/[lang]',
     hasPath: false,
@@ -51,7 +54,7 @@ export default async function AppSidebar({ ...props }: Props) {
     ],
   });
 
-  const folderPaths = getAllFolderPaths(routesTree);
+  const folderPaths = getAllFolderPaths(routeTree);
 
   return (
     <Sidebar {...props}>
@@ -70,7 +73,7 @@ export default async function AppSidebar({ ...props }: Props) {
         <AppSidebarCommandInput />
       </SidebarHeader>
       <SidebarContent className="[&_[data-active='true']]:bg-foreground/8">
-        <FileTreeMenuGroup routes={routesTree} folderPaths={folderPaths} />
+        <FileTreeMenuGroup routes={routeTree} folderPaths={folderPaths} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser payload={payload} />

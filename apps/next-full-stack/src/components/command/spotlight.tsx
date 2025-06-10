@@ -28,7 +28,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { getCodeFromFilePath, openInEditor, saveCodeToFile } from '~/actions/cli-actions';
 import { appPathRoutes } from '~/app-path-types';
-import { ComponentTree } from './component-tree';
+import { ComponentHierarchy } from './component-hierarchy';
 
 export function Spotlight() {
   const [openCommandDialog, setOpenCommandDialog] = useState(false);
@@ -42,7 +42,7 @@ export function Spotlight() {
   const pathname = usePathname();
 
   const allRoutes = appPathRoutes.map((item) => {
-    let name = item.fileName.split('/').at(-2);
+    let name = item.href.split('/').at(-2);
     if (item.href === '/') {
       name = 'Home';
     }
@@ -233,9 +233,9 @@ export function Spotlight() {
               <h3 className="text-muted-foreground mb-2 font-semibold">Next Page Hierarchy</h3>
               <ScrollArea className="w-full max-w-[calc(--spacing(42*4)-3.25rem)]">
                 <div className="border-muted-foreground/20 w-full rounded border bg-stone-800 p-4 font-mono text-xs leading-5 tracking-normal *:border-l-0">
-                  {currentRouteStructure.componentTreeJson && (
-                    <ComponentTree
-                      componentTreeJson={currentRouteStructure.componentTreeJson}
+                  {currentRouteStructure.structures && (
+                    <ComponentHierarchy
+                      structures={currentRouteStructure.structures}
                       onOpenInIde={handleOpenInIde}
                       onOpenInWebEditor={handleOpenInWebEditor}
                       onCopyToClipboardPath={handleCopyToClipboardPath}

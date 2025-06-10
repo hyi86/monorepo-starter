@@ -50,12 +50,14 @@ export type StaticPath =
   | '/example/nuqs/03-complex'
   | '/example/push'
   | '/example/push/01-simple'
+  | '/example/push/02-controls'
   | '/example/query'
   | '/example/query/prefetching'
   | '/example/query/straming'
   | '/example/route'
   | '/example/route/intercepting'
   | '/example/route/parallel'
+  | '/example/route/parallel/login'
   | '/example/table'
   | '/example/table/01-server'
   | '/example/table/02-client'
@@ -76,2159 +78,2318 @@ export type StaticPath =
 
 export type TypedRoute = LiteralUnion<
   StaticPath,
-  | `/example/${string}`
-  | `/example/${string}/${string}`
-  | `/example/cache/07-isr/${string}`
-  | `/example/cache/08-isr-force-static/${string}`
-  | `/example/cache/09-isr-data-cache-revalidate/${string}`
-  | `/example/route/intercepting/photo/${string}`
+  | '/example/${string}'
+  | '/example/${string}/${string}'
+  | '/example/cache/07-isr/${string}'
+  | '/example/cache/08-isr-force-static/${string}'
+  | '/example/cache/09-isr-data-cache-revalidate/${string}'
+  | '/example/route/intercepting/photo/${string}'
+  | '/example/virtual/12-with-parallel-route/${string}'
 >;
 
-export function getTypedPath(path: StaticPath) {
+export function getTypedPath(path: TypedRoute) {
   return path;
 }
 
-export type ComponentTreeJson = {
-  type: 'Layout' | 'Template' | 'ErrorBoundary' | 'Suspense' | 'Page';
+export type Structure = {
   path: string;
-  fallback?: 'Error' | 'NotFound' | 'Loading';
-  children?: ComponentTreeJson[];
+  children: Structure[];
 };
 
 export type AppPathRoutes = {
-  href: string | null;
+  href: string;
   linkTypes: string;
-  fileName: string;
-  fileNames?: string[];
-  componentTreeJson: ComponentTreeJson | null;
+  isParallelRoute: boolean;
+  isDynamicRoute: boolean;
+  files: string[];
+  structures: Structure[];
 };
 
 export const appPathRoutes: AppPathRoutes[] = [
   {
     href: '/',
-    fileName: 'src/app/page.tsx',
     linkTypes: '/',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Page',
-          path: 'src/app/page.tsx',
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example',
-    fileName: 'src/app/example/page.tsx',
     linkTypes: '/example',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Page',
-              path: 'src/app/example/page.tsx',
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/page.tsx',
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/[lang]',
-    fileName: 'src/app/example/[lang]/page.tsx',
     linkTypes: '/example/${string}',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/[lang]/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/[lang]/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: true,
+    files: ['src/app/example/[lang]/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/[lang]/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/[lang]/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/[lang]/[num]',
-    fileName: 'src/app/example/[lang]/[num]/page.tsx',
     linkTypes: '/example/${string}/${string}',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/[lang]/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/[lang]/[num]/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: true,
+    files: ['src/app/example/[lang]/[num]/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/[lang]/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/[lang]/[num]/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/auth',
-    fileName: 'src/app/example/auth/page.mdx',
     linkTypes: '/example/auth',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/auth/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/auth/page.mdx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/auth/page.mdx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/auth/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/auth/page.mdx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/auth/protect',
-    fileName: 'src/app/example/auth/protect/page.tsx',
     linkTypes: '/example/auth/protect',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/auth/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/auth/protect/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/auth/protect/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/auth/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/auth/protect/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/auth/public',
-    fileName: 'src/app/example/auth/public/page.tsx',
     linkTypes: '/example/auth/public',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/auth/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/auth/public/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/auth/public/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/auth/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/auth/public/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/cache',
-    fileName: 'src/app/example/cache/page.mdx',
     linkTypes: '/example/cache',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/cache/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/cache/page.mdx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/cache/page.mdx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/cache/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/cache/page.mdx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/cache/01-data-cache-disabled',
-    fileName: 'src/app/example/cache/01-data-cache-disabled/page.tsx',
     linkTypes: '/example/cache/01-data-cache-disabled',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/cache/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/cache/01-data-cache-disabled/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/cache/01-data-cache-disabled/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/cache/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/cache/01-data-cache-disabled/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/cache/02-data-cache-time-based',
-    fileName: 'src/app/example/cache/02-data-cache-time-based/page.tsx',
     linkTypes: '/example/cache/02-data-cache-time-based',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/cache/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/cache/02-data-cache-time-based/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/cache/02-data-cache-time-based/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/cache/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/cache/02-data-cache-time-based/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/cache/03-data-cache-on-demand',
-    fileName: 'src/app/example/cache/03-data-cache-on-demand/page.tsx',
     linkTypes: '/example/cache/03-data-cache-on-demand',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/cache/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/cache/03-data-cache-on-demand/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/cache/03-data-cache-on-demand/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/cache/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/cache/03-data-cache-on-demand/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/cache/04-full-route-disabled',
-    fileName: 'src/app/example/cache/04-full-route-disabled/page.tsx',
     linkTypes: '/example/cache/04-full-route-disabled',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/cache/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/cache/04-full-route-disabled/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/cache/04-full-route-disabled/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/cache/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/cache/04-full-route-disabled/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/cache/05-full-route-force-static',
-    fileName: 'src/app/example/cache/05-full-route-force-static/page.tsx',
     linkTypes: '/example/cache/05-full-route-force-static',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/cache/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/cache/05-full-route-force-static/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/cache/05-full-route-force-static/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/cache/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/cache/05-full-route-force-static/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/cache/06-full-route-time-based',
-    fileName: 'src/app/example/cache/06-full-route-time-based/page.tsx',
     linkTypes: '/example/cache/06-full-route-time-based',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/cache/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/cache/06-full-route-time-based/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/cache/06-full-route-time-based/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/cache/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/cache/06-full-route-time-based/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/cache/07-isr',
-    fileName: 'src/app/example/cache/07-isr/page.tsx',
     linkTypes: '/example/cache/07-isr',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/cache/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/cache/07-isr/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/cache/07-isr/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/cache/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/cache/07-isr/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/cache/07-isr/[id]',
-    fileName: 'src/app/example/cache/07-isr/[id]/page.tsx',
     linkTypes: '/example/cache/07-isr/${string}',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/cache/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/cache/07-isr/[id]/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: true,
+    files: ['src/app/example/cache/07-isr/[id]/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/cache/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/cache/07-isr/[id]/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/cache/08-isr-force-static',
-    fileName: 'src/app/example/cache/08-isr-force-static/page.tsx',
     linkTypes: '/example/cache/08-isr-force-static',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/cache/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/cache/08-isr-force-static/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/cache/08-isr-force-static/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/cache/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/cache/08-isr-force-static/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/cache/08-isr-force-static/[id]',
-    fileName: 'src/app/example/cache/08-isr-force-static/[id]/page.tsx',
     linkTypes: '/example/cache/08-isr-force-static/${string}',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/cache/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/cache/08-isr-force-static/[id]/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: true,
+    files: ['src/app/example/cache/08-isr-force-static/[id]/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/cache/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/cache/08-isr-force-static/[id]/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/cache/09-isr-data-cache-revalidate',
-    fileName: 'src/app/example/cache/09-isr-data-cache-revalidate/page.tsx',
     linkTypes: '/example/cache/09-isr-data-cache-revalidate',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/cache/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/cache/09-isr-data-cache-revalidate/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/cache/09-isr-data-cache-revalidate/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/cache/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/cache/09-isr-data-cache-revalidate/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/cache/09-isr-data-cache-revalidate/[id]',
-    fileName: 'src/app/example/cache/09-isr-data-cache-revalidate/[id]/page.tsx',
     linkTypes: '/example/cache/09-isr-data-cache-revalidate/${string}',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/cache/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/cache/09-isr-data-cache-revalidate/[id]/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: true,
+    files: ['src/app/example/cache/09-isr-data-cache-revalidate/[id]/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/cache/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/cache/09-isr-data-cache-revalidate/[id]/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/code-block',
-    fileName: 'src/app/example/code-block/page.mdx',
     linkTypes: '/example/code-block',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/code-block/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/code-block/page.mdx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/code-block/page.mdx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/code-block/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/code-block/page.mdx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/code-block/01-jsx',
-    fileName: 'src/app/example/code-block/01-jsx/page.tsx',
     linkTypes: '/example/code-block/01-jsx',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/code-block/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/code-block/01-jsx/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/code-block/01-jsx/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/code-block/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/code-block/01-jsx/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/code-block/02-html',
-    fileName: 'src/app/example/code-block/02-html/page.tsx',
     linkTypes: '/example/code-block/02-html',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/code-block/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/code-block/02-html/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/code-block/02-html/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/code-block/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/code-block/02-html/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/code-block/03-mdx',
-    fileName: 'src/app/example/code-block/03-mdx/page.mdx',
     linkTypes: '/example/code-block/03-mdx',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/code-block/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/code-block/03-mdx/page.mdx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/code-block/03-mdx/page.mdx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/code-block/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/code-block/03-mdx/page.mdx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/code-block/04-editor',
-    fileName: 'src/app/example/code-block/04-editor/page.tsx',
     linkTypes: '/example/code-block/04-editor',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/code-block/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/code-block/04-editor/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/code-block/04-editor/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/code-block/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/code-block/04-editor/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/code-block/05-editor-fs',
-    fileName: 'src/app/example/code-block/05-editor-fs/page.tsx',
     linkTypes: '/example/code-block/05-editor-fs',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/code-block/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/code-block/05-editor-fs/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/code-block/05-editor-fs/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/code-block/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/code-block/05-editor-fs/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/db',
-    fileName: 'src/app/example/db/page.mdx',
     linkTypes: '/example/db',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/db/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/db/page.mdx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/db/page.mdx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/db/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/db/page.mdx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/db/crud',
-    fileName: 'src/app/example/db/crud/page.tsx',
     linkTypes: '/example/db/crud',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/db/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/db/crud/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/db/crud/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/db/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/db/crud/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/dnd',
-    fileName: 'src/app/example/dnd/page.mdx',
     linkTypes: '/example/dnd',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/dnd/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/dnd/page.mdx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/dnd/page.mdx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/dnd/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/dnd/page.mdx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/dnd/01-sortable-vertical',
-    fileName: 'src/app/example/dnd/01-sortable-vertical/page.tsx',
     linkTypes: '/example/dnd/01-sortable-vertical',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/dnd/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/dnd/01-sortable-vertical/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/dnd/01-sortable-vertical/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/dnd/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/dnd/01-sortable-vertical/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/dnd/02-sortable-horizontal',
-    fileName: 'src/app/example/dnd/02-sortable-horizontal/page.tsx',
     linkTypes: '/example/dnd/02-sortable-horizontal',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/dnd/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/dnd/02-sortable-horizontal/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/dnd/02-sortable-horizontal/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/dnd/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/dnd/02-sortable-horizontal/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/dnd/03-sortable-grid',
-    fileName: 'src/app/example/dnd/03-sortable-grid/page.tsx',
     linkTypes: '/example/dnd/03-sortable-grid',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/dnd/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/dnd/03-sortable-grid/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/dnd/03-sortable-grid/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/dnd/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/dnd/03-sortable-grid/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/dnd/04-multiple-container',
-    fileName: 'src/app/example/dnd/04-multiple-container/page.tsx',
     linkTypes: '/example/dnd/04-multiple-container',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/dnd/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/dnd/04-multiple-container/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/dnd/04-multiple-container/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/dnd/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/dnd/04-multiple-container/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/experimental',
-    fileName: 'src/app/example/experimental/page.mdx',
     linkTypes: '/example/experimental',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/experimental/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/experimental/page.mdx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/experimental/page.mdx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/experimental/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/experimental/page.mdx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/experimental/api-cache',
-    fileName: 'src/app/example/experimental/api-cache/page.tsx',
     linkTypes: '/example/experimental/api-cache',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/experimental/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/experimental/api-cache/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/experimental/api-cache/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/experimental/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/experimental/api-cache/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/experimental/file-upload',
-    fileName: 'src/app/example/experimental/file-upload/page.tsx',
     linkTypes: '/example/experimental/file-upload',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/experimental/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/experimental/file-upload/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/experimental/file-upload/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/experimental/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/experimental/file-upload/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/form',
-    fileName: 'src/app/example/form/page.mdx',
     linkTypes: '/example/form',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/form/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/form/page.mdx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/form/page.mdx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/form/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/form/page.mdx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/form/01-server-only',
-    fileName: 'src/app/example/form/01-server-only/page.tsx',
     linkTypes: '/example/form/01-server-only',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/form/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/form/01-server-only/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/form/01-server-only/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/form/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/form/01-server-only/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/form/02-client',
-    fileName: 'src/app/example/form/02-client/page.tsx',
     linkTypes: '/example/form/02-client',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/form/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/form/02-client/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/form/02-client/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/form/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/form/02-client/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/form/03-passing-args',
-    fileName: 'src/app/example/form/03-passing-args/page.tsx',
     linkTypes: '/example/form/03-passing-args',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/form/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/form/03-passing-args/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/form/03-passing-args/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/form/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/form/03-passing-args/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/form/04-with-hook-form',
-    fileName: 'src/app/example/form/04-with-hook-form/page.tsx',
     linkTypes: '/example/form/04-with-hook-form',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/form/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/form/04-with-hook-form/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/form/04-with-hook-form/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/form/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/form/04-with-hook-form/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/form/05-server-cookies',
-    fileName: 'src/app/example/form/05-server-cookies/page.tsx',
     linkTypes: '/example/form/05-server-cookies',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/form/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/form/05-server-cookies/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/form/05-server-cookies/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/form/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/form/05-server-cookies/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/form/06-events',
-    fileName: 'src/app/example/form/06-events/page.tsx',
     linkTypes: '/example/form/06-events',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/form/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/form/06-events/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/form/06-events/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/form/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/form/06-events/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/form/07-use-optimistic',
-    fileName: 'src/app/example/form/07-use-optimistic/page.tsx',
     linkTypes: '/example/form/07-use-optimistic',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/form/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/form/07-use-optimistic/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/form/07-use-optimistic/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/form/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/form/07-use-optimistic/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/form/08-nested-list',
-    fileName: 'src/app/example/form/08-nested-list/page.tsx',
     linkTypes: '/example/form/08-nested-list',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/form/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/form/08-nested-list/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/form/08-nested-list/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/form/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/form/08-nested-list/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/form/09-date-picker',
-    fileName: 'src/app/example/form/09-date-picker/page.tsx',
     linkTypes: '/example/form/09-date-picker',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/form/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/form/09-date-picker/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/form/09-date-picker/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/form/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/form/09-date-picker/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/nuqs',
-    fileName: 'src/app/example/nuqs/page.mdx',
     linkTypes: '/example/nuqs',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/nuqs/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/nuqs/page.mdx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/nuqs/page.mdx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/nuqs/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/nuqs/page.mdx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/nuqs/01-client',
-    fileName: 'src/app/example/nuqs/01-client/page.tsx',
     linkTypes: '/example/nuqs/01-client',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/nuqs/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/nuqs/01-client/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/nuqs/01-client/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/nuqs/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/nuqs/01-client/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/nuqs/02-server',
-    fileName: 'src/app/example/nuqs/02-server/page.tsx',
     linkTypes: '/example/nuqs/02-server',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/nuqs/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/nuqs/02-server/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/nuqs/02-server/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/nuqs/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/nuqs/02-server/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/nuqs/03-complex',
-    fileName: 'src/app/example/nuqs/03-complex/page.tsx',
     linkTypes: '/example/nuqs/03-complex',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/nuqs/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/nuqs/03-complex/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/nuqs/03-complex/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/nuqs/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/nuqs/03-complex/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/push',
-    fileName: 'src/app/example/push/page.mdx',
     linkTypes: '/example/push',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/push/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/push/page.mdx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/push/page.mdx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/push/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/push/page.mdx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/push/01-simple',
-    fileName: 'src/app/example/push/01-simple/page.tsx',
     linkTypes: '/example/push/01-simple',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/push/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/push/01-simple/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/push/01-simple/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/push/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/push/01-simple/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/push/02-controls',
+    linkTypes: '/example/push/02-controls',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/push/02-controls/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/push/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/push/02-controls/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/query',
-    fileName: 'src/app/example/query/page.mdx',
     linkTypes: '/example/query',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/query/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/query/page.mdx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/query/page.mdx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/query/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/query/page.mdx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/query/prefetching',
-    fileName: 'src/app/example/query/prefetching/page.tsx',
     linkTypes: '/example/query/prefetching',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/query/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/query/prefetching/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/query/prefetching/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/query/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/query/prefetching/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/query/straming',
-    fileName: 'src/app/example/query/straming/page.tsx',
     linkTypes: '/example/query/straming',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/query/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/query/straming/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/query/straming/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/query/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/query/straming/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/route',
-    fileName: 'src/app/example/route/page.mdx',
     linkTypes: '/example/route',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/route/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/route/page.mdx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/route/page.mdx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/route/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/route/page.mdx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/route/intercepting',
-    fileName: 'src/app/example/route/intercepting/page.tsx',
     linkTypes: '/example/route/intercepting',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/route/layout.tsx',
-              children: [
-                {
-                  type: 'Layout',
-                  path: 'src/app/example/route/intercepting/layout.tsx',
-                  children: [
-                    {
-                      type: 'Page',
-                      path: 'src/app/example/route/intercepting/page.tsx',
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/route/intercepting/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/route/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/route/intercepting/layout.tsx',
+                    children: [
+                      {
+                        path: 'src/app/example/route/intercepting/page.tsx',
+                        children: [],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/route/intercepting/photo/[id]',
-    fileName: 'src/app/example/route/intercepting/photo/[id]/page.tsx',
     linkTypes: '/example/route/intercepting/photo/${string}',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/route/layout.tsx',
-              children: [
-                {
-                  type: 'Layout',
-                  path: 'src/app/example/route/intercepting/layout.tsx',
-                  children: [
-                    {
-                      type: 'Suspense',
-                      path: 'src/app/example/route/intercepting/photo/[id]/loading.tsx',
-                      fallback: 'Loading',
-                      children: [
-                        {
-                          type: 'Page',
-                          path: 'src/app/example/route/intercepting/photo/[id]/page.tsx',
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: true,
+    files: ['src/app/example/route/intercepting/photo/[id]/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/route/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/route/intercepting/layout.tsx',
+                    children: [
+                      {
+                        path: 'src/app/example/route/intercepting/photo/[id]/page.tsx',
+                        children: [],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/route/parallel',
     linkTypes: '/example/route/parallel',
-    fileName: '',
-    fileNames: [
+    isParallelRoute: true,
+    isDynamicRoute: false,
+    files: [
       'src/app/example/route/parallel/@comments/page.tsx',
       'src/app/example/route/parallel/@notifications/page.tsx',
       'src/app/example/route/parallel/@users/page.tsx',
     ],
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/route/layout.tsx',
-              children: [
-                {
-                  type: 'Layout',
-                  path: 'src/app/example/route/parallel/layout.tsx',
-                  children: [
-                    {
-                      type: 'Layout',
-                      path: 'src/app/example/route/parallel/@comments/layout.tsx',
-                      children: [
-                        {
-                          type: 'Suspense',
-                          path: 'src/app/example/route/parallel/@comments/loading.tsx',
-                          fallback: 'Loading',
-                          children: [
-                            {
-                              type: 'Page',
-                              path: 'src/app/example/route/parallel/@comments/page.tsx',
-                            },
-                          ],
-                        },
-                      ],
-                    },
-                    {
-                      type: 'Layout',
-                      path: 'src/app/example/route/parallel/@notifications/layout.tsx',
-                      children: [
-                        {
-                          type: 'Suspense',
-                          path: 'src/app/example/route/parallel/@notifications/loading.tsx',
-                          fallback: 'Loading',
-                          children: [
-                            {
-                              type: 'ErrorBoundary',
-                              path: 'src/app/example/route/parallel/@notifications/error.tsx',
-                              fallback: 'Error',
-                              children: [
-                                {
-                                  type: 'Page',
-                                  path: 'src/app/example/route/parallel/@notifications/page.tsx',
-                                },
-                              ],
-                            },
-                          ],
-                        },
-                      ],
-                    },
-                    {
-                      type: 'Layout',
-                      path: 'src/app/example/route/parallel/@users/layout.tsx',
-                      children: [
-                        {
-                          type: 'Suspense',
-                          path: 'src/app/example/route/parallel/@users/loading.tsx',
-                          fallback: 'Loading',
-                          children: [
-                            {
-                              type: 'Page',
-                              path: 'src/app/example/route/parallel/@users/page.tsx',
-                            },
-                          ],
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/route/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/route/parallel/layout.tsx',
+                    children: [
+                      {
+                        path: 'src/app/example/route/parallel/@comments/layout.tsx',
+                        children: [
+                          {
+                            path: 'src/app/example/route/parallel/@comments/loading.tsx',
+                            children: [
+                              {
+                                path: 'src/app/example/route/parallel/@comments/page.tsx',
+                                children: [],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                      {
+                        path: 'src/app/example/route/parallel/@notifications/layout.tsx',
+                        children: [
+                          {
+                            path: 'src/app/example/route/parallel/@notifications/loading.tsx',
+                            children: [
+                              {
+                                path: 'src/app/example/route/parallel/@notifications/error.tsx',
+                                children: [
+                                  {
+                                    path: 'src/app/example/route/parallel/@notifications/page.tsx',
+                                    children: [],
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                      {
+                        path: 'src/app/example/route/parallel/@users/layout.tsx',
+                        children: [
+                          {
+                            path: 'src/app/example/route/parallel/@users/loading.tsx',
+                            children: [
+                              {
+                                path: 'src/app/example/route/parallel/@users/page.tsx',
+                                children: [],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/route/parallel/login',
+    linkTypes: '/example/route/parallel/login',
+    isParallelRoute: true,
+    isDynamicRoute: false,
+    files: ['src/app/example/route/parallel/@modal/login/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/route/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/route/parallel/layout.tsx',
+                    children: [
+                      {
+                        path: 'src/app/example/route/parallel/@modal/login/page.tsx',
+                        children: [],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/table',
-    fileName: 'src/app/example/table/page.mdx',
     linkTypes: '/example/table',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/table/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/table/page.mdx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/table/page.mdx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/table/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/table/page.mdx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/table/01-server',
-    fileName: 'src/app/example/table/01-server/page.tsx',
     linkTypes: '/example/table/01-server',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/table/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/table/01-server/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/table/01-server/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/table/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/table/01-server/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/table/02-client',
-    fileName: 'src/app/example/table/02-client/page.tsx',
     linkTypes: '/example/table/02-client',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/table/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/table/02-client/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/table/02-client/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/table/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/table/02-client/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/virtual',
-    fileName: 'src/app/example/virtual/page.mdx',
     linkTypes: '/example/virtual',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/virtual/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/virtual/page.mdx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/virtual/page.mdx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/virtual/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/virtual/page.mdx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/virtual/01-fixed-row',
-    fileName: 'src/app/example/virtual/01-fixed-row/page.tsx',
     linkTypes: '/example/virtual/01-fixed-row',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/virtual/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/virtual/01-fixed-row/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/virtual/01-fixed-row/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/virtual/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/virtual/01-fixed-row/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/virtual/02-fixed-column',
-    fileName: 'src/app/example/virtual/02-fixed-column/page.tsx',
     linkTypes: '/example/virtual/02-fixed-column',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/virtual/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/virtual/02-fixed-column/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/virtual/02-fixed-column/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/virtual/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/virtual/02-fixed-column/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/virtual/03-fixed-grid',
-    fileName: 'src/app/example/virtual/03-fixed-grid/page.tsx',
     linkTypes: '/example/virtual/03-fixed-grid',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/virtual/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/virtual/03-fixed-grid/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/virtual/03-fixed-grid/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/virtual/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/virtual/03-fixed-grid/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/virtual/04-fixed-masonry-v',
-    fileName: 'src/app/example/virtual/04-fixed-masonry-v/page.tsx',
     linkTypes: '/example/virtual/04-fixed-masonry-v',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/virtual/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/virtual/04-fixed-masonry-v/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/virtual/04-fixed-masonry-v/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/virtual/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/virtual/04-fixed-masonry-v/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/virtual/05-fixed-masonry-h',
-    fileName: 'src/app/example/virtual/05-fixed-masonry-h/page.tsx',
     linkTypes: '/example/virtual/05-fixed-masonry-h',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/virtual/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/virtual/05-fixed-masonry-h/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/virtual/05-fixed-masonry-h/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/virtual/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/virtual/05-fixed-masonry-h/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/virtual/06-dynamic-row',
-    fileName: 'src/app/example/virtual/06-dynamic-row/page.tsx',
     linkTypes: '/example/virtual/06-dynamic-row',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/virtual/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/virtual/06-dynamic-row/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/virtual/06-dynamic-row/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/virtual/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/virtual/06-dynamic-row/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/virtual/07-dynamic-column',
-    fileName: 'src/app/example/virtual/07-dynamic-column/page.tsx',
     linkTypes: '/example/virtual/07-dynamic-column',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/virtual/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/virtual/07-dynamic-column/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/virtual/07-dynamic-column/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/virtual/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/virtual/07-dynamic-column/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/virtual/08-dynamic-grid',
-    fileName: 'src/app/example/virtual/08-dynamic-grid/page.tsx',
     linkTypes: '/example/virtual/08-dynamic-grid',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/virtual/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/virtual/08-dynamic-grid/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/virtual/08-dynamic-grid/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/virtual/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/virtual/08-dynamic-grid/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/virtual/09-infinite-scroll',
-    fileName: 'src/app/example/virtual/09-infinite-scroll/page.tsx',
     linkTypes: '/example/virtual/09-infinite-scroll',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/virtual/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/virtual/09-infinite-scroll/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/virtual/09-infinite-scroll/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/virtual/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/virtual/09-infinite-scroll/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/virtual/10-sortable-row',
-    fileName: 'src/app/example/virtual/10-sortable-row/page.tsx',
     linkTypes: '/example/virtual/10-sortable-row',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/virtual/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/virtual/10-sortable-row/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/virtual/10-sortable-row/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/virtual/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/virtual/10-sortable-row/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/virtual/11-sortable-column',
-    fileName: 'src/app/example/virtual/11-sortable-column/page.tsx',
     linkTypes: '/example/virtual/11-sortable-column',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/virtual/layout.tsx',
-              children: [
-                {
-                  type: 'Page',
-                  path: 'src/app/example/virtual/11-sortable-column/page.tsx',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/virtual/11-sortable-column/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/virtual/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/virtual/11-sortable-column/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/example/virtual/12-with-parallel-route',
     linkTypes: '/example/virtual/12-with-parallel-route',
-    fileName: '',
-    fileNames: [
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: [
       'src/app/example/virtual/12-with-parallel-route/page.tsx',
       'src/app/example/virtual/12-with-parallel-route/@list/page.tsx',
     ],
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Layout',
-          path: 'src/app/example/layout.tsx',
-          children: [
-            {
-              type: 'Layout',
-              path: 'src/app/example/virtual/layout.tsx',
-              children: [
-                {
-                  type: 'Layout',
-                  path: 'src/app/example/virtual/12-with-parallel-route/layout.tsx',
-                  children: [
-                    {
-                      type: 'Suspense',
-                      path: 'src/app/example/virtual/12-with-parallel-route/loading.tsx',
-                      fallback: 'Loading',
-                      children: [
-                        {
-                          type: 'Page',
-                          path: 'src/app/example/virtual/12-with-parallel-route/page.tsx',
-                        },
-                        {
-                          type: 'Page',
-                          path: 'src/app/example/virtual/12-with-parallel-route/@list/page.tsx',
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/virtual/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/virtual/12-with-parallel-route/layout.tsx',
+                    children: [
+                      {
+                        path: 'src/app/example/virtual/12-with-parallel-route/loading.tsx',
+                        children: [
+                          {
+                            path: 'src/app/example/virtual/12-with-parallel-route/page.tsx',
+                            children: [],
+                          },
+                          {
+                            path: 'src/app/example/virtual/12-with-parallel-route/@list/loading.tsx',
+                            children: [
+                              {
+                                path: 'src/app/example/virtual/12-with-parallel-route/@list/page.tsx',
+                                children: [],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/virtual/12-with-parallel-route/[...slug]',
+    linkTypes: '/example/virtual/12-with-parallel-route/${string}',
+    isParallelRoute: true,
+    isDynamicRoute: true,
+    files: ['src/app/example/virtual/12-with-parallel-route/@detail/[...slug]/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/virtual/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/virtual/12-with-parallel-route/layout.tsx',
+                    children: [
+                      {
+                        path: 'src/app/example/virtual/12-with-parallel-route/loading.tsx',
+                        children: [
+                          {
+                            path: 'src/app/example/virtual/12-with-parallel-route/@detail/[...slug]/page.tsx',
+                            children: [],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     href: '/signin',
-    fileName: 'src/app/signin/page.tsx',
     linkTypes: '/signin',
-    componentTreeJson: {
-      type: 'Layout',
-      path: 'src/app/layout.tsx',
-      children: [
-        {
-          type: 'Page',
-          path: 'src/app/signin/page.tsx',
-        },
-      ],
-    },
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/signin/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/signin/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
   },
 ];
