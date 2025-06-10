@@ -1,5 +1,5 @@
 /**
- * 로컬 SQLite, File 을 혼합한 API 캐시 (Server-side Only)
+ * 로컬 File 기반 API 캐시 (Server-side Only)
  */
 import { devLog } from '@monorepo-starter/utils/console';
 import { eq } from 'drizzle-orm';
@@ -26,7 +26,14 @@ type HybridOptions<T> = {
   fetcher: () => Promise<T>;
 };
 
-export async function apiHybridCache<T>({ key, ttl = 15 * 1000, fetcher }: HybridOptions<T>) {
+type CacheResult<T> = {
+  data: T;
+  traceId: string;
+  cacheStatus: 'HIT:SQLite' | 'HIT:File' | 'MISS' | 'WAIT';
+  compressedSize: number;
+};
+
+export async function apiHybridCache<T>({ key, ttl = 15 * 1000, fetcher }: HybridOptions<T>): Promise<CacheResult<T>> {
   // 캐시 디렉토리 생성
   try {
     fs.accessSync(cacheDir, fs.constants.W_OK); // 쓰기 가능한 디렉토리인지 확인
@@ -35,9 +42,9 @@ export async function apiHybridCache<T>({ key, ttl = 15 * 1000, fetcher }: Hybri
     fs.chmodSync(cacheDir, 0o755);
   }
 
-  const traceId = generateTraceId();
-  const now = Date.now();
-  const filePath = getFilePath(key);
+  const now = Date.now(); // 현재 시간 조회
+  const traceId = crypto.randomUUID(); // traceId 생성
+  const filePath = getFilePath(key); // 파일 경로 생성
 
   // SQLite 캐시 히트 확인
   try {
@@ -49,13 +56,6 @@ export async function apiHybridCache<T>({ key, ttl = 15 * 1000, fetcher }: Hybri
         const buffer = row.value as Buffer;
         const decompressed = await asyncGunzip(buffer);
         const data = JSON.parse(decompressed.toString());
-        devLog('info', `[CACHE]`, {
-          cacheStatus: 'HIT',
-          hitType: 'DB',
-          key,
-          traceId,
-          compressedSize: buffer.byteLength,
-        });
 
         return {
           data,
@@ -77,7 +77,6 @@ export async function apiHybridCache<T>({ key, ttl = 15 * 1000, fetcher }: Hybri
       const buffer = fs.readFileSync(filePath);
       const decompressed = await asyncGunzip(buffer);
       const data = JSON.parse(decompressed.toString());
-      devLog('info', `[CACHE]`, { cacheStatus: 'HIT', hitType: 'FILE', key, traceId, compressedSize: buffer.length });
       return { data, traceId, cacheStatus: 'HIT:File', compressedSize: buffer.length };
     }
   } catch {
@@ -136,14 +135,7 @@ export async function apiHybridCache<T>({ key, ttl = 15 * 1000, fetcher }: Hybri
   }
 }
 
-function safeHash(key: string) {
-  return crypto.createHash('sha256').update(key).digest('hex');
-}
-
 function getFilePath(key: string) {
-  return path.join(cacheDir, `${safeHash(key)}.json.gz`);
-}
-
-function generateTraceId() {
-  return crypto.randomUUID();
+  const hash = crypto.createHash('sha256').update(key).digest('hex');
+  return path.join(cacheDir, `${hash}.json.gz`);
 }
