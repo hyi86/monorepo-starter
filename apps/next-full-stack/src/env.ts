@@ -4,7 +4,8 @@ import parseDuration from 'parse-duration'; // edge ok
 import { z } from 'zod'; // edge ok
 
 export const env = createEnv({
-  skipValidation: process.env.NODE_ENV === 'production' && process.env.STANDALONE === '1',
+  skipValidation:
+    (process.env.NODE_ENV === 'production' && process.env.STANDALONE === '1') || process.env.NODE_ENV === 'test',
   server: {
     // File & Path & Url
     LOG_FILE_PATH: z.string().default('logs'),
