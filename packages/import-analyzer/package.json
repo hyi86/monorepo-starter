@@ -21,7 +21,7 @@
     "@types/node": "catalog:",
     "@types/tar-fs": "^2.0.4",
     "@types/tar-stream": "^3.1.4",
-    "console-table-printer": "^2.14.1",
+    "console-table-printer": "^2.14.2",
     "deepmerge": "^4.3.1",
     "esbuild": "^0.25.5",
     "eslint": "catalog:",
@@ -37,7 +37,7 @@
     "type-fest": "^4.41.0",
     "typescript": "catalog:",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.2.1",
+    "vitest": "^3.2.3",
     "yaml": "^2.8.0"
   }
 }
