@@ -39,31 +39,11 @@ export function devLog(type: LogType, ...args: any[]) {
     return;
   }
 
-  const log = console.log;
-
-  // `web` 에서 로그 출력
   if (typeof window !== 'undefined') {
-    switch (type) {
-      case 'process':
-        log(`%c⏳ ${args[0]}`, 'color:rgb(161,161,170);', ...args.slice(1));
-        return;
-      case 'success':
-        log(`%c✅ ${args[0]}`, 'color:rgb(21,128,61);', ...args.slice(1));
-        return;
-      case 'info':
-        log(`%c💡 ${args[0]}`, 'color:rgb(100,149,237);', ...args.slice(1));
-        return;
-      case 'warn':
-        log(`%c⚠️ ${args[0]}`, 'color:rgb(202,138,4);', ...args.slice(1));
-        return;
-      case 'error':
-        log(`%c❌ ${args[0]}`, 'color:rgb(185,28,28);', ...args.slice(1));
-        return;
-      default:
-        log(...args);
-        return;
-    }
+    throw new Error('devLog is not supported in the browser');
   }
+
+  const log = console.log;
 
   const now = `[${new Date().toLocaleTimeString('ko-KR', {
     hour: '2-digit',
