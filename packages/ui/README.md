@@ -102,8 +102,8 @@ pnpm dlx shadcn@canary add -a -o -y
 git restore src/components/calendar.tsx
 
 # cmdk와 react-day-picker를 최신 버전으로 업데이트
-pnpm rm cmdk react-day-picker
-pnpm add cmdk react-day-picker
+pnpm rm react-day-picker
+pnpm add react-day-picker
 
 # 포맷팅
 pnpm -w run format "packages/ui/src/**/*.*"
