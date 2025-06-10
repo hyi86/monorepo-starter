@@ -5,7 +5,6 @@ import { ThemeProvider } from 'next-themes';
 import localFont from 'next/font/local';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { Spotlight } from '~/components/command/spotlight';
-import { CounterStoreProvider } from '~/lib/counter/counter-store-provider';
 import { UploaderStoreProvider } from '~/lib/experimental-upload/uploader-store-provider';
 import { getLocale } from '~/lib/i18n/locale';
 import { WebPushProvider } from '~/lib/push/web-push-provider';
@@ -21,12 +20,12 @@ const pretendard = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Next Ready Stack',
-    template: '%s | Next Ready Stack',
+    default: 'Next Full Stack',
+    template: '%s | Next Full Stack',
   },
-  description: 'Next Ready Stack',
+  description: 'Next Full Stack',
   appleWebApp: {
-    title: 'Next Ready Stack',
+    title: 'Next Full Stack',
     statusBarStyle: 'black-translucent',
   },
 };
@@ -49,12 +48,10 @@ export default async function RootLayout({
           <NuqsAdapter>
             <TanstackQueryProvider>
               <UploaderStoreProvider>
-                <CounterStoreProvider>
-                  <WebPushProvider>
-                    {children}
-                    <Spotlight />
-                  </WebPushProvider>
-                </CounterStoreProvider>
+                <WebPushProvider>
+                  {children}
+                  <Spotlight />
+                </WebPushProvider>
               </UploaderStoreProvider>
             </TanstackQueryProvider>
           </NuqsAdapter>
