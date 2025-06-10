@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import { watch } from 'chokidar';
 import { Command } from 'commander';
 import fs from 'fs';
 import path2 from 'path';
 import { z } from 'zod';
+import { watch } from 'chokidar';
 import FastGlob from 'fast-glob';
 import { parse } from 'yaml';
 import { format } from 'prettier';
@@ -40,29 +40,10 @@ function devLog(type, ...args) {
   if (process.env.NODE_ENV === "production") {
     return;
   }
-  const log = console.log;
   if (typeof window !== "undefined") {
-    switch (type) {
-      case "process":
-        log(`%c\u23F3 ${args[0]}`, "color:rgb(161,161,170);", ...args.slice(1));
-        return;
-      case "success":
-        log(`%c\u2705 ${args[0]}`, "color:rgb(21,128,61);", ...args.slice(1));
-        return;
-      case "info":
-        log(`%c\u{1F4A1} ${args[0]}`, "color:rgb(100,149,237);", ...args.slice(1));
-        return;
-      case "warn":
-        log(`%c\u26A0\uFE0F ${args[0]}`, "color:rgb(202,138,4);", ...args.slice(1));
-        return;
-      case "error":
-        log(`%c\u274C ${args[0]}`, "color:rgb(185,28,28);", ...args.slice(1));
-        return;
-      default:
-        log(...args);
-        return;
-    }
+    throw new Error("devLog is not supported in the browser");
   }
+  const log = console.log;
   const now = `[${(/* @__PURE__ */ new Date()).toLocaleTimeString("ko-KR", {
     hour: "2-digit",
     minute: "2-digit",
@@ -89,19 +70,6 @@ function devLog(type, ...args) {
       log(...args);
       return;
   }
-}
-
-// ../utils/dist/fn.js
-function debounceAsync(fn, delay2) {
-  let timer = null;
-  return (...args) => {
-    if (timer) clearTimeout(timer);
-    timer = setTimeout(() => {
-      fn(...args).catch((error) => {
-        throw error;
-      });
-    }, delay2);
-  };
 }
 async function generate(filePath) {
   const dirname = path2.dirname(filePath);
@@ -134,210 +102,122 @@ function flattenObject(obj, prefix = "", res = {}) {
   return res;
 }
 
-// ../utils/dist/array.js
-function uniq(arr) {
-  return [...new Set(arr)];
-}
-
-// ../../node_modules/.pnpm/fast-sort@3.4.1/node_modules/fast-sort/dist/sort.mjs
-var castComparer = function(comparer) {
-  return function(a, b, order) {
-    return comparer(a, b, order) * order;
+// src/typed-next-routes/route-utils.ts
+var deepCloneNode = (node) => {
+  return {
+    path: node.path,
+    children: node.children.map((child) => deepCloneNode(child))
   };
 };
-var throwInvalidConfigErrorIfTrue = function(condition, context) {
-  if (condition)
-    throw Error("Invalid sort config: " + context);
-};
-var unpackObjectSorter = function(sortByObj) {
-  var _a = sortByObj || {}, asc = _a.asc, desc = _a.desc;
-  var order = asc ? 1 : -1;
-  var sortBy = asc || desc;
-  throwInvalidConfigErrorIfTrue(!sortBy, "Expected `asc` or `desc` property");
-  throwInvalidConfigErrorIfTrue(asc && desc, "Ambiguous object with `asc` and `desc` config properties");
-  var comparer = sortByObj.comparer && castComparer(sortByObj.comparer);
-  return { order, sortBy, comparer };
-};
-var multiPropertySorterProvider = function(defaultComparer2) {
-  return function multiPropertySorter(sortBy, sortByArr, depth, order, comparer, a, b) {
-    var valA;
-    var valB;
-    if (typeof sortBy === "string") {
-      valA = a[sortBy];
-      valB = b[sortBy];
-    } else if (typeof sortBy === "function") {
-      valA = sortBy(a);
-      valB = sortBy(b);
+function mergeTreeNodes(trees) {
+  const result = [];
+  const addOrMergeNode = (targetList, nodeToAdd) => {
+    const existingNode = targetList.find((n) => n.path === nodeToAdd.path);
+    if (existingNode) {
+      for (const childToAdd of nodeToAdd.children) {
+        const existingChild = existingNode.children.find((c) => c.path === childToAdd.path);
+        if (existingChild) {
+          addOrMergeNode(existingNode.children, childToAdd);
+        } else {
+          existingNode.children.push(deepCloneNode(childToAdd));
+        }
+      }
     } else {
-      var objectSorterConfig = unpackObjectSorter(sortBy);
-      return multiPropertySorter(objectSorterConfig.sortBy, sortByArr, depth, objectSorterConfig.order, objectSorterConfig.comparer || defaultComparer2, a, b);
+      targetList.push(deepCloneNode(nodeToAdd));
     }
-    var equality = comparer(valA, valB, order);
-    if ((equality === 0 || valA == null && valB == null) && sortByArr.length > depth) {
-      return multiPropertySorter(sortByArr[depth], sortByArr, depth + 1, order, comparer, a, b);
+  };
+  for (const tree of trees) {
+    for (const node of tree) {
+      addOrMergeNode(result, node);
     }
-    return equality;
-  };
-};
-function getSortStrategy(sortBy, comparer, order) {
-  if (sortBy === void 0 || sortBy === true) {
-    return function(a, b) {
-      return comparer(a, b, order);
-    };
   }
-  if (typeof sortBy === "string") {
-    throwInvalidConfigErrorIfTrue(sortBy.includes("."), "String syntax not allowed for nested properties.");
-    return function(a, b) {
-      return comparer(a[sortBy], b[sortBy], order);
-    };
-  }
-  if (typeof sortBy === "function") {
-    return function(a, b) {
-      return comparer(sortBy(a), sortBy(b), order);
-    };
-  }
-  if (Array.isArray(sortBy)) {
-    var multiPropSorter_1 = multiPropertySorterProvider(comparer);
-    return function(a, b) {
-      return multiPropSorter_1(sortBy[0], sortBy, 1, order, comparer, a, b);
-    };
-  }
-  var objectSorterConfig = unpackObjectSorter(sortBy);
-  return getSortStrategy(objectSorterConfig.sortBy, objectSorterConfig.comparer || comparer, objectSorterConfig.order);
+  return result;
 }
-var sortArray = function(order, ctx, sortBy, comparer) {
-  var _a;
-  if (!Array.isArray(ctx)) {
-    return ctx;
-  }
-  if (Array.isArray(sortBy) && sortBy.length < 2) {
-    _a = sortBy, sortBy = _a[0];
-  }
-  return ctx.sort(getSortStrategy(sortBy, comparer, order));
-};
-function createNewSortInstance(opts) {
-  var comparer = castComparer(opts.comparer);
-  return function(arrayToSort) {
-    var ctx = Array.isArray(arrayToSort) && !opts.inPlaceSorting ? arrayToSort.slice() : arrayToSort;
-    return {
-      asc: function(sortBy) {
-        return sortArray(1, ctx, sortBy, comparer);
-      },
-      desc: function(sortBy) {
-        return sortArray(-1, ctx, sortBy, comparer);
-      },
-      by: function(sortBy) {
-        return sortArray(1, ctx, sortBy, comparer);
-      }
+function buildSimpleSortedTree(items) {
+  const sortedItems = [...items].sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
+  const root = [];
+  let currentLevel = root;
+  for (const item of sortedItems) {
+    const node = {
+      path: item.path,
+      children: []
     };
-  };
-}
-var defaultComparer = function(a, b, order) {
-  if (a == null)
-    return order;
-  if (b == null)
-    return -order;
-  if (typeof a !== typeof b) {
-    return typeof a < typeof b ? -1 : 1;
+    currentLevel.push(node);
+    currentLevel = node.children;
   }
-  if (a < b)
-    return -1;
-  if (a > b)
-    return 1;
-  return 0;
-};
-var sort = createNewSortInstance({
-  comparer: defaultComparer
-});
-createNewSortInstance({
-  comparer: defaultComparer,
-  inPlaceSorting: true
-});
+  return root;
+}
 
-// ../utils/dist/sort.js
-function sortArrayObject(array, compareFn) {
-  return sort(array).by(compareFn);
-}
+// src/typed-next-routes/route-structure.ts
 async function getRouteStructure() {
-  const typeMap = {
-    layout: "Layout",
-    template: "Template",
-    error: "ErrorBoundary",
-    loading: "Suspense",
-    "not-found": "ErrorBoundary",
-    page: "Page"
-  };
   const routes = FastGlob.sync("src/app/**/{page,layout,loading,not-found,error,template}.{ts,tsx,mdx}");
-  const pagePathList = updatePageRoutesBySegments(routes.filter((route) => route.match(/\/page\.(ts|tsx|mdx)$/)));
-  const pageRoutes = routes.filter((route) => route.endsWith("page.tsx") || route.endsWith("page.mdx"));
-  const layoutRoutes = routes.filter((route) => route.endsWith("layout.tsx"));
-  const loadingRoutes = routes.filter((route) => route.endsWith("loading.tsx"));
-  const notFoundRoutes = routes.filter((route) => route.endsWith("not-found.tsx"));
-  const errorRoutes = routes.filter((route) => route.endsWith("error.tsx"));
-  const templateRoutes = routes.filter((route) => route.endsWith("template.tsx"));
-  const routeStructure = [];
-  for (const pageFileName of pageRoutes) {
-    const layouts = [];
-    let currentDir = path2.dirname(pageFileName);
-    while (true) {
-      const folderDepth = (currentDir.split("/").length - 2 + 1) * 10;
-      const layoutPath = path2.join(currentDir, "layout.tsx");
-      const templatePath = path2.join(currentDir, "template.tsx");
-      const loadingPath = path2.join(currentDir, "loading.tsx");
-      const errorPath = path2.join(currentDir, "error.tsx");
-      const notFoundPath = path2.join(currentDir, "not-found.tsx");
-      if (layoutRoutes.includes(layoutPath)) {
-        layouts.unshift({ type: "layout", path: layoutPath, sort: folderDepth + 1 });
-      }
-      if (templateRoutes.includes(templatePath)) {
-        layouts.unshift({ type: "template", path: templatePath, sort: folderDepth + 2 });
-      }
-      if (loadingRoutes.includes(loadingPath)) {
-        layouts.unshift({ type: "loading", path: loadingPath, sort: folderDepth + 3 });
-      }
-      if (errorRoutes.includes(errorPath)) {
-        layouts.unshift({ type: "error", path: errorPath, sort: folderDepth + 4 });
-      }
-      if (notFoundRoutes.includes(notFoundPath)) {
-        layouts.unshift({ type: "not-found", path: notFoundPath, sort: folderDepth + 5 });
-      }
-      if (currentDir === "src/app") break;
-      currentDir = path2.dirname(currentDir);
-    }
-    const sortedLayouts = sortArrayObject(layouts, { asc: (value) => value.sort });
-    sortedLayouts.push({ type: "page", path: pageFileName, sort: 99 });
-    const componentTreeJson = sortedLayouts.reduceRight((acc, value) => {
-      const node = {
-        type: typeMap[value.type],
-        path: value.path
-      };
-      if (value.type === "error") {
-        node.fallback = "Error";
-      }
-      if (value.type === "not-found") {
-        node.fallback = "NotFound";
-      }
-      if (value.type === "loading") {
-        node.fallback = "Loading";
-      }
-      if (acc) {
-        node.children = [acc];
-      }
-      return node;
-    }, null);
-    const pagePath = pagePathList.find((item) => item.file === pageFileName);
-    if (pagePath) {
-      routeStructure.push({
-        href: pagePath.href,
-        fileName: pageFileName,
-        linkTypes: pagePath.linkTypes,
-        componentTreeJson
+  const pagePathList = normalizePageRoutesBySegments(routes.filter((route) => route.match(/\/page\.(ts|tsx|mdx)$/)));
+  const routeStructures = [];
+  for (const pageRoute of pagePathList) {
+    const index = routeStructures.findIndex((item) => item.linkTypes === pageRoute.linkTypes);
+    if (index < 0) {
+      routeStructures.push({
+        href: pageRoute.href,
+        linkTypes: pageRoute.linkTypes,
+        files: [pageRoute.file],
+        isParallelRoute: pageRoute.isParallelRoute,
+        isDynamicRoute: pageRoute.isDynamicRoute
       });
+    } else {
+      routeStructures[index].files.push(pageRoute.file);
     }
   }
-  return routeStructure;
+  const updatedRouteStructures = routeStructures.map((routeStructure) => {
+    const specialFiles = routeStructure.files.map((file) => {
+      const specialFiles2 = [];
+      let currentDir = path2.dirname(file);
+      while (true) {
+        const folderDepth = (currentDir.split("/").length - 2 + 1) * 10;
+        const layoutPath = path2.join(currentDir, "layout.tsx");
+        const templatePath = path2.join(currentDir, "template.tsx");
+        const loadingPath = path2.join(currentDir, "loading.tsx");
+        const errorPath = path2.join(currentDir, "error.tsx");
+        const notFoundPath = path2.join(currentDir, "not-found.tsx");
+        if (routes.includes(layoutPath)) {
+          specialFiles2.unshift({ type: "layout", path: layoutPath, sort: folderDepth + 1 });
+        }
+        if (routes.includes(templatePath)) {
+          specialFiles2.unshift({ type: "template", path: templatePath, sort: folderDepth + 2 });
+        }
+        if (routes.includes(loadingPath)) {
+          specialFiles2.unshift({ type: "loading", path: loadingPath, sort: folderDepth + 3 });
+        }
+        if (routes.includes(errorPath)) {
+          specialFiles2.unshift({ type: "error", path: errorPath, sort: folderDepth + 4 });
+        }
+        if (routes.includes(notFoundPath)) {
+          specialFiles2.unshift({ type: "not-found", path: notFoundPath, sort: folderDepth + 5 });
+        }
+        if (currentDir === "src/app") {
+          break;
+        }
+        currentDir = path2.dirname(currentDir);
+      }
+      specialFiles2.push({
+        type: "page",
+        path: file,
+        sort: (path2.dirname(file).split("/").length - 2 + 1) * 10 + 6
+      });
+      return buildSimpleSortedTree(specialFiles2);
+    });
+    const structures = mergeTreeNodes(specialFiles);
+    return {
+      href: routeStructure.href,
+      linkTypes: routeStructure.linkTypes,
+      isParallelRoute: routeStructure.isParallelRoute,
+      isDynamicRoute: routeStructure.isDynamicRoute,
+      files: routeStructure.files,
+      structures
+    };
+  });
+  return updatedRouteStructures;
 }
-function updatePageRoutesBySegments(allPageRoutes) {
+function normalizePageRoutesBySegments(allPageRoutes) {
   const sanitizedFiles = allPageRoutes.map((routePath) => {
     const segments = routePath.split("/").slice(2);
     const hasPrivateRoute = segments.some((segment) => segment.startsWith("_"));
@@ -354,17 +234,8 @@ function updatePageRoutesBySegments(allPageRoutes) {
         href: null
       };
     }
-    const hasParallelRoute = segments.some((segment) => segment.startsWith("@"));
-    if (hasParallelRoute) {
-      const parallelIndex = segments.findIndex((segment) => segment.startsWith("@"));
-      const nextSegment = segments[parallelIndex + 1];
-      if (!nextSegment?.match(/page\.(tsx|mdx|ts)$/)) {
-        return {
-          file: routePath,
-          href: null
-        };
-      }
-    }
+    const isParallelRoute = segments.some((segment) => segment.startsWith("@"));
+    const isDynamicRoute = segments.some((segment) => segment.startsWith("[") && segment.endsWith("]"));
     const updatedSegments = segments.filter((segment) => !segment.match(/page\.(tsx|mdx|ts)$/)).filter((segment) => !segment.match(/^\(.+\)$/)).filter((segment) => !segment.startsWith("@"));
     const linkTypeSegments = updatedSegments.map((segment) => {
       if (segment.startsWith("[") && segment.endsWith("]")) {
@@ -375,140 +246,88 @@ function updatePageRoutesBySegments(allPageRoutes) {
     return {
       file: routePath,
       href: `/${updatedSegments.join("/")}`,
-      linkTypes: `/${linkTypeSegments.join("/")}`
+      linkTypes: `/${linkTypeSegments.join("/")}`,
+      isParallelRoute,
+      isDynamicRoute
     };
   });
   return sanitizedFiles.filter((route) => route.href !== null).sort();
 }
-function mergeComponentTrees(trees) {
-  const [first, ...rest] = trees;
-  if (!first) throw new Error("\uBE48 \uC785\uB825");
-  return rest.reduce((acc, curr) => mergeNode(acc, curr), first);
-}
-function mergeNode(a, b) {
-  if (a.path !== b.path || a.type !== b.type) {
-    return {
-      ...a,
-      children: [...a.children || [], b]
-    };
-  }
-  const mergedChildren = mergeChildren(a.children || [], b.children || []);
-  return {
-    ...a,
-    fallback: a.fallback ?? b.fallback,
-    // 필요시 덮어쓰기 전략 조정
-    children: mergedChildren
-  };
-}
-function mergeChildren(a, b) {
-  const result = [...a];
-  for (const bChild of b) {
-    const match = result.find((aChild) => aChild.type === bChild.type && aChild.path === bChild.path);
-    if (match) {
-      const merged = mergeNode(match, bChild);
-      const idx = result.indexOf(match);
-      result[idx] = merged;
-    } else {
-      result.push(bChild);
-    }
-  }
-  return result;
-}
 
-// src/lib/create-typed-routes.ts
+// src/typed-next-routes/index.ts
 async function generate2(filePath) {
-  const prettierConfig = {
+  const routeStructure = await getRouteStructure();
+  routeStructure.sort((a, b) => a.href.localeCompare(b.href));
+  const staticPaths = routeStructure.filter((item) => !item.isDynamicRoute).map((item) => item.linkTypes);
+  const staticPathString = staticPaths.length > 0 ? staticPaths.map((path5) => `'${path5}'`).join(" | ") : "/";
+  const dynamicPaths = routeStructure.filter((item) => item.isDynamicRoute).map((item) => item.linkTypes);
+  const dynamicPathString = dynamicPaths.length > 0 ? dynamicPaths.map((path5) => `'${path5}'`).join(" | ") : "string";
+  const contents = `
+  // NOTE: This file should not be edited
+  export type Primitive = null | undefined | string | number | boolean | symbol | bigint;
+  export type LiteralUnion<LiteralType, BaseType extends Primitive> = LiteralType | (BaseType & Record<never, never>);
+
+  export type StaticPath = ${staticPathString};
+
+  export type TypedRoute = LiteralUnion<StaticPath, ${dynamicPathString}>;
+
+  export function getTypedPath(path: TypedRoute) {
+    return path;
+  }
+
+  export type Structure = {
+    path: string;
+    children: Structure[];
+  };
+
+  export type AppPathRoutes = {
+    href: string;
+    linkTypes: string;
+    isParallelRoute: boolean;
+    isDynamicRoute: boolean;
+    files: string[];
+    structures: Structure[];
+  };
+
+  export const appPathRoutes: AppPathRoutes[] = ${JSON.stringify(routeStructure, null, 2)};
+  `.trim();
+  const formattedContents = await format(contents, {
     parser: "typescript",
     printWidth: 120,
     singleQuote: true
-  };
-  const routeStructure = await getRouteStructure();
-  const uniqueLinkTypes = uniq(routeStructure.map((route) => route.linkTypes));
-  uniqueLinkTypes.sort((a, b) => a.localeCompare(b));
-  const uniqRouteStructure = [];
-  const staticRoutes = [];
-  const dynamicRoutes = [];
-  uniqueLinkTypes.forEach((linkType) => {
-    if (linkType.includes("/${string}")) {
-      dynamicRoutes.push(linkType);
-    } else {
-      staticRoutes.push(linkType);
-    }
-    const routeStructureItems = routeStructure.filter((route) => route.linkTypes === linkType);
-    if (routeStructureItems.length > 1) {
-      const base = routeStructureItems[0];
-      const componentTreeJsonList = routeStructureItems.map((item) => item.componentTreeJson).filter(Boolean);
-      const mergedTree = mergeComponentTrees(componentTreeJsonList);
-      const mergedRouteStructure = {
-        href: base.href,
-        linkTypes: linkType,
-        fileName: "",
-        fileNames: routeStructureItems.map((item) => item.fileName),
-        componentTreeJson: mergedTree
-      };
-      uniqRouteStructure.push(mergedRouteStructure);
-      return;
-    }
-    if (routeStructureItems.length === 1) {
-      uniqRouteStructure.push(routeStructureItems[0]);
-      return;
-    }
   });
-  const uniqueStaticRoutes = uniq(staticRoutes);
-  let uniqueStaticRoutesString = uniqueStaticRoutes.map((route) => `'${route}'`).join(" | ");
-  if (uniqueStaticRoutesString.length === 0) {
-    uniqueStaticRoutesString = "'/'";
-  }
-  const uniqueDynamicRoutes = uniq(dynamicRoutes);
-  let uniqueDynamicRoutesString = uniqueDynamicRoutes.map((route) => "`" + route + "`").join(" | ");
-  if (uniqueDynamicRoutesString.length === 0) {
-    uniqueDynamicRoutesString = "string";
-  }
-  const contents = await format(
-    `
-      // NOTE: This file should not be edited
-      export type Primitive = null | undefined | string | number | boolean | symbol | bigint;
-      export type LiteralUnion<LiteralType, BaseType extends Primitive> = LiteralType | (BaseType & Record<never, never>);
-
-      export type StaticPath = ${uniqueStaticRoutesString}
-
-      export type TypedRoute = LiteralUnion<StaticPath, ${uniqueDynamicRoutesString}>;
-
-
-      export function getTypedPath(path: StaticPath) {
-        return path;
-      }
-
-      export type ComponentTreeJson = {
-        type: 'Layout' | 'Template' | 'ErrorBoundary' | 'Suspense' | 'Page';
-        path: string;
-        fallback?: 'Error' | 'NotFound' | 'Loading';
-        children?: ComponentTreeJson[];
-      };
-
-      export type AppPathRoutes = {
-        href: string | null;
-        linkTypes: string;
-        fileName: string;
-        fileNames?: string[];
-        componentTreeJson: ComponentTreeJson | null;
-      };
-
-      export const appPathRoutes: AppPathRoutes[] = ${JSON.stringify(uniqRouteStructure, null, 2)};
-    `,
-    prettierConfig
-  );
-  fs.writeFileSync(filePath, contents, "utf-8");
+  fs.writeFileSync(filePath, formattedContents, "utf-8");
 }
 
 // src/generate.ts
-var appPathFilename = "src/app-path-types.ts";
-var dictionariesFilename = "src/dictionaries";
-var generateAll = async () => {
-  devLog("process", "Generating all...");
-  await Promise.all([generate2(appPathFilename), generate(dictionariesFilename)]);
+async function run(rootPath, config2) {
+  if (!config2.watch) {
+    devLog("process", "Start generating... (Run in Once)");
+    await Promise.all([
+      generate2(path2.join(rootPath, "src/app-path-types.ts")),
+      generate(path2.join(rootPath, "src/dictionaries"))
+    ]);
+    devLog("success", "Generated all successfully");
+    return;
+  }
+  devLog("process", "Start generating... (Watch Mode)");
+  watch(["src/app", "src/dictionaries"], {
+    persistent: true,
+    ignoreInitial: false,
+    awaitWriteFinish: true,
+    binaryInterval: 1500,
+    interval: 1500
+  }).on("all", async (event, filePath) => {
+    if (event === "change") return;
+    if (filePath.includes("src/dictionaries")) {
+      await generate(path2.join(rootPath, "src/dictionaries"));
+    }
+    if (filePath.includes("src/app") && filePath.match(/\/(page|layout|loading|not-found|error|template)\.(ts|tsx|mdx)$/)) {
+      await generate2(path2.join(rootPath, "src/app-path-types.ts"));
+    }
+  });
   devLog("success", "Generated all successfully");
-};
+}
 
 // src/index.ts
 var projectRoot = path2.join(import.meta.dirname, "../../..");
@@ -540,18 +359,4 @@ try {
   process.exit(0);
 }
 process.chdir(path2.join(projectRoot, config.package));
-if (!config.watch) {
-  devLog("info", "Run in Once");
-  await generateAll();
-  process.exit(0);
-}
-watch(["src/app", "src/dictionaries"], {
-  persistent: true,
-  ignoreInitial: false
-}).on(
-  "all",
-  debounceAsync(async (event) => {
-    if (event === "change") return;
-    await generateAll();
-  }, 1500)
-);
+await run(process.cwd(), config);

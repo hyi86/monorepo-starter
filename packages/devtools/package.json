@@ -10,7 +10,8 @@
     "check-types": "tsc --noEmit",
     "lint": "eslint . --max-warnings 0",
     "build": "tsup",
-    "postbuild": "chmod +x bin/*"
+    "postbuild": "chmod +x bin/*",
+    "start:dev": "tsx src/index.ts"
   },
   "devDependencies": {
     "@clack/prompts": "^0.11.0",

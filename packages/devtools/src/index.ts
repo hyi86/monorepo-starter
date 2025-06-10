@@ -1,11 +1,9 @@
 import { colors, devLog } from '@monorepo-starter/utils/console';
-import { debounceAsync } from '@monorepo-starter/utils/fn';
-import { watch } from 'chokidar';
 import { Command } from 'commander';
 import fs from 'node:fs';
 import path from 'node:path';
 import { z, ZodError } from 'zod';
-import { generateAll } from './generate';
+import { run } from './generate';
 
 const projectRoot = path.join(import.meta.dirname, '../../..');
 const program = new Command();
@@ -54,20 +52,5 @@ try {
 // 패키지 경로 변경
 process.chdir(path.join(projectRoot, config.package));
 
-// 프로덕션 모드로 실행 (1회 실행)
-if (!config.watch) {
-  devLog('info', 'Run in Once');
-  await generateAll();
-  process.exit(0);
-}
-
-watch(['src/app', 'src/dictionaries'], {
-  persistent: true,
-  ignoreInitial: false,
-}).on(
-  'all',
-  debounceAsync(async (event) => {
-    if (event === 'change') return;
-    await generateAll();
-  }, 1500),
-);
+// generate
+await run(process.cwd(), config);
