@@ -19,6 +19,8 @@ export default function TablePagination<TData>({ table }: { table: Table<TData> 
     activePage: table.getState().pagination.pageIndex + 1,
   });
 
+  if (table.getPageCount() <= 1) return null;
+
   return (
     <div className="flex items-center justify-between gap-3 max-sm:flex-col">
       <p className="text-muted-foreground flex-1 space-x-1 whitespace-nowrap text-sm" aria-live="polite">
