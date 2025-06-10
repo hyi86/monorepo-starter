@@ -74,7 +74,7 @@
   --fgColor-attention: #d29922;
   --fgColor-danger: #f85149;
   --fgColor-done: #ab7df8;
-  --bgColor-default: #0d1117;
+  --bgColor-default: oklch(0.145 0 0);
   --bgColor-muted: #151b23;
   --bgColor-neutral-muted: #656c7633;
   --bgColor-attention-muted: #bb800926;
@@ -229,7 +229,6 @@
 
 .markdown-body code,
 .markdown-body kbd,
-.markdown-body pre,
 .markdown-body samp {
   font-family: monospace;
   font-size: 1em;
@@ -442,6 +441,14 @@
   padding-left: 2em;
 }
 
+.markdown-body ul {
+  list-style: disc;
+}
+
+.markdown-body ol {
+  list-style: decimal;
+}
+
 .markdown-body ol ol,
 .markdown-body ul ol {
   list-style-type: lower-roman;
@@ -459,7 +466,6 @@
 }
 
 .markdown-body tt,
-.markdown-body code,
 .markdown-body samp {
   font-family: var(
     --fontStack-monospace,
@@ -473,8 +479,22 @@
   );
   font-size: 12px;
 }
+.markdown-body :not(pre) > code {
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: oklch(0.92 0 286 / 0.7);
+  color: oklch(0.37 0.04 257);
+  border-radius: 6px;
+}
 
-.markdown-body pre {
+.dark .markdown-body :not(pre) > code {
+  background-color: oklch(0.37 0.01 286 / 0.5);
+  color: oklch(0.71 0.04 257);
+}
+
+/* .markdown-body pre {
   margin-top: 0;
   margin-bottom: 0;
   font-family: var(
@@ -489,7 +509,7 @@
   );
   font-size: 12px;
   word-wrap: normal;
-}
+} */
 
 .markdown-body .octicon {
   display: inline-block;
@@ -553,7 +573,6 @@
 .markdown-body ol,
 .markdown-body dl,
 .markdown-body table,
-.markdown-body pre,
 .markdown-body details {
   margin-top: 0;
   margin-bottom: var(--base-size-16);
@@ -828,7 +847,6 @@
   text-align: right;
 }
 
-.markdown-body code,
 .markdown-body tt {
   padding: 0.2em 0.4em;
   margin: 0;
@@ -851,7 +869,7 @@
   font-size: 85%;
 }
 
-.markdown-body pre code {
+/* .markdown-body pre code {
   font-size: 100%;
 }
 
@@ -862,9 +880,9 @@
   white-space: pre;
   background: transparent;
   border: 0;
-}
+} */
 
-.markdown-body .highlight {
+/* .markdown-body .highlight {
   margin-bottom: var(--base-size-16);
 }
 
@@ -882,9 +900,9 @@
   color: var(--fgColor-default);
   background-color: var(--bgColor-muted);
   border-radius: 6px;
-}
+} */
 
-.markdown-body pre code,
+/* .markdown-body pre code,
 .markdown-body pre tt {
   display: inline;
   max-width: auto;
@@ -895,7 +913,7 @@
   word-wrap: normal;
   background-color: transparent;
   border: 0;
-}
+} */
 
 .markdown-body .csv-data td,
 .markdown-body .csv-data th {

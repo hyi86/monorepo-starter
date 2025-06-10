@@ -74,12 +74,34 @@ const nextConfig: NextConfig = {
     // Important: return the modified config
     return config;
   },
+
+  headers: async () => {
+    return [
+      {
+        source: '/service-worker.js',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/javascript; charset=utf-8',
+          },
+          {
+            key: 'Cache-Control',
+            value: 'no-cache, no-store, must-revalidate',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self'; script-src 'self'",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 const withMDX = createMDX({
   options: {
-    remarkPlugins: [],
-    rehypePlugins: [],
+    remarkPlugins: [['remark-gfm', { singleTilde: false }] as any, ['remark-frontmatter'], ['remark-mdx-frontmatter']],
+    rehypePlugins: [['rehype-code-meta'] as any],
   },
 });
 
