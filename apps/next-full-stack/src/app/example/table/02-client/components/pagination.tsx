@@ -1,3 +1,4 @@
+import { format } from '@henry-hong/common-utils/number';
 import {
   Pagination,
   PaginationContent,
@@ -7,7 +8,6 @@ import {
 } from '@monorepo-starter/ui/components/pagination';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@monorepo-starter/ui/components/select';
 import { calculatePaginationRange } from '@monorepo-starter/ui/hooks/pagination';
-import { format } from '@monorepo-starter/utils/number';
 import { Table } from '@tanstack/react-table';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 

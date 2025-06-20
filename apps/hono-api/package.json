@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^9.8.0",
+    "@henry-hong/common-utils": "^0.1.8",
     "@hono/node-server": "^1.14.4",
     "@hono/zod-validator": "^0.7.0",
     "better-sqlite3": "^11.10.0",
@@ -31,7 +32,6 @@
   "devDependencies": {
     "@monorepo-starter/eslint-config": "workspace:*",
     "@monorepo-starter/typescript-config": "workspace:*",
-    "@monorepo-starter/utils": "workspace:*",
     "@types/node": "catalog:",
     "drizzle-kit": "^0.31.1",
     "tsup": "^8.5.0",

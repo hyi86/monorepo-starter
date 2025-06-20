@@ -1,6 +1,6 @@
 'use server';
 
-import { devLog } from '@monorepo-starter/utils/console';
+import { devLog } from '@henry-hong/common-utils/console';
 import { revalidatePath } from 'next/cache';
 import { getTypedPath } from '~/app-path-types';
 

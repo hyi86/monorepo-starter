@@ -1,5 +1,5 @@
+import { formatDate } from '@henry-hong/common-utils/date';
 import { Button } from '@monorepo-starter/ui/components/button';
-import { formatDate } from '@monorepo-starter/utils/date';
 import { formatDistanceToNow } from 'date-fns';
 import { revalidatePath } from 'next/cache';
 

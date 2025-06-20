@@ -1,4 +1,4 @@
-import { formatDate } from '@monorepo-starter/utils/date';
+import { formatDate } from '@henry-hong/common-utils/date';
 import { Hono } from 'hono';
 
 export const ping = new Hono().get('/', (c) => {

@@ -1,4 +1,4 @@
-import { CodeInteractivePanel } from '@monorepo-starter/ui/composites/code-editor/code-interactive-panel';
+import { CodeInteractivePanel } from '@monorepo-starter/ui/blocks/code-editor/code-interactive-panel';
 import { getCodeFromFilePath, openInEditor, saveCodeToFile } from '~/actions/cli-actions';
 import { ButtonDemo } from './button-demo';
 

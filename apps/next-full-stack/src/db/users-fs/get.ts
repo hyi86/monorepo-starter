@@ -1,5 +1,5 @@
-import { floor } from '@monorepo-starter/utils/math';
-import { sortArrayObject } from '@monorepo-starter/utils/sort';
+import { floor } from '@henry-hong/common-utils/math';
+import { sort } from 'fast-sort';
 import Fuse from 'fuse.js';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -201,13 +201,9 @@ export async function getUsers(queryParams: Partial<z.infer<typeof findUsersSche
     if (params.orderBy && params.sortDirection) {
       const orderByColumn = params.orderBy as keyof User;
       if (params.sortDirection === 'asc') {
-        resultRows = sortArrayObject(resultRows, {
-          asc: (a: User) => a[orderByColumn],
-        });
+        resultRows = sort(resultRows).by([{ asc: (a: User) => a[orderByColumn] }]);
       } else {
-        resultRows = sortArrayObject(resultRows, {
-          desc: (a: User) => a[orderByColumn],
-        });
+        resultRows = sort(resultRows).by([{ desc: (a: User) => a[orderByColumn] }]);
       }
     }
 

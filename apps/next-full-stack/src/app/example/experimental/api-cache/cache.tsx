@@ -1,5 +1,5 @@
-import { devLog } from '@monorepo-starter/utils/console';
-import { format } from '@monorepo-starter/utils/number';
+import { devLog } from '@henry-hong/common-utils/console';
+import { format } from '@henry-hong/common-utils/number';
 import parseDuration from 'parse-duration';
 import { apiHybridCache } from '~/lib/experimental-cache/api-cache';
 

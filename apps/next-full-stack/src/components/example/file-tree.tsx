@@ -1,5 +1,6 @@
 'use client';
 
+import { type TreeRoute } from '@henry-hong/common-utils/tree';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@monorepo-starter/ui/components/collapsible';
 import {
   SidebarGroup,
@@ -14,7 +15,6 @@ import {
 } from '@monorepo-starter/ui/components/sidebar';
 import { useIsMobile } from '@monorepo-starter/ui/hooks/use-mobile';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { type TreeRoute } from '@monorepo-starter/utils/tree';
 import { ChevronRight, ChevronRightCircle, CopyMinus, CopyPlus, File, Folder, FolderOpen } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';

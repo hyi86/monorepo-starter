@@ -1,4 +1,4 @@
-import { devLog } from '@monorepo-starter/utils/console';
+import { devLog } from '@henry-hong/common-utils/console';
 import { type NextRequest } from 'next/server';
 
 /**

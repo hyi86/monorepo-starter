@@ -1,3 +1,4 @@
+import { formatDate } from '@henry-hong/common-utils/date';
 import { Avatar, AvatarFallback, AvatarImage } from '@monorepo-starter/ui/components/avatar';
 import { Badge } from '@monorepo-starter/ui/components/badge';
 import { Button } from '@monorepo-starter/ui/components/button';
@@ -8,7 +9,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@monorepo-starter/ui/components/dropdown-menu';
-import { formatDate } from '@monorepo-starter/utils/date';
 import { RowData, type ColumnDef, type Row } from '@tanstack/react-table';
 import { isAfter } from 'date-fns';
 import { ArrowDownToLine, ArrowUpToLine, PinIcon, PinOffIcon } from 'lucide-react';

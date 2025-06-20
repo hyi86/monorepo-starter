@@ -1,5 +1,5 @@
-import { delay } from '@monorepo-starter/utils/fn';
-import { random } from '@monorepo-starter/utils/number';
+import { delay } from '@henry-hong/common-utils/fn';
+import { random } from '@henry-hong/common-utils/number';
 
 async function getData() {
   // 1~3초 사이 랜덤 딜레이

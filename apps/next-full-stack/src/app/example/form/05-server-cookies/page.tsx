@@ -1,6 +1,6 @@
+import { devLog } from '@henry-hong/common-utils/console';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Input } from '@monorepo-starter/ui/components/input';
-import { devLog } from '@monorepo-starter/utils/console';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { getTypedPath } from '~/app-path-types';

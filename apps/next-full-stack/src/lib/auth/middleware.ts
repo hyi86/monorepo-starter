@@ -1,5 +1,5 @@
-import { devLog } from '@monorepo-starter/utils/console';
-import { generateToken, verifyToken } from '@monorepo-starter/utils/jwt';
+import { devLog } from '@henry-hong/common-utils/console';
+import { generateToken, verifyToken } from '@henry-hong/common-utils/jwt';
 import { type NextRequest, NextResponse } from 'next/server';
 import parseDuration from 'parse-duration';
 import { env, utils } from '~/env';

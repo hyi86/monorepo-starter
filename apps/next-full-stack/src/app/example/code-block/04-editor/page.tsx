@@ -1,4 +1,4 @@
-import { CodeEditor } from '@monorepo-starter/ui/composites/code-editor/editor';
+import { CodeEditor } from '@monorepo-starter/ui/blocks/code-editor/editor';
 
 const code =
   `

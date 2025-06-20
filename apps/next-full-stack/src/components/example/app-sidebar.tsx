@@ -1,3 +1,4 @@
+import { buildTree, getAllFolderPaths } from '@henry-hong/common-utils/tree';
 import {
   Sidebar,
   SidebarContent,
@@ -6,7 +7,6 @@ import {
   SidebarMenuButton,
   SidebarRail,
 } from '@monorepo-starter/ui/components/sidebar';
-import { buildTree, getAllFolderPaths } from '@monorepo-starter/utils/tree';
 import { NotebookPen } from 'lucide-react';
 import Link from 'next/link';
 import { appPathRoutes } from '~/app-path-types';

@@ -1,4 +1,4 @@
-import { transformers } from '@monorepo-starter/ui/composites/code-highlight/options';
+import { transformers } from '@monorepo-starter/ui/blocks/code-highlight/options';
 import { toJsxRuntime } from 'hast-util-to-jsx-runtime';
 import { Fragment, type JSX } from 'react';
 import { jsx, jsxs } from 'react/jsx-runtime';

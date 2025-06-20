@@ -1,4 +1,4 @@
-import { format } from '@monorepo-starter/utils/number';
+import { format } from '@henry-hong/common-utils/number';
 import { generateRandomData } from '~/lib/faker/utils';
 import FixedRow from './row';
 

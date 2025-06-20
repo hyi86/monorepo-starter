@@ -24,13 +24,6 @@
 
 ### In-house Implementations
 
-- `CLI`
-  - [`Devtools`](./packages/devtools/src/index.ts):
-    개발 모드에서, **접근가능한 모든 링크** 와 **타입 안전한 국제화 파일** 을 자동으로 생성하는 `CLI Program`.
-  - [`Import Analyzer`](./packages/import-analyzer/src/index.ts):
-    프로젝트 내부의 의존성 분석 및 외부 의존성 분석을 위한 `CLI`.
-  - [`Markdown Runner`](./packages/markdown-runner/src/index.ts):
-    Markdown 파일의 명령을 실행하는 `CLI`.
 - [`Hybrid API Cache`](./apps/next-full-stack/src/lib/experimental-cache/api-cache.ts): 
   `File System`과 `Local SQLite DB`를 기반으로 하는 **Custom API Data Cache** 구현.
 - [`Large File Uploader`](./apps/next-full-stack/src/app/example/experimental/file-upload/page.tsx): 
@@ -76,14 +69,13 @@
   - 🪄 **Dummy Data Generation**: [`faker.js`](https://fakerjs.dev)
   - 📝 **Route Exploration & AST Structure Analysis**: [`ts-morph`](https://ts-morph.com)
 
-
 <br />
 
 ## 🚀 Getting Started
 
 ```bash
 git clone https://github.com/hyi86/monorepo-starter.git
-cd base
+cd monorepo-starter
 make init
 pnpm dev
 ```

@@ -1,6 +1,6 @@
 'use client';
 
-import { highlight } from '@monorepo-starter/ui/composites/code-highlight/highlight-jsx';
+import { highlight } from '@monorepo-starter/ui/blocks/code-highlight/highlight-jsx';
 import { JSX, useLayoutEffect, useState } from 'react';
 
 export default function CodeBlock({ initial }: { initial?: JSX.Element }) {

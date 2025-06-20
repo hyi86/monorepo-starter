@@ -1,4 +1,4 @@
-import { formatDate } from '@monorepo-starter/utils/date';
+import { formatDate } from '@henry-hong/common-utils/date';
 import { formatDistanceToNow } from 'date-fns';
 
 export default async function DataCacheDisabledPage() {

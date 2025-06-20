@@ -1,6 +1,6 @@
+import { formatDate } from '@henry-hong/common-utils/date';
 import { ScrollArea, ScrollBar } from '@monorepo-starter/ui/components/scroll-area';
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@monorepo-starter/ui/components/table';
-import { formatDate } from '@monorepo-starter/utils/date';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import { SearchParams } from 'nuqs/server';

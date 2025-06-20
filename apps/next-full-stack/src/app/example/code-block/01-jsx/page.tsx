@@ -1,4 +1,4 @@
-import { highlight } from '@monorepo-starter/ui/composites/code-highlight/highlight-jsx';
+import { highlight } from '@monorepo-starter/ui/blocks/code-highlight/highlight-jsx';
 import CodeBlock from './client';
 
 export default async function Page() {

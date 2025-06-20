@@ -31,7 +31,6 @@ if [ "$SELECTED" == "hono" ]; then
   pnpm pkg set devDependencies.typescript="catalog:"
   pnpm install
 
-  pnpm add --workspace @monorepo-starter/utils
   pnpm add --workspace -D @monorepo-starter/eslint-config @monorepo-starter/typescript-config
 
   echo "$(color.success "Created $INPUT")"
@@ -65,7 +64,7 @@ if [ "$SELECTED" == "next" ]; then
   pnpm pkg set devDependencies.tailwindcss="catalog:"
   pnpm pkg set devDependencies.typescript="catalog:"
   # add production workspace dependencies
-  pnpm add --workspace @monorepo-starter/ui @monorepo-starter/utils
+  pnpm add --workspace @monorepo-starter/ui
   # add devDependencies workspace dependencies
   pnpm add -D --workspace @monorepo-starter/eslint-config @monorepo-starter/typescript-config
 
@@ -109,7 +108,7 @@ import type { NextConfig } from 'next';
  * @see {@link https://nextjs.org/docs/app/api-reference/config/next-config-js NextConfig}
  */
 const nextConfig: NextConfig = {
-  transpilePackages: ['@monorepo-starter/utils', '@monorepo-starter/ui'],
+  transpilePackages: ['@monorepo-starter/ui'],
 };
 
 export default nextConfig;

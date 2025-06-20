@@ -48,7 +48,7 @@ const nextConfig: NextConfig = {
    * ESM만 지원하거나 TypeScript로 작성된 패키지, 또는 모노레포 구조에서의 로컬 패키지 등에 사용
    * @see {@link https://nextjs.org/docs/app/api-reference/config/next-config-js/transpilePackages Next.js 공식 문서}
    */
-  transpilePackages: ['@monorepo-starter/utils', '@monorepo-starter/ui', '@t3-oss/env-nextjs', '@t3-oss/env-core'],
+  transpilePackages: ['@monorepo-starter/ui', '@t3-oss/env-nextjs', '@t3-oss/env-core'],
   experimental: {
     /**
      * 클라이언트 사이드에서 사용하지 않는 모듈을 제거하여 번들 크기를 줄이고 성능을 최적화

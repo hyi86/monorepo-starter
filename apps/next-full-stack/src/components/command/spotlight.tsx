@@ -1,5 +1,6 @@
 'use client';
 
+import { CodeEditor } from '@monorepo-starter/ui/blocks/code-editor/editor';
 import {
   Command,
   CommandEmpty,
@@ -18,9 +19,8 @@ import {
   DialogTitle,
 } from '@monorepo-starter/ui/components/dialog';
 import { ScrollArea, ScrollBar } from '@monorepo-starter/ui/components/scroll-area';
-import { CodeEditor } from '@monorepo-starter/ui/composites/code-editor/editor';
 import { copyToClipboard } from '@monorepo-starter/ui/hooks/copy-clipboard';
-import { changeCase } from '@monorepo-starter/utils/string';
+import { trainCase } from 'change-case';
 import { ChevronRight, InfoIcon, MoonIcon, Sidebar, SunIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { usePathname, useRouter } from 'next/navigation';
@@ -193,7 +193,7 @@ export function Spotlight() {
                           <span className="size-3.5">
                             <ChevronRight className="!size-3.5" strokeWidth={2} />
                           </span>
-                          <span className="text-foreground">{changeCase.trainCase(result.name || '')}</span>
+                          <span className="text-foreground">{trainCase(result.name || '')}</span>
                         </CommandItem>
                       );
                     })}

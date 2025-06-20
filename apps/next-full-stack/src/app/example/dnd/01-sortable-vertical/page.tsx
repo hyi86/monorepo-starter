@@ -1,8 +1,8 @@
 'use client';
 
+import { Sortable } from '@monorepo-starter/ui/blocks/dnd/sortable';
+import { SortableItem } from '@monorepo-starter/ui/blocks/dnd/sortable-item';
 import { ScrollArea } from '@monorepo-starter/ui/components/scroll-area';
-import { Sortable } from '@monorepo-starter/ui/composites/dnd/sortable';
-import { SortableItem } from '@monorepo-starter/ui/composites/dnd/sortable-item';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { useEffect, useState } from 'react';
 import { generateRandomData } from '~/lib/faker/utils';

@@ -1,4 +1,4 @@
-import { transformers } from '@monorepo-starter/ui/composites/code-highlight/options';
+import { transformers } from '@monorepo-starter/ui/blocks/code-highlight/options';
 import { type BundledLanguage, BundledTheme, CodeOptionsSingleTheme, CodeToHastOptions, codeToHtml } from 'shiki';
 
 /**

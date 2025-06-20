@@ -1,5 +1,5 @@
-import { formatDate } from '@monorepo-starter/utils/date';
-import { romanizedSurnames } from '@monorepo-starter/utils/string';
+import { formatDate } from '@henry-hong/common-utils/date';
+import { romanizedSurnames } from '@henry-hong/common-utils/string';
 import { generator } from '~/lib/faker/utils';
 
 // date to unix epoch

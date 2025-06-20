@@ -1,5 +1,7 @@
 'use client';
 
+import { CodeEditor } from '@monorepo-starter/ui/blocks/code-editor/editor';
+import { highlight } from '@monorepo-starter/ui/blocks/code-highlight/highlight-jsx';
 import { Button } from '@monorepo-starter/ui/components/button';
 import {
   Dialog,
@@ -11,8 +13,6 @@ import {
 } from '@monorepo-starter/ui/components/dialog';
 import { ScrollArea, ScrollBar } from '@monorepo-starter/ui/components/scroll-area';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@monorepo-starter/ui/components/tooltip';
-import { CodeEditor } from '@monorepo-starter/ui/composites/code-editor/editor';
-import { highlight } from '@monorepo-starter/ui/composites/code-highlight/highlight-jsx';
 import { copyToClipboard } from '@monorepo-starter/ui/hooks/copy-clipboard';
 import { Check, Copy, FileCode2, FileTerminal, Loader2, SquarePen } from 'lucide-react';
 import { useTheme } from 'next-themes';

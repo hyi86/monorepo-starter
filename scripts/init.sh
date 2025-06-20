@@ -39,7 +39,3 @@ if [ -d "apps/next-full-stack" ]; then
   cd ../..
 fi
 
-# ------------------------------------------------------------
-# build 
-# ------------------------------------------------------------
-pnpm --filter @monorepo-starter/utils run build
