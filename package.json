@@ -1,6 +1,6 @@
 {
   "name": "monorepo-starter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "A modern, production-ready pnpm & turborepo monorepo starter",
   "repository": "https://github.com/hyi86/monorepo-starter.git",
