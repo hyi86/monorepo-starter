@@ -1,9 +1,9 @@
 import { Toaster } from '@monorepo-starter/ui/components/sonner';
-import '@monorepo-starter/ui/github-markdown.css';
 import { Viewport, type Metadata } from 'next';
 import { ThemeProvider } from 'next-themes';
 import localFont from 'next/font/local';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import { ComponentInfoPanel } from '~/components/command/component-info-panel';
 import { Spotlight } from '~/components/command/spotlight';
 import { UploaderStoreProvider } from '~/lib/experimental-upload/uploader-store-provider';
 import { getLocale } from '~/lib/i18n/locale';
@@ -51,6 +51,7 @@ export default async function RootLayout({
                 <WebPushProvider>
                   {children}
                   <Spotlight />
+                  <ComponentInfoPanel />
                 </WebPushProvider>
               </UploaderStoreProvider>
             </TanstackQueryProvider>

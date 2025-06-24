@@ -1,6 +1,6 @@
 'use client';
 
-import { CodeEditor } from '@monorepo-starter/ui/blocks/code-editor/editor';
+import { CodeEditorWithoutState } from '@monorepo-starter/ui/blocks/code-editor/editor-without-state';
 import {
   Dialog,
   DialogContent,
@@ -13,7 +13,7 @@ import { copyToClipboard } from '@monorepo-starter/ui/hooks/copy-clipboard';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import { getCodeFromFilePath, openInEditor, saveCodeToFile } from '~/actions/cli-actions';
+import { getCodeFromFile, openInEditor, saveCodeToFile } from '~/actions/cli-actions';
 import { appPathRoutes } from '~/app-path-types';
 import { ComponentHierarchy } from './component-hierarchy';
 
@@ -23,18 +23,19 @@ export function ComponentInfoPanel() {
 
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
   const [sourceCode, setSourceCode] = useState('');
+  const [language, setLanguage] = useState<'typescript' | 'javascript' | 'json' | 'yaml' | 'mdx'>('typescript');
 
   const pathname = usePathname();
   const currentRouteStructure = appPathRoutes.find((route) => route.href === pathname);
 
-  // IDE 열기
+  // 사용중인 IDE로 코드 열기
   const handleOpenInIde = (path: string) => () => {
     openInEditor(path);
   };
 
   // 웹에디터 모달 열기
   const handleOpenInWebEditor = (path: string) => async () => {
-    const code = await getCodeFromFilePath(path);
+    const code = await getCodeFromFile(path);
     if (!code) return;
 
     setSelectedPath(path);
@@ -50,7 +51,7 @@ export function ComponentInfoPanel() {
 
   // 소스코드 복사
   const handleCopyToClipboardSourceCode = (path: string) => async () => {
-    const code = await getCodeFromFilePath(path);
+    const code = await getCodeFromFile(path);
     if (!code) return;
 
     copyToClipboard(code);
@@ -58,9 +59,12 @@ export function ComponentInfoPanel() {
   };
 
   // 코드 수정 저장
-  const handleSaveCode = () => {
+  const handleSaveCode = async () => {
     if (!selectedPath) return;
-    saveCodeToFile(selectedPath, sourceCode);
+    await saveCodeToFile(selectedPath, sourceCode);
+    toast.success('Source code saved', { duration: 1000 });
+    const code = await getCodeFromFile(selectedPath);
+    setSourceCode(code || '');
   };
 
   // 명령어 키 이벤트 핸들러
@@ -94,7 +98,24 @@ export function ComponentInfoPanel() {
 
     document.addEventListener('keydown', down);
     return () => document.removeEventListener('keydown', down);
-  }, [openCodeEditor]);
+  }, [openComponentInfoPanel, openCodeEditor, handleSaveCode]);
+
+  useEffect(() => {
+    if (selectedPath) {
+      const language = selectedPath.split('.').pop();
+      if (language === 'tsx') {
+        setLanguage('typescript');
+      } else if (language === 'jsx') {
+        setLanguage('javascript');
+      } else if (language === 'json') {
+        setLanguage('json');
+      } else if (language === 'yaml') {
+        setLanguage('yaml');
+      } else if (language === 'mdx') {
+        setLanguage('mdx');
+      }
+    }
+  }, [selectedPath]);
 
   return (
     <>
@@ -140,9 +161,7 @@ export function ComponentInfoPanel() {
             <DialogTitle className="font-mono">{selectedPath}</DialogTitle>
             <DialogDescription>코드 수정 후 Ctrl + S 입력하면 저장됩니다</DialogDescription>
           </DialogHeader>
-          <CodeEditor language="typescript" onChange={setSourceCode}>
-            {sourceCode}
-          </CodeEditor>
+          <CodeEditorWithoutState language={language} code={sourceCode} setCode={setSourceCode} />
         </DialogContent>
       </Dialog>
     </>

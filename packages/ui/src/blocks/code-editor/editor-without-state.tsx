@@ -3,29 +3,28 @@
 import { Editor, Monaco, type OnChange, type OnMount } from '@monaco-editor/react';
 import { emmetJSX } from 'emmet-monaco-es';
 import { Loader2 } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { type Dispatch, type SetStateAction, useRef } from 'react';
 
 type Props = {
-  language: 'typescript' | 'javascript' | 'json' | 'yaml';
-  children: string;
-  onChange?: (value: string) => void;
+  language: 'typescript' | 'javascript' | 'json' | 'yaml' | 'mdx';
   theme?: 'light' | 'vs-dark';
   width?: string | number;
   height?: string | number;
+  code: string;
+  setCode: Dispatch<SetStateAction<string>>;
 };
 
 /**
  * Monaco 코드 에디터
  */
-export function CodeEditor({
+export function CodeEditorWithoutState({
   language,
-  children,
   theme = 'vs-dark',
   height = '600px',
   width = '100%',
-  onChange,
+  code,
+  setCode,
 }: Props) {
-  const [code, setCode] = useState(children);
   const monacoRef = useRef<Monaco>(null);
 
   // monaco 에디터 설정 세팅
@@ -73,9 +72,6 @@ export function CodeEditor({
   // 코드 변경 이벤트 핸들러
   const handleOnChange: OnChange = (value = '') => {
     setCode(value);
-    if (onChange) {
-      onChange(value);
-    }
   };
 
   return (

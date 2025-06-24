@@ -1,5 +1,5 @@
 import { CodeInteractivePanel } from '@monorepo-starter/ui/blocks/code-editor/code-interactive-panel';
-import { getCodeFromFilePath, openInEditor, saveCodeToFile } from '~/actions/cli-actions';
+import { getCodeFromFile, openInEditor, saveCodeToFile } from '~/actions/cli-actions';
 import { ButtonDemo } from './button-demo';
 
 export default async function CodePage() {
@@ -22,7 +22,7 @@ export default async function CodePage() {
         <CodeInteractivePanel
           filePath="src/app/example/code-block/05-editor-fs/button-demo.tsx"
           Component={<ButtonDemo />}
-          getCodeFromFilePath={getCodeFromFilePath}
+          getCodeFromFilePath={getCodeFromFile}
           openInEditor={openInEditor}
           saveCodeToFile={saveCodeToFile}
         />
@@ -33,7 +33,7 @@ export default async function CodePage() {
         <CodeInteractivePanel
           filePath="src/app/example/code-block/05-editor-fs/radio-group-demo.tsx"
           Component={<p>This is radio group demo</p>}
-          getCodeFromFilePath={getCodeFromFilePath}
+          getCodeFromFilePath={getCodeFromFile}
           openInEditor={openInEditor}
           saveCodeToFile={saveCodeToFile}
         />

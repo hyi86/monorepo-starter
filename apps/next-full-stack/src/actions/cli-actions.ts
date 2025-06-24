@@ -10,26 +10,55 @@ import tar from 'tar-stream';
 import { env } from '~/env';
 
 /**
+ * 코드 가져오기
+ * development: local file
+ * production: in tar.gz file
+ */
+export async function getCodeFromFile(filePath: string) {
+  if (process.env.NODE_ENV !== 'development') {
+    const archivePath = path.join(process.cwd(), 'public', 'source-codes.tar.gz');
+    const fullFilePath = path.join('apps/next-full-stack/', filePath);
+
+    const code = await readFileFromTarGz(archivePath, fullFilePath);
+    return code || '';
+  }
+
+  try {
+    fs.accessSync(filePath, fs.constants.R_OK);
+    const code = fs.readFileSync(filePath, 'utf-8');
+    return code;
+  } catch (error) {
+    devLog('error', error);
+    return '';
+  }
+}
+
+/**
  * ⚠️ development only
  * 코드 저장
  */
-export async function saveCodeToFile(fileName: string, code: string) {
+export async function saveCodeToFile(filePath: string, code: string) {
   if (process.env.NODE_ENV !== 'development') {
     return;
   }
 
-  if (fileName.startsWith('~/')) {
-    fileName = fileName.replace('~/', './src/');
-  }
-
   try {
-    const dirName = path.dirname(fileName);
-    if (!fs.existsSync(dirName)) {
-      fs.mkdirSync(dirName, { recursive: true });
+    fs.accessSync(filePath, fs.constants.W_OK);
+    const prettier = await import('prettier');
+    const extension = path.extname(filePath);
+    let parser = 'typescript';
+    if (extension === '.jsx') {
+      parser = 'javascript';
+    } else if (extension === '.json') {
+      parser = 'json';
+    } else if (extension === '.yaml') {
+      parser = 'yaml';
+    } else if (extension === '.mdx') {
+      parser = 'mdx';
     }
-    fs.rmSync(fileName, { recursive: true, force: true });
-    fs.writeFileSync(fileName, code, 'utf-8');
-    devLog('success', 'saveCodeToFile', fileName);
+
+    const formattedCode = await prettier.format(code, { parser, printWidth: 120, singleQuote: true });
+    fs.writeFileSync(filePath, formattedCode, 'utf-8');
   } catch (error) {
     console.log(error);
     devLog('error', error);
@@ -37,41 +66,16 @@ export async function saveCodeToFile(fileName: string, code: string) {
 }
 
 /**
- * 코드 가져오기
- */
-export async function getCodeFromFilePath(fileName: string) {
-  if (fileName.startsWith('~/')) {
-    fileName = fileName.replace('~/', 'src/');
-  }
-
-  if (process.env.NODE_ENV !== 'development') {
-    try {
-      fs.accessSync(fileName, fs.constants.R_OK);
-      const code = fs.readFileSync(fileName, 'utf-8');
-      return code;
-    } catch (error) {
-      devLog('error', error);
-    }
-  }
-
-  const archivePath = path.join(process.cwd(), 'public', 'source-codes.tar.gz');
-  const fullFilePath = path.join('apps/next-full-stack/', fileName);
-
-  const code = await readFileFromTarGz(archivePath, fullFilePath);
-  return code || '';
-}
-
-/**
  * ⚠️ development only
  * 코드 편집기 열기
  */
-export async function openInEditor(fileName: string) {
+export async function openInEditor(filePath: string) {
   if (process.env.NODE_ENV !== 'development') {
     return;
   }
 
   try {
-    execSync(openInEditorCommand(env.CODE_EDITOR, fileName, 1));
+    execSync(openInEditorCommand(env.CODE_EDITOR, filePath, 1));
   } catch (error) {
     devLog('error', error);
   }
@@ -84,8 +88,6 @@ function readFileFromTarGz(tarGzPath: string, targetFilePath: string) {
   return new Promise<string>((resolve, reject) => {
     const extract = tar.extract();
     let found = false;
-
-    console.log(targetFilePath);
 
     extract.on('entry', (header, stream, next) => {
       if (header.name === targetFilePath) {
