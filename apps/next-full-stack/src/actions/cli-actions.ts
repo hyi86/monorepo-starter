@@ -23,9 +23,15 @@ export async function saveCodeToFile(fileName: string, code: string) {
   }
 
   try {
-    fs.accessSync(fileName, fs.constants.W_OK); // 쓰기 가능한 파일인지 확인
+    const dirName = path.dirname(fileName);
+    if (!fs.existsSync(dirName)) {
+      fs.mkdirSync(dirName, { recursive: true });
+    }
+    fs.rmSync(fileName, { recursive: true, force: true });
     fs.writeFileSync(fileName, code, 'utf-8');
+    devLog('success', 'saveCodeToFile', fileName);
   } catch (error) {
+    console.log(error);
     devLog('error', error);
   }
 }
@@ -36,6 +42,16 @@ export async function saveCodeToFile(fileName: string, code: string) {
 export async function getCodeFromFilePath(fileName: string) {
   if (fileName.startsWith('~/')) {
     fileName = fileName.replace('~/', 'src/');
+  }
+
+  if (process.env.NODE_ENV !== 'development') {
+    try {
+      fs.accessSync(fileName, fs.constants.R_OK);
+      const code = fs.readFileSync(fileName, 'utf-8');
+      return code;
+    } catch (error) {
+      devLog('error', error);
+    }
   }
 
   const archivePath = path.join(process.cwd(), 'public', 'source-codes.tar.gz');
