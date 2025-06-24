@@ -56,6 +56,8 @@
   [`TanStack Query`](https://tanstack.com/query/latest), [`Zustand`](https://zustand-demo.pmnd.rs), [`Nuqs`](https://nuqs.47ng.com) 등 라이브러리를 활용, `Client`와 `Server` 환경 모두에서 효율적인 데이터 패칭과 상태 관리를 지원합니다.
 - 🖍️ **Code Blocks**: 
   [`Shiki`](https://shiki.style)를 이용한 Code highlighting 과 [`Monaco Editor`](https://github.com/microsoft/monaco-editor)를 통한 Real-time Code Editing 기능을 제공합니다.
+- 📝 **WYSIWYG Editor**: 
+  [`Tiptap`](https://tiptap.dev)을 활용한 실시간 에디터를 제공합니다.
 - 📦 **Others**:
   - 🛟 **Env**: [`t3-env`](https://env.t3.gg)
   - 📄 **Logging**: [`pino`](https://getpino.io)
