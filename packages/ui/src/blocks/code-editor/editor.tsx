@@ -6,7 +6,7 @@ import { Loader2 } from 'lucide-react';
 import { useRef, useState } from 'react';
 
 type Props = {
-  language: 'typescript' | 'javascript' | 'json' | 'yaml';
+  language: 'typescript' | 'javascript' | 'json' | 'yaml' | 'html';
   children: string;
   onChange?: (value: string) => void;
   theme?: 'light' | 'vs-dark';

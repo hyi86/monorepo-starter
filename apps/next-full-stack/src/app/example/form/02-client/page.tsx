@@ -29,7 +29,9 @@ export default function ServerActionClientPage() {
           <Label htmlFor="input1">Simple input</Label>
           <Input id="input1" placeholder="Text input" name="textInput1" />
           <p className="text-destructive mt-2 text-xs" role="alert" aria-live="polite">
-            {state?.textInput1?.map((error, index) => <span key={index}>{error}</span>)}
+            {state?.textInput1?.map((error, index) => (
+              <span key={index}>{error}</span>
+            ))}
           </p>
         </div>
 
@@ -37,7 +39,9 @@ export default function ServerActionClientPage() {
           <Label htmlFor="input2">Number input</Label>
           <Input placeholder="Number" type="number" inputMode="numeric" name="numberInput1" />
           <p className="text-destructive mt-2 text-xs" role="alert" aria-live="polite">
-            {state?.numberInput1?.map((error, index) => <span key={index}>{error}</span>)}
+            {state?.numberInput1?.map((error, index) => (
+              <span key={index}>{error}</span>
+            ))}
           </p>
         </div>
 
@@ -47,7 +51,9 @@ export default function ServerActionClientPage() {
             <Label htmlFor="checkbox1">Checkbox 1</Label>
           </div>
           <p className="text-destructive mt-2 w-full text-xs" role="alert" aria-live="polite">
-            {state?.checkbox1?.map((error, index) => <span key={index}>{error}</span>)}
+            {state?.checkbox1?.map((error, index) => (
+              <span key={index}>{error}</span>
+            ))}
           </p>
         </div>
 
@@ -69,7 +75,9 @@ export default function ServerActionClientPage() {
             <Label htmlFor="radio_value4">Option 4</Label>
           </div>
           <p className="text-destructive mt-2 w-full text-xs" role="alert" aria-live="polite">
-            {state?.radio1?.map((error, index) => <span key={index}>{error}</span>)}
+            {state?.radio1?.map((error, index) => (
+              <span key={index}>{error}</span>
+            ))}
           </p>
         </RadioGroup>
 
@@ -82,7 +90,9 @@ export default function ServerActionClientPage() {
             <option value="4">Gatsby</option>
           </SelectNative>
           <p className="text-destructive mt-2 w-full text-xs" role="alert" aria-live="polite">
-            {state?.nativeSelect1?.map((error, index) => <span key={index}>{error}</span>)}
+            {state?.nativeSelect1?.map((error, index) => (
+              <span key={index}>{error}</span>
+            ))}
           </p>
         </div>
 
@@ -99,7 +109,9 @@ export default function ServerActionClientPage() {
               <SelectItem value="gatsby">Gatsby</SelectItem>
             </SelectContent>
             <p className="text-destructive mt-2 w-full text-xs" role="alert" aria-live="polite">
-              {state?.select2?.map((error, index) => <span key={index}>{error}</span>)}
+              {state?.select2?.map((error, index) => (
+                <span key={index}>{error}</span>
+              ))}
             </p>
           </Select>
         </div>
@@ -108,7 +120,9 @@ export default function ServerActionClientPage() {
           <Label>Simple slider</Label>
           <Slider name="slider1" defaultValue={[25]} aria-label="Simple slider" />
           <p className="text-destructive mt-2 w-full text-xs" role="alert" aria-live="polite">
-            {state?.slider1?.map((error, index) => <span key={index}>{error}</span>)}
+            {state?.slider1?.map((error, index) => (
+              <span key={index}>{error}</span>
+            ))}
           </p>
         </div>
 
@@ -120,7 +134,9 @@ export default function ServerActionClientPage() {
             </Label>
           </div>
           <p className="text-destructive mt-2 w-full text-xs" role="alert" aria-live="polite">
-            {state?.switch1?.map((error, index) => <span key={index}>{error}</span>)}
+            {state?.switch1?.map((error, index) => (
+              <span key={index}>{error}</span>
+            ))}
           </p>
         </div>
 
