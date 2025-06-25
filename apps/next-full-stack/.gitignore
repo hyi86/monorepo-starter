@@ -50,8 +50,7 @@ node_modules/
 # etc
 /logs/*.log
 /database/*.db
-/upload/*
-!/upload/.gitkeep
+/public/upload/*
 !.env.example
 .cache/
 .env*.local
