@@ -43,10 +43,3 @@ export async function uploadImages(files: File[]) {
 
   return uploadedFiles;
 }
-
-export async function insertImages(name: string, url: string) {
-  return {
-    type: 'image',
-    attrs: { src: url, alt: name },
-  };
-}

@@ -216,6 +216,9 @@ importers:
       '@tiptap/extension-file-handler':
         specifier: ^2.22.3
         version: 2.22.3(@tiptap/core@2.22.3(@tiptap/pm@2.22.3))(@tiptap/extension-text-style@2.22.3(@tiptap/core@2.22.3(@tiptap/pm@2.22.3)))
+      '@tiptap/extension-gapcursor':
+        specifier: ^2.22.3
+        version: 2.22.3(@tiptap/core@2.22.3(@tiptap/pm@2.22.3))(@tiptap/pm@2.22.3)
       '@tiptap/extension-hard-break':
         specifier: ^2.22.3
         version: 2.22.3(@tiptap/core@2.22.3(@tiptap/pm@2.22.3))
@@ -262,6 +265,9 @@ importers:
         specifier: ^2.22.3
         version: 2.22.3(@tiptap/core@2.22.3(@tiptap/pm@2.22.3))
       '@tiptap/extension-underline':
+        specifier: ^2.22.3
+        version: 2.22.3(@tiptap/core@2.22.3(@tiptap/pm@2.22.3))
+      '@tiptap/extension-youtube':
         specifier: ^2.22.3
         version: 2.22.3(@tiptap/core@2.22.3(@tiptap/pm@2.22.3))
       '@tiptap/pm':
@@ -2984,6 +2990,11 @@ packages:
 
   '@tiptap/extension-underline@2.22.3':
     resolution: {integrity: sha512-floLjh1UbQ2pKgdwfw7qCAJ5VojvH1uqj7xW2RCv79aWYUuJCPD6UBpaBOt/jv7gXDJJ9EeV3m2Hga49CXBrEQ==}
+    peerDependencies:
+      '@tiptap/core': ^2.7.0
+
+  '@tiptap/extension-youtube@2.22.3':
+    resolution: {integrity: sha512-H4NFLa/xQ/ckofJ7Uh8AlnTyorfus9R4g3Q/+Uz+nHPCpX3OPAhZnBRIbcrOzJGEqR5Ys08nrX0wwAbBzXcmOA==}
     peerDependencies:
       '@tiptap/core': ^2.7.0
 
@@ -8954,6 +8965,10 @@ snapshots:
       '@tiptap/core': 2.22.3(@tiptap/pm@2.22.3)
 
   '@tiptap/extension-underline@2.22.3(@tiptap/core@2.22.3(@tiptap/pm@2.22.3))':
+    dependencies:
+      '@tiptap/core': 2.22.3(@tiptap/pm@2.22.3)
+
+  '@tiptap/extension-youtube@2.22.3(@tiptap/core@2.22.3(@tiptap/pm@2.22.3))':
     dependencies:
       '@tiptap/core': 2.22.3(@tiptap/pm@2.22.3)
 

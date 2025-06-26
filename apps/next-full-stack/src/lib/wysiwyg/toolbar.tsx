@@ -41,17 +41,20 @@ import {
   QuoteIcon,
   Redo2Icon,
   SaveIcon,
+  SeparatorHorizontalIcon,
   StrikethroughIcon,
   SubscriptIcon,
   SuperscriptIcon,
   TrashIcon,
   UnderlineIcon,
   Undo2Icon,
+  VideoIcon,
 } from 'lucide-react';
 import { useState } from 'react';
 
 export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Editor; isBubbleMenu?: boolean }) {
   const [linkUrl, setLinkUrl] = useState('');
+  const [youtubeUrl, setYoutubeUrl] = useState('');
   const colors = {
     red: '#f94d4d',
     orange: '#e86d00',
@@ -217,6 +220,21 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
     editor.chain().focus().toggleSuperscript().run();
   };
 
+  // set horizontal rule
+  const handleSetHorizontalRule = () => {
+    editor.chain().focus().setHorizontalRule().run();
+  };
+
+  // add youtube
+  const handleAddYoutube = () => {
+    editor.commands.setYoutubeVideo({
+      src: youtubeUrl,
+      width: 640,
+      height: 480,
+    });
+    setYoutubeUrl('');
+  };
+
   if (!editor) return null;
 
   return (
@@ -359,6 +377,41 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
         </PopoverContent>
       </Popover>
 
+      <Popover>
+        <PopoverTrigger asChild>
+          <Toggle pressed={editor.isActive('youtube')}>
+            <VideoIcon className="size-4" />
+            <ChevronDownIcon className="size-3 opacity-50" />
+          </Toggle>
+        </PopoverTrigger>
+        <PopoverContent
+          align="start"
+          side="bottom"
+          sideOffset={3}
+          alignOffset={-172}
+          className="flex flex-col items-start gap-4"
+        >
+          <Input
+            type="text"
+            placeholder="영상 링크 입력"
+            className="w-full"
+            value={youtubeUrl}
+            onChange={(e) => setYoutubeUrl(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && youtubeUrl.trim().length > 0) {
+                handleAddYoutube();
+                e.preventDefault();
+              }
+            }}
+          />
+          <div className="flex w-full items-center justify-end gap-2">
+            <Button variant="outline" size="sm" disabled={youtubeUrl.trim().length < 1} onClick={handleAddYoutube}>
+              <SaveIcon className="size-4" /> 저장
+            </Button>
+          </div>
+        </PopoverContent>
+      </Popover>
+
       {/* Color Popover */}
       <Popover>
         <PopoverTrigger asChild>
@@ -419,6 +472,10 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
       <Toggle pressed={editor.isActive('superscript')} onPressedChange={handleToggleSuperscript}>
         <SuperscriptIcon className="size-4" />
       </Toggle>
+
+      <Button variant="outline" onClick={handleSetHorizontalRule}>
+        <SeparatorHorizontalIcon className="size-4" />
+      </Button>
     </div>
   );
 }
