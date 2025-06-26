@@ -1,12 +1,12 @@
 'use client';
 
 import { Skeleton } from '@monorepo-starter/ui/components/skeleton';
-import { EditorContent, useEditor } from '@tiptap/react';
+import { BubbleMenu, EditorContent, useEditor } from '@tiptap/react';
 import { useState } from 'react';
 import { extensions } from '~/lib/wysiwyg/extensions';
 import { WysiwygToolbar } from '~/lib/wysiwyg/toolbar';
 
-export default function WysiwygBasicPage() {
+export default function WysiwygBubbleMenuPage() {
   const [content, setContent] = useState('');
 
   const editor = useEditor({
@@ -35,7 +35,13 @@ export default function WysiwygBasicPage() {
 
   return (
     <div>
-      <WysiwygToolbar editor={editor} />
+      <BubbleMenu
+        editor={editor}
+        tippyOptions={{ duration: 100, placement: 'bottom-start', maxWidth: 600 }}
+        className="bg-background"
+      >
+        <WysiwygToolbar editor={editor} isBubbleMenu />
+      </BubbleMenu>
       <EditorContent editor={editor} />
     </div>
   );

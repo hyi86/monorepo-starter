@@ -75,8 +75,7 @@ export type StaticPath =
   | '/example/virtual/11-sortable-column'
   | '/example/virtual/12-with-parallel-route'
   | '/example/wysiwyg/01-basic'
-  | '/example/wysiwyg/02-toolbar'
-  | '/example/wysiwyg/03-bubble-menu'
+  | '/example/wysiwyg/02-bubble-menu'
   | '/signin';
 
 export type TypedRoute = LiteralUnion<
@@ -2401,11 +2400,11 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
-    href: '/example/wysiwyg/02-toolbar',
-    linkTypes: '/example/wysiwyg/02-toolbar',
+    href: '/example/wysiwyg/02-bubble-menu',
+    linkTypes: '/example/wysiwyg/02-bubble-menu',
     isParallelRoute: false,
     isDynamicRoute: false,
-    files: ['src/app/example/wysiwyg/02-toolbar/page.tsx'],
+    files: ['src/app/example/wysiwyg/02-bubble-menu/page.tsx'],
     structures: [
       {
         path: 'src/app/layout.tsx',
@@ -2414,30 +2413,7 @@ export const appPathRoutes: AppPathRoutes[] = [
             path: 'src/app/example/layout.tsx',
             children: [
               {
-                path: 'src/app/example/wysiwyg/02-toolbar/page.tsx',
-                children: [],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    href: '/example/wysiwyg/03-bubble-menu',
-    linkTypes: '/example/wysiwyg/03-bubble-menu',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/wysiwyg/03-bubble-menu/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/wysiwyg/03-bubble-menu/page.tsx',
+                path: 'src/app/example/wysiwyg/02-bubble-menu/page.tsx',
                 children: [],
               },
             ],

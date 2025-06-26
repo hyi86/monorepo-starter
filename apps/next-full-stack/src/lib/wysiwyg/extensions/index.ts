@@ -14,7 +14,7 @@ import CodeBlockShiki from 'tiptap-extension-code-block-shiki';
 import { ImageResize } from 'tiptap-extension-resize-image';
 import Selection from './selection-extension';
 import TrailingNode from './trailing-node-extension';
-import { uploadImages } from './upload-images';
+import { insertImages, uploadImages } from './upload-images';
 
 export const extensions = [
   StarterKit.configure({
@@ -41,21 +41,10 @@ export const extensions = [
   CodeBlockShiki.configure({ defaultTheme: 'one-dark-pro' }),
   FileHandler.configure({
     allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
-    // @see https://github.com/ueberdosis/tiptap/blob/main/demos/src/Extensions/FileHandler/React/index.jsx
     async onDrop(currentEditor, files, pos) {
       const uploadedFiles = await uploadImages(files);
       for (const file of uploadedFiles) {
-        currentEditor
-          .chain()
-          .insertContentAt(pos, {
-            type: 'image',
-            attrs: {
-              src: file.url,
-              alt: file.name,
-            },
-          })
-          .focus()
-          .run();
+        currentEditor.chain().insertContentAt(pos, insertImages(file.name, file.url)).focus().run();
       }
     },
     async onPaste(currentEditor, files, htmlContent) {
@@ -66,17 +55,8 @@ export const extensions = [
 
       const uploadedFiles = await uploadImages(files);
       for (const file of uploadedFiles) {
-        currentEditor
-          .chain()
-          .insertContentAt(currentEditor.state.selection.anchor, {
-            type: 'image',
-            attrs: {
-              src: file.url,
-              alt: file.name,
-            },
-          })
-          .focus()
-          .run();
+        const pos = currentEditor.state.selection.anchor;
+        currentEditor.chain().insertContentAt(pos, insertImages(file.name, file.url)).focus().run();
       }
     },
   }),
