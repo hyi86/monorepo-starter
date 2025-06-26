@@ -25,8 +25,10 @@ import {
   CircleIcon,
   CodeIcon,
   CornerDownLeftIcon,
+  CornerUpRightIcon,
   EraserIcon,
   EyeIcon,
+  FileCodeIcon,
   HeadingIcon,
   IndentIcon,
   ItalicIcon,
@@ -40,6 +42,8 @@ import {
   Redo2Icon,
   SaveIcon,
   StrikethroughIcon,
+  SubscriptIcon,
+  SuperscriptIcon,
   TrashIcon,
   UnderlineIcon,
   Undo2Icon,
@@ -75,93 +79,99 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
 
   // invisible characters(space, tab, ...) 토글
   const handleToggleInvisibleCharacters = () => {
-    editor?.commands.toggleInvisibleCharacters();
+    editor.commands.toggleInvisibleCharacters();
   };
 
   // Undo
   const handleUndo = () => {
-    editor?.chain().focus().undo().run();
+    editor.chain().focus().undo().run();
   };
 
   // Redo
   const handleRedo = () => {
-    editor?.chain().focus().redo().run();
+    editor.chain().focus().redo().run();
   };
 
   // Heading Dropdown Select
   const handleHeadingDropdownSelect = (level: Level) => (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
-    editor?.chain().focus().toggleHeading({ level }).run();
+    editor.chain().focus().toggleHeading({ level }).run();
   };
 
   // bold 토글
   const handleToggleBold = () => {
-    editor?.chain().focus().toggleBold().run();
+    editor.chain().focus().toggleBold().run();
   };
 
   // italic 토글
   const handleToggleItalic = () => {
-    editor?.chain().focus().toggleItalic().run();
+    editor.chain().focus().toggleItalic().run();
   };
 
   // underline 토글
   const handleToggleUnderline = () => {
-    editor?.chain().focus().toggleUnderline().run();
+    editor.chain().focus().toggleUnderline().run();
   };
 
   // strikethrough 토글
   const handleToggleStrikethrough = () => {
-    editor?.chain().focus().toggleStrike().run();
+    editor.chain().focus().toggleStrike().run();
   };
 
   // code 토글
   const handleToggleCode = () => {
-    editor?.chain().focus().toggleCode().run();
+    editor.chain().focus().toggleCode().run();
   };
 
   // blockquote 토글
   const handleToggleBlockquote = () => {
-    editor?.chain().focus().toggleBlockquote().run();
+    editor.chain().focus().toggleBlockquote().run();
   };
 
   // clear nodes
   const handleClearNodes = () => {
-    editor?.chain().focus().clearNodes().unsetAllMarks().run();
+    editor.chain().focus().clearNodes().unsetAllMarks().run();
   };
 
   // toggle bullet list
   const handleToggleBulletList = () => {
-    editor?.chain().focus().toggleBulletList().run();
+    editor.chain().focus().toggleBulletList().run();
   };
 
   // toggle ordered list
   const handleToggleOrderedList = () => {
-    editor?.chain().focus().toggleOrderedList().run();
+    editor.chain().focus().toggleOrderedList().run();
   };
 
   // split list item
   const handleSplitListItem = () => {
-    editor?.chain().focus().splitListItem('listItem').run();
+    editor.chain().focus().splitListItem('listItem').run();
   };
 
   // sink list item
   const handleSinkListItem = () => {
-    editor?.chain().focus().sinkListItem('listItem').run();
+    editor.chain().focus().sinkListItem('listItem').run();
   };
 
   // lift list item
   const handleLiftListItem = () => {
-    editor?.chain().focus().liftListItem('listItem').run();
+    editor.chain().focus().liftListItem('listItem').run();
   };
 
   // set hard break
   const handleSetHardBreak = () => {
-    editor?.chain().focus().setHardBreak().run();
+    editor.chain().focus().setHardBreak().run();
+  };
+
+  // 맨 처음에 텍스트 블럭 넣기 (코드블럭이나 이미지가 맨 처음으로 오면 그 위에 뭘 쓸 수가 없음 - 그걸 방지)
+  const handleAddFirstParagraph = () => {
+    editor.chain().focus().insertContentAt(0, { type: 'paragraph' }).run();
+    editor.commands.focus();
   };
 
   // link 제거
   const handleRemoveLink = () => {
-    editor?.chain().focus().unsetLink().run();
+    editor.chain().focus().unsetLink().run();
   };
 
   // link 추가
@@ -173,36 +183,44 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
       href = `https://${href}`;
     }
 
-    editor?.chain().focus().setLink({ href }).run();
+    editor.chain().focus().setLink({ href }).run();
     setLinkUrl('');
   };
 
   // color 토글
   const handleToggleColor = (color: string) => {
-    editor?.chain().focus().setColor(color).run();
+    editor.chain().focus().setColor(color).run();
   };
 
   // unset color
   const handleUnsetColor = () => {
-    editor?.chain().focus().unsetColor().run();
+    editor.chain().focus().unsetColor().run();
   };
 
   // set text align
   const handleSetTextAlign = (align: string) => () => {
-    editor?.chain().focus().setTextAlign(align).run();
+    editor.chain().focus().setTextAlign(align).run();
+  };
+
+  // toggle code block
+  const handleToggleCodeBlock = () => {
+    editor.chain().focus().toggleCodeBlock().run();
+  };
+
+  // toggle subscript
+  const handleToggleSubscript = () => {
+    editor.chain().focus().toggleSubscript().run();
+  };
+
+  // toggle superscript
+  const handleToggleSuperscript = () => {
+    editor.chain().focus().toggleSuperscript().run();
   };
 
   if (!editor) return null;
 
   return (
-    <div className="flex flex-wrap items-center justify-start gap-x-0.5 gap-y-2 border p-2">
-      <Button
-        variant={editor.storage.invisibleCharacters.visibility() ? 'default' : 'outline'}
-        onClick={handleToggleInvisibleCharacters}
-      >
-        <EyeIcon className="size-4" />
-      </Button>
-
+    <div className="bg-background top-14.25 sticky z-10 flex flex-wrap items-center justify-start gap-x-0.5 gap-y-2 border p-2">
       {!isBubbleMenu && (
         <>
           <Separator className="data-[orientation=vertical]:h-6" orientation="vertical" />
@@ -214,10 +232,16 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
           <Button size="sm" variant="outline" onClick={handleRedo} disabled={!editor.can().redo()}>
             <Redo2Icon className="size-4" />
           </Button>
-
-          <Separator className="data-[orientation=vertical]:h-6" orientation="vertical" />
         </>
       )}
+      <Button
+        variant={editor.storage.invisibleCharacters.visibility() ? 'default' : 'outline'}
+        onClick={handleToggleInvisibleCharacters}
+      >
+        <EyeIcon className="size-4" />
+      </Button>
+
+      <Separator className="data-[orientation=vertical]:h-6" orientation="vertical" />
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -290,6 +314,10 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
 
       <Toggle pressed={editor.isActive('hardBreak')} onPressedChange={handleSetHardBreak}>
         <CornerDownLeftIcon className="size-4" />
+      </Toggle>
+
+      <Toggle pressed={false} onPressedChange={handleAddFirstParagraph}>
+        <CornerUpRightIcon className="size-4" />
       </Toggle>
 
       {/* Link Popover */}
@@ -376,6 +404,20 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
 
       <Toggle pressed={editor.isActive({ textAlign: 'justify' })} onPressedChange={handleSetTextAlign('justify')}>
         <AlignJustifyIcon className="size-4" />
+      </Toggle>
+
+      <Separator className="data-[orientation=vertical]:h-6" orientation="vertical" />
+
+      <Toggle pressed={editor.isActive('codeBlock')} onPressedChange={handleToggleCodeBlock}>
+        <FileCodeIcon className="size-4" />
+      </Toggle>
+
+      <Toggle pressed={editor.isActive('subscript')} onPressedChange={handleToggleSubscript}>
+        <SubscriptIcon className="size-4" />
+      </Toggle>
+
+      <Toggle pressed={editor.isActive('superscript')} onPressedChange={handleToggleSuperscript}>
+        <SuperscriptIcon className="size-4" />
       </Toggle>
     </div>
   );

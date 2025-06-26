@@ -34,7 +34,7 @@ export const extensions = [
     placeholder: 'Write something ...',
     emptyEditorClass: '',
   }),
-  CharacterCount.configure({ limit: 200 }),
+  CharacterCount.configure({ limit: 10_000 }),
   InvisibleCharacters.configure({ visible: false }),
   TextAlign.configure({ types: ['heading', 'paragraph'] }),
   ImageResize.configure({ inline: true }),

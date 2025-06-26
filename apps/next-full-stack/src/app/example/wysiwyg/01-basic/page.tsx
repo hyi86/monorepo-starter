@@ -20,7 +20,8 @@ export default function WysiwygBasicPage() {
     },
     editorProps: {
       attributes: {
-        class: 'p-4 mt-8 focus-visible:outline-none max-w-xl bg-zinc-100 dark:bg-zinc-900 mx-auto',
+        class:
+          'p-4 mt-8 focus-visible:outline-none max-w-xl border-r border-l border-blue-500 mx-auto prose dark:prose-invert',
       },
     },
   });
@@ -34,7 +35,7 @@ export default function WysiwygBasicPage() {
   }
 
   return (
-    <div>
+    <div className="relative">
       <WysiwygToolbar editor={editor} />
       <EditorContent editor={editor} />
     </div>
