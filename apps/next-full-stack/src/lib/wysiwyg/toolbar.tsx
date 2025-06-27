@@ -1,12 +1,6 @@
 'use client';
 
 import { Button } from '@monorepo-starter/ui/components/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@monorepo-starter/ui/components/dropdown-menu';
 import { Input } from '@monorepo-starter/ui/components/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@monorepo-starter/ui/components/popover';
 import { Separator } from '@monorepo-starter/ui/components/separator';
@@ -261,25 +255,28 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
 
       <Separator className="data-[orientation=vertical]:h-6" orientation="vertical" />
 
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+      <Popover>
+        <PopoverTrigger asChild>
           <Button variant={editor.isActive('heading') ? 'default' : 'outline'}>
             <HeadingIcon className="size-4" />
             <ChevronDownIcon className="size-3 opacity-50" />
           </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          {[1, 2, 3, 4].map((level) => (
-            <DropdownMenuItem
-              key={level}
-              onClick={handleHeadingDropdownSelect(level as Level)}
-              className={cn(editor.isActive('heading', { level }) && 'bg-muted-foreground/10')}
-            >
-              Heading {level}
-            </DropdownMenuItem>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
+        </PopoverTrigger>
+        <PopoverContent align="start" side="bottom" sideOffset={1} alignOffset={1} className="z-50">
+          <div className="flex flex-col gap-1">
+            {[1, 2, 3, 4].map((level) => (
+              <Button
+                variant="ghost"
+                key={level}
+                onClick={() => handleHeadingDropdownSelect(level as Level)}
+                className={cn('cursor-pointer', editor.isActive('heading', { level }) && 'bg-muted-foreground/10')}
+              >
+                Heading {level}
+              </Button>
+            ))}
+          </div>
+        </PopoverContent>
+      </Popover>
 
       <Toggle pressed={editor.isActive('bold')} onPressedChange={handleToggleBold}>
         <BoldIcon className="size-4" />
@@ -387,8 +384,8 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
         <PopoverContent
           align="start"
           side="bottom"
-          sideOffset={3}
-          alignOffset={-172}
+          sideOffset={1}
+          alignOffset={-1}
           className="flex flex-col items-start gap-4"
         >
           <Input
@@ -424,7 +421,7 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
             <ChevronDownIcon className="size-3 opacity-50" />
           </Toggle>
         </PopoverTrigger>
-        <PopoverContent className="">
+        <PopoverContent align="start" side="bottom" sideOffset={1} alignOffset={-1}>
           {Object.entries(colors).map(([name, value]) => (
             <Toggle
               key={name}

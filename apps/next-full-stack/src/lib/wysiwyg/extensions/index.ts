@@ -1,6 +1,5 @@
 import CharacterCount from '@tiptap/extension-character-count';
 import { Color } from '@tiptap/extension-color';
-import DragHandle from '@tiptap/extension-drag-handle-react';
 import FileHandler from '@tiptap/extension-file-handler';
 import { Gapcursor } from '@tiptap/extension-gapcursor';
 import { InvisibleCharacters } from '@tiptap/extension-invisible-characters';
@@ -34,7 +33,6 @@ export const extensions = [
   Superscript,
   Selection,
   TrailingNode,
-  DragHandle,
   Gapcursor,
   Placeholder.configure({
     placeholder: 'Write something ...',

@@ -37,7 +37,7 @@ export default function WysiwygBubbleMenuPage() {
     <div>
       <BubbleMenu
         editor={editor}
-        tippyOptions={{ duration: 100, placement: 'bottom-start', maxWidth: 600 }}
+        tippyOptions={{ duration: 100, placement: 'bottom-start', maxWidth: 600, zIndex: 40 }}
         className="bg-background"
       >
         <WysiwygToolbar editor={editor} isBubbleMenu />
