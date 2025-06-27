@@ -1,14 +1,10 @@
 ## Usage
 
-각 프로젝트에서 사용하는 방법
+Setup Each Project
 
 <br />
 
-### Add to a Next.js Project
-
-> Tailwind CSS는 미리 설정되어 있어야 합니다.
-
-워크스페이스 내에서 패키지를 설치
+### Add to a `Next.js` Project
 
 ```bash
 pnpm add --workspace @monorepo-starter/ui
@@ -21,8 +17,7 @@ Update `tsconfig.json`.
   "compilerOptions": {
     ...
     "paths": {
--     "~/*": ["./src/*"]
-+     "~/*": ["./src/*"],
+      "~/*": ["./src/*"],
 +     "@monorepo-starter/ui/*": ["../../packages/ui/src/*"]
     }
   },
@@ -36,7 +31,7 @@ Update `next.config.ts`
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  ...
 + transpilePackages: ['@monorepo-starter/ui'],
 };
 
@@ -47,16 +42,11 @@ Update `src/app/globals.css`
 
 ```css
 @import '@monorepo-starter/ui/globals.css';
-/* ... */
 ```
 
 <br />
 
-### Add to a React Router Project
-
-> Tailwind CSS는 미리 설정되어 있어야 합니다.
-
-워크스페이스 내에서 패키지를 설치
+### Add to a `React Router` Project
 
 ```bash
 pnpm add --workspace @monorepo-starter/ui
@@ -69,8 +59,7 @@ Update `tsconfig.json` or `tsconfig.app.json`
   "compilerOptions": {
     ...
     "paths": {
--     "~/*": ["./src/*"]
-+     "~/*": ["./src/*"],
+      "~/*": ["./src/*"],
 +     "@monorepo-starter/ui/*": ["../../packages/ui/src/*"]
     }
   },
@@ -86,28 +75,26 @@ Update `src/index.css`
 ```
 
 <br />
-<br />
 
-## Update
+## Upgrade `shadcn/ui` Components
 
-`shadcn/ui` 컴포넌트를 최신 버전으로 업데이트
+Upgrade `shadcn/ui` components to the latest version.
 
 ```bash
 cd packages/ui
 
-# 최신 버전 설치
+# Install the latest version
 pnpm dlx shadcn@canary add -a -o -y
 
-# calendar 컴포넌트는 별도로 처리함
-git restore src/components/calendar.tsx
+# Exclude components that have been directly modified
+git restore src/components/checkbox.tsx
+git restore src/components/pagination.tsx
 
-# cmdk와 react-day-picker를 최신 버전으로 업데이트
-pnpm rm react-day-picker
-pnpm add react-day-picker
-
-# 포맷팅
+# Formatting
 pnpm -w run format "packages/ui/src/**/*.*"
 ```
+
+<br />
 
 ## Re-initialize
 
