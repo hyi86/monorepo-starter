@@ -17,12 +17,12 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@faker-js/faker": "^9.8.0",
+    "@faker-js/faker": "^9.9.0",
     "@henry-hong/common-utils": "^0.1.8",
     "@hono/node-server": "^1.14.4",
     "@hono/zod-validator": "^0.7.0",
-    "better-sqlite3": "^12.1.1",
-    "dotenv": "^16.6.0",
+    "better-sqlite3": "^12.2.0",
+    "dotenv": "^17.0.1",
     "drizzle-orm": "^0.44.2",
     "hono": "^4.8.3",
     "pino": "^9.7.0",
