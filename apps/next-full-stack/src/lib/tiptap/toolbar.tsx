@@ -90,8 +90,7 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
   };
 
   // Heading Dropdown Select
-  const handleHeadingDropdownSelect = (level: Level) => (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
+  const handleHeadingDropdownSelect = (level: Level) => {
     editor.chain().focus().toggleHeading({ level }).run();
   };
 
@@ -268,7 +267,9 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
               <Button
                 variant="ghost"
                 key={level}
-                onClick={() => handleHeadingDropdownSelect(level as Level)}
+                onClick={() => {
+                  handleHeadingDropdownSelect(level as Level);
+                }}
                 className={cn('cursor-pointer', editor.isActive('heading', { level }) && 'bg-muted-foreground/10')}
               >
                 Heading {level}

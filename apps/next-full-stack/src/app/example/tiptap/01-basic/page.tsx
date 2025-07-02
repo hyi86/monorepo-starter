@@ -3,8 +3,8 @@
 import { Skeleton } from '@monorepo-starter/ui/components/skeleton';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { useState } from 'react';
-import { extensions } from '~/lib/wysiwyg/extensions';
-import { WysiwygToolbar } from '~/lib/wysiwyg/toolbar';
+import { extensions } from '~/lib/tiptap/extensions';
+import { WysiwygToolbar } from '~/lib/tiptap/toolbar';
 
 export default function WysiwygBasicPage() {
   const [content, setContent] = useState('');
