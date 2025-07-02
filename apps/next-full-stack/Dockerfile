@@ -9,7 +9,7 @@ ENV APP_NAME=next-full-stack
 ENV PORT=3000
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-ENV PNPM_VERSION=10.11.1
+ENV PNPM_VERSION=10.12.4
 
 # ------------------------------------------------------------------------------
 # Step 1: 소스 코드 준비 및 정리 (Size: 1.85GB)
