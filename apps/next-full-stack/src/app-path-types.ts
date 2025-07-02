@@ -61,6 +61,8 @@ export type StaticPath =
   | '/example/table'
   | '/example/table/01-server'
   | '/example/table/02-client'
+  | '/example/tiptap/01-basic'
+  | '/example/tiptap/02-bubble-menu'
   | '/example/virtual'
   | '/example/virtual/01-fixed-row'
   | '/example/virtual/02-fixed-column'
@@ -74,8 +76,6 @@ export type StaticPath =
   | '/example/virtual/10-sortable-row'
   | '/example/virtual/11-sortable-column'
   | '/example/virtual/12-with-parallel-route'
-  | '/example/wysiwyg/01-basic'
-  | '/example/wysiwyg/02-bubble-menu'
   | '/signin';
 
 export type TypedRoute = LiteralUnion<
@@ -1953,6 +1953,52 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
+    href: '/example/tiptap/01-basic',
+    linkTypes: '/example/tiptap/01-basic',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/tiptap/01-basic/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/tiptap/01-basic/page.tsx',
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/tiptap/02-bubble-menu',
+    linkTypes: '/example/tiptap/02-bubble-menu',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/tiptap/02-bubble-menu/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/tiptap/02-bubble-menu/page.tsx',
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
     href: '/example/virtual',
     linkTypes: '/example/virtual',
     isParallelRoute: false,
@@ -2369,52 +2415,6 @@ export const appPathRoutes: AppPathRoutes[] = [
                     ],
                   },
                 ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    href: '/example/wysiwyg/01-basic',
-    linkTypes: '/example/wysiwyg/01-basic',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/wysiwyg/01-basic/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/wysiwyg/01-basic/page.tsx',
-                children: [],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    href: '/example/wysiwyg/02-bubble-menu',
-    linkTypes: '/example/wysiwyg/02-bubble-menu',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/wysiwyg/02-bubble-menu/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/wysiwyg/02-bubble-menu/page.tsx',
-                children: [],
               },
             ],
           },

@@ -7,7 +7,9 @@ import { extensions } from '~/lib/tiptap/extensions';
 import { WysiwygToolbar } from '~/lib/tiptap/toolbar';
 
 export default function WysiwygBasicPage() {
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(`
+    ...
+  `);
 
   const editor = useEditor({
     editable: true,
