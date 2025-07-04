@@ -1,15 +1,16 @@
 packages:
   - apps/*
   - packages/*
+
 catalog:
-  next: 15.3.4
-  eslint-config-next: 15.3.4
-  '@next/mdx': 15.3.4
-  '@next/eslint-plugin-next': 15.3.4
+  next: 15.3.5
+  eslint-config-next: 15.3.5
+  '@next/mdx': 15.3.5
+  '@next/eslint-plugin-next': 15.3.5
   react: ^19.1
   react-dom: ^19.1
-  '@types/react': ^19.0
-  '@types/react-dom': ^19.0
+  '@types/react': ^19.1
+  '@types/react-dom': ^19.1
   tailwindcss: ^4.1
   '@tailwindcss/postcss': ^4.1
   '@tailwindcss/vite': ^4.1
@@ -17,9 +18,11 @@ catalog:
   '@eslint/eslintrc': ^3
   typescript: ^5
   '@types/node': ^22
-  zod: ^3.25
+  zod: ^3
+
 ignoredBuiltDependencies:
   - '@parcel/watcher'
+
 onlyBuiltDependencies:
   - '@swc/core'
   - '@tailwindcss/oxide'
