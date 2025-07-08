@@ -20,7 +20,8 @@ export default function WysiwygBubbleMenuPage() {
     },
     editorProps: {
       attributes: {
-        class: 'p-4 mt-8 focus-visible:outline-none max-w-xl bg-zinc-100 dark:bg-zinc-900 mx-auto',
+        class:
+          'p-4 mt-8 focus-visible:outline-none max-w-xl bg-zinc-100 dark:bg-zinc-900 mx-auto prose dark:prose-invert',
       },
     },
   });

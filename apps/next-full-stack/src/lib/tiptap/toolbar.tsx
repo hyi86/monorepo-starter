@@ -49,6 +49,7 @@ import { useState } from 'react';
 export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Editor; isBubbleMenu?: boolean }) {
   const [linkUrl, setLinkUrl] = useState('');
   const [youtubeUrl, setYoutubeUrl] = useState('');
+
   const colors = {
     red: '#f94d4d',
     orange: '#e86d00',
@@ -261,8 +262,8 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
             <ChevronDownIcon className="size-3 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent align="start" side="bottom" sideOffset={1} alignOffset={1} className="z-50">
-          <div className="flex flex-col gap-1">
+        <PopoverContent align="start" side="bottom" sideOffset={1} alignOffset={1} className="z-50 w-40">
+          <div className="flex flex-col items-start gap-1">
             {[1, 2, 3, 4].map((level) => (
               <Button
                 variant="ghost"
@@ -270,7 +271,10 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
                 onClick={() => {
                   handleHeadingDropdownSelect(level as Level);
                 }}
-                className={cn('cursor-pointer', editor.isActive('heading', { level }) && 'bg-muted-foreground/10')}
+                className={cn(
+                  'w-full cursor-pointer',
+                  editor.isActive('heading', { level }) && 'bg-muted-foreground/10',
+                )}
               >
                 Heading {level}
               </Button>
@@ -471,9 +475,9 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
         <SuperscriptIcon className="size-4" />
       </Toggle>
 
-      <Button variant="outline" onClick={handleSetHorizontalRule}>
+      <Toggle onPressedChange={handleSetHorizontalRule}>
         <SeparatorHorizontalIcon className="size-4" />
-      </Button>
+      </Toggle>
     </div>
   );
 }

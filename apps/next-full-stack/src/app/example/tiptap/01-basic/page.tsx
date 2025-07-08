@@ -1,15 +1,34 @@
 'use client';
 
 import { Skeleton } from '@monorepo-starter/ui/components/skeleton';
+import { Textarea } from '@monorepo-starter/ui/components/textarea';
 import { EditorContent, useEditor } from '@tiptap/react';
-import { useState } from 'react';
+import prettierHtml from 'prettier/plugins/html';
+import prettier from 'prettier/standalone';
+import { useEffect, useState } from 'react';
 import { extensions } from '~/lib/tiptap/extensions';
 import { WysiwygToolbar } from '~/lib/tiptap/toolbar';
 
 export default function WysiwygBasicPage() {
-  const [content, setContent] = useState(`
-    ...
-  `);
+  const [content, setContent] = useState(
+    `
+<h2>Discover the riches of our editor ✨</h2>
+<blockquote>
+  <p>
+    Tiptap is so easy <span style="color: #e1a200">to make</span>
+    <code>rich-text-editor</code>
+  </p>
+</blockquote>
+<p></p>
+<pre><code class="language-tsx">const tsx = () =&gt; {
+  return (
+    &lt;div&gt;Hello world&lt;/div&gt;
+  )
+}</code></pre>
+<p></p>
+  `.trim(),
+  );
+  const [code, setCode] = useState('');
 
   const editor = useEditor({
     editable: true,
@@ -23,10 +42,26 @@ export default function WysiwygBasicPage() {
     editorProps: {
       attributes: {
         class:
-          'p-4 mt-8 focus-visible:outline-none max-w-xl border-r border-l border-blue-500 mx-auto prose dark:prose-invert',
+          'p-4 mt-8 focus-visible:outline-none max-w-xl bg-zinc-100 dark:bg-zinc-900 mx-auto prose dark:prose-invert',
       },
     },
   });
+
+  const handleBlur = () => {
+    if (!editor) return;
+    editor.commands.setContent(code);
+  };
+
+  useEffect(() => {
+    const formatContent = async () => {
+      const formatted = await prettier.format(content, {
+        parser: 'html',
+        plugins: [prettierHtml],
+      });
+      setCode(formatted);
+    };
+    formatContent();
+  }, [content]);
 
   if (!editor) {
     return (
@@ -39,7 +74,16 @@ export default function WysiwygBasicPage() {
   return (
     <div className="relative">
       <WysiwygToolbar editor={editor} />
-      <EditorContent editor={editor} />
+      <div className="flex items-start gap-2">
+        <EditorContent className="flex-1" editor={editor} />
+        <Textarea
+          className="mt-8 w-full flex-1 font-mono"
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+          rows={10}
+          onBlur={handleBlur}
+        />
+      </div>
     </div>
   );
 }
