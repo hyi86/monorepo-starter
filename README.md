@@ -15,8 +15,9 @@
 
 최신 프론트엔드 개발을 위해 `pnpm`과 `Turborepo`를 사용하는 **모노레포 템플릿**입니다.
 
-이 프로젝트는 `Next.js`, `React SPA`, `Hono API`, `Vanilla JS` 등 다양한 스택을 하나의 환경에서 실험하고 운영할 수 있도록 구성되어 있으며,  
-기타 개발 생산성을 위한 스크립트 및 `CLI`가 포함되어 있습니다.
+이 프로젝트는 `Next.js`, `React SPA`, `Hono API`, `Vanilla JS` 등 다양한 스택을  
+하나의 환경에서 실험하고 운영할 수 있도록 구성되어 있으며,  
+개발 생산성을 위한 스크립트 및 `CLI`가 포함되어 있습니다.
 
 <br />
 
@@ -29,11 +30,11 @@
 - [`Large File Uploader`](./apps/next-full-stack/src/app/example/experimental/file-upload/page.tsx): 
   페이지 이동중에도 끊기지 않는 **Large Multi-Chunk Streaming File Uploader** 구현.
 - [`Next Command Spotlight`](./apps/next-full-stack/src/components/command/spotlight.tsx): 
-  `Next.js` 컴포넌트 트리 구조를 시각화하는 도구 및 전역 커멘드 프로바이더.
+  `Next.js` Component Tree 구조를 시각화하는 **Nextjs Component Visualizer**.
 - [`Authentication`](./apps/next-full-stack/src/app/example/auth/page.mdx): 
   외부 라이브러리 없이, `JWT Access/Refresh Token` 기반의 **Server-only Authentication System** 구축.
 - [`Internationalization`](./apps/next-full-stack/src/app/example/[lang]/page.tsx)
-  외부 라이브러리 없이, 선택적 페이지의 쉬운 국제화를 위한 설계.
+  외부 라이브러리 없이, 선택적 페이지의 쉬운 국제화를 위해 별도로 구축.
 
 ### Third-Party Dependencies
 
