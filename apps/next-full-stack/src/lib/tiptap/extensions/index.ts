@@ -7,6 +7,10 @@ import Link from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import { Subscript } from '@tiptap/extension-subscript';
 import { Superscript } from '@tiptap/extension-superscript';
+import { Table } from '@tiptap/extension-table';
+import { TableCell } from '@tiptap/extension-table-cell';
+import { TableHeader } from '@tiptap/extension-table-header';
+import { TableRow } from '@tiptap/extension-table-row';
 import { TaskItem } from '@tiptap/extension-task-item';
 import { TaskList } from '@tiptap/extension-task-list';
 import TextAlign from '@tiptap/extension-text-align';
@@ -16,9 +20,9 @@ import Youtube from '@tiptap/extension-youtube';
 import StarterKit from '@tiptap/starter-kit';
 import CodeBlockShiki from 'tiptap-extension-code-block-shiki';
 import { ImageResize } from 'tiptap-extension-resize-image';
-import Selection from './selection-extension';
-import TrailingNode from './trailing-node-extension';
-import { uploadImages } from './upload-images';
+
+import { shouldAutoLink } from './link';
+import { onDrop, onPaste } from './upload-images';
 
 export const extensions = [
   StarterKit.configure({
@@ -28,13 +32,32 @@ export const extensions = [
       levels: [1, 2, 3, 4],
     },
   }),
-  Underline,
-  TextStyle,
+  CharacterCount,
   Color,
+  FileHandler.configure({
+    allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
+    onDrop,
+    onPaste,
+  }),
+  Gapcursor,
+  InvisibleCharacters.configure({ visible: false }),
+  Link.configure({
+    autolink: true,
+    defaultProtocol: 'https',
+    protocols: ['http', 'https'],
+    shouldAutoLink,
+  }),
+  Placeholder.configure({
+    placeholder: 'Write something ...',
+  }),
   Subscript,
   Superscript,
-  Selection,
-  TrailingNode,
+  Table.configure({
+    resizable: true,
+  }),
+  TableRow,
+  TableCell,
+  TableHeader,
   TaskList,
   TaskItem.configure({
     nested: true,
@@ -42,66 +65,14 @@ export const extensions = [
       class: '[&_input]:cursor-pointer [&_p]:m-0',
     },
   }),
-  Gapcursor,
-  Placeholder.configure({
-    placeholder: 'Write something ...',
-    emptyEditorClass: '',
-  }),
-  CharacterCount,
-  InvisibleCharacters.configure({ visible: false }),
   TextAlign.configure({ types: ['heading', 'paragraph'] }),
-  ImageResize.configure({ inline: true }),
-  CodeBlockShiki.configure({ defaultTheme: 'one-dark-pro' }),
+  TextStyle,
+  Underline,
   Youtube.configure({
     width: 640,
     height: 480,
     controls: true,
   }),
-  FileHandler.configure({
-    allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
-    async onDrop(currentEditor, files, pos) {
-      const uploadedFiles = await uploadImages(files);
-      for (const file of uploadedFiles) {
-        currentEditor
-          .chain()
-          .insertContentAt(pos, { type: 'image', attrs: { src: file.url, alt: file.name } })
-          .focus()
-          .run();
-      }
-    },
-    async onPaste(currentEditor, files, htmlContent) {
-      if (htmlContent) {
-        return false;
-      }
-
-      const uploadedFiles = await uploadImages(files);
-      for (const file of uploadedFiles) {
-        const pos = currentEditor.state.selection.anchor;
-        currentEditor
-          .chain()
-          .insertContentAt(pos, { type: 'image', attrs: { src: file.url, alt: file.name } })
-          .focus()
-          .run();
-      }
-    },
-  }),
-  Link.configure({
-    autolink: true,
-    defaultProtocol: 'https',
-    protocols: ['http', 'https'],
-    shouldAutoLink: (url) => {
-      try {
-        // construct URL
-        const parsedUrl = url.includes(':') ? new URL(url) : new URL(`https://${url}`);
-
-        // only auto-link if the domain is not in the disallowed list
-        const disallowedDomains = ['example-no-autolink.com', 'another-no-autolink.com'];
-        const domain = parsedUrl.hostname;
-
-        return !disallowedDomains.includes(domain);
-      } catch {
-        return false;
-      }
-    },
-  }),
+  CodeBlockShiki.configure({ defaultTheme: 'one-dark-pro' }),
+  ImageResize.configure({ inline: true }),
 ];

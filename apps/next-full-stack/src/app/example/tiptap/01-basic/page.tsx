@@ -15,7 +15,7 @@ export default function WysiwygBasicPage() {
 <h2>Discover the riches of our editor ✨</h2>
 <blockquote>
   <p>
-    Tiptap is so easy <span style="color: #e1a200">to make</span>
+    Tiptap is so easy <span style="color: rgb(225, 162, 0)">to make</span>
     <code>rich-text-editor</code>
   </p>
 </blockquote>
@@ -25,7 +25,6 @@ export default function WysiwygBasicPage() {
     &lt;div&gt;Hello world&lt;/div&gt;
   )
 }</code></pre>
-<p></p>
   `.trim(),
   );
   const [code, setCode] = useState('');
@@ -42,7 +41,7 @@ export default function WysiwygBasicPage() {
     editorProps: {
       attributes: {
         class:
-          'p-4 mt-8 focus-visible:outline-none max-w-xl bg-zinc-100 dark:bg-zinc-900 mx-auto prose dark:prose-invert',
+          'p-4 mt-8 focus-visible:outline-none max-w-xl mx-auto prose dark:prose-invert border rounded transition-all focus-visible:border-foreground/30 focus-visible:border focus-visible:ring-3 focus-visible:ring-foreground/10',
       },
     },
   });

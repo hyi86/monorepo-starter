@@ -1,7 +1,42 @@
+import { FileHandlePluginOptions } from '@tiptap/extension-file-handler';
+
 const CHUNK_SIZE = 1024 * 1024; // 1MB
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 5MB
 
-export async function uploadImages(files: File[]) {
+/**
+ * onDrop callback
+ */
+export const onDrop: FileHandlePluginOptions['onDrop'] = async (currentEditor, files, pos) => {
+  const uploadedFiles = await uploadImages(files);
+  for (const file of uploadedFiles) {
+    currentEditor
+      .chain()
+      .insertContentAt(pos, { type: 'image', attrs: { src: file.url, alt: file.name } })
+      .focus()
+      .run();
+  }
+};
+
+/**
+ * onPaste callback
+ */
+export const onPaste: FileHandlePluginOptions['onPaste'] = async (currentEditor, files, pasteContent) => {
+  if (pasteContent) {
+    return false;
+  }
+
+  const uploadedFiles = await uploadImages(files);
+  for (const file of uploadedFiles) {
+    const pos = currentEditor.state.selection.anchor;
+    currentEditor
+      .chain()
+      .insertContentAt(pos, { type: 'image', attrs: { src: file.url, alt: file.name } })
+      .focus()
+      .run();
+  }
+};
+
+async function uploadImages(files: File[]) {
   const uploadedFiles: { name: string; url: string }[] = [];
 
   if (files.some((file) => file.size > MAX_FILE_SIZE)) {
