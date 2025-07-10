@@ -65,7 +65,7 @@ export const extensions = [
       class: '[&_input]:cursor-pointer [&_p]:m-0',
     },
   }),
-  TextAlign.configure({ types: ['heading', 'paragraph'] }),
+  TextAlign.configure({ types: ['heading', 'paragraph', 'image'] }),
   TextStyle,
   Underline,
   Youtube.configure({
@@ -74,5 +74,5 @@ export const extensions = [
     controls: true,
   }),
   CodeBlockShiki.configure({ defaultTheme: 'one-dark-pro' }),
-  ImageResize.configure({ inline: true }),
+  ImageResize.configure({ inline: true, HTMLAttributes: { class: 'shadow' } }),
 ];
