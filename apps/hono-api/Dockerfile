@@ -12,7 +12,7 @@ ENV PORT=4000
 # pnpm 환경 변수 설정(없으면 pnpm 설치 시 오류 발생)
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-ENV PNPM_VERSION=10.12.4
+ENV PNPM_VERSION=10.13.1
 
 # ------------------------------------------------------------------------------
 # Step 1: 소스 코드 준비 및 정리
