@@ -16,7 +16,7 @@
     "@tailwindcss/vite": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
-    "vite": "^6.3.5",
+    "vite": "^7.0.3",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }

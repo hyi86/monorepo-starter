@@ -17,8 +17,8 @@ catalog:
   eslint: ^9.30.1
   '@eslint/eslintrc': ^3.3.1
   typescript: ^5.8.3
-  '@types/node': ^22.16.0
-  zod: ^3.25.75
+  '@types/node': ^22.16.2
+  zod: ^3.25.76
 
 ignoredBuiltDependencies:
   - '@parcel/watcher'
