@@ -19,10 +19,10 @@ import { Underline } from '@tiptap/extension-underline';
 import Youtube from '@tiptap/extension-youtube';
 import StarterKit from '@tiptap/starter-kit';
 import CodeBlockShiki from 'tiptap-extension-code-block-shiki';
-import { ImageResize } from 'tiptap-extension-resize-image';
-
+import { ImagePlaceholder } from './image-placeholder';
+import { ImageResize } from './image-resize';
 import { shouldAutoLink } from './link';
-import { onDrop, onPaste } from './upload-images';
+import { onDrop, onPaste, uploadImages } from './upload-images';
 
 export const extensions = [
   StarterKit.configure({
@@ -34,11 +34,6 @@ export const extensions = [
   }),
   CharacterCount,
   Color,
-  FileHandler.configure({
-    allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
-    onDrop,
-    onPaste,
-  }),
   Gapcursor,
   InvisibleCharacters.configure({ visible: false }),
   Link.configure({
@@ -74,5 +69,26 @@ export const extensions = [
     controls: true,
   }),
   CodeBlockShiki.configure({ defaultTheme: 'one-dark-pro' }),
-  ImageResize.configure({ inline: true, HTMLAttributes: { class: 'shadow' } }),
+  ImageResize.configure({ inline: true, allowBase64: false, HTMLAttributes: { class: '' } }),
+  FileHandler.configure({
+    allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
+    onDrop,
+    onPaste,
+  }),
+  ImagePlaceholder.configure({
+    allowedMimeTypes: {
+      image: ['image/*'],
+    },
+    onDrop: async (files, editor) => {
+      const uploadedFiles = await uploadImages(files);
+      for (const file of uploadedFiles) {
+        const pos = editor.state.selection.anchor;
+        editor
+          .chain()
+          .insertContentAt(pos, { type: 'image', attrs: { src: file.url, alt: file.name } })
+          .focus()
+          .run();
+      }
+    },
+  }),
 ];

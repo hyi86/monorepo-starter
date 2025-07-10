@@ -363,9 +363,6 @@ importers:
       tiptap-extension-code-block-shiki:
         specifier: ^0.5.1
         version: 0.5.1(@tiptap/core@2.25.0(@tiptap/pm@2.25.0))(@tiptap/extension-code-block@2.25.0(@tiptap/core@2.25.0(@tiptap/pm@2.25.0))(@tiptap/pm@2.25.0))(@tiptap/pm@2.25.0)(shiki@3.7.0)
-      tiptap-extension-resize-image:
-        specifier: ^1.2.2
-        version: 1.2.2(@tiptap/core@2.25.0(@tiptap/pm@2.25.0))(@tiptap/extension-image@2.25.0(@tiptap/core@2.25.0(@tiptap/pm@2.25.0)))(@tiptap/pm@2.25.0)
       web-push:
         specifier: ^3.6.7
         version: 3.6.7
@@ -6456,13 +6453,6 @@ packages:
       '@tiptap/extension-code-block': ^2.3.0
       '@tiptap/pm': ^2.3.0
       shiki: ^3.0.0
-
-  tiptap-extension-resize-image@1.2.2:
-    resolution: {integrity: sha512-UMHTCo2I0i2cVNE9PJc2RJudJfwM+J7uOoZUcccxoyP4BYX4iXTmhs0xTijTc4I5E2bPyFeHMqycUHj7W44jCQ==}
-    peerDependencies:
-      '@tiptap/core': ^2.0.0
-      '@tiptap/extension-image': ^2.0.0
-      '@tiptap/pm': ^2.0.0
 
   tldts-core@6.1.86:
     resolution: {integrity: sha512-Je6p7pkk+KMzMv2XXKmAE3McmolOQFdxkKw0R8EYNr7sELW46JqnNeTX8ybPiQgvg1ymCoF8LXs5fzFaZvJPTA==}
@@ -13014,12 +13004,6 @@ snapshots:
       '@tiptap/extension-code-block': 2.25.0(@tiptap/core@2.25.0(@tiptap/pm@2.25.0))(@tiptap/pm@2.25.0)
       '@tiptap/pm': 2.25.0
       shiki: 3.7.0
-
-  tiptap-extension-resize-image@1.2.2(@tiptap/core@2.25.0(@tiptap/pm@2.25.0))(@tiptap/extension-image@2.25.0(@tiptap/core@2.25.0(@tiptap/pm@2.25.0)))(@tiptap/pm@2.25.0):
-    dependencies:
-      '@tiptap/core': 2.25.0(@tiptap/pm@2.25.0)
-      '@tiptap/extension-image': 2.25.0(@tiptap/core@2.25.0(@tiptap/pm@2.25.0))
-      '@tiptap/pm': 2.25.0
 
   tldts-core@6.1.86: {}
 

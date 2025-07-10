@@ -36,7 +36,7 @@ export const onPaste: FileHandlePluginOptions['onPaste'] = async (currentEditor,
   }
 };
 
-async function uploadImages(files: File[]) {
+export async function uploadImages(files: File[]) {
   const uploadedFiles: { name: string; url: string }[] = [];
 
   if (files.some((file) => file.size > MAX_FILE_SIZE)) {

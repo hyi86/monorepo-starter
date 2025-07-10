@@ -11,8 +11,7 @@ import { WysiwygToolbar } from '~/lib/tiptap/toolbar';
 
 export default function WysiwygBasicPage() {
   const [content, setContent] = useState(
-    `
-<h2>Discover the riches of our editor ✨</h2>
+    /* html */ `<h2>Discover the riches of our editor ✨</h2>
 <blockquote>
   <p>
     Tiptap is so easy <span style="color: rgb(225, 162, 0)">to make</span>
@@ -24,8 +23,7 @@ export default function WysiwygBasicPage() {
   return (
     &lt;div&gt;Hello world&lt;/div&gt;
   )
-}</code></pre>
-  `.trim(),
+}</code></pre>`.trim(),
   );
   const [code, setCode] = useState('');
 

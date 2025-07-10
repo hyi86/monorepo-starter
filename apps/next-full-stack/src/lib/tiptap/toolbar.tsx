@@ -24,6 +24,7 @@ import {
   EyeIcon,
   FileCodeIcon,
   HeadingIcon,
+  ImagePlusIcon,
   IndentIcon,
   ItalicIcon,
   LinkIcon,
@@ -506,6 +507,10 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
       {renderMergeOrSplitButton()}
       {renderToggleHeaderRowButton()}
       {renderToggleHeaderColumnButton()}
+
+      <Button variant="outline" onClick={() => editor.commands.insertImagePlaceholder()}>
+        <ImagePlusIcon className="size-4" />
+      </Button>
     </div>
   );
 }
