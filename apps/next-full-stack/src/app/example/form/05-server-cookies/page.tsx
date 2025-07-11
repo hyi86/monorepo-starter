@@ -29,7 +29,7 @@ export default async function ServerActionCookiePage() {
       <p>
         Server Action 에서 쿠키를 사용한 예제(30일동안 저장)
         <br />
-        브라우저가 종료되어도 유지됨
+        브라우저가 종료되어도 유지
       </p>
       <form action={action} className="flex flex-col gap-2">
         <Input placeholder="Name" type="text" name="name" />

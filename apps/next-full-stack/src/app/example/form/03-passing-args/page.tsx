@@ -9,10 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { SelectNative } from '@monorepo-starter/ui/components/select-native';
 import { Slider } from '@monorepo-starter/ui/components/slider';
 import { Switch } from '@monorepo-starter/ui/components/switch';
-
 import { use, useActionState } from 'react';
 import { action } from './action';
-import { type ErrorType } from './schema';
 
 export default function ServerActionClientPassingArgsPage({
   searchParams,
@@ -21,7 +19,7 @@ export default function ServerActionClientPassingArgsPage({
 }) {
   const { code } = use(searchParams) as { code: string };
   const actionWithCode = action.bind(null, code ?? '');
-  const [state, formAction, pending] = useActionState<ErrorType, FormData>(actionWithCode, {});
+  const [state, formAction, pending] = useActionState(actionWithCode, {});
 
   return (
     <div>
@@ -35,7 +33,7 @@ export default function ServerActionClientPassingArgsPage({
           <Label htmlFor="input1">Simple input</Label>
           <Input id="input1" placeholder="Text input" name="textInput1" />
           <p className="text-destructive mt-2 text-xs" role="alert" aria-live="polite">
-            {state?.textInput1?.map((error, index) => (
+            {state?.textInput1?.map((error: string, index: number) => (
               <span key={index}>{error}</span>
             ))}
           </p>
@@ -45,7 +43,7 @@ export default function ServerActionClientPassingArgsPage({
           <Label htmlFor="input2">Number input</Label>
           <Input placeholder="Number" type="number" inputMode="numeric" name="numberInput1" />
           <p className="text-destructive mt-2 text-xs" role="alert" aria-live="polite">
-            {state?.numberInput1?.map((error, index) => (
+            {state?.numberInput1?.map((error: string, index: number) => (
               <span key={index}>{error}</span>
             ))}
           </p>
@@ -57,7 +55,7 @@ export default function ServerActionClientPassingArgsPage({
             <Label htmlFor="checkbox1">Checkbox 1</Label>
           </div>
           <p className="text-destructive mt-2 w-full text-xs" role="alert" aria-live="polite">
-            {state?.checkbox1?.map((error, index) => (
+            {state?.checkbox1?.map((error: string, index: number) => (
               <span key={index}>{error}</span>
             ))}
           </p>
@@ -81,7 +79,7 @@ export default function ServerActionClientPassingArgsPage({
             <Label htmlFor="radio_value4">Option 4(Invalid Value)</Label>
           </div>
           <p className="text-destructive mt-2 w-full text-xs" role="alert" aria-live="polite">
-            {state?.radio1?.map((error, index) => (
+            {state?.radio1?.map((error: string, index: number) => (
               <span key={index}>{error}</span>
             ))}
           </p>
@@ -96,7 +94,7 @@ export default function ServerActionClientPassingArgsPage({
             <option value="4">Gatsby</option>
           </SelectNative>
           <p className="text-destructive mt-2 w-full text-xs" role="alert" aria-live="polite">
-            {state?.nativeSelect1?.map((error, index) => (
+            {state?.nativeSelect1?.map((error: string, index: number) => (
               <span key={index}>{error}</span>
             ))}
           </p>

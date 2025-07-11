@@ -11,6 +11,7 @@ import { Switch } from '@monorepo-starter/ui/components/switch';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { z } from 'zod';
+import { ko } from 'zod/locales';
 import { getTypedPath } from '~/app-path-types';
 
 const schema = z.object({
@@ -23,6 +24,8 @@ const schema = z.object({
   slider1: z.coerce.number().min(40),
   switch1: z.boolean(),
 });
+
+z.config(ko());
 
 export default async function FormServerOnlyPage() {
   const cookieStore = await cookies();

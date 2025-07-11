@@ -12,4 +12,4 @@ export const schema = z.object({
 });
 
 export type Schema = z.infer<typeof schema>;
-export type ErrorType = z.typeToFlattenedError<Schema>['fieldErrors'] | undefined;
+export type ErrorType = z.core.$ZodFlattenedError<Schema>['fieldErrors'];

@@ -1,6 +1,5 @@
 'use client';
 
-import { devLog } from '@henry-hong/common-utils/console';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Checkbox } from '@monorepo-starter/ui/components/checkbox';
@@ -19,12 +18,12 @@ import { FieldErrors, SubmitHandler, useFieldArray, useForm } from 'react-hook-f
 import { toast } from 'sonner';
 import { generator } from '~/lib/faker/utils';
 import { formTestAction } from './actions';
-import { schema, type Schema } from './schema';
+import { MAX_ITEM_LENGTH, schema, type Schema } from './schema';
 import VirtualSortable from './virtual-sortable';
 import SortableItem from './virtual-sortable-item';
 
 export default function NestedListForm({ data: initialData }: { data: Schema }) {
-  const maxItemLength = schema.shape.items._def.maxLength?.value || 1000;
+  const maxItemLength = MAX_ITEM_LENGTH;
 
   // 1. Define form
   const form = useForm<Schema>({
@@ -46,7 +45,7 @@ export default function NestedListForm({ data: initialData }: { data: Schema }) 
 
   // 4. Define error handler
   const onError = (errors: FieldErrors<Schema>) => {
-    devLog('error', 'errors', errors);
+    console.log('errors', errors);
   };
 
   // 5. create new item handler

@@ -2,10 +2,9 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CalendarIcon, Check, ChevronsUpDown } from 'lucide-react';
-import { type SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitErrorHandler, type SubmitHandler, useForm } from 'react-hook-form';
 import { languages, schema, Schema } from './schema';
 
-import { devLog } from '@henry-hong/common-utils/console';
 import { formatDate } from '@henry-hong/common-utils/date';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Calendar } from '@monorepo-starter/ui/components/calendar';
@@ -49,12 +48,16 @@ export default function NextServerActionClientWithHookFormPage() {
 
   // 2. Define submit handler
   const onSubmit: SubmitHandler<Schema> = async (data, event) => {
-    devLog('info', 'data', data);
-    devLog('info', 'event', event);
+    console.log('data', data);
+    console.log('event', event);
 
     const formData = new FormData(event?.target as HTMLFormElement);
-    devLog('info', 'formData', formData);
     await action(data, formData);
+  };
+
+  // 3. Define error handler
+  const onError: SubmitErrorHandler<Schema> = (errors) => {
+    console.log('errors', errors);
   };
 
   return (
@@ -66,10 +69,7 @@ export default function NextServerActionClientWithHookFormPage() {
       </p>
 
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit, (errors) => devLog('error', 'errors', errors))}
-          className="space-y-6"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit, onError)} className="not-prose space-y-6">
           {/* TextInput */}
           <FormField
             control={form.control}

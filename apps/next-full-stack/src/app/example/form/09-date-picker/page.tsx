@@ -1,6 +1,5 @@
 'use client';
 
-import { devLog } from '@henry-hong/common-utils/console';
 import { zodResolver } from '@hookform/resolvers/zod';
 import DatePicker from '@monorepo-starter/ui/blocks/date-picker/date-picker';
 import DatePickerMultiple from '@monorepo-starter/ui/blocks/date-picker/date-picker-multiple';
@@ -37,8 +36,8 @@ export default function FormDatePickerPage() {
 
   // 2. Define submit handler
   const onSubmit: SubmitHandler<Schema> = async (data, event) => {
-    devLog('info', data);
-    devLog('info', event);
+    console.log('data', data);
+    console.log('event', event);
 
     const formData = new FormData(event?.target as HTMLFormElement);
     await action(data, formData);
@@ -49,7 +48,7 @@ export default function FormDatePickerPage() {
       <h1>Date Picker Form</h1>
       <p>React Hook Form, Zod, Shadcn/UI, Next Server Action with Date Picker</p>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit, (errors) => devLog('error', errors))} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit, (errors) => console.log('errors', errors))} className="space-y-8">
           <FormField
             control={form.control}
             name="dateInput"

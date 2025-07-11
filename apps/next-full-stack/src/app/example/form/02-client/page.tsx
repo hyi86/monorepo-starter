@@ -11,10 +11,9 @@ import { Slider } from '@monorepo-starter/ui/components/slider';
 import { Switch } from '@monorepo-starter/ui/components/switch';
 import { useActionState } from 'react';
 import { action } from './action';
-import { type ErrorType } from './schema';
 
 export default function ServerActionClientPage() {
-  const [state, formAction, pending] = useActionState<ErrorType, FormData>(action, {});
+  const [state, formAction, pending] = useActionState(action, {});
 
   return (
     <div>
@@ -29,7 +28,7 @@ export default function ServerActionClientPage() {
           <Label htmlFor="input1">Simple input</Label>
           <Input id="input1" placeholder="Text input" name="textInput1" />
           <p className="text-destructive mt-2 text-xs" role="alert" aria-live="polite">
-            {state?.textInput1?.map((error, index) => (
+            {state?.textInput1?.map((error: string, index: number) => (
               <span key={index}>{error}</span>
             ))}
           </p>
@@ -39,7 +38,7 @@ export default function ServerActionClientPage() {
           <Label htmlFor="input2">Number input</Label>
           <Input placeholder="Number" type="number" inputMode="numeric" name="numberInput1" />
           <p className="text-destructive mt-2 text-xs" role="alert" aria-live="polite">
-            {state?.numberInput1?.map((error, index) => (
+            {state?.numberInput1?.map((error: string, index: number) => (
               <span key={index}>{error}</span>
             ))}
           </p>
@@ -51,7 +50,7 @@ export default function ServerActionClientPage() {
             <Label htmlFor="checkbox1">Checkbox 1</Label>
           </div>
           <p className="text-destructive mt-2 w-full text-xs" role="alert" aria-live="polite">
-            {state?.checkbox1?.map((error, index) => (
+            {state?.checkbox1?.map((error: string, index: number) => (
               <span key={index}>{error}</span>
             ))}
           </p>
@@ -90,7 +89,7 @@ export default function ServerActionClientPage() {
             <option value="4">Gatsby</option>
           </SelectNative>
           <p className="text-destructive mt-2 w-full text-xs" role="alert" aria-live="polite">
-            {state?.nativeSelect1?.map((error, index) => (
+            {state?.nativeSelect1?.map((error: string, index: number) => (
               <span key={index}>{error}</span>
             ))}
           </p>
@@ -109,7 +108,7 @@ export default function ServerActionClientPage() {
               <SelectItem value="gatsby">Gatsby</SelectItem>
             </SelectContent>
             <p className="text-destructive mt-2 w-full text-xs" role="alert" aria-live="polite">
-              {state?.select2?.map((error, index) => (
+              {state?.select2?.map((error: string, index: number) => (
                 <span key={index}>{error}</span>
               ))}
             </p>
@@ -120,7 +119,7 @@ export default function ServerActionClientPage() {
           <Label>Simple slider</Label>
           <Slider name="slider1" defaultValue={[25]} aria-label="Simple slider" />
           <p className="text-destructive mt-2 w-full text-xs" role="alert" aria-live="polite">
-            {state?.slider1?.map((error, index) => (
+            {state?.slider1?.map((error: string, index: number) => (
               <span key={index}>{error}</span>
             ))}
           </p>
@@ -134,7 +133,7 @@ export default function ServerActionClientPage() {
             </Label>
           </div>
           <p className="text-destructive mt-2 w-full text-xs" role="alert" aria-live="polite">
-            {state?.switch1?.map((error, index) => (
+            {state?.switch1?.map((error: string, index: number) => (
               <span key={index}>{error}</span>
             ))}
           </p>
