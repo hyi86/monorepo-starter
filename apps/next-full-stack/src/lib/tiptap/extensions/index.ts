@@ -20,7 +20,7 @@ import Youtube from '@tiptap/extension-youtube';
 import StarterKit from '@tiptap/starter-kit';
 import CodeBlockShiki from 'tiptap-extension-code-block-shiki';
 import { ImagePlaceholder } from './image-placeholder';
-import { ImageResize } from './image-resize';
+import { ImageExtension } from './image-resize';
 import { shouldAutoLink } from './link';
 import { onDrop, onPaste, uploadImages } from './upload-images';
 
@@ -69,7 +69,7 @@ export const extensions = [
     controls: true,
   }),
   CodeBlockShiki.configure({ defaultTheme: 'one-dark-pro' }),
-  ImageResize.configure({ inline: true, allowBase64: false, HTMLAttributes: { class: '' } }),
+  ImageExtension,
   FileHandler.configure({
     allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
     onDrop,

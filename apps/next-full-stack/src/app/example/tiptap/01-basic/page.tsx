@@ -11,19 +11,26 @@ import { WysiwygToolbar } from '~/lib/tiptap/toolbar';
 
 export default function WysiwygBasicPage() {
   const [content, setContent] = useState(
-    /* html */ `<h2>Discover the riches of our editor ✨</h2>
-<blockquote>
-  <p>
-    Tiptap is so easy <span style="color: rgb(225, 162, 0)">to make</span>
-    <code>rich-text-editor</code>
-  </p>
-</blockquote>
-<p></p>
-<pre><code class="language-tsx">const tsx = () =&gt; {
-  return (
-    &lt;div&gt;Hello world&lt;/div&gt;
-  )
-}</code></pre>`.trim(),
+    /* html */ `
+    <h2>Discover the riches of our editor ✨</h2>
+    <blockquote>
+      <p>
+        Tiptap is so easy <span style="color: rgb(225, 162, 0)">to make</span>
+        <code>rich-text-editor</code>
+      </p>
+    </blockquote>
+    <p>
+      <img
+        class=""
+        src="https://images.pexels.com/photos/32805822/pexels-photo-32805822.jpeg"
+      />
+    </p>
+    <pre><code class="language-tsx">const tsx = () =&gt; {
+      return (
+        &lt;div&gt;Hello world&lt;/div&gt;
+      )
+    }</code></pre>    
+    `.trim(),
   );
   const [code, setCode] = useState('');
 

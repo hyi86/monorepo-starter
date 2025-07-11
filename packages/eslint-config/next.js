@@ -47,6 +47,7 @@ export const nextJsConfig = [
       'turbo/no-undeclared-env-vars': 'off',
       'react-hooks/exhaustive-deps': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
+      '@next/next/no-img-element': 'off',
     },
   },
 ];
