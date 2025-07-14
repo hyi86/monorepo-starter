@@ -199,10 +199,6 @@ function TiptapImage({ node, editor, selected, deleteNode, updateAttributes }: N
           className="m-0 h-auto w-full"
         />
 
-        <NodeViewContent as="figcaption" className="m-0 text-center">
-          {node.attrs.title}
-        </NodeViewContent>
-
         {editor.isEditable && (
           <>
             <div

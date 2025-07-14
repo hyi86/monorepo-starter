@@ -1,6 +1,4 @@
-import { type LinkOptions } from '@tiptap/extension-link';
-
-export const shouldAutoLink: LinkOptions['shouldAutoLink'] = (url) => {
+export const shouldAutoLink = (url: string) => {
   try {
     // construct URL
     const parsedUrl = url.includes(':') ? new URL(url) : new URL(`https://${url}`);

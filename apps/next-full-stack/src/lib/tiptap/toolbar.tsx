@@ -261,7 +261,7 @@ export function WysiwygToolbar({ editor, isBubbleMenu = false }: { editor: Edito
         </>
       )}
       <Button
-        variant={editor.storage.invisibleCharacters.visibility() ? 'default' : 'outline'}
+        variant={editor.isActive('invisibleCharacters') ? 'default' : 'outline'}
         onClick={handleToggleInvisibleCharacters}
       >
         <EyeIcon className="size-4" />

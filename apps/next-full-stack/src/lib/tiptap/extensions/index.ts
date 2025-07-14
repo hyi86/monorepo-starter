@@ -1,22 +1,14 @@
-import CharacterCount from '@tiptap/extension-character-count';
 import { Color } from '@tiptap/extension-color';
 import FileHandler from '@tiptap/extension-file-handler';
-import { Gapcursor } from '@tiptap/extension-gapcursor';
-import { InvisibleCharacters } from '@tiptap/extension-invisible-characters';
-import Link from '@tiptap/extension-link';
-import Placeholder from '@tiptap/extension-placeholder';
+import InvisibleCharacters from '@tiptap/extension-invisible-characters';
+import { TaskItem, TaskList } from '@tiptap/extension-list';
 import { Subscript } from '@tiptap/extension-subscript';
 import { Superscript } from '@tiptap/extension-superscript';
-import { Table } from '@tiptap/extension-table';
-import { TableCell } from '@tiptap/extension-table-cell';
-import { TableHeader } from '@tiptap/extension-table-header';
-import { TableRow } from '@tiptap/extension-table-row';
-import { TaskItem } from '@tiptap/extension-task-item';
-import { TaskList } from '@tiptap/extension-task-list';
+import { Table, TableCell, TableHeader, TableRow } from '@tiptap/extension-table';
 import TextAlign from '@tiptap/extension-text-align';
-import TextStyle from '@tiptap/extension-text-style';
-import { Underline } from '@tiptap/extension-underline';
+import { TextStyle } from '@tiptap/extension-text-style';
 import Youtube from '@tiptap/extension-youtube';
+import { CharacterCount, Gapcursor, Placeholder } from '@tiptap/extensions';
 import StarterKit from '@tiptap/starter-kit';
 import CodeBlockShiki from 'tiptap-extension-code-block-shiki';
 import { ImagePlaceholder } from './image-placeholder';
@@ -31,17 +23,18 @@ export const extensions = [
     heading: {
       levels: [1, 2, 3, 4],
     },
+    link: {
+      autolink: true,
+      defaultProtocol: 'https',
+      protocols: ['http', 'https'],
+      shouldAutoLink,
+    },
+    underline: {},
   }),
   CharacterCount,
   Color,
   Gapcursor,
   InvisibleCharacters.configure({ visible: false }),
-  Link.configure({
-    autolink: true,
-    defaultProtocol: 'https',
-    protocols: ['http', 'https'],
-    shouldAutoLink,
-  }),
   Placeholder.configure({
     placeholder: 'Write something ...',
   }),
@@ -60,9 +53,8 @@ export const extensions = [
       class: '[&_input]:cursor-pointer [&_p]:m-0',
     },
   }),
-  TextAlign.configure({ types: ['heading', 'paragraph', 'image'] }),
+  TextAlign.configure({ types: ['heading', 'paragraph'] }),
   TextStyle,
-  Underline,
   Youtube.configure({
     width: 640,
     height: 480,
