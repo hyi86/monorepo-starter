@@ -1,9 +1,8 @@
 # Code Highlight in MDX
 
-### 단어 하이라이트
+### Line, Word Highlight
 
-```tsx
-// [!code word:onClick]
+```tsx {1} /Clicked/ fileName="button.tsx"
 import React from 'react';
 
 export default function Button({ label }: { label: string }) {
@@ -15,11 +14,19 @@ export default function Button({ label }: { label: string }) {
 }
 ```
 
-### 라인 하이라이트
+### Line Diff
 
-```yaml
+```ts
+function add(a: number, b: number) {
+  return b + b; // Remove this line [!code --]
+  return a + b; // Add this line [!code ++]
+}
+```
+
+### Hide line numbers
+
+```yaml fileName="config.yaml" showLineNumbers=false
 a: 1
-# [!code highlight:2]
 b: 2
 c: 3
 case: |
@@ -27,18 +34,4 @@ case: |
   티
   라
   인    스트링
-```
-
-### 라인 번호 표시
-
-```ts
-function add(a: number, b: number) {
-  // [!code error:1]
-  return a + b; // Error this line
-}
-
-function minus(a: number, b: number) {
-  // [!code warning:1]
-  return a - b; // Warning this line
-}
 ```

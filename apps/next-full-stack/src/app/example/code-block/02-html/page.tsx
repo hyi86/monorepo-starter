@@ -1,7 +1,6 @@
-import { highlight } from '@monorepo-starter/ui/blocks/code-highlight/highlight-html';
+import { CodeBlock } from '~/lib/shiki/code-block';
 
 const code = `
-// [!code word:locale]
 'use client';
 
 import { closestCenter, DndContext, DragOverlay } from '@dnd-kit/core';
@@ -186,13 +185,10 @@ export function Container({ data: initialData }: { data: ContainerData }) {
 `;
 
 export default async function CodePage() {
-  const html = await highlight(code, 'tsx');
-
   return (
     <div>
       <h1>Code Highlight HTML</h1>
-      <p>서버 컴포넌트에서 정적 하이라이트 적용</p>
-      <div dangerouslySetInnerHTML={{ __html: html }} />
+      <CodeBlock lang="tsx">{code}</CodeBlock>
     </div>
   );
 }

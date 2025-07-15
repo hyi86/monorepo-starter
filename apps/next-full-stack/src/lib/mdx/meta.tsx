@@ -1,3 +1,9 @@
+/**
+ * metastring
+ *
+ * @example
+ * fileName="button.tsx" showLineNumbers=false 1 1,2,3 {1-3} /Clicked/
+ */
 export function parseRawMeta(meta?: string): Record<string, string | number | boolean> {
   if (!meta) return {};
 
@@ -15,8 +21,6 @@ export function parseRawMeta(meta?: string): Record<string, string | number | bo
   while ((match = regex.exec(cleanedMeta)) !== null) {
     const key = match[1];
     const value = match[2] ?? match[3] ?? match[4];
-
-    console.log(key, value);
 
     if (value === undefined) {
       // flag only → boolean true

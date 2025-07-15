@@ -2,7 +2,7 @@ import { Toggle } from '@monorepo-starter/ui/components/toggle';
 import { type Editor } from '@tiptap/react';
 import { TableIcon } from 'lucide-react';
 
-export function useTables(editor: Editor) {
+export function TablesBlock({ editor, isBubbleMenu = false }: { editor: Editor; isBubbleMenu?: boolean }) {
   const handleInsertTable = () => {
     editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
   };
@@ -43,14 +43,14 @@ export function useTables(editor: Editor) {
     editor.chain().focus().toggleHeaderColumn().run();
   };
 
-  return {
-    renderInsertTableButton: () => (
-      <Toggle onPressedChange={handleInsertTable} pressed={false}>
-        <TableIcon className="size-4" />
-      </Toggle>
-    ),
+  return (
+    <>
+      {!isBubbleMenu && (
+        <Toggle onPressedChange={handleInsertTable} pressed={false}>
+          <TableIcon className="size-4" />
+        </Toggle>
+      )}
 
-    renderInsertRowAfterButton: () => (
       <Toggle disabled={!editor.can().addColumnAfter()} onPressedChange={handleInsertRowAfter} pressed={false}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -59,9 +59,6 @@ export function useTables(editor: Editor) {
           />
         </svg>
       </Toggle>
-    ),
-
-    renderInsertRowBeforeButton: () => (
       <Toggle disabled={!editor.can().addColumnBefore()} onPressedChange={handleInsertRowBefore} pressed={false}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -70,9 +67,6 @@ export function useTables(editor: Editor) {
           />
         </svg>
       </Toggle>
-    ),
-
-    renderDeleteRowButton: () => (
       <Toggle disabled={!editor.can().deleteRow()} onPressedChange={handleDeleteRow} pressed={false}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -81,9 +75,6 @@ export function useTables(editor: Editor) {
           />
         </svg>
       </Toggle>
-    ),
-
-    renderAddColumnAfterButton: () => (
       <Toggle disabled={!editor.can().addColumnAfter()} onPressedChange={handleAddColumnAfter} pressed={false}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
@@ -92,9 +83,6 @@ export function useTables(editor: Editor) {
           />
         </svg>
       </Toggle>
-    ),
-
-    renderAddColumnBeforeButton: () => (
       <Toggle disabled={!editor.can().addColumnBefore()} onPressedChange={handleAddColumnBefore} pressed={false}>
         <svg viewBox="0 0 24 24">
           <path
@@ -103,9 +91,6 @@ export function useTables(editor: Editor) {
           />
         </svg>
       </Toggle>
-    ),
-
-    renderDeleteColumnButton: () => (
       <Toggle disabled={!editor.can().deleteColumn()} onPressedChange={handleDeleteColumn} pressed={false}>
         <svg viewBox="0 0 24 24">
           <path
@@ -114,9 +99,6 @@ export function useTables(editor: Editor) {
           />
         </svg>
       </Toggle>
-    ),
-
-    renderMergeOrSplitButton: () => (
       <Toggle disabled={!editor.can().mergeOrSplit()} onPressedChange={handleMergeOrSplit} pressed={false}>
         <svg viewBox="0 0 24 24">
           <path
@@ -125,9 +107,6 @@ export function useTables(editor: Editor) {
           />
         </svg>
       </Toggle>
-    ),
-
-    renderToggleHeaderRowButton: () => (
       <Toggle disabled={!editor.can().toggleHeaderRow()} onPressedChange={handleToggleHeaderRow} pressed={false}>
         <svg viewBox="0 0 24 24">
           <path
@@ -136,9 +115,6 @@ export function useTables(editor: Editor) {
           />
         </svg>
       </Toggle>
-    ),
-
-    renderToggleHeaderColumnButton: () => (
       <Toggle disabled={!editor.can().toggleHeaderColumn()} onPressedChange={handleToggleHeaderColumn} pressed={false}>
         <svg viewBox="0 0 24 24">
           <path
@@ -147,6 +123,6 @@ export function useTables(editor: Editor) {
           />
         </svg>
       </Toggle>
-    ),
-  };
+    </>
+  );
 }

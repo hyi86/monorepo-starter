@@ -1,38 +1,68 @@
 'use client';
 
+import { Button } from '@monorepo-starter/ui/components/button';
 import { Skeleton } from '@monorepo-starter/ui/components/skeleton';
 import { Textarea } from '@monorepo-starter/ui/components/textarea';
+import { BubbleMenuOptions } from '@tiptap/extension-bubble-menu';
 import { EditorContent, useEditor } from '@tiptap/react';
+import { BubbleMenu } from '@tiptap/react/menus';
 import prettierHtml from 'prettier/plugins/html';
 import prettier from 'prettier/standalone';
 import { useEffect, useState } from 'react';
+import { TablesBlock } from '~/lib/tiptap/blocks/tables';
 import { extensions } from '~/lib/tiptap/extensions';
 import { WysiwygToolbar } from '~/lib/tiptap/toolbar';
 
+const initialContent = `
+<h2>Discover the riches of our editor ✨</h2>
+<blockquote>
+  <p>
+    Tiptap is so easy <span style="color: rgb(225, 162, 0);">to make</span>
+    <code>rich-text-editor</code>
+  </p>
+</blockquote>
+<table style="min-width: 75px;">
+  <colgroup>
+    <col style="min-width: 25px;" />
+    <col style="min-width: 25px;" />
+    <col style="min-width: 25px;" />
+  </colgroup>
+  <tbody>
+    <tr>
+      <th colspan="1" rowspan="1"><p>1</p></th>
+      <th colspan="1" rowspan="1"><p>2</p></th>
+      <th colspan="1" rowspan="1"><p>3</p></th>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="1"><p>6</p></td>
+      <td colspan="1" rowspan="1"><p>7</p></td>
+      <td colspan="1" rowspan="1"><p>8</p></td>
+    </tr>
+    <tr>
+      <td colspan="1" rowspan="1"><p></p></td>
+      <td colspan="1" rowspan="1"><p></p></td>
+      <td colspan="1" rowspan="1"><p></p></td>
+    </tr>
+  </tbody>
+</table>
+<img
+  src="https://images.pexels.com/photos/32805822/pexels-photo-32805822.jpeg"
+  width="100%"
+  align="center"
+/>
+<pre><code class="language-tsx">const tsx = () =&gt; {
+  return (
+    &lt;div&gt;Hello world&lt;/div&gt;
+  )
+}</code></pre>
+<p></p>
+`;
+
 export default function WysiwygBasicPage() {
-  const [content, setContent] = useState(
-    /* html */ `
-    <h2>Discover the riches of our editor ✨</h2>
-    <blockquote>
-      <p>
-        Tiptap is so easy <span style="color: rgb(225, 162, 0)">to make</span>
-        <code>rich-text-editor</code>
-      </p>
-    </blockquote>
-    <p>
-      <img
-        class=""
-        src="https://images.pexels.com/photos/32805822/pexels-photo-32805822.jpeg"
-      />
-    </p>
-    <pre><code class="language-tsx">const tsx = () =&gt; {
-      return (
-        &lt;div&gt;Hello world&lt;/div&gt;
-      )
-    }</code></pre>    
-    `.trim(),
-  );
+  const [content, setContent] = useState(initialContent.trim());
+  const [isEditing, setIsEditing] = useState(false);
   const [code, setCode] = useState('');
+  const [bubbleMenu, setBubbleMenu] = useState('');
 
   const editor = useEditor({
     editable: true,
@@ -46,7 +76,7 @@ export default function WysiwygBasicPage() {
     editorProps: {
       attributes: {
         class:
-          'p-4 mt-8 focus-visible:outline-none max-w-xl mx-auto prose dark:prose-invert border rounded transition-all focus-visible:border-foreground/30 focus-visible:border focus-visible:ring-3 focus-visible:ring-foreground/10',
+          'p-4 mt-4 focus-visible:outline-none mx-auto prose dark:prose-invert border rounded transition-all focus-visible:border-foreground/30 focus-visible:border focus-visible:ring-3 focus-visible:ring-foreground/10',
       },
     },
   });
@@ -54,6 +84,15 @@ export default function WysiwygBasicPage() {
   const handleBlur = () => {
     if (!editor) return;
     editor.commands.setContent(code);
+  };
+
+  const handleShowBubbleMenu: BubbleMenuOptions['shouldShow'] = ({ editor }) => {
+    if (editor.isActive('table')) {
+      setBubbleMenu('table');
+      return true;
+    }
+
+    return false;
   };
 
   useEffect(() => {
@@ -77,16 +116,28 @@ export default function WysiwygBasicPage() {
 
   return (
     <div className="relative">
+      <Button className="mb-4" onClick={() => setIsEditing(!isEditing)}>
+        {isEditing ? 'Edit Source' : 'Edit'}
+      </Button>
+      <BubbleMenu editor={editor} options={{ placement: 'bottom-end' }} shouldShow={handleShowBubbleMenu}>
+        <div className="bg-background rounded border p-2 shadow">
+          {bubbleMenu === 'table' && <TablesBlock editor={editor} isBubbleMenu />}
+        </div>
+      </BubbleMenu>
+
       <WysiwygToolbar editor={editor} />
+
       <div className="flex items-start gap-2">
         <EditorContent className="flex-1" editor={editor} />
-        <Textarea
-          className="mt-8 w-full flex-1 font-mono"
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          rows={10}
-          onBlur={handleBlur}
-        />
+        {isEditing && (
+          <Textarea
+            className="mt-8 w-full flex-1 font-mono"
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            rows={10}
+            onBlur={handleBlur}
+          />
+        )}
       </div>
     </div>
   );

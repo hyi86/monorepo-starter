@@ -1,7 +1,7 @@
 'use client';
 
 import Image from '@tiptap/extension-image';
-import { NodeViewContent, type NodeViewProps, NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react';
+import { type NodeViewProps, NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react';
 import { AlignCenter, AlignLeft, AlignRight, Columns2, Copy, Maximize, MoreVertical, Trash } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 

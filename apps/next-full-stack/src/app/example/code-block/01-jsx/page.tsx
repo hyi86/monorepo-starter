@@ -1,12 +1,12 @@
-import { highlight } from '@monorepo-starter/ui/blocks/code-highlight/highlight-jsx';
-import CodeBlock from './client';
+import { CodeBlock } from '~/lib/shiki/code-block.client';
 
-export default async function Page() {
+export default function Page() {
+  const code = 'const loader = "Loading...";';
+
   return (
     <div>
       <h1>Code Highlight JSX</h1>
-      <p>클라이언트 컴포넌트에서 동적 하이라이트 적용(클라이언트 & 서버 적용 가능)</p>
-      <CodeBlock initial={await highlight('const loader = "Rendered on server";', 'ts')} />
+      <CodeBlock code={code} />
     </div>
   );
 }

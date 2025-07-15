@@ -23,7 +23,6 @@ export type StaticPath =
   | '/example/code-block/02-html'
   | '/example/code-block/03-mdx'
   | '/example/code-block/04-editor'
-  | '/example/code-block/05-editor-fs'
   | '/example/db'
   | '/example/db/crud'
   | '/example/dnd'
@@ -62,7 +61,6 @@ export type StaticPath =
   | '/example/table/01-server'
   | '/example/table/02-client'
   | '/example/tiptap/01-basic'
-  | '/example/tiptap/02-bubble-menu'
   | '/example/virtual'
   | '/example/virtual/01-fixed-row'
   | '/example/virtual/02-fixed-column'
@@ -783,34 +781,6 @@ export const appPathRoutes: AppPathRoutes[] = [
                 children: [
                   {
                     path: 'src/app/example/code-block/04-editor/page.tsx',
-                    children: [],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    href: '/example/code-block/05-editor-fs',
-    linkTypes: '/example/code-block/05-editor-fs',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/code-block/05-editor-fs/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/code-block/layout.tsx',
-                children: [
-                  {
-                    path: 'src/app/example/code-block/05-editor-fs/page.tsx',
                     children: [],
                   },
                 ],
@@ -1967,29 +1937,6 @@ export const appPathRoutes: AppPathRoutes[] = [
             children: [
               {
                 path: 'src/app/example/tiptap/01-basic/page.tsx',
-                children: [],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    href: '/example/tiptap/02-bubble-menu',
-    linkTypes: '/example/tiptap/02-bubble-menu',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/tiptap/02-bubble-menu/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/tiptap/02-bubble-menu/page.tsx',
                 children: [],
               },
             ],
