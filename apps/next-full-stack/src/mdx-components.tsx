@@ -4,9 +4,7 @@ import { Pre } from '~/lib/mdx/pre';
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    // @ts-expect-error 타입 불일치 무시
     wrapper: ({ children }) => <div className={cn('prose prose-sm prose-zinc')}>{children}</div>,
-    // @ts-expect-error 타입 불일치 무시
     pre: async ({ children }) => {
       const metaRaw = children.props.metastring;
       const className = children.props.className;
