@@ -3,7 +3,6 @@
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Skeleton } from '@monorepo-starter/ui/components/skeleton';
 import { Textarea } from '@monorepo-starter/ui/components/textarea';
-import { BubbleMenuOptions } from '@tiptap/extension-bubble-menu';
 import { EditorContent, useEditor } from '@tiptap/react';
 import { BubbleMenu } from '@tiptap/react/menus';
 import prettierHtml from 'prettier/plugins/html';
@@ -62,7 +61,6 @@ export default function WysiwygBasicPage() {
   const [content, setContent] = useState(initialContent.trim());
   const [isEditing, setIsEditing] = useState(false);
   const [code, setCode] = useState('');
-  const [bubbleMenu, setBubbleMenu] = useState('');
 
   const editor = useEditor({
     editable: true,
@@ -84,15 +82,6 @@ export default function WysiwygBasicPage() {
   const handleBlur = () => {
     if (!editor) return;
     editor.commands.setContent(code);
-  };
-
-  const handleShowBubbleMenu: BubbleMenuOptions['shouldShow'] = ({ editor }) => {
-    if (editor.isActive('table')) {
-      setBubbleMenu('table');
-      return true;
-    }
-
-    return false;
   };
 
   useEffect(() => {
@@ -119,9 +108,16 @@ export default function WysiwygBasicPage() {
       <Button className="mb-4" onClick={() => setIsEditing(!isEditing)}>
         {isEditing ? 'Edit Source' : 'Edit'}
       </Button>
-      <BubbleMenu editor={editor} options={{ placement: 'bottom-end' }} shouldShow={handleShowBubbleMenu}>
+      <BubbleMenu
+        pluginKey="bubble-menu-tables"
+        editor={editor}
+        options={{ placement: 'bottom-start', strategy: 'fixed' }}
+        shouldShow={({ editor }) => {
+          return editor.isActive('table');
+        }}
+      >
         <div className="bg-background rounded border p-2 shadow">
-          {bubbleMenu === 'table' && <TablesBlock editor={editor} isBubbleMenu />}
+          <TablesBlock editor={editor} isBubbleMenu />
         </div>
       </BubbleMenu>
 
