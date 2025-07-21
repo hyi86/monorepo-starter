@@ -81,7 +81,6 @@
     "shiki": "^3.8.1",
     "sonner": "^2.0.6",
     "tar-stream": "^3.1.7",
-    "tiptap-extension-code-block-shiki": "^0.5.1",
     "web-push": "^3.6.7",
     "zod": "catalog:",
     "zustand": "^5.0.6"
@@ -90,7 +89,7 @@
     "@eslint/eslintrc": "catalog:",
     "@monorepo-starter/eslint-config": "workspace:*",
     "@monorepo-starter/typescript-config": "workspace:*",
-    "@next/bundle-analyzer": "^15.4.1",
+    "@next/bundle-analyzer": "^15.4.2",
     "@playwright/test": "^1.54.1",
     "@tailwindcss/postcss": "catalog:",
     "@testing-library/dom": "^10.4.0",

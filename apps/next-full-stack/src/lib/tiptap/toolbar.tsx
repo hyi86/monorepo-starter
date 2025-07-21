@@ -3,6 +3,7 @@
 import { Separator } from '@monorepo-starter/ui/components/separator';
 import { type Editor } from '@tiptap/react';
 import { AlignBlock } from './blocks/align';
+import { CodeBlockBlock } from './blocks/code-block';
 import { DocumentBlock } from './blocks/document';
 import { LinkBlock } from './blocks/link';
 import { ListBlock } from './blocks/list';
@@ -28,8 +29,10 @@ export function WysiwygToolbar({ editor }: { editor: Editor }) {
       <Separator className="mx-1 data-[orientation=vertical]:h-6" orientation="vertical" />
       <ListBlock editor={editor} />
       <Separator className="mx-1 data-[orientation=vertical]:h-6" orientation="vertical" />
-      <LinkBlock editor={editor} />
       <MediaBlock editor={editor} />
+      <LinkBlock editor={editor} />
+      <Separator className="mx-1 data-[orientation=vertical]:h-6" orientation="vertical" />
+      <CodeBlockBlock editor={editor} />
       <Separator className="mx-1 data-[orientation=vertical]:h-6" orientation="vertical" />
       <TextColorBlock editor={editor} />
       <Separator className="mx-1 data-[orientation=vertical]:h-6" orientation="vertical" />

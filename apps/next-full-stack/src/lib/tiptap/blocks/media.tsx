@@ -28,7 +28,7 @@ export function MediaBlock({ editor }: { editor: Editor }) {
 
   return (
     <>
-      <Button variant="outline" onClick={handleAddImage}>
+      <Button variant="ghost" onClick={handleAddImage}>
         <ImagePlusIcon className="size-4" />
       </Button>
       <Popover>
