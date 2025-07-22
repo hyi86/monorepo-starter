@@ -1,3 +1,7 @@
+/**
+ * HTML to React JSX converter
+ * @see https://github.com/remarkablemark/html-react-parser
+ */
 import parseHtml from 'html-react-parser';
 import { i18n, Locale } from '~/lib/i18n/config';
 import { translate } from '~/lib/i18n/dictionaries';
