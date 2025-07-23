@@ -9,6 +9,8 @@ import { UploaderStoreProvider } from '~/lib/experimental-upload/uploader-store-
 import { getLocale } from '~/lib/i18n/locale';
 import { WebPushProvider } from '~/lib/push/web-push-provider';
 import { TanstackQueryProvider } from '~/lib/query/query-provider';
+
+import 'react-advanced-cropper/dist/style.css';
 import './globals.css';
 
 const pretendard = localFont({

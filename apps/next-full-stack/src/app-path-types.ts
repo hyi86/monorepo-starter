@@ -43,6 +43,7 @@ export type StaticPath =
   | '/example/form/07-use-optimistic'
   | '/example/form/08-nested-list'
   | '/example/form/09-date-picker'
+  | '/example/image-edit'
   | '/example/nuqs'
   | '/example/nuqs/01-client'
   | '/example/nuqs/02-server'
@@ -1344,6 +1345,29 @@ export const appPathRoutes: AppPathRoutes[] = [
                     children: [],
                   },
                 ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/image-edit',
+    linkTypes: '/example/image-edit',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/image-edit/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/image-edit/page.tsx',
+                children: [],
               },
             ],
           },
