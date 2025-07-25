@@ -23,7 +23,7 @@ export default async function DbPage() {
         <code>Server Component</code> + <code>Server Action</code> Only.
       </p>
 
-      <form action={createRandomUserAction} className="shadow-xs relative flex max-w-xs items-center rounded-md">
+      <form action={createRandomUserAction} className="shadow-xs relative mb-4 flex max-w-xs items-center rounded-md">
         <Input
           type="number"
           name="count"
@@ -37,10 +37,10 @@ export default async function DbPage() {
         </Button>
       </form>
 
-      <div>Total: {new Intl.NumberFormat().format(users.totalCount)}</div>
-      <div className="flex flex-1 flex-wrap overflow-auto font-mono text-xs">
+      <div className="mb-2 text-sm">Total: {new Intl.NumberFormat().format(users.totalCount)}</div>
+      <div className="flex flex-wrap overflow-auto font-mono text-xs">
         {users.rows.map((user) => (
-          <div key={user.id} className="w-1/3 p-1">
+          <div key={user.id} className="w-90 p-1">
             <div className="flex w-full flex-col gap-2 rounded-md border p-2 shadow-sm">
               <div className="flex gap-1">
                 <form action={updateUserAction.bind(null, user.id)}>

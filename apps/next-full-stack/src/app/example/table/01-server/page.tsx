@@ -34,7 +34,7 @@ export default async function TableServerControlsPage({ searchParams }: { search
     <div className="flex flex-col">
       <h1>Table with Controls - Server Components Only</h1>
       <div className="flex-1 space-y-2">
-        <div className="max-w-240">
+        <div className="max-w-240 not-prose">
           <FuzzySearch currentUrl={currentUrl} allParams={searchParamsCache.all()} />
           <TableFilters currentUrl={currentUrl} />
         </div>
@@ -82,7 +82,7 @@ export default async function TableServerControlsPage({ searchParams }: { search
                 <TableRow key={item.id}>
                   <TableCell>{item.id}</TableCell>
                   <TableCell>
-                    <div className="flex items-center gap-1.5">
+                    <div className="not-prose flex items-center gap-1.5">
                       <Image
                         src={item.profile?.avatar || ''}
                         alt={item.name}

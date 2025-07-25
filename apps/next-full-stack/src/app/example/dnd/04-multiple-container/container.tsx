@@ -2,7 +2,6 @@
 
 import { closestCenter, DndContext, DragOverlay } from '@dnd-kit/core';
 import { arrayMove, SortableContext } from '@dnd-kit/sortable';
-import { devLog } from '@henry-hong/common-utils/console';
 import { SortableItem } from '@monorepo-starter/ui/blocks/dnd/sortable-item';
 import { ScrollArea } from '@monorepo-starter/ui/components/scroll-area';
 import { useImmer } from '@monorepo-starter/ui/hooks/use-immer';
@@ -57,7 +56,7 @@ export function Container({ data: initialData }: { data: ContainerData }) {
     const overId = event.over?.id; // 현재 마우스가 올라간 요소
     const containerKey = findContainerKey(activeId as string);
 
-    devLog('info', 'onDragOver', overId, activeId, containerKey);
+    console.log('onDragOver', overId, activeId, containerKey);
   };
 
   // 드래그 종료 시 호출되는 핸들러
@@ -115,7 +114,7 @@ export function Container({ data: initialData }: { data: ContainerData }) {
           ? toItems.length
           : overIndex;
 
-      devLog('info', overIndex, insertIndex);
+      console.log('onDragEnd', overIndex, insertIndex);
 
       // 새로운 도착 컨테이너 리스트 생성
       const newToItems = [...toItems.slice(0, insertIndex), movingItem, ...toItems.slice(insertIndex)];

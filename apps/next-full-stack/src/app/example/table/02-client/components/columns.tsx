@@ -127,7 +127,7 @@ export const columns = [
     footer: '로그인 ID',
     cell: (info) => (
       <div className="flex items-center gap-1 truncate">
-        <Avatar className="">
+        <Avatar className="not-prose">
           <AvatarImage src={info.row.original.profile?.avatar || ''} />
           <AvatarFallback>{info.row.original.name.slice(0, 1)}</AvatarFallback>
         </Avatar>
