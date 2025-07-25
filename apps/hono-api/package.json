@@ -22,7 +22,7 @@
     "@hono/node-server": "^1.17.1",
     "@hono/zod-validator": "^0.7.2",
     "better-sqlite3": "^12.2.0",
-    "dotenv": "^17.2.0",
+    "dotenv": "^17.2.1",
     "drizzle-orm": "^0.44.3",
     "hono": "^4.8.5",
     "pino": "^9.7.0",
