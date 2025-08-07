@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "private": true,
   "description": "A modern, production-ready pnpm & turborepo monorepo starter",
-  "repository": "https://github.com/hyi86/monorepo-starter.git",
+  "repository": "https://github.com/hyi86/monorepo-starter",
   "license": "MIT",
   "author": "henry hong <hyi8656@gmail.com>",
   "type": "module",
