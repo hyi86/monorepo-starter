@@ -15,7 +15,6 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "prepare": "husky",
-    "postinstall": "husky install",
     "commit": "cz"
   },
   "config": {
