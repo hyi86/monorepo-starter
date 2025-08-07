@@ -23,6 +23,12 @@
       "path": "cz-conventional-changelog"
     }
   },
+  "lint-staged": {
+    "*.{js,ts,tsx,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
