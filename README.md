@@ -76,11 +76,20 @@
 
 ## 🚀 Getting Started
 
+Run Development Server
+
 ```bash
 git clone https://github.com/hyi86/monorepo-starter.git
 cd monorepo-starter
 make init
 pnpm dev
+```
+
+Commit Message Formatting Rules
+
+```bash
+git add .
+pnpm commit
 ```
 
 <br />
