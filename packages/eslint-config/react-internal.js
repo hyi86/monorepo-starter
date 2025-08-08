@@ -38,6 +38,7 @@ export const config = [
       'turbo/no-undeclared-env-vars': 'off',
       'react-hooks/exhaustive-deps': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
+      'react/prop-types': 'off',
     },
   },
 ];

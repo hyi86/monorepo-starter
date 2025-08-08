@@ -2,9 +2,9 @@
  * HTML to React JSX converter
  * @see https://github.com/remarkablemark/html-react-parser
  */
-import parseHtml from 'html-react-parser';
+import Link from 'next/link';
 import { i18n, Locale } from '~/lib/i18n/config';
-import { translate } from '~/lib/i18n/dictionaries';
+import { getI18nUtils } from '~/lib/i18n/dictionaries';
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -12,14 +12,26 @@ export async function generateStaticParams() {
 
 export default async function AppLangPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params;
+  const { t } = getI18nUtils(lang);
+
   return (
     <div>
-      <h1>{translate('Common.language', lang)}</h1>
-      <ul>
-        {(translate('ExampleIntro.list', lang) as string[]).map((item) => (
-          <li key={item}>{parseHtml(item)}</li>
-        ))}
-      </ul>
+      {lang}
+      <h1>{t('Common.language')}</h1>
+      <div>
+        {t.rich('ExampleIntro.list', {
+          code: (chunks) => <code className="text-emerald-600">{chunks}</code>,
+        })}
+      </div>
+      <div>
+        {Array.from({ length: 10 }, (_, i) => {
+          return (
+            <div key={i}>
+              <Link href={`/example/${lang}/${i}`}>{i}</Link>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
