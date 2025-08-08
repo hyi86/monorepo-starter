@@ -41,18 +41,22 @@ fi
 # create nextjs based
 # ------------------------------------------------------------
 if [ "$SELECTED" == "next" ]; then
+  # create next project
   pnpm create next-app@latest apps/$INPUT --ts --tailwind --import-alias "~/*" --eslint --app --src-dir --turbopack --empty --use-pnpm --skip-install
   cd apps/$INPUT
 
   # add scripts
-  pnpm pkg set scripts.predev="../../packages/devtools/bin/index.js --watch -p apps/$INPUT &"
+  #pnpm pkg set scripts.predev="../../packages/devtools/bin/index.js --watch -p apps/$INPUT &"
   pnpm pkg set scripts.check-types="tsc --noEmit"
+
   # install
   pnpm install
+
   # add production dependencies
   pnpm pkg set dependencies.next="catalog:"
   pnpm pkg set dependencies.react="catalog:"
   pnpm pkg set dependencies.react-dom="catalog:"
+
   # add devDependencies
   pnpm pkg set devDependencies.@eslint/eslintrc="catalog:"
   pnpm pkg set devDependencies.@tailwindcss/postcss="catalog:"
@@ -63,8 +67,10 @@ if [ "$SELECTED" == "next" ]; then
   pnpm pkg set devDependencies.eslint-config-next="catalog:"
   pnpm pkg set devDependencies.tailwindcss="catalog:"
   pnpm pkg set devDependencies.typescript="catalog:"
+
   # add production workspace dependencies
   pnpm add --workspace @monorepo-starter/ui
+
   # add devDependencies workspace dependencies
   pnpm add -D --workspace @monorepo-starter/eslint-config @monorepo-starter/typescript-config
 
