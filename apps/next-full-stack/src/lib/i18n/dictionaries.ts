@@ -1,4 +1,5 @@
 import { createTranslator } from 'next-intl';
+import { type JSX } from 'react';
 import dictionaries from '~/dictionaries.json';
 import { i18n, type Locale } from './config';
 
@@ -8,7 +9,9 @@ import { i18n, type Locale } from './config';
 export function createI18n(locale: Locale = i18n.defaultLocale) {
   const translator = createTranslator({ locale, messages: dictionaries[locale] });
   return {
-    t: translator,
+    t: translator as typeof translator & {
+      rich: (key: string, values?: Record<string, (chunks: any) => JSX.Element>) => JSX.Element;
+    },
     locale,
   };
 }

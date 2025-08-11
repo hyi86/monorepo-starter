@@ -1,35 +1,32 @@
 {
   "cn": {
-    "Common.language": "中文",
-    "Common.hello": "你好",
-    "ExampleIntro.title": "国际化示例",
-    "ExampleIntro.list": [
-      "根据页面布局应用语言设置的示例",
-      "不使用外部库（<code>next-intl</code>, <code>react-i18next</code> 等）自建",
-      "使用 <code>getDictionary(lang)</code> 检索和使用语言数据",
-      "只有部分页面可以国际化"
-    ]
+    "Common": {
+      "language": "中文",
+      "hello": "你好"
+    },
+    "ExampleIntro": {
+      "title": "国际化示例",
+      "list": "根据页面布局应用语言设置的示例\n不使用外部库（<code>next-intl</code>, <code>react-i18next</code> 等）自建\n使用 <code>getDictionary(lang)</code> 检索和使用语言数据\n只有部分页面可以国际化\n"
+    }
   },
   "en": {
-    "Common.language": "English",
-    "Common.hello": "Hello",
-    "ExampleIntro.title": "Internationalization Example",
-    "ExampleIntro.list": [
-      "Example page layout to apply language settings",
-      "Self-built without external libraries (<code>next-intl</code>, <code>react-i18next</code> etc.)",
-      "Use <code>getDictionary(lang)</code> to retrieve and use language data",
-      "Only some pages can be internationalized"
-    ]
+    "Common": {
+      "language": "English",
+      "hello": "Hello"
+    },
+    "ExampleIntro": {
+      "title": "Internationalization Example",
+      "list": "Example page layout to apply language settings\nSelf-built without external libraries (<code>next-intl</code>, <code>react-i18next</code> etc.)\nUse <code>getDictionary(lang)</code> to retrieve and use language data\nOnly some pages can be internationalized\n"
+    }
   },
   "ko": {
-    "Common.language": "한국어",
-    "Common.hello": "안녕하세요",
-    "ExampleIntro.title": "국제화 예제",
-    "ExampleIntro.list": [
-      "페이지 레이아웃에 따라 언어 설정을 적용하는 예제",
-      "외부 라이브러리(<code>next-intl</code>, <code>react-i18next</code> 등) 사용 안하고 자체 구축",
-      "<code>getDictionary(lang)</code>를 통해 언어 데이터를 조회 및 사용",
-      "일부 페이지만 국제화 적용 가능"
-    ]
+    "Common": {
+      "language": "한국어",
+      "hello": "안녕하세요"
+    },
+    "ExampleIntro": {
+      "title": "국제화 예제",
+      "list": "페이지 레이아웃에 따라 언어 설정을 적용하는 예제\n외부 라이브러리(<code>next-intl</code>, <code>react-i18next</code> 등) 사용 안하고 자체 구축\n<code>getDictionary(lang)</code>를 통해 언어 데이터를 조회 및 사용\n일부 페이지만 국제화 적용 가능\n"
+    }
   }
 }

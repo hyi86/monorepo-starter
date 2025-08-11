@@ -20,7 +20,7 @@ export default async function AppLangPage({ params }: { params: Promise<{ lang: 
       <h1>{t('Common.language')}</h1>
       <div>
         {t.rich('ExampleIntro.list', {
-          code: (chunks) => <code className="text-emerald-600">{chunks}</code>,
+          code: (chunks: any) => <code className="text-emerald-600">{chunks}</code>,
         })}
       </div>
       <div>
