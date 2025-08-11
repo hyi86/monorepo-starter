@@ -7,6 +7,16 @@
     "ExampleIntro": {
       "title": "国际化示例",
       "list": "根据页面布局应用语言设置的示例\n不使用外部库（<code>next-intl</code>, <code>react-i18next</code> 等）自建\n使用 <code>getDictionary(lang)</code> 检索和使用语言数据\n只有部分页面可以国际化\n"
+    },
+    "Login": {
+      "title": "登录",
+      "username": "用户名",
+      "password": "密码",
+      "login": "登录",
+      "forgotPassword": "忘记密码",
+      "signup": "注册",
+      "email": "邮箱",
+      "phone": "手机号"
     }
   },
   "en": {
@@ -17,6 +27,16 @@
     "ExampleIntro": {
       "title": "Internationalization Example",
       "list": "Example page layout to apply language settings\nSelf-built without external libraries (<code>next-intl</code>, <code>react-i18next</code> etc.)\nUse <code>getDictionary(lang)</code> to retrieve and use language data\nOnly some pages can be internationalized\n"
+    },
+    "Login": {
+      "title": "Login",
+      "username": "Username",
+      "password": "Password",
+      "login": "Login",
+      "forgotPassword": "Forgot Password",
+      "signup": "Signup",
+      "email": "Email",
+      "phone": "Phone"
     }
   },
   "ko": {
@@ -27,6 +47,16 @@
     "ExampleIntro": {
       "title": "국제화 예제",
       "list": "페이지 레이아웃에 따라 언어 설정을 적용하는 예제\n외부 라이브러리(<code>next-intl</code>, <code>react-i18next</code> 등) 사용 안하고 자체 구축\n<code>getDictionary(lang)</code>를 통해 언어 데이터를 조회 및 사용\n일부 페이지만 국제화 적용 가능\n"
+    },
+    "Login": {
+      "title": "로그인",
+      "username": "아이디",
+      "password": "비밀번호",
+      "login": "로그인",
+      "forgotPassword": "비밀번호 찾기",
+      "signup": "회원가입",
+      "email": "이메일",
+      "phone": "전화번호"
     }
   }
 }

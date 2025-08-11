@@ -9,3 +9,12 @@ ExampleIntro:
     외부 라이브러리(<code>next-intl</code>, <code>react-i18next</code> 등) 사용 안하고 자체 구축
     <code>getDictionary(lang)</code>를 통해 언어 데이터를 조회 및 사용
     일부 페이지만 국제화 적용 가능
+Login:
+  title: 로그인
+  username: 아이디
+  password: 비밀번호
+  login: 로그인
+  forgotPassword: 비밀번호 찾기
+  signup: 회원가입
+  email: 이메일
+  phone: 전화번호

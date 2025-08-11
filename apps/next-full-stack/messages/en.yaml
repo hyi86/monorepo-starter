@@ -9,3 +9,12 @@ ExampleIntro:
     Self-built without external libraries (<code>next-intl</code>, <code>react-i18next</code> etc.)
     Use <code>getDictionary(lang)</code> to retrieve and use language data
     Only some pages can be internationalized
+Login:
+  title: Login
+  username: Username
+  password: Password
+  login: Login
+  forgotPassword: Forgot Password
+  signup: Signup
+  email: Email
+  phone: Phone
