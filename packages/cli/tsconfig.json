@@ -5,7 +5,7 @@
     "moduleResolution": "bundler",
     "outDir": "dist",
     "paths": {
-      "~/*": ["./src/*"],
+      "~/*": ["./src/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],

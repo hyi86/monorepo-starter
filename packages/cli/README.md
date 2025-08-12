@@ -2,7 +2,6 @@
 
 local CLI for monorepo.
 
-
 # Getting Started
 
 ```bash
