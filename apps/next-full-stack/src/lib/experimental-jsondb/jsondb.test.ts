@@ -36,8 +36,8 @@ describe('JsonFileDB', () => {
       const rows = Array.from({ length: N }, () => templateData).flat();
       await db.writeAll(rows);
 
-      const stat = fs.statSync(db.filePath);
-      console.log((stat.size / 1024 / 1024).toFixed(2), 'MB');
+      // const stat = fs.statSync(db.filePath);
+      // console.log((stat.size / 1024 / 1024).toFixed(2), 'MB');
 
       const result = await db.readAll();
       expect(result).toEqual(rows);
@@ -52,8 +52,8 @@ describe('JsonFileDB', () => {
     await db.append(rows2);
     await db.append(rows3);
 
-    const stat = fs.statSync(db.filePath);
-    console.log((stat.size / 1024 / 1024).toFixed(2), 'MB');
+    // const stat = fs.statSync(db.filePath);
+    // console.log((stat.size / 1024 / 1024).toFixed(2), 'MB');
 
     const result = await db.readAll();
     expect(result).toEqual(rows1.concat(rows2).concat(rows3));
@@ -68,8 +68,8 @@ describe('JsonFileDB', () => {
     const result = await db.readAll();
     const sortedResult = result.sort((a: JsonRow, b: JsonRow) => Number(a.balance) - Number(b.balance));
 
-    const stat = fs.statSync(db.filePath);
-    console.log((stat.size / 1024 / 1024).toFixed(2), 'MB');
+    // const stat = fs.statSync(db.filePath);
+    // console.log((stat.size / 1024 / 1024).toFixed(2), 'MB');
 
     expect(sortedResult[0]?.balance).toBeLessThanOrEqual(sortedResult[0]?.balance);
   });
