@@ -39,7 +39,7 @@
 ### Third-Party Dependencies
 
 - 📦 **Monorepo**: 
-  [`pnpm`](https://pnpm.io) 기반의 [`Turborepo`](https://turbo.build) 모노레포 템플릿으로 하나의 저장소에서 여러 프로젝트와 패키지를 효율적으로 관리할 수 있습니다.
+  [`pnpm`](https://pnpm.io) 기반의 [`Turborepo`](https://turbo.build) 템플릿으로 하나의 저장소에서 여러 프로젝트와 패키지를 효율적으로 관리할 수 있습니다.
 - 🧩 **Frameworks**:
   [`Next.js`](https://nextjs.org), [`react-router(Declarative mode)`](https://reactrouter.com/start/declarative/installation), `Vanilla JS`와 같은 프론트엔드 프레임워크와, 
   백엔드 프레임워크로 [`Hono`](https://hono.dev)를 포함합니다.
@@ -59,6 +59,8 @@
   [`Shiki`](https://shiki.style)를 이용한 Code highlighting 과 [`Monaco Editor`](https://github.com/microsoft/monaco-editor)를 통한 Real-time Code Editing 기능을 제공합니다.
 - 📝 **WYSIWYG Editor**: 
   [`Tiptap`](https://tiptap.dev)을 활용한 실시간 에디터를 제공합니다.
+- ✅ **CommitLint**: 
+  [`commitlint`](https://commitlint.js.org), [`husky`](https://typicode.github.io/husky), [`lint-staged`](https://github.com/okonet/lint-staged)를 활용한 커밋 메시지 규칙 적용.
 - 📦 **Others**:
   - 🛟 **Env**: [`t3-env`](https://env.t3.gg)
   - 📄 **Logging**: [`pino`](https://getpino.io)
