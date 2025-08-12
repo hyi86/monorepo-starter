@@ -83,7 +83,7 @@ export default function UploadPage() {
                 <div
                   className="w-96 cursor-pointer truncate text-sm"
                   onClick={() => {
-                    window.open(`/api/upload?fileName=${file.name}`, '_blank');
+                    window.open(`/api/download?fileName=${file.name}`, '_blank');
                   }}
                 >
                   {file.name}

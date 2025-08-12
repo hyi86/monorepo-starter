@@ -5,6 +5,7 @@
   "scripts": {
     "predev": "pnpx nextjs-devtools",
     "dev": "next dev --turbopack",
+    "prebuild": "pnpx nextjs-devtools",
     "build": "next build --turbopack",
     "start": "next start",
     "test": "vitest",
