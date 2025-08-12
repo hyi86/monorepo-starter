@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# 프로젝트내 모든 파일을 tar.gz으로 압축하는 스크립트
+
 FILE_NAME="source-codes.tar.gz"
 
 rm -rf $FILE_NAME
@@ -13,7 +15,6 @@ tar -czf $FILE_NAME -T filelist.txt
 
 rm -rf filelist.txt
 
-# e.g. make compress to=apps/next-full-stack/public
 if [ -n "$1" ]; then
   mv $FILE_NAME $1
 fi

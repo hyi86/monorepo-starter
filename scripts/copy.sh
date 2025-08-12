@@ -1,7 +1,7 @@
 #!/bin/bash
 source "$(dirname "${BASH_SOURCE[0]}")/ui-utils.sh"
 
-# `git` 으로 관리되는 파일만 복사
+# `git` 으로 관리되는 파일만 복사하는 스크립트
 
 if [ -z "$1" ] || [ -z "$2" ]; then
   cd apps
