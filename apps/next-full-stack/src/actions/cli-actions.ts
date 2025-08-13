@@ -10,7 +10,7 @@ import tar from 'tar-stream';
 import { env } from '~/env';
 
 /**
- * 코드 가져오기
+ * 코드 가져오기 Action
  * development: local file
  * production: in tar.gz file
  */
@@ -35,7 +35,7 @@ export async function getCodeFromFile(filePath: string) {
 
 /**
  * ⚠️ development only
- * 코드 저장
+ * 코드 저장 Action
  */
 export async function saveCodeToFile(filePath: string, code: string) {
   if (process.env.NODE_ENV !== 'development') {
@@ -67,7 +67,7 @@ export async function saveCodeToFile(filePath: string, code: string) {
 
 /**
  * ⚠️ development only
- * 코드 편집기 열기
+ * 코드 편집기 열기 Action
  */
 export async function openInEditor(filePath: string) {
   if (process.env.NODE_ENV !== 'development') {
@@ -82,7 +82,7 @@ export async function openInEditor(filePath: string) {
 }
 
 /**
- * tar.gz 압축 파일내에서 파일 읽기
+ * tar.gz 압축 파일내에서 파일 읽기 Action
  */
 function readFileFromTarGz(tarGzPath: string, targetFilePath: string) {
   return new Promise<string>((resolve, reject) => {

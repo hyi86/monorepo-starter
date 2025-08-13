@@ -4,7 +4,7 @@ import { checkAuthorization } from '~/lib/auth/check';
 
 export default async function ProtectPage() {
   const { isAuthenticated, payload } = await checkAuthorization();
-  const signoutWithParams = signout.bind(null, `/example/auth`);
+  const signoutWithParams = signout.bind(null, '/example/auth');
 
   return (
     <div>

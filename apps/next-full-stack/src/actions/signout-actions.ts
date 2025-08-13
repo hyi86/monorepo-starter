@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 import { utils } from '~/env';
 
 /**
- * 로그아웃
+ * 공통 로그아웃 Action
  */
 export async function signout(redirectPath?: string) {
   const cookieStore = await cookies();

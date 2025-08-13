@@ -12,7 +12,7 @@ const signinSchema = z.object({
 });
 
 /**
- * 로그인
+ * 로그인 Action
  * @param username 사용자 이름
  * @param password 사용자 비밀번호
  * @returns 성공 여부

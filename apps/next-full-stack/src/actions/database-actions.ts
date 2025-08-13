@@ -7,7 +7,7 @@ import { createRandomUsers, deleteUser, updateUser } from '~/db/users/set';
 import { createRandomUser } from '~/db/utils';
 
 /**
- * Action: 랜덤 유저 생성
+ * 랜덤 유저 생성 Action
  */
 export const createRandomUserAction = async (formData: FormData) => {
   const count = formData.get('count');
@@ -22,7 +22,7 @@ export const createRandomUserAction = async (formData: FormData) => {
 };
 
 /**
- * Action: 유저 삭제
+ * 유저 삭제 Action
  */
 export const deleteUserAction = async (id: number) => {
   await deleteUser(id);
@@ -30,7 +30,7 @@ export const deleteUserAction = async (id: number) => {
 };
 
 /**
- * Action: 유저 수정
+ * 유저 수정 Action
  */
 export const updateUserAction = async (id: number) => {
   const randomInfo = createRandomUser();
@@ -39,7 +39,7 @@ export const updateUserAction = async (id: number) => {
 };
 
 /**
- * Action: Toggle 유저 상태
+ * 유저 상태 Toggle Action
  */
 export const toggleUserStatusAction = async (id: number) => {
   const user = await getUserById(id);

@@ -16,8 +16,8 @@ import { cn } from '@monorepo-starter/ui/lib/utils';
 import { ChevronsUpDown, LogIn, LogOut, Search, UserRoundIcon } from 'lucide-react';
 import { useState } from 'react';
 import { signout } from '~/actions/signout-actions';
+import { useSigninUrl } from '~/hooks/use-signin';
 import { type AuthorizationPayload } from '~/lib/auth/check';
-import { useSigninUrl } from './use-signin';
 
 export function NavUser({ payload }: { payload?: AuthorizationPayload }) {
   const { isMobile } = useSidebar();
