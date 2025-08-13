@@ -13,6 +13,16 @@ describe('Home', () => {
     vi.clearAllMocks();
   });
 
+  it('함수 컴포넌트이면서 기본 내보내기, 리턴타입이 void여야 함', () => {
+    // Home이 함수 컴포넌트인지 확인
+    expect(typeof Home).toBe('function');
+    // Home이 default export인지 확인
+    expect(Home).toBeDefined();
+    // Home 함수가 void를 반환하는지 확인
+    const result = Home();
+    expect(result).toBeUndefined();
+  });
+
   it('호출 시 /example로 리다이렉트해야 함', () => {
     // Home 컴포넌트를 호출
     Home();
@@ -22,34 +32,6 @@ describe('Home', () => {
 
     // redirect 함수가 정확히 한 번 호출되었는지 확인
     expect(redirect).toHaveBeenCalledTimes(1);
-  });
-
-  it('올바른 경로로 redirect를 호출해야 함', () => {
-    // Home 컴포넌트를 호출
-    Home();
-
-    // redirect 함수가 올바른 경로('/example')로 호출되었는지 확인
-    expect(redirect).toHaveBeenCalledWith('/example');
-  });
-
-  it('함수 컴포넌트여야 함', () => {
-    // Home이 함수 컴포넌트인지 확인
-    expect(typeof Home).toBe('function');
-  });
-
-  it('기본 내보내기여야 함', () => {
-    // Home이 default export인지 확인
-    expect(Home).toBeDefined();
-  });
-
-  it('잘못된 경로로 redirect를 호출하지 않아야 함', () => {
-    // Home 컴포넌트를 호출
-    Home();
-
-    // redirect 함수가 잘못된 경로로 호출되지 않았는지 확인
-    expect(redirect).not.toHaveBeenCalledWith('/wrong-path');
-    expect(redirect).not.toHaveBeenCalledWith('/');
-    expect(redirect).not.toHaveBeenCalledWith('');
   });
 
   it('여러 번 호출해도 올바르게 처리해야 함', () => {
@@ -65,11 +47,5 @@ describe('Home', () => {
     expect(redirect).toHaveBeenNthCalledWith(1, '/example');
     expect(redirect).toHaveBeenNthCalledWith(2, '/example');
     expect(redirect).toHaveBeenNthCalledWith(3, '/example');
-  });
-
-  it('void를 반환해야 함', () => {
-    // Home 함수가 void를 반환하는지 확인
-    const result = Home();
-    expect(result).toBeUndefined();
   });
 });

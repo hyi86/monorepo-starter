@@ -8,7 +8,7 @@
     "prebuild": "pnpx nextjs-devtools",
     "build": "next build --turbopack",
     "start": "next start",
-    "test": "vitest",
+    "test": "vitest --reporter=verbose",
     "test:e2e": "playwright test",
     "lint": "next lint",
     "check-types": "tsc --noEmit",
