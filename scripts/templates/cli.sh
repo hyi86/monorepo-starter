@@ -64,7 +64,7 @@ cat <<EOF > package.json
   "scripts": {
     "check-types": "tsc --noEmit",
     "lint": "eslint . --max-warnings 0",
-    "test": "vitest",
+    "test": "vitest run --reporter=verbose",
     "dev": "tsx src/index.ts",
     "build": "tsup",
     "postbuild": "chmod +x bin/*"
