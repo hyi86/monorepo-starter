@@ -1,7 +1,6 @@
 'use client';
 
 import { formatDate } from '@henry-hong/common-utils/date';
-import { calendarOptions } from '@monorepo-starter/ui/blocks/date-picker/options';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Calendar } from '@monorepo-starter/ui/components/calendar';
 import { Input } from '@monorepo-starter/ui/components/input';
@@ -79,7 +78,7 @@ export default function DatePicker({
       <Popover>
         <PopoverTrigger asChild>
           <Button
-            variant={'ghost'}
+            variant="ghost"
             className={cn(
               'group absolute right-0 justify-between px-3 font-normal outline-none outline-offset-0 hover:bg-transparent focus-visible:outline-[3px]',
               !date && 'text-muted-foreground',
@@ -92,10 +91,17 @@ export default function DatePicker({
             />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-2">
+        <PopoverContent className="w-auto overflow-hidden p-0" align="end">
           <Calendar
-            {...calendarOptions({ month, onMonthChange: setMonth })}
             mode="single"
+            captionLayout="dropdown"
+            endMonth={new Date(2026, 11)}
+            disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
+            classNames={{
+              dropdowns: 'flex flex-row-reverse gap-2',
+            }}
+            month={month}
+            onMonthChange={setMonth}
             selected={date}
             onSelect={handleDayPickerSelect}
           />

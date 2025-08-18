@@ -48,12 +48,15 @@ export default function FormDatePickerPage() {
       <h1>Date Picker Form</h1>
       <p>React Hook Form, Zod, Shadcn/UI, Next Server Action with Date Picker</p>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit, (errors) => console.log('errors', errors))} className="space-y-8">
+        <form
+          onSubmit={form.handleSubmit(onSubmit, (errors) => console.log('errors', errors))}
+          className="not-prose space-y-8"
+        >
           <FormField
             control={form.control}
             name="dateInput"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="max-w-100">
                 <FormLabel>Default Date Input</FormLabel>
                 <FormControl>
                   <Input
@@ -63,7 +66,7 @@ export default function FormDatePickerPage() {
                     {...field}
                   />
                 </FormControl>
-                <FormDescription>기본 Date Input 입니다</FormDescription>
+                <FormDescription>기본 Date Input 입니다 (No Calendar)</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -73,12 +76,12 @@ export default function FormDatePickerPage() {
             control={form.control}
             name="datePickerSingle"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="max-w-100">
                 <FormLabel>Date Picker Single</FormLabel>
                 <FormControl>
                   <DatePicker value={field.value} onChange={field.onChange} />
                 </FormControl>
-                <FormDescription>날짜 선택 피커 입니다</FormDescription>
+                <FormDescription>기본 날짜 선택 피커 입니다</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -88,7 +91,7 @@ export default function FormDatePickerPage() {
             control={form.control}
             name="datePickerMultiple"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="max-w-100">
                 <FormLabel>Date Picker Multiple</FormLabel>
                 <FormControl>
                   <DatePickerMultiple value={field.value} onChange={field.onChange} />
@@ -103,7 +106,7 @@ export default function FormDatePickerPage() {
             control={form.control}
             name="datePickerRange"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="max-w-100">
                 <FormLabel>Date Range Picker</FormLabel>
                 <FormControl>
                   <DateRangePicker value={field.value} onChange={field.onChange} />
@@ -114,7 +117,7 @@ export default function FormDatePickerPage() {
             )}
           />
 
-          <Button type="submit">Submit</Button>
+          <Button type="submit">전송</Button>
         </form>
       </Form>
     </div>

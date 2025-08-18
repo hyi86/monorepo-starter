@@ -3,11 +3,11 @@
 import { generateToken } from '@henry-hong/common-utils/jwt';
 import { cookies } from 'next/headers';
 import parseDuration from 'parse-duration';
-import z from 'zod';
+import { z } from 'zod';
 import { env } from '~/env';
 
 const signinSchema = z.object({
-  loginId: z.string().email(),
+  loginId: z.email(),
   password: z.string().min(4),
 });
 

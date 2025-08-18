@@ -1,7 +1,6 @@
 'use client';
 
 import { formatDate } from '@henry-hong/common-utils/date';
-import { calendarOptions } from '@monorepo-starter/ui/blocks/date-picker/options';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Calendar } from '@monorepo-starter/ui/components/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@monorepo-starter/ui/components/popover';
@@ -72,8 +71,14 @@ export default function DatePickerMultiple({
         </PopoverTrigger>
         <PopoverContent className="w-auto p-2">
           <Calendar
-            {...calendarOptions({ month, onMonthChange: setMonth })}
             mode="multiple"
+            captionLayout="dropdown"
+            endMonth={new Date(2026, 11)}
+            classNames={{
+              dropdowns: 'flex flex-row-reverse gap-2',
+            }}
+            month={month}
+            onMonthChange={setMonth}
             selected={dates}
             onSelect={setDates}
           />

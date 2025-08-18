@@ -2,7 +2,7 @@
 
 import { devLog } from '@henry-hong/common-utils/console';
 import { revalidatePath } from 'next/cache';
-import z from 'zod';
+import { z } from 'zod';
 import { getTypedPath } from '~/app-path-types';
 import { schema, type ErrorType } from './schema';
 

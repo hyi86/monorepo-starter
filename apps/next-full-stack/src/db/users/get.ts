@@ -26,8 +26,8 @@ export const findUsersSchema = z.object({
   name: z.string().optional(), // like
   email: z.string().optional(), // like
   gender: z.enum(['male', 'female']).optional(), // eq
-  birthFrom: z.string().date().optional(), // range start
-  birthTo: z.string().date().optional(), // range end
+  birthFrom: z.iso.date().optional(), // range start
+  birthTo: z.iso.date().optional(), // range end
   contact: z.string().optional(), // like
   bio: z.string().optional(), // like
   status: z.enum(['active', 'inactive']).optional(), // eq enum
