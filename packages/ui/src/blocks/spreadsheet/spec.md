@@ -1,0 +1,259 @@
+# 리액트 전용 스프레드시트/데이터그리드 라이브러리 기능정의서
+
+## 1) 제품 비전 & 범위
+- **비전**: 리액트 환경에서 “구글시트/Handsontable급”의 빠르고 접근성 준수하는 데이터 그리드. 가볍고 확장 가능한 코어 + 리액트 바인딩.
+- **핵심 가치**: 성능(가상스크롤·배치업데이트), 접근성(ARIA grid), 확장성(플러그인), 타입 안정성(TypeScript), 제로-벤더락(표준 API/이벤트).
+- **지원 환경**: React 18+ (Concurrent/Strict), SSR(Next.js 15 대응), ESM 우선, CSS 변수 테마.
+- **비목표(초기)**: 피벗 테이블, 차트, 실시간 협업(동시 편집), 거대 수식엔진 전부(기초 수식부터 단계적 확대).
+
+## 2) 아키텍처 & 구조
+- **구조**: `packages/ui/src/spreadsheet` 내에서 모든 기능 통합 관리
+  - `core/`: 데이터모델, 셀/행/열 상태, 이벤트 버스, 수식(경량), 가상화 엔진
+  - `components/`: React 컴포넌트, 훅, 컨트롤드/언컨트롤드 모드
+  - `plugins/`: 선택(Selection), 채우기핸들(Fill), 컨텍스트메뉴, 필터, 정렬, 머지셀 등
+  - `theme/`: CSS 변수 기반 테마(라이트/다크)
+  - `types/`: TypeScript 타입 정의
+  - `utils/`: 유틸리티 함수들
+- **상태 설계**: “단일 시트 스냅샷” + 명령(Command) 기록(undo/redo). 변경은 **불변 업데이트** + **배치 리렌더**.
+- **렌더링**: 셀 가상화(행/열 동시), 키보드 포커스 관리, 스티키 헤더/왼쪽 인덱스.
+
+## 3) 단계별 로드맵
+
+### Phase 0 — MVP (읽기 전용 그리드)
+**목표**
+- 수만 개 셀도 부드럽게 스크롤되는 **읽기 전용 표**.
+
+**기능**
+- 가상 스크롤(행/열) - tanstack-virtual 사용.
+- 컬럼 정의(열 폭, 고정 열, 셀 렌더러).
+- 스티키 헤더/인덱스, 컬럼 리사이즈(마우스 드래그).
+- 기본 테마(라이트/다크), 반응형 크기 조정.
+- A11y: `role="grid"`, ARIA 속성, 키보드 포커스 이동(읽기 상태).
+
+**API 초안**
+```ts
+type CellRenderer = (ctx: { row: number; col: number; value: unknown }) => React.ReactNode;
+
+export interface ColumnDef {
+  key: string;              // 데이터 키
+  width?: number;           // px
+  minWidth?: number;
+  maxWidth?: number;
+  frozen?: boolean;         // 고정 열
+  render?: CellRenderer;    // 커스텀 렌더러
+}
+
+export interface SheetProps {
+  rows: number;
+  columns: ColumnDef[];
+  getValue: (row: number, key: string) => unknown;
+  onViewportChange?: (v: { rowStart: number; rowEnd: number; colStart: number; colEnd: number }) => void;
+  className?: string;
+}
+```
+
+**수용기준**
+- 100k+ 셀(예: 5k행 × 20열)에서 스크롤 60fps에 근접(체감 끊김 없음).
+- 컬럼 리사이즈/고정 작동, 레이아웃 흔들림 없음.
+- 키보드 탭 이동 시 포커스 링 시각적 확인 가능.
+
+---
+
+### Phase 1 — 기본 편집 그리드
+**목표**
+- 실제 “스프레드시트 느낌”의 단일 셀 편집/선택/조작.
+
+**기능**
+- 셀 편집(더블클릭/Enter), 커밋(Esc 취소).
+- 셀 선택(단일/범위 Shift+Arrow, 마우스 드래그).
+- 행/열 삽입/삭제(기본 명령).
+- Undo/Redo(최소 50 스택).
+- 키보드 단축키(Enter/Tab/Shift+Tab/Arrow/Home/End/PageUp/Down).
+- 컨트롤드 모드(외부 상태 주도) & 언컨트롤드 모드(내부 상태).
+- 간단한 데이터 타입: text/number/boolean(date는 다음 단계).
+
+**이벤트/콜백**
+```ts
+onEditStart?(pos:{row:number; col:number}): void;
+onEditCommit?(pos, nextValue:unknown, prevValue:unknown): void;
+onSelectionChange?(range:{r0:number;c0:number;r1:number;c1:number}): void;
+onCommand?(cmd: GridCommand): void; // 삽입/삭제/리사이즈 등
+```
+
+**수용기준**
+- 대량 데이터에서 입력 지연 없이 편집 가능(입력 후 렌더 지연 체감X).
+- 범위 선택 드래그 시 프레임 저하 최소.
+- Undo/Redo 안정 동작(셀/행/열 조작 포함).
+
+---
+
+### Phase 1.1 — 데이터 타입·검증·서식
+**기능**
+- 셀 타입: `text | number | boolean | date`.
+- 입력 검증(동기/비동기): `validate(value, ctx) => { valid:boolean; message?:string }`.
+- 셀 서식(formatter): 숫자(천단위, 소수점), 날짜(로캘), 불린(체크박스).
+- 조건부 스타일(간단 규칙): 값 비교/정규식 → 셀 클래스 적용.
+
+**수용기준**
+- 검증 실패 시 명확한 표시(붉은 테두리/툴팁), 입력차단 또는 허용+경고 모드 지원.
+- 포맷과 실제 값 분리(값=원시, 표시=포맷 문자열).
+
+---
+
+### Phase 1.2 — 클립보드·입출력·행열 조작 고도화
+**기능**
+- **클립보드 복사/붙여넣기**(범위/멀티셀, 헤더 제외 옵션).
+- CSV/TSV 내보내기/가져오기(구분자, 헤더 존재 옵션).
+- 채우기 핸들(우측하단), 드래그 채우기(증분/반복 패턴 기초).
+- 행/열 숨김, 다중 선택(열/행 헤더 클릭 + Ctrl/Cmd).
+
+**수용기준**
+- 엑셀/구글시트 ↔ 브라우저 간 붙여넣기 자연 동작(텍스트 기반).
+- 수만 셀 붙여넣기 시 메인스레드 블로킹 최소(청크 처리).
+
+---
+
+### Phase 2 — 수식(Formula) v1
+**기능**
+- `=A1 + B2` 등 기본 참조(상대/절대 `$A$1`)와 산술/문자열 연산.
+- 핵심 함수: `SUM, AVERAGE, MIN, MAX, COUNT, IF, CONCAT, ROUND, FLOOR, CEIL`.
+- 의존성 그래프 + **더티 셀**만 재계산(토폴로지/임계).
+- 순환참조 감지(에러 셀 표기).
+
+**API**
+```ts
+setFormula(pos, formula: string): void;
+onFormulaError?(pos, error: FormulaError): void;
+```
+
+**수용기준**
+- 10k+ 수식 셀에서 편집/붙여넣기 시 체감 지연 최소.
+- 순환 참조 시 안정적 에러 및 편집 가능 상태 유지.
+
+---
+
+### Phase 2.1 — 성능 튜닝 & 대용량
+**기능**
+- **가상 열 폭 계산** 최적화, 셀 레이아웃 캐싱.
+- 스크롤 중 지연 렌더(IdleCallback/reqAnimationFrame 배치).
+- 대용량 데이터 스트리밍 로딩 인터페이스.
+- 커서 이동/드래그 중 가상화 윈도 확대(프리패치).
+
+**수용기준**
+- 100k~500k 셀 시나리오에서 스크롤·편집 모두 쾌적.
+- CPU 프로파일 기준 빈번한 GC/레이아웃 스래싱 없음.
+
+---
+
+### Phase 3 — UX 확장(필터/정렬/머지/컨텍스트메뉴)
+**기능**
+- 컬럼 정렬(멀티키), 컬럼/조건 필터(텍스트 포함/숫자 범위/날짜).
+- 머지셀(범위 병합/해제), 행그룹(기본 폴딩).
+- 컨텍스트 메뉴(우클릭/키보드), 단축키 커스터마이즈.
+- 기본 “시트 보호” 모드(읽기전용 영역 지정).
+
+**수용기준**
+- 정렬/필터 시 원본 인덱스 보존(선택/포커스 안정 유지).
+- 머지셀 상태에서 복사/붙여넣기 규칙 일관.
+
+---
+
+### Phase 4 — 협업·코멘트(선택)
+**기능(선택)**
+- 단일 문서에 대한 **원격 커서 표시**, 코멘트/메모, 변경 이력 뷰.
+- 충돌 정책: 마지막 승리/병합 옵션.
+
+**수용기준**
+- 다중 사용자(3~5) 동시 편집에서 포커스/선택 표시 지연 최소.
+
+## 4) 비기능 요구사항
+- **성능 예산**: 초기 번들 `packages/ui/src/spreadsheet` ≤ ~80KB gzip(수식/머지 등은 플러그인 분리).
+- **접근성**: WCAG 2.1 AA, 키보드 퍼스트, 스크린리더(행/열 위치, 선택 범위 안내).
+- **국제화**: 숫자/날짜 로캘 포맷, RTL 레이아웃 옵션.
+- **테마**: CSS 변수 토큰(`--sheet-bg` 등), 다크모드 `prefers-color-scheme` 연동.
+- **테스트**: 단위(Jest/VTU), 상호작용(Playwright), 성능(프로파일 스냅샷 기준), 접근성(axe).
+
+## 5) 플러그인/확장 설계
+```ts
+export interface Plugin {
+  name: string;
+  setup(ctx: {
+    bus: EventBus;         // on/off/emit
+    commands: CommandAPI;  // 등록/실행
+    selection: SelectionAPI;
+    getCell(pos): Cell;
+    setCell(pos, next);
+  }): void | Cleanup;
+}
+```
+- 플러그인은 `setup`에서 이벤트 구독/명령 등록.
+- 예: `plugins/context-menu`, `plugins/filter`, `plugins/formula`.
+
+## 6) 데이터/선택 모델
+- **셀 주소**: `A1` <-> `{row:number,col:number}` 상호 변환 유틸 제공.
+- **선택**: 기본 단일 범위 + 다중 범위(Phase 3). 방향/앵커/활성셀 추적.
+- **연산 규칙**: 삽입/삭제 시 수식 참조 업데이트, 머지 범위 유효성.
+
+## 7) 오류 처리 & 복구
+- 명령 기반 변경 실패 시 원자적 롤백.
+- 수식 오류/검증 실패 시 인라인 배지 + 상세 메시지(툴팁).
+- 손상 데이터 로드 시 안전 모드(읽기 전용).
+
+## 8) 예시 사용 코드(초기)
+```tsx
+import { Sheet } from '@/components/spreadsheet';
+
+const columns = [
+  { key: 'name', width: 180 },
+  { key: 'qty',  width: 100 },
+  { key: 'price', width: 120 },
+];
+
+export default function App() {
+  const data = useMemo(() => /* rows array */, []);
+  const getValue = (row: number, key: string) => data[row][key];
+
+  return (
+    <Sheet
+      rows={data.length}
+      columns={columns}
+      getValue={getValue}
+      onSelectionChange={(r) => console.log(r)}
+    />
+  );
+}
+```
+
+## 9) 문서화 & 샘플
+- **스토리북**: 기본/대용량/접근성/다크모드/모바일 터치 데모.
+- **가이드**: 설치, 첫 예제, 데이터 10만 행 성능 팁, Next.js/SSR 가이드, CSS 토큰표.
+- **쿠킹레시피**: CSV 임포트, 수식 추가, 조건부서식, 사용자 플러그인 작성.
+
+## 10) 단계별 체크리스트(요약)
+- **Phase 0**
+  - [ ] 가상스크롤/스티키 헤더
+  - [ ] 컬럼 리사이즈/고정
+  - [ ] A11y(읽기 전용) / 키보드 포커스
+  - [ ] 성능 프로파일 기준치 통과
+- **Phase 1**
+  - [ ] 편집/선택/Undo-Redo/키바인딩
+  - [ ] 행·열 삽입/삭제 명령
+  - [ ] 컨트롤드/언컨트롤드
+- **Phase 1.1**
+  - [ ] 타입/검증/포맷터/조건부 스타일
+- **Phase 1.2**
+  - [ ] 클립보드/CSV 입출력/채우기 핸들/숨김·다중선택
+- **Phase 2**
+  - [ ] 수식 v1(기초함수/의존그래프/순환감지)
+- **Phase 2.1**
+  - [ ] 대용량 최적화/스트리밍/프리패치
+- **Phase 3**
+  - [ ] 정렬/필터/머지/컨텍스트메뉴/보호모드
+- **Phase 4(선택)**
+  - [ ] 협업 커서/코멘트/충돌정책
+
+## 11) 품질 게이트(각 페이즈 공통)
+- Lighthouse/axe 접근성 경고 0개(허용 리스트 제외).
+- 10만 셀 기준 사용자 상호작용 지연 < 16ms 프레임 유지(체감).
+- 브라우저: 최신 크롬/사파리/파폭 + 최소 1개 LTS(예: Edge).
+- 타입 공개 API에 **breaking change 없음**(마이너에서).
