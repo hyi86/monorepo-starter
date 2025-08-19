@@ -34,7 +34,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@monorepo-starter/ui/components/switch';
 import { Textarea } from '@monorepo-starter/ui/components/textarea';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { action } from './action';
+import { submitAction } from './actions';
 
 export default function NextServerActionClientWithHookFormPage() {
   // 1. Define form
@@ -52,7 +52,7 @@ export default function NextServerActionClientWithHookFormPage() {
     console.log('event', event);
 
     const formData = new FormData(event?.target as HTMLFormElement);
-    await action(data, formData);
+    await submitAction(data, formData);
   };
 
   // 3. Define error handler

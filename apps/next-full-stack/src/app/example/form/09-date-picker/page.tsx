@@ -16,7 +16,7 @@ import {
 } from '@monorepo-starter/ui/components/form';
 import { Input } from '@monorepo-starter/ui/components/input';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { action } from './action';
+import { submitAction } from './actions';
 import { schema, type Schema } from './schema';
 
 export default function FormDatePickerPage() {
@@ -40,7 +40,7 @@ export default function FormDatePickerPage() {
     console.log('event', event);
 
     const formData = new FormData(event?.target as HTMLFormElement);
-    await action(data, formData);
+    await submitAction(data, formData);
   };
 
   return (

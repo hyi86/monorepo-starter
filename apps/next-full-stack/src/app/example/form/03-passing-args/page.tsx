@@ -10,7 +10,7 @@ import { SelectNative } from '@monorepo-starter/ui/components/select-native';
 import { Slider } from '@monorepo-starter/ui/components/slider';
 import { Switch } from '@monorepo-starter/ui/components/switch';
 import { use, useActionState } from 'react';
-import { action } from './action';
+import { submitAction } from './actions';
 
 export default function ServerActionClientPassingArgsPage({
   searchParams,
@@ -18,8 +18,8 @@ export default function ServerActionClientPassingArgsPage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { code } = use(searchParams) as { code: string };
-  const actionWithCode = action.bind(null, code ?? '');
-  const [state, formAction, pending] = useActionState(actionWithCode, {});
+  const submitActionWithCode = submitAction.bind(null, code ?? '');
+  const [state, formAction, pending] = useActionState(submitActionWithCode, {});
 
   return (
     <div>

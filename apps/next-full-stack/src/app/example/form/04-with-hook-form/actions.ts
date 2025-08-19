@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { getTypedPath } from '~/app-path-types';
 import { Schema, schema } from './schema';
 
-export async function action(data: Schema, formData: FormData) {
+export async function submitAction(data: Schema, formData: FormData) {
   const isValid = schema.safeParse(data);
 
   devLog('info', 'data', data);

@@ -4,13 +4,14 @@ import { devLog } from '@henry-hong/common-utils/console';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { getTypedPath } from '~/app-path-types';
-import { schema, type ErrorType } from './schema';
+import { type ErrorType, schema } from './schema';
 
-export async function action(prevState: ErrorType | undefined, formData: FormData) {
+export async function submitAction(code: string, prevState: ErrorType | undefined, formData: FormData) {
   const data = Object.fromEntries(formData);
   const isValid = schema.safeParse(data);
 
-  devLog('info', 'data(server action)', data);
+  devLog('info', 'code(action)', code);
+  devLog('info', 'data(action)', data);
 
   if (!isValid.success) {
     const errorMessages = z.flattenError(isValid.error).fieldErrors;
@@ -19,5 +20,5 @@ export async function action(prevState: ErrorType | undefined, formData: FormDat
 
   devLog('success', 'isValid', isValid);
 
-  revalidatePath(getTypedPath('/example/form/02-client'));
+  revalidatePath(getTypedPath('/example/form/03-passing-args'));
 }

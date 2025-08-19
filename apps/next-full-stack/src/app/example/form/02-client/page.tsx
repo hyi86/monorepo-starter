@@ -10,10 +10,10 @@ import { SelectNative } from '@monorepo-starter/ui/components/select-native';
 import { Slider } from '@monorepo-starter/ui/components/slider';
 import { Switch } from '@monorepo-starter/ui/components/switch';
 import { useActionState } from 'react';
-import { action } from './action';
+import { submitAction } from './actions';
 
 export default function ServerActionClientPage() {
-  const [state, formAction, pending] = useActionState(action, {});
+  const [state, formAction, pending] = useActionState(submitAction, {});
 
   return (
     <div>
