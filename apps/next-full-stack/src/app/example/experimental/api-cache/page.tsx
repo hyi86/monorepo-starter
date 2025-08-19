@@ -1,6 +1,6 @@
 import { Skeleton } from '@monorepo-starter/ui/components/skeleton';
 import { Suspense } from 'react';
-import Cache from './cache';
+import { ExampleCacheData } from '~/shared/ui/cache/api-cache';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,7 +20,7 @@ export default async function ExampleCachePage() {
           </div>
         }
       >
-        <Cache />
+        <ExampleCacheData />
       </Suspense>
     </div>
   );

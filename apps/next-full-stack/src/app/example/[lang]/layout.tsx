@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
-import { AppLanguageProvider } from '~/components/common/app-language-provider';
-import { Article } from '~/components/common/article';
-import { i18n, type Locale } from '~/lib/i18n/config';
+import { AppLanguageProvider } from '~/app/providers/app-language-provider';
+import { i18n, type Locale } from '~/shared/config/i18n';
+import { Article } from '~/shared/ui/article';
 
 /**
  * generateStaticParams()에서 제외된 경로에서 404를 반환

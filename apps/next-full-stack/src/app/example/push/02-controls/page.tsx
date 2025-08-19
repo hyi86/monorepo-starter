@@ -3,7 +3,7 @@
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Input } from '@monorepo-starter/ui/components/input';
 import { useState } from 'react';
-import { useWebPush } from '~/lib/push/web-push-provider';
+import { useWebPush } from '~/app/providers/web-push-provider';
 
 export default function WebPushControlsPage() {
   const {

@@ -1,4 +1,4 @@
-import { generateRandomData } from '~/lib/faker/utils';
+import { generateRandomData } from '~/shared/lib/faker-utils';
 import VirtualDynamicRow from './row';
 
 export default function VirtualDynamicRowPage() {

@@ -34,7 +34,7 @@ pnpm build
 pnpm start
 ```
 
-## Rules
+## Folder Structure & Rules
 
 ### `src/app` Directory
 
@@ -58,10 +58,12 @@ __커스텀 컴포넌트__
 - `columns.tsx`: 테이블 컬럼 정의 컴포넌트(tanstack-table)
 - `form.tsx`: 폼 컴포넌트(react-hook-form)
 
+__Features__
+
+
 사전 정의된 컴포넌트만 찾기
 ```bash
 cd src/app
 fd -t f -E '{layout,page,loading,not-found,error,layout,route,template,default}.{ts,tsx}' \
   -E '{actions,schema,columns,searchParams,form}.{ts,tsx}' -E 'page.mdx'
-  
 ```

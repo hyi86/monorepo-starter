@@ -16,11 +16,11 @@ import { Input } from '@monorepo-starter/ui/components/input';
 import { GripVerticalIcon, Plus, Trash2 } from 'lucide-react';
 import { FieldErrors, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { generator } from '~/lib/faker/utils';
+import { generator } from '~/shared/lib/faker-utils';
+import VirtualSortable from '~/shared/ui/sortable/virtual-sortable';
+import SortableItem from '~/shared/ui/sortable/virtual-sortable-item';
 import { formTestAction } from './actions';
 import { MAX_ITEM_LENGTH, schema, type Schema } from './schema';
-import VirtualSortable from './virtual-sortable';
-import SortableItem from './virtual-sortable-item';
 
 export default function NestedListForm({ data: initialData }: { data: Schema }) {
   const maxItemLength = MAX_ITEM_LENGTH;

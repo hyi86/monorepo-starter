@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server';
 import fs from 'node:fs';
 import path from 'node:path';
 import { Readable } from 'node:stream';
-import { env } from '~/env';
+import { env } from '~/shared/config/env';
 
 // (Next.js App Route라면) Node 런타임 보장 필요시:
 // export const runtime = 'nodejs';

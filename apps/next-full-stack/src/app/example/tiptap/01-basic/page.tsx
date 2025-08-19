@@ -8,9 +8,9 @@ import { BubbleMenu } from '@tiptap/react/menus';
 import prettierHtml from 'prettier/plugins/html';
 import prettier from 'prettier/standalone';
 import { useEffect, useState } from 'react';
-import { TablesBlock } from '~/lib/tiptap/blocks/tables';
-import { extensions } from '~/lib/tiptap/extensions';
-import { WysiwygToolbar } from '~/lib/tiptap/toolbar';
+import { TablesBlock } from '~/shared/ui/tiptap/blocks/tables';
+import { extensions } from '~/shared/ui/tiptap/extensions';
+import { WysiwygToolbar } from '~/shared/ui/tiptap/toolbar';
 
 const initialContent = `
 <h2>Discover the riches of our editor ✨</h2>

@@ -1,7 +1,7 @@
 import { SidebarInset, SidebarProvider } from '@monorepo-starter/ui/components/sidebar';
 import { type Metadata } from 'next';
-import AppMainLayout from '~/components/example/app-main';
-import AppSidebar from '~/components/example/app-sidebar';
+import AppMainLayout from '~/shared/ui/example/app-main';
+import AppSidebar from '~/shared/ui/example/app-sidebar';
 
 export const metadata: Metadata = {
   title: 'Examples',

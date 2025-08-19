@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { generator } from '~/lib/faker/utils';
+import { generator } from '~/shared/lib/faker-utils';
 import DetailFullPage from './full-page';
 import DetailModal from './modal';
 

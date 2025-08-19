@@ -3,18 +3,18 @@ import { Viewport, type Metadata } from 'next';
 import { ThemeProvider } from 'next-themes';
 import localFont from 'next/font/local';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
-import { ComponentInfoPanel } from '~/components/command/component-info-panel';
-import { Spotlight } from '~/components/command/spotlight';
-import { UploaderStoreProvider } from '~/lib/experimental-upload/uploader-store-provider';
-import { getLocale } from '~/lib/i18n/locale';
-import { WebPushProvider } from '~/lib/push/web-push-provider';
-import { TanstackQueryProvider } from '~/lib/query/query-provider';
+import { TanstackQueryProvider } from '~/app/providers/query-provider';
+import { UploaderStoreProvider } from '~/app/providers/uploader-store-provider';
+import { WebPushProvider } from '~/app/providers/web-push-provider';
+import { getLocale } from '~/shared/lib/locale';
+import { ComponentInfoPanel } from '~/shared/ui/command/component-info-panel';
+import { Spotlight } from '~/shared/ui/command/spotlight';
 
 import 'react-advanced-cropper/dist/style.css';
 import './globals.css';
 
 const pretendard = localFont({
-  src: '../fonts/PretendardVariable.woff2',
+  src: '../shared/ui/fonts/PretendardVariable.woff2',
   display: 'swap',
   weight: '45 920',
   variable: '--font-pretendard',

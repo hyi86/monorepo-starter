@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { authMiddleware } from '~/lib/auth/middleware';
-import { i18nMiddleware } from '~/lib/i18n/middleware';
-import { loggerMiddleware } from '~/lib/logger/middleware';
+import { authMiddleware } from '~/shared/lib/auth-middleware';
+import { i18nMiddleware } from '~/shared/lib/i18n-middleware';
+import { loggerMiddleware } from '~/shared/lib/logger-middleware';
 
 /**
  * Next Middleware

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@monorepo-starter/ui/components/button';
-import { useWebPush } from '~/lib/push/web-push-provider';
+import { useWebPush } from '~/app/providers/web-push-provider';
 
 export default function WebPushSimplePage() {
   const { sendPush, subscription } = useWebPush();

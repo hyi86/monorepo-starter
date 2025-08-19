@@ -1,4 +1,4 @@
-import { cachedGetUsers } from '~/db/users/get';
+import { cachedGetUsers } from '~/shared/model/users/get';
 import TableClientBasic from './components/table';
 
 export default async function TableClientFullPage() {

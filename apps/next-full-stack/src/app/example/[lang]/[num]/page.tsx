@@ -1,8 +1,8 @@
 /**
  * 동적 페이지의 경우, 여러개로 가져올 수 있음
  */
-import { Locale } from '~/lib/i18n/config';
-import { getI18nUtils } from '~/lib/i18n/dictionaries';
+import { Locale } from '~/shared/config/i18n';
+import { getI18nUtils } from '~/shared/lib/dictionaries';
 
 export async function generateStaticParams() {
   return Array.from({ length: 10 }, (_, i) => ({ num: (i + 1).toString() }));
