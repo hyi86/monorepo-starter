@@ -19,7 +19,7 @@
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx}": [
-      "pnpm format './{apps,packages}/**/*.{js,jsx,ts,tsx,json,css,md,mdx}'"
+      "pnpm format './{apps,packages}/**/*.{js,jsx,ts,tsx,css,mdx}'"
     ]
   },
   "config": {
