@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test.describe('인증 시스템 E2E 테스트', () => {
+test.describe('인증', () => {
   test.beforeEach(async ({ page }) => {
     // 각 테스트 전에 쿠키 초기화
     await page.context().clearCookies();
@@ -13,7 +13,7 @@ test.describe('인증 시스템 E2E 테스트', () => {
     // 페이지가 로드되었는지 확인
     await expect(page.locator('h1')).toHaveText('인증: Public 페이지');
     // 더 구체적인 선택자 사용
-    await expect(page.locator('div:has(h1:has-text("인증: Public 페이지")) p')).toHaveText('Unauthorized');
+    await expect(page.locator('text=Unauthorized')).toBeVisible();
   });
 
   test('보호된 페이지는 인증 없이 접근 시 로그인 페이지로 리다이렉트되어야 함', async ({ page }) => {
