@@ -19,7 +19,7 @@
   "dependencies": {
     "@faker-js/faker": "^9.9.0",
     "@henry-hong/common-utils": "^0.1.8",
-    "@hono/node-server": "^1.18.2",
+    "@hono/node-server": "^1.19.0",
     "@hono/zod-validator": "^0.7.2",
     "better-sqlite3": "^12.2.0",
     "dotenv": "^17.2.1",
