@@ -19,14 +19,25 @@ export async function authMiddleware(request: NextRequest, response: NextRespons
   const refreshToken = request.cookies.get('refresh-token')?.value;
   const signinUrl = new URL(`${env.SIGNIN_PATH}?callbackUrl=${encodeURIComponent(pathname + search)}`, request.url);
 
-  // 엑세스 토큰이 있으면, 엑세스 토큰 검증 결과 리턴
+  // 엑세스 토큰이 있으면, 엑세스 토큰 검증
   if (accessToken) {
     try {
       await verifyToken({ token: accessToken, secret: env.ACCESS_TOKEN_SECRET });
       return response;
     } catch (error) {
-      devLog('error', error);
-      return response;
+      devLog('error', 'Access token verification failed:', error);
+
+      // 토큰 만료인 경우에만 리프레시 토큰 확인
+      if (error instanceof Error && error.name === 'TokenExpiredError') {
+        response.cookies.delete('access-token');
+        // 리프레시 토큰 확인으로 넘어감
+      } else {
+        // 다른 오류(서명 불일치, 형식 오류 등)는 즉시 리다이렉트
+        const redirectResponse = NextResponse.redirect(signinUrl);
+        redirectResponse.cookies.delete('access-token');
+        redirectResponse.cookies.delete('refresh-token');
+        return redirectResponse;
+      }
     }
   }
 

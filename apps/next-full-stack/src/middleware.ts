@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { authMiddleware } from '~/lib/auth/middleware';
 import { i18nMiddleware } from '~/lib/i18n/middleware';
-// import { loggerMiddleware } from '~/lib/logger/middleware';
+import { loggerMiddleware } from '~/lib/logger/middleware';
 
 /**
  * Next Middleware
@@ -16,17 +16,19 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // 이미지 파일 예외 처리
   if (request.nextUrl.pathname.match(/\.(ico|png|jpg|jpeg|gif|svg|webp)$/)) {
     return NextResponse.next();
   }
 
   const response = NextResponse.next();
-  // 현재 페이지 URL 정보를 쿠키에 저장 (세션 쿠키)
+
+  // 현재 페이지 URL 정보를 쿠키에 저장 (세션 쿠키 활용)
   response.cookies.set('next-pathname', request.nextUrl.pathname, { httpOnly: true });
   response.cookies.set('next-search', request.nextUrl.search, { httpOnly: true });
 
   // 요청 로그 기록
-  // loggerMiddleware(request);
+  loggerMiddleware(request);
 
   // i18n 처리
   const withI18nResponse = await i18nMiddleware(request, response);

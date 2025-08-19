@@ -60,4 +60,52 @@ test.describe('인증', () => {
     // API 경로는 미들웨어가 처리하지 않으므로 리다이렉트되지 않아야 함
     await expect(page).toHaveURL('/api/test');
   });
+
+  test('로그인 후 보호된 페이지에 접근할 수 있어야 함', async ({ page }) => {
+    // 로그인 페이지로 이동
+    await page.goto('/signin');
+    await page.waitForLoadState('load');
+
+    // 로그인 폼 작성 후 클릭
+    await page.getByLabel('Email').fill('hyi86@naver.com');
+    await page.getByLabel('Password').fill('123123123');
+    await page.getByRole('button', { name: 'Login' }).click();
+
+    // 로그인 완료 대기 (쿠키 설정 대기)
+    await page.waitForTimeout(500);
+
+    // 보호된 페이지로 이동
+    await page.goto('/example/auth/protect');
+    await page.waitForLoadState('load');
+
+    // 보호된 페이지 접근 후 쿠키 확인
+    const protectedPageCookies = await page.context().cookies();
+
+    const accessToken = protectedPageCookies.find((cookie) => cookie.name === 'access-token');
+    expect(accessToken).toBeDefined();
+    expect(accessToken?.value).toBeTruthy();
+
+    const refreshToken = protectedPageCookies.find((cookie) => cookie.name === 'refresh-token');
+    expect(refreshToken).toBeDefined();
+    expect(refreshToken?.value).toBeTruthy();
+  });
+
+  test('잘못된 로그인 정보로는 로그인이 실패해야 함', async ({ page }) => {
+    await page.goto('/signin');
+    await page.waitForLoadState('load');
+
+    // 로그인 폼 작성 후 클릭
+    await page.getByLabel('Email').fill('hyi86@navar.com'); // 잘못된 도메인
+    await page.getByLabel('Password').fill('123123123');
+    await page.getByRole('button', { name: 'Login' }).click();
+
+    // 로그인 완료 대기 (쿠키 설정 대기)
+    await page.waitForTimeout(500);
+
+    // 로그인 실패 후에도 로그인 페이지에 머물러 있어야 함
+    await expect(page).toHaveURL(/\/signin/);
+
+    // 에러 메시지가 표시되는지 확인 (에러 메시지가 있다면)
+    // await expect(page.locator('.error-message')).toBeVisible();
+  });
 });

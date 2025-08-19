@@ -28,6 +28,14 @@ export async function signin(
     return { success: false, error: 'Invalid credentials', message: '입력정보가 올바르지 않습니다.' };
   }
 
+  if (!validatedFields.data.loginId.match(/@(naver|google|kakao)\.com$/)) {
+    return {
+      success: false,
+      error: 'Invalid credentials',
+      message: '네이버, 구글, 카카오 이메일만 로그인할 수 있습니다.',
+    };
+  }
+
   const userId = loginId.split('@')[0] || '';
   const accessToken = await generateToken({
     userId,

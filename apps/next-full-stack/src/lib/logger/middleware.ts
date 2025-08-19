@@ -7,7 +7,7 @@ import { type NextRequest } from 'next/server';
  * @example
  * await loggerMiddleware(request);
  */
-export async function loggerMiddleware(request: NextRequest) {
+export function loggerMiddleware(request: NextRequest) {
   // 페이지 라우트, 서버액션에 대한 접근 로그 (API 라우트는 제외)
   const timestamp = new Date().toISOString();
   const forwardedFor = request.headers.get('x-forwarded-for') || '';
@@ -23,7 +23,7 @@ export async function loggerMiddleware(request: NextRequest) {
   const fullUrl = request.nextUrl.href;
   const referer = request.headers.get('referer') || '-';
 
-  // CLIENT_IP - - [TIMESTAMP] "METHOD URL PROTOCOL" "REFERER" "USER_AGENT"
+  // nginx 로그 형식: CLIENT_IP - - [TIMESTAMP] "METHOD URL PROTOCOL" "REFERER" "USER_AGENT"
   const logLine = `${clientIp} - - [${timestamp}] "${method} ${fullUrl} ${protocol}" "${referer}" "${userAgent}"`;
   devLog('info', logLine);
 }
