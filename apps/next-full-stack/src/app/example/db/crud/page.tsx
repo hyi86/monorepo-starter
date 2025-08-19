@@ -11,7 +11,7 @@ import {
   toggleUserStatusAction,
   updateUserAction,
 } from '~/shared/api/database-actions';
-import { getUsers } from '~/shared/model/users/get';
+import { getUsers } from '~/shared/model/users';
 
 export default async function DbPage() {
   const users = await getUsers({ limit: 500 });

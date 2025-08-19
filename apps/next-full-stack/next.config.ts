@@ -55,6 +55,10 @@ const nextConfig: NextConfig = {
      * @see {@link https://nextjs.org/docs/app/api-reference/config/next-config-js/optimizePackageImports Next.js 공식 문서}
      */
     optimizePackageImports: ['@mantine/hooks'],
+    /**
+     * 서버 액션 요청 크기 제한
+     * @see {@link https://nextjs.org/docs/app/api-reference/config/next-config-js/serverActions#bodysizelimit Next.js 공식 문서}
+     */
     serverActions: {
       bodySizeLimit: '2mb',
     },

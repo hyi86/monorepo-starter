@@ -12,7 +12,7 @@ import {
 import { RowData, type ColumnDef, type Row } from '@tanstack/react-table';
 import { isAfter } from 'date-fns';
 import { ArrowDownToLine, ArrowUpToLine, PinIcon, PinOffIcon } from 'lucide-react';
-import { type User } from '~/shared/model/users/get';
+import { type User } from '~/shared/model/users';
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

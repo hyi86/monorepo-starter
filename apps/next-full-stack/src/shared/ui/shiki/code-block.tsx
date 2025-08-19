@@ -1,7 +1,7 @@
 import type { BundledLanguage } from 'shiki';
 import { codeToHtml } from 'shiki';
-import { themes } from './themes';
-import { getTransformers } from './transformers';
+import { themes } from '~/shared/config/code-block-themes';
+import { getTransformers } from '~/shared/config/code-block-transformers';
 
 interface Props {
   children: string;

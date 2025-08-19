@@ -5,8 +5,8 @@ import { Fragment, JSX, useLayoutEffect, useState } from 'react';
 import { jsx, jsxs } from 'react/jsx-runtime';
 import { BundledLanguage } from 'shiki';
 import { codeToHast } from 'shiki/bundle/web';
-import { themes } from './themes';
-import { getTransformers } from './transformers';
+import { themes } from '~/shared/config/code-block-themes';
+import { getTransformers } from '~/shared/config/code-block-transformers';
 
 async function highlight(code: string, lang: BundledLanguage) {
   const out = await codeToHast(code, {
