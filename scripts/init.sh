@@ -9,10 +9,15 @@ pnpm install
 # init hono-api
 # ------------------------------------------------------------
 if [ -d "apps/hono-api" ]; then
-  cd apps/hono-api && cp .env.example .env
+  cd apps/hono-api
+  cp .env.example .env
+
   rm -rf database drizzle
   mkdir -p database drizzle
-  pnpm db:generate && pnpm db:migrate
+
+  pnpm db:generate
+  pnpm db:migrate
+
   cd ../..
 fi
 
@@ -20,7 +25,8 @@ fi
 # init next-full-stack
 # ------------------------------------------------------------
 if [ -d "apps/next-full-stack" ]; then
-  cd apps/next-full-stack && cp .env.example .env
+  cd apps/next-full-stack
+  cp .env.example .env
 
   sed -i '' "s|^ACCESS_TOKEN_SECRET=.*|ACCESS_TOKEN_SECRET=$(pnpx nanoid -s 32)|" .env
   sed -i '' "s|^REFRESH_TOKEN_SECRET=.*|REFRESH_TOKEN_SECRET=$(pnpx nanoid -s 32)|" .env
@@ -34,7 +40,9 @@ if [ -d "apps/next-full-stack" ]; then
 
   rm -rf database drizzle
   mkdir -p database drizzle
-  pnpm db:generate && pnpm db:migrate
+
+  pnpm db:generate
+  pnpm db:migrate
 
   cd ../..
 fi

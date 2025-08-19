@@ -1,10 +1,10 @@
 SHELL := /bin/bash
 
-.PHONY: clean compress copy create init du project-clean
+.PHONY: clean compress copy create init du status
 
-# 빈 디렉토리를 삭제
+# 프로젝트 의존성 전체 초기화
 clean:
-	@find . -type d -empty -delete
+	@bash ./scripts/clean.sh
 
 # 모든 파일을 tar.gz으로 압축
 # e.g. make compress to=apps/next-full-stack/public
@@ -16,12 +16,12 @@ compress:
 copy:
 	@bash ./scripts/copy.sh $(from) $(to)
 
-# 패키지 생성 (대화형 UI)
+# 신규 패키지 생성 (대화형 UI)
 # e.g. make create
 create:
 	@bash ./scripts/create.sh
 
-# git clean 후, 프로젝트 초기화
+# git clean 후, 프로젝트 초기화 명령어
 init:
 	@bash ./scripts/init.sh
 
@@ -29,7 +29,6 @@ init:
 du:
 	@du -sh ./apps/* ./packages/* | sort -hr
 
-# 의존성 문제 발생 시 프로젝트 전체 초기화
-project-clean:
-	@git clean -xfd
-	@rm -f pnpm-lock.yaml
+# 프로젝트 상태 확인
+status:
+	@bash ./scripts/system-status.sh

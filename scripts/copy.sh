@@ -3,6 +3,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/ui-utils.sh"
 
 # `git` 으로 관리되는 파일만 복사하는 스크립트
 
+# 파라미터가 없으면 대화형 UI
 if [ -z "$1" ] || [ -z "$2" ]; then
   cd apps
   TEMPLATES=$(ls)
@@ -22,6 +23,7 @@ echo "$(color.process "Copying files...")"
 echo "$(color.info "from: $(color.cyan $FROM)")"
 echo "$(color.info "to: $(color.cyan $TO)")"
 
+# 파일 복사
 rsync -azP --filter=":- .gitignore" $FROM/ $TO
 
 echo "$(color.success "Done")"
