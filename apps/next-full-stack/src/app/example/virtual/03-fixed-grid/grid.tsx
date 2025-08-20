@@ -13,8 +13,8 @@ type Column = {
 
 type Data = {
   id: string;
-  text: string;
-  height: number;
+  value: string;
+  height?: number;
 };
 
 // 인덱스를 A, B, C... Z, AA, AB... ZZ 형태로 변환하는 함수
@@ -31,12 +31,14 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
   const parentRef = useRef<HTMLDivElement>(null);
   const rowCount = Math.floor(rows.length / columns.length);
   const indexColumnWidth = 60; // 인덱스 컬럼 너비
+  const defaultColumnHeight = 32;
+  const bodyHeight = 400; // 본문 높이
   const [scrollTop, setScrollTop] = useState(0);
 
   const rowVirtualizer = useVirtualizer({
     count: rowCount,
     getScrollElement: () => parentRef.current,
-    estimateSize: (index) => rows[index]?.height || 10,
+    estimateSize: (index) => rows[index]?.height || defaultColumnHeight,
     overscan: 5,
     paddingStart: 32,
   });
@@ -67,7 +69,7 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
   return (
     <div className="relative size-full">
       <div className="">
-        Total Content Size: {format(rowCount)} * {format(columns.length)} = {format(rows.length)}
+        Total Content Size: {format(rowCount)} * {format(columns.length)} = {format(rowCount * columns.length)}
       </div>
       <div className="mb-2 flex gap-2">
         <Button variant="outline" onClick={() => rowVirtualizer.scrollToIndex(0)}>
@@ -86,9 +88,14 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
 
       <div className="relative flex">
         {/* 고정된 인덱스 컬럼 */}
-        <div className="h-150 flex-shrink-0">
+        <div className="flex flex-shrink-0 flex-col" style={{ height: `${bodyHeight}px` }}>
           {/* 인덱스 컬럼 헤더 */}
-          <div className="w-15 h-8.5 border-b border-r bg-gray-200 p-1 text-center text-sm font-semibold">#</div>
+          <div
+            className="border-b border-r bg-gray-200 p-1 text-center text-sm"
+            style={{ height: `${defaultColumnHeight}px` }}
+          >
+            #
+          </div>
 
           {/* 인덱스 컬럼 데이터 - 스크롤 위치에 따라 동기화 */}
           <div className="relative h-full overflow-hidden">
@@ -99,7 +106,7 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
                   className="border-b border-r bg-gray-50 p-1 text-center text-sm font-medium"
                   style={{
                     width: `${indexColumnWidth}px`,
-                    height: `${rows[index]?.height || 10}px`,
+                    height: `${rows[index]?.height || defaultColumnHeight}px`,
                   }}
                 >
                   {index + 1}
@@ -110,7 +117,7 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
         </div>
 
         {/* 스크롤 가능한 데이터 영역 */}
-        <div ref={parentRef} className="h-150 w-200 overflow-auto border shadow-lg">
+        <div ref={parentRef} className="w-200 overflow-auto border" style={{ height: `${bodyHeight}px` }}>
           {/* 고정된 헤더 */}
           <div className="sticky top-0 z-20 border-b bg-gray-100">
             <div
@@ -122,8 +129,9 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
               {columnVirtualizer.getVirtualItems().map((virtualColumn) => (
                 <div
                   key={`header-${virtualColumn.key}`}
-                  className="absolute left-0 top-0 z-0 h-8 border-b border-r bg-gray-100 p-1 text-sm font-semibold"
+                  className="absolute left-0 top-0 z-0 border-b border-r bg-gray-100 p-1 text-sm font-semibold"
                   style={{
+                    height: `${defaultColumnHeight}px`,
                     width: `${virtualColumn.size}px`,
                     transform: `translateX(${virtualColumn.start}px)`,
                   }}
@@ -161,7 +169,7 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
                         transform: `translateX(${virtualColumn.start}px) translateY(${virtualRow.start}px)`,
                       }}
                     >
-                      {rows[index]?.text}
+                      {rows[index]?.value}
                     </div>
                   );
                 })}

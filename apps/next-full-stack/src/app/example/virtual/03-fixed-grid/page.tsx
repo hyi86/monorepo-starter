@@ -9,8 +9,7 @@ export default function FixedGridPage() {
 
   const data = generateRandomData(80_000, (index, generator) => ({
     id: `${index + 1}`,
-    text: `Row ${index + 1}`,
-    height: generator.number.int({ min: 32, max: 33 }),
+    value: `${generator.color.human()} ${generator.animal.type()}`,
   }));
 
   return (
