@@ -58,8 +58,6 @@ export type StaticPath =
   | '/example/route/intercepting'
   | '/example/route/parallel'
   | '/example/route/parallel/login'
-  | '/example/spreadsheet/phase0.1'
-  | '/example/spreadsheet/phase0.2'
   | '/example/table'
   | '/example/table/01-server'
   | '/example/table/02-client'
@@ -1857,52 +1855,6 @@ export const appPathRoutes: AppPathRoutes[] = [
                     ],
                   },
                 ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    href: '/example/spreadsheet/phase0.1',
-    linkTypes: '/example/spreadsheet/phase0.1',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/spreadsheet/phase0.1/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/spreadsheet/phase0.1/page.tsx',
-                children: [],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    href: '/example/spreadsheet/phase0.2',
-    linkTypes: '/example/spreadsheet/phase0.2',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/spreadsheet/phase0.2/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/spreadsheet/phase0.2/page.tsx',
-                children: [],
               },
             ],
           },
