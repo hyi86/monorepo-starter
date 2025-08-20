@@ -15,3 +15,7 @@ export type { EventFilter, EventListener, GridEventType } from './event-bus';
 // Phase 0.2 - 가상화 엔진
 export { VirtualizationEngine, getVirtualCellPosition, useVirtualization } from './virtualization';
 export type { VirtualizationConfig, VirtualizationState } from './virtualization';
+
+// Phase 0.3 - 셀 렌더링 기본 구조
+export { CellRendererEngine, defaultCellRendererEngine, defaultCellRenderers } from './cell-renderer';
+export type { CellRenderer } from './cell-renderer';

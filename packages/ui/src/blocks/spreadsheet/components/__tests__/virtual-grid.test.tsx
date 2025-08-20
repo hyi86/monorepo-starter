@@ -71,7 +71,7 @@ describe('VirtualGrid', () => {
     render(<VirtualGrid rows={100} columns={testColumns} rowHeight={32} containerWidth={800} containerHeight={600} />);
 
     // 가상화된 셀들이 렌더링되어야 함
-    const cells = screen.getAllByText(/R\d+C\d+/);
+    const cells = screen.getAllByRole('gridcell');
     expect(cells.length).toBeGreaterThan(0);
   });
 

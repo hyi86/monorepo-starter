@@ -17,8 +17,15 @@
 - [x] 오버스캔 설정 (성능 최적화)
 - [x] 스크롤 위치 계산 및 제어
 
-### 🔄 Phase 0.3 - 렌더링 기초 (진행 예정)
-- [ ] 셀 렌더링 기본 구조
+### ✅ Phase 0.3 - 셀 렌더링 기본 구조 (완료)
+- [x] 셀 렌더링 기본 구조
+- [x] 타입별 셀 렌더러 (text, number, boolean, date)
+- [x] 셀 렌더링 엔진 (CellRendererEngine)
+- [x] 커스텀 렌더러 등록/제거 기능
+- [x] 셀 상태별 스타일링 (선택, 포커스, 오류, 더티)
+- [x] 접근성 지원 (ARIA 속성, 키보드 네비게이션)
+
+### 🔄 Phase 0.3.1 - 렌더링 고도화 (진행 예정)
 - [ ] 컬럼 정의(열 폭, 고정 열, 셀 렌더러) 지원
 - [ ] 스티키 헤더 및 인덱스 구현
 - [ ] 컬럼 리사이즈(마우스 드래그) 기능
@@ -82,6 +89,32 @@ function CustomGrid() {
 }
 ```
 
+### 셀 렌더링 시스템 사용
+
+```tsx
+import { CellRendererEngine, defaultCellRendererEngine } from '@/core';
+import { CellComponent } from '@/components';
+
+// 커스텀 렌더러 등록
+const engine = new CellRendererEngine();
+engine.registerRenderer('custom', ({ value }) => (
+  <div className="custom-cell">{value}</div>
+));
+
+// 셀 컴포넌트 사용
+<CellComponent
+  value="Hello World"
+  cell={{ value: "Hello World", type: "text" }}
+  column={{ key: "name", width: 150, type: "text" }}
+  rowIndex={0}
+  colIndex={0}
+  width={150}
+  height={32}
+  rendererEngine={engine}
+  onClick={(row, col) => console.log(`Clicked: ${row}, ${col}`)}
+/>
+```
+
 ## 성능 특징
 
 - **가상화**: 100k+ 셀에서도 부드러운 스크롤 (60fps)
@@ -98,9 +131,11 @@ packages/ui/src/blocks/spreadsheet/
 │   ├── sheet-model.ts      # 데이터 모델
 │   ├── event-bus.ts        # 이벤트 시스템
 │   ├── virtualization.ts   # 가상화 엔진 ⭐
+│   ├── cell-renderer.ts    # 셀 렌더링 엔진 ⭐
 │   └── index.ts            # 모듈 export
 ├── components/             # React 컴포넌트
-│   └── virtual-grid.tsx    # 가상화 그리드
+│   ├── virtual-grid.tsx    # 가상화 그리드
+│   └── cell.tsx            # 셀 렌더링 컴포넌트 ⭐
 ├── demo.tsx               # 데모 페이지
 └── spec.md                # 기능 정의서
 ```

@@ -8,6 +8,5 @@ export default defineConfig({
     environment: 'jsdom',
     exclude: ['e2e/**', 'node_modules/**', '.next/**'],
     silent: true,
-    reporters: ['basic'],
   },
 });

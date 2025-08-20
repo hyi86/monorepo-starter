@@ -2,10 +2,12 @@
  * 가상화 그리드 컴포넌트 - Phase 0.2 가상화 엔진 테스트용
  */
 
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import { defaultCellRendererEngine } from '../core/cell-renderer';
 import { SheetModel } from '../core/sheet-model';
 import { Column } from '../core/types';
 import { useVirtualization, VirtualizationConfig } from '../core/virtualization';
+import { CellComponent } from './cell';
 
 interface VirtualGridProps {
   rows: number;
@@ -80,27 +82,52 @@ export function VirtualGrid({
             }}
           >
             {virtualCols.map((virtualCol) => {
-              const cellValue = `R${virtualRow.index}C${virtualCol.index}`;
+              const col = columns[virtualCol.index];
+
+              // 컬럼 타입에 따른 실제 데이터 생성
+              let cellValue: any;
+              let formattedValue: string;
+
+              switch (col?.type) {
+                case 'number':
+                  cellValue = virtualRow.index * 100 + virtualCol.index;
+                  formattedValue = cellValue.toLocaleString();
+                  break;
+                case 'boolean':
+                  cellValue = virtualRow.index % 2 === 0;
+                  formattedValue = cellValue ? 'Yes' : 'No';
+                  break;
+                case 'date':
+                  const date = new Date(2024, 0, 1);
+                  date.setDate(date.getDate() + virtualRow.index);
+                  cellValue = date;
+                  formattedValue = date.toLocaleDateString();
+                  break;
+                default:
+                  cellValue = `${col?.header || 'Col'} ${virtualRow.index + 1}`;
+                  formattedValue = cellValue;
+              }
+
+              const cell = {
+                value: cellValue,
+                formattedValue,
+                type: col?.type || 'text',
+              };
 
               return (
-                <div
+                <CellComponent
                   key={virtualCol.index}
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    width: `${virtualCol.size}px`,
-                    height: '100%',
-                    transform: `translateX(${virtualCol.start}px)`,
-                    border: '1px solid #eee',
-                    padding: '4px',
-                    fontSize: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    backgroundColor: '#fff',
-                  }}
-                >
-                  {cellValue}
-                </div>
+                  value={cellValue}
+                  cell={cell}
+                  column={col || { key: `col_${virtualCol.index}`, width: virtualCol.size }}
+                  rowIndex={virtualRow.index}
+                  colIndex={virtualCol.index}
+                  width={virtualCol.size}
+                  height={virtualRow.size}
+                  rendererEngine={defaultCellRendererEngine}
+                  onClick={(row, col) => console.log(`Clicked: ${row}, ${col}`)}
+                  onDoubleClick={(row, col) => console.log(`Double clicked: ${row}, ${col}`)}
+                />
               );
             })}
           </div>
