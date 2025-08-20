@@ -58,6 +58,7 @@ export type StaticPath =
   | '/example/route/intercepting'
   | '/example/route/parallel'
   | '/example/route/parallel/login'
+  | '/example/spreadsheet'
   | '/example/table'
   | '/example/table/01-server'
   | '/example/table/02-client'
@@ -1855,6 +1856,29 @@ export const appPathRoutes: AppPathRoutes[] = [
                     ],
                   },
                 ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/spreadsheet',
+    linkTypes: '/example/spreadsheet',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/spreadsheet/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/spreadsheet/page.tsx',
+                children: [],
               },
             ],
           },
