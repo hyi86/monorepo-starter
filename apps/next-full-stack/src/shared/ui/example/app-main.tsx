@@ -19,7 +19,7 @@ export default function AppMainLayout({ children }: { children: React.ReactNode 
   const pathNames = pathname.split('/').slice(2);
 
   return (
-    <div style={{ '--sidebar-header-height': '3.5rem' } as React.CSSProperties}>
+    <div style={{ '--sidebar-header-height': '3.5rem' } as React.CSSProperties} className="flex size-full flex-col">
       <header
         className={cn(
           'h-(--sidebar-header-height) bg-background sticky top-0 z-10 flex w-full items-center border-b px-4',
@@ -47,7 +47,7 @@ export default function AppMainLayout({ children }: { children: React.ReactNode 
           </BreadcrumbList>
         </Breadcrumb>
       </header>
-      <div className="p-4">{children}</div>
+      {children}
     </div>
   );
 }

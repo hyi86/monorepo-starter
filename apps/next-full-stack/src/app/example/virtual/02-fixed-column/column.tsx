@@ -51,7 +51,7 @@ export default function FixedColumnPage({ columns }: { columns: number[] }) {
           turn {enabled ? 'off' : 'on'} virtualizer
         </Button>
       </div>
-      <div ref={parentRef} className="h-120 w-120 overflow-auto border shadow-lg">
+      <div ref={parentRef} className="h-100 w-120 overflow-auto border shadow-lg">
         <div
           className="relative h-full"
           style={{

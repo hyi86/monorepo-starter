@@ -67,9 +67,9 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
   }, []);
 
   return (
-    <div className="relative size-full">
-      <div className="">
-        Total Content Size: {format(rowCount)} * {format(columns.length)} = {format(rowCount * columns.length)}
+    <div>
+      <div className="mb-2">
+        Total Content Size: {format(rowCount)} * {format(columns.length)} = {format(rowCount * columns.length)} Rows
       </div>
       <div className="mb-2 flex gap-2">
         <Button variant="outline" onClick={() => rowVirtualizer.scrollToIndex(0)}>
@@ -85,15 +85,11 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
           Scroll to right
         </Button>
       </div>
-
       <div className="relative flex">
         {/* 고정된 인덱스 컬럼 */}
         <div className="flex flex-shrink-0 flex-col" style={{ height: `${bodyHeight}px` }}>
           {/* 인덱스 컬럼 헤더 */}
-          <div
-            className="border-b border-r bg-gray-200 p-1 text-center text-sm"
-            style={{ height: `${defaultColumnHeight}px` }}
-          >
+          <div className="block border border-b text-center text-sm" style={{ height: `${defaultColumnHeight + 5}px` }}>
             #
           </div>
 
