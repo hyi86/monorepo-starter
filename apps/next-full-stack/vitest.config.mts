@@ -6,6 +6,16 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   test: {
     environment: 'jsdom',
-    exclude: ['e2e/**', 'node_modules/**'],
+    exclude: ['e2e/**', 'node_modules/**', '.next/**'],
+    passWithNoTests: true,
+    coverage: {
+      provider: 'v8',
+      all: false,
+      // include: ['src/**/*.{ts,tsx}'],
+      reporter: ['text'],
+    },
+    env: {
+      DB_FILE_NAME: 'database/local.db',
+    },
   },
 });

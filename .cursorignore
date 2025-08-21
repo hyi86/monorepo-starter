@@ -1,0 +1,42 @@
+# 빌드 결과물
+dist/
+build/
+.next/
+out/
+
+# 의존성
+node_modules/
+.pnpm-store/
+
+# 환경 변수
+.env
+.env.local
+.env.production
+
+# 로그 파일
+*.log
+logs/
+
+# 캐시
+.cache/
+.turbo/
+
+# 테스트 결과
+coverage/
+test-results/
+
+# 임시 파일
+*.tmp
+*.temp
+
+# OS 생성 파일
+.DS_Store
+Thumbs.db
+
+# IDE 설정
+.vscode/
+.idea/
+
+# Git
+.git/
+.gitignore
