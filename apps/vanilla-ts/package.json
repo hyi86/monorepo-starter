@@ -10,13 +10,13 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "zustand": "^5.0.7"
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@tailwindcss/vite": "catalog:",
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
-    "vite": "^7.1.2",
+    "vite": "^7.1.3",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }

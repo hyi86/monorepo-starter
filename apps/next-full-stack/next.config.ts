@@ -63,6 +63,13 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '2mb',
     },
   },
+
+  /**
+   * 라우트 파일에 대한 타입 생성
+   * @see {@link https://nextjs.org/docs/app/api-reference/config/next-config-js/typedRoutes Next.js 공식 문서}
+   */
+  typedRoutes: false,
+
   /**
    * Next.js는 기본적으로 Webpack 캐시를 활성화하여 빌드 속도를 빠르게 함.
    * 빌드시, 메모리 + 파일 크기가 커지는 문제가 있어 비활성화.(`.next/cache/webpack/` 용량이 500MB 에서 0으로 감소)

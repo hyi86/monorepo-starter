@@ -3,28 +3,23 @@ packages:
   - packages/*
 
 catalog:
-  # nextjs
-  '@next/eslint-plugin-next': 15.4.7
-  '@next/mdx': 15.4.7
-  eslint-config-next: 15.4.7
-  next: 15.4.7
-  # tailwindcss
+  '@eslint/eslintrc': ^3.3.1
+  '@next/eslint-plugin-next': 15.5.0
+  '@next/mdx': 15.5.0
   '@tailwindcss/postcss': ^4.1.12
   '@tailwindcss/vite': ^4.1.12
-  tailwindcss: ^4.1.12
-  # eslint
-  '@eslint/eslintrc': ^3.3.1
-  eslint: 9.33.0
-  # react
-  react: ^19.1.1
-  react-dom: ^19.1.1
+  '@types/node': ^22.17.2
   '@types/react': ^19.1.10
   '@types/react-dom': ^19.1.7
-  # etc
-  '@types/node': ^22.17.2
+  eslint: 9.33.0
+  eslint-config-next: 15.5.0
+  lucide-react: 0.540.0
+  next: 15.5.0
+  react: ^19.1.1
+  react-dom: ^19.1.1
+  tailwindcss: ^4.1.12
   typescript: ^5.9.2
   zod: ^4.0.17
-  'lucide-react': 0.540.0
 
 ignoredBuiltDependencies:
   - '@parcel/watcher'
