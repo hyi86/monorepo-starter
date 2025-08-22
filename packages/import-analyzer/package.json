@@ -1,0 +1,46 @@
+{
+  "name": "@monorepo-starter/import-analyzer",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "import-analyzer": "./bin/index.js"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "test": "vitest run",
+    "dev": "tsx src/index.ts",
+    "build": "tsup",
+    "postbuild": "chmod +x bin/*"
+  },
+  "devDependencies": {
+    "@clack/prompts": "^0.11.0",
+    "@monorepo-starter/eslint-config": "workspace:*",
+    "@monorepo-starter/typescript-config": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/tar-fs": "^2.0.4",
+    "@types/tar-stream": "^3.1.4",
+    "console-table-printer": "^2.14.3",
+    "deepmerge": "^4.3.1",
+    "esbuild": "^0.25.5",
+    "eslint": "catalog:",
+    "fast-glob": "^3.3.3",
+    "nanoid": "^5.1.5",
+    "prettier": "^3.5.3",
+    "strip-ansi": "^7.1.0",
+    "tar-fs": "^3.0.9",
+    "tar-stream": "^3.1.7",
+    "ts-morph": "^26.0.0",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.3",
+    "type-fest": "^4.41.0",
+    "typescript": "catalog:",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.3",
+    "yaml": "^2.8.0"
+  },
+  "dependencies": {
+    "@henry-hong/common-utils": "^0.1.8"
+  }
+}
