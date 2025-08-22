@@ -68,7 +68,7 @@ const nextConfig: NextConfig = {
    * 라우트 파일에 대한 타입 생성
    * @see {@link https://nextjs.org/docs/app/api-reference/config/next-config-js/typedRoutes Next.js 공식 문서}
    */
-  typedRoutes: false,
+  typedRoutes: true,
 
   /**
    * Next.js는 기본적으로 Webpack 캐시를 활성화하여 빌드 속도를 빠르게 함.

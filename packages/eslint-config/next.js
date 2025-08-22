@@ -13,6 +13,9 @@ import { config as baseConfig } from './base.js';
  * @type {import("eslint").Linter.Config[]}
  * */
 export const nextJsConfig = [
+  {
+    ignores: ['**/.next/**', '**/.turbo/**', 'next-env.d.ts'],
+  },
   ...baseConfig,
   js.configs.recommended,
   eslintConfigPrettier,
@@ -48,6 +51,7 @@ export const nextJsConfig = [
       'react-hooks/exhaustive-deps': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@next/next/no-img-element': 'off',
+      quotes: 'off',
     },
   },
 ];
