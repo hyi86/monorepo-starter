@@ -16,9 +16,9 @@ import { Input } from '@monorepo-starter/ui/components/input';
 import { GripVerticalIcon, Plus, Trash2 } from 'lucide-react';
 import { FieldErrors, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { generator } from '~/shared/lib/faker-utils';
-import VirtualSortable from '~/shared/ui/sortable/virtual-sortable';
-import SortableItem from '~/shared/ui/sortable/virtual-sortable-item';
+import { generator } from '~/common/lib/faker-utils';
+import VirtualSortable from '~/common/ui/sortable/virtual-sortable';
+import SortableItem from '~/common/ui/sortable/virtual-sortable-item';
 import { formTestAction } from './actions';
 import { MAX_ITEM_LENGTH, schema, type Schema } from './schema';
 

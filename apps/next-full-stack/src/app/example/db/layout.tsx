@@ -1,5 +1,5 @@
 import { type Metadata } from 'next';
-import { Article } from '~/shared/ui/article';
+import { Article } from '~/common/ui/article';
 
 export const metadata: Metadata = {
   title: 'Database',

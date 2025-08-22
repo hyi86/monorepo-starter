@@ -6,7 +6,7 @@ import { Input } from '@monorepo-starter/ui/components/input';
 import { Progress } from '@monorepo-starter/ui/components/progress';
 import { Loader2, RefreshCcw } from 'lucide-react';
 import { toast } from 'sonner';
-import { useUploader } from '~/shared/hooks/use-uploader';
+import { useUploader } from '~/common/hooks/use-uploader';
 
 export default function UploadPage() {
   const uploader = useUploader();

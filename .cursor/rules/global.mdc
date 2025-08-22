@@ -17,11 +17,13 @@
 - 에러 처리 및 로깅 포함
 
 ## 테스트
-- **단위/통합 테스트**: Vitest 사용
+- **단위/통합 테스트**: Vitest + jsdom 사용
 - **E2E 테스트**: Playwright 사용
 - 테스트 파일명: `*.test.ts` 또는 `*.test.tsx`
 - describe 블록은 한국어로 작성
 - E2E 테스트는 `e2e/` 폴더에 배치
+- Vitest 설정: `vitest.config.ts`에서 jsdom 환경 설정
+- 테스트 설정: `src/test/setup.ts`에서 전역 모킹 및 Next.js 모킹
 
 ## 명령어
 - `pnpm dev`: 개발 서버

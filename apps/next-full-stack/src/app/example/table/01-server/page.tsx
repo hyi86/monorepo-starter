@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHeader, TableRow } from '@monorepo-st
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import { SearchParams } from 'nuqs/server';
-import { cachedGetUsers } from '~/shared/model/users';
+import { cachedGetUsers } from '~/common/model/users';
 import TableFilters from './filters';
 import FuzzySearch from './fuzzy-search';
 import TablePagination from './pagination';

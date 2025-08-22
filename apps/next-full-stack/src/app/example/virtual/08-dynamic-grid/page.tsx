@@ -1,4 +1,4 @@
-import { generator } from '~/shared/lib/faker-utils';
+import { generator } from '~/common/lib/faker-utils';
 import VirtualDynamicGrid from './grid';
 
 interface Column {

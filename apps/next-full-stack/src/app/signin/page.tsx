@@ -1,6 +1,6 @@
 import { type Metadata } from 'next';
 import { redirect } from 'next/navigation';
-import { checkAuthorization } from '~/shared/lib/check-auth';
+import { checkAuthorization } from '~/common/lib/check-auth';
 import SigninForm from './signin-form';
 
 export const metadata: Metadata = {

@@ -3,8 +3,8 @@
  * @see https://github.com/remarkablemark/html-react-parser
  */
 import Link from 'next/link';
-import { i18n, Locale } from '~/shared/config/i18n';
-import { getI18nUtils } from '~/shared/lib/dictionaries';
+import { i18n, Locale } from '~/common/config/i18n';
+import { getI18nUtils } from '~/common/lib/dictionaries';
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));

@@ -1,7 +1,7 @@
 'use client';
 
 import { useLayoutEffect } from 'react';
-import { type Locale } from '~/shared/config/i18n';
+import { type Locale } from '~/common/config/i18n';
 
 /**
  * Document 언어 변경 Provider

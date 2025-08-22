@@ -5,7 +5,7 @@ import { SortableItem } from '@monorepo-starter/ui/blocks/dnd/sortable-item';
 import { ScrollArea, ScrollBar } from '@monorepo-starter/ui/components/scroll-area';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { useEffect, useState } from 'react';
-import { generateRandomData } from '~/shared/lib/faker-utils';
+import { generateRandomData } from '~/common/lib/faker-utils';
 
 export default function ExampleDndSortableHorizontalPage() {
   const [items, setItems] = useState<{ id: string; name: string }[]>([]);

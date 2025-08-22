@@ -1,4 +1,4 @@
-import { CodeBlock } from '~/shared/ui/shiki/code-block.client';
+import { CodeBlock } from '~/common/ui/shiki/code-block.client';
 
 export default function Page() {
   const code = 'const loader = "Loading...";';

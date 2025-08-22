@@ -10,8 +10,8 @@ import {
   deleteUserAction,
   toggleUserStatusAction,
   updateUserAction,
-} from '~/shared/actions/database-actions';
-import { getUsers } from '~/shared/model/users';
+} from '~/common/actions/database-actions';
+import { getUsers } from '~/common/model/users';
 
 export default async function DbPage() {
   const users = await getUsers({ limit: 500 });
