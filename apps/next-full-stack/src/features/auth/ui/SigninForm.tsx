@@ -6,16 +6,16 @@ import { Input } from '@monorepo-starter/ui/components/input';
 import { Label } from '@monorepo-starter/ui/components/label';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { signin } from '~/common/actions/signin-actions';
+import { signinAction } from '~/features/auth/api/signin-actions';
 
-export default function SigninForm({ callbackUrl }: { callbackUrl: string }) {
+export function SigninForm({ callbackUrl }: { callbackUrl: string }) {
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const response = await signin(loginId, password);
+    const response = await signinAction(loginId, password);
 
     if (!response.success && response.error) {
       toast.error(response.message, { closeButton: true });
@@ -81,3 +81,5 @@ export default function SigninForm({ callbackUrl }: { callbackUrl: string }) {
     </div>
   );
 }
+
+SigninForm.displayName = 'SigninForm';

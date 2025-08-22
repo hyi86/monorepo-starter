@@ -152,3 +152,5 @@ export function Spotlight() {
     </>
   );
 }
+
+Spotlight.displayName = 'Spotlight';

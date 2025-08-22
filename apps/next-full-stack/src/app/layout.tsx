@@ -4,11 +4,11 @@ import { ThemeProvider } from 'next-themes';
 import localFont from 'next/font/local';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { TanstackQueryProvider } from '~/app/providers/query-provider';
-import { WebPushProvider } from '~/app/providers/web-push-provider';
 import { getLocale } from '~/common/lib/locale';
-import { UploaderStoreProvider } from '~/common/store/uploader-provider';
-import { ComponentInfoPanel } from '~/common/ui/command/component-info-panel';
-import { Spotlight } from '~/common/ui/command/spotlight';
+import { UploaderStoreProvider } from '~/features/file-upload/lib/uploader-provider';
+import { WebPushProvider } from '~/features/web-push/lib/web-push-context';
+import { ComponentInfoPanel } from '~/widgets/component-info-panel/ui/ComponentInfoPanel';
+import { Spotlight } from '~/widgets/spotlight/ui/Spotlight';
 
 import 'react-advanced-cropper/dist/style.css';
 import './globals.css';

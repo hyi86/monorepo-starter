@@ -1,6 +1,9 @@
 // @ts-check
 /// <reference lib="webworker" />
 
+// ⚠️ 구글 크롬 사용시, 설정에서 `Google Chrome Helper(Alerts)` 에서 알림이 활성화되어 있어야 함
+// ⚠️ 사파리도 설정에서 알림 활성화 필요
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 run(self);

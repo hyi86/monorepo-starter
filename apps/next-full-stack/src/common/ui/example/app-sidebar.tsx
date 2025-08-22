@@ -10,7 +10,7 @@ import {
 import { NotebookPen } from 'lucide-react';
 import Link from 'next/link';
 import { appPathRoutes } from '~/app-path-types';
-import { checkAuthorization } from '~/common/lib/check-auth';
+import { checkAuthorization } from '~/features/auth/lib/check-auth';
 import FileTreeMenuGroup from './file-tree';
 import { NavUser } from './nav-user';
 import { AppSidebarCommandInput } from './sidebar-command-input';

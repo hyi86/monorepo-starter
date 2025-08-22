@@ -7,7 +7,7 @@ import { isProtectedPath } from '~/common/config/auth';
 /**
  * 공통 로그아웃 Action
  */
-export async function signout(redirectPath?: string) {
+export async function signoutAction(redirectPath?: string) {
   const cookieStore = await cookies();
 
   cookieStore.delete('access-token');

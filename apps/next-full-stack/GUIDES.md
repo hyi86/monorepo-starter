@@ -132,16 +132,13 @@ import { UserAvatar } from '@/entities/user'; // ❌ shared는 다른 레이어�
 entities/
 ├── user/           # user 슬라이스
 │   ├── ui/
-│   ├── model/
-│   └── index.ts
+│   └── model/
 ├── product/        # product 슬라이스
 │   ├── ui/
-│   ├── model/
-│   └── index.ts
+│   └── model/
 └── order/          # order 슬라이스
     ├── ui/
-    ├── model/
-    └── index.ts
+    └── model/
 ```
 
 ### 슬라이스 네이밍 규칙
@@ -150,18 +147,7 @@ entities/
 - **도메인 중심** 네이밍: `auth`, `cart`, `checkout`
 - **기능 중심** 네이밍: `product-filter`, `search-suggestions`
 
-### Public API (index.ts)
 
-각 슬라이스는 `index.ts`를 통해 Public API를 노출:
-
-```typescript
-// features/auth/index.ts
-export { LoginForm } from './ui/login-form';
-export { RegisterForm } from './ui/register-form';
-export { useAuth } from './model/use-auth';
-export { authApi } from './model/auth-api';
-// 내부 구현은 export하지 않음
-```
 
 <br/>
 
@@ -179,9 +165,8 @@ features/auth/              # auth 슬라이스
 │   ├── auth-api.ts
 │   ├── use-auth.ts
 │   └── use-login.ts
-├── lib/                    # Lib 세그먼트
-│   └── auth-utils.ts
-└── index.ts               # Public API
+└── lib/                    # Lib 세그먼트
+    └── auth-utils.ts
 ```
 
 ### 세그먼트 종류
@@ -294,10 +279,14 @@ const HeavyChart = dynamic(() => import('@/widgets/charts'), {
 
 **✅ 트리 쉐이킹을 위한 export 방식:**
 ```typescript
-// common/ui/index.ts
-export { Button } from './button/button';
-export { Input } from './input/input';
-export { Modal } from './modal/modal';
+// common/ui/button/button.tsx
+export { Button } from './button';
+
+// common/ui/input/input.tsx
+export { Input } from './input';
+
+// common/ui/modal/modal.tsx
+export { Modal } from './modal';
 // 필요한 것만 import 가능
 ```
 
@@ -313,6 +302,8 @@ export { Modal } from './modal/modal';
 | **app** | E2E 테스트 | Playwright | 사용자 시나리오 테스트 |
 
 ### 테스트 파일 구조
+
+전역 테스트는 `/e2e` 폴더에 배치
 
 ```
 features/auth/

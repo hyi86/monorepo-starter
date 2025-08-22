@@ -1,21 +1,10 @@
-'use client';
-
-import { Button } from '@monorepo-starter/ui/components/button';
-import { useWebPush } from '~/app/providers/web-push-provider';
+import { SimpleWebPushButton } from '~/features/web-push/ui/SimpleWebPushButton';
 
 export default function WebPushSimplePage() {
-  const { sendPush, subscription } = useWebPush();
-
-  const handleWorkStart = async () => {
-    if (subscription) {
-      await sendPush({ title: '작업완료 알림', body: `작업이 완료되었습니다` });
-    }
-  };
-
   return (
     <div>
       <h1>기본 사용법</h1>
-      <Button onClick={handleWorkStart}>작업시작</Button>
+      <SimpleWebPushButton />
     </div>
   );
 }

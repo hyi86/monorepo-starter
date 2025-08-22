@@ -17,7 +17,7 @@ const signinSchema = z.object({
  * @param password 사용자 비밀번호
  * @returns 성공 여부
  */
-export async function signin(
+export async function signinAction(
   loginId: string,
   password: string,
 ): Promise<{ success: boolean; error?: string; message?: string }> {

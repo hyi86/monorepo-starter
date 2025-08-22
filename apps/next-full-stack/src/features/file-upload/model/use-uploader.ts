@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { useUploaderStore } from '~/common/store/uploader-provider';
+import { useUploaderStore } from '~/features/file-upload/lib/uploader-provider';
 
 type UseUploaderProps = {
   chunkSize?: number;

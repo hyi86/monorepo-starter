@@ -15,9 +15,9 @@ import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@mo
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { ChevronsUpDown, LogIn, LogOut, Search, UserRoundIcon } from 'lucide-react';
 import { useState } from 'react';
-import { signout } from '~/common/actions/signout-actions';
-import { useSigninUrl } from '~/common/hooks/use-signin';
-import { type AuthorizationPayload } from '~/common/lib/check-auth';
+import { signoutAction } from '~/features/auth/api/signout-actions';
+import { type AuthorizationPayload } from '~/features/auth/lib/check-auth';
+import { useSigninUrl } from '~/features/auth/model/use-signin';
 
 export function NavUser({ payload }: { payload?: AuthorizationPayload }) {
   const { isMobile } = useSidebar();
@@ -49,7 +49,7 @@ export function NavUser({ payload }: { payload?: AuthorizationPayload }) {
   };
 
   const handleClickLogout = () => {
-    signout();
+    signoutAction();
   };
 
   const handleClickLogin = () => {

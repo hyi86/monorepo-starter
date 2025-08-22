@@ -3,8 +3,12 @@
 import { webLog } from '@henry-hong/common-utils/console-web';
 import { createContext, ReactNode, useContext, useEffect, useState, useTransition } from 'react';
 import type { PushSubscription } from 'web-push';
-import { sendPushNotificationAction, subscribeAction, unsubscribeAction } from '~/common/actions/webpush-actions';
 import { env } from '~/common/config/env';
+import {
+  sendPushNotificationAction,
+  subscribeAction,
+  unsubscribeAction,
+} from '~/features/web-push/api/webpush-actions';
 
 interface SendPushNotificationOptions {
   title: string;
@@ -23,7 +27,7 @@ interface WebPushContextType {
   sendPushLoading: boolean;
 }
 
-const fileName = 'lib/push/web-push-provider.tsx';
+const fileName = 'lib/push/web-push-context.tsx';
 const serviceWorkerPath = '/service-worker.js';
 
 /**

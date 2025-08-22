@@ -2,7 +2,7 @@
 
 import { type ReactNode, createContext, useContext, useRef } from 'react';
 import { useStore } from 'zustand';
-import { createUploaderStore, initUploaderStore } from '~/common/store/uploader';
+import { createUploaderStore, initUploaderStore } from '~/features/file-upload/lib/uploader';
 
 type UploaderStoreApi = ReturnType<typeof createUploaderStore>;
 

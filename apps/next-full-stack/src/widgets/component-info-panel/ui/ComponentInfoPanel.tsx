@@ -14,8 +14,8 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { appPathRoutes } from '~/app-path-types';
-import { getCodeFromFile, openInEditor, saveCodeToFile } from '~/common/actions/cli-actions';
-import { ComponentHierarchy } from './component-hierarchy';
+import { getCodeFromFile, openInEditor, saveCodeToFile } from '~/widgets/component-info-panel/api/cli-actions';
+import { ComponentHierarchy } from './ComponentHierarchy';
 
 export function ComponentInfoPanel() {
   const [openComponentInfoPanel, setOpenComponentInfoPanel] = useState(false);
@@ -168,3 +168,5 @@ export function ComponentInfoPanel() {
     </>
   );
 }
+
+ComponentInfoPanel.displayName = 'ComponentInfoPanel';
