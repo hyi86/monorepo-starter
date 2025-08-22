@@ -1,7 +1,6 @@
 import type { BundledLanguage } from 'shiki';
 import { codeToHtml } from 'shiki';
-import { themes } from '~/shared/config/code-block-themes';
-import { getTransformers } from '~/shared/config/code-block-transformers';
+import { themes, transformers } from '~/shared/config/code-block';
 
 interface Props {
   children: string;
@@ -12,7 +11,7 @@ export async function CodeBlock(props: Props) {
   const out = await codeToHtml(props.children, {
     lang: props.lang,
     themes,
-    transformers: getTransformers(true),
+    transformers,
   });
 
   return <div dangerouslySetInnerHTML={{ __html: out }} />;

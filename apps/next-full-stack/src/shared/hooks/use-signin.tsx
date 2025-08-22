@@ -2,6 +2,9 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
+/**
+ * 클라이언트 전용 로그인 Hook (callbackUrl 파라미터 추가해서 로그인 페이지 이동)
+ */
 export function useSigninUrl() {
   const pathname = usePathname();
   const searchParams = useSearchParams();

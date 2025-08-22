@@ -3,6 +3,9 @@ import { verifyToken } from '@henry-hong/common-utils/jwt';
 import { cookies } from 'next/headers';
 import { env } from '~/shared/config/env';
 
+/**
+ * 서버 컴포넌트에서 인증 확인
+ */
 export async function checkAuthorization(): Promise<{
   isAuthenticated: boolean;
   payload?: Awaited<ReturnType<typeof verifyToken>>;

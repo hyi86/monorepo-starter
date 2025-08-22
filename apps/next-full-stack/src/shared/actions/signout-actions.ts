@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { utils } from '~/shared/config/env';
+import { isProtectedPath } from '~/shared/config/auth';
 
 /**
  * 공통 로그아웃 Action
@@ -21,7 +21,7 @@ export async function signout(redirectPath?: string) {
   let pathname = cookieStore.get('next-pathname')?.value || '/';
   const search = cookieStore.get('next-search')?.value || '';
 
-  if (utils.isProtectedPath(pathname)) {
+  if (isProtectedPath(pathname)) {
     pathname = '/';
   }
 

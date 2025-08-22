@@ -1,6 +1,5 @@
 import { type BundledLanguage, codeToHtml } from 'shiki';
-import { themes } from '~/shared/config/code-block-themes';
-import { getTransformers } from '~/shared/config/code-block-transformers';
+import { themes, transformers } from '~/shared/config/code-block';
 import { parseRawMeta } from '~/shared/lib/mdx-meta';
 import { CodeHeader } from './code-header';
 
@@ -17,7 +16,7 @@ export async function Pre({ metastring, className, code }: { metastring: string;
     lang: lang as BundledLanguage,
     meta: metaData,
     themes,
-    transformers: getTransformers(metaDataCustom.showLineNumbers),
+    transformers,
   });
 
   return (

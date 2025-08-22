@@ -10,7 +10,7 @@ import {
   deleteUserAction,
   toggleUserStatusAction,
   updateUserAction,
-} from '~/shared/api/database-actions';
+} from '~/shared/actions/database-actions';
 import { getUsers } from '~/shared/model/users';
 
 export default async function DbPage() {

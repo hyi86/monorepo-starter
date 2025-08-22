@@ -2,7 +2,8 @@ import { devLog } from '@henry-hong/common-utils/console';
 import { generateToken, verifyToken } from '@henry-hong/common-utils/jwt';
 import { type NextRequest, NextResponse } from 'next/server';
 import parseDuration from 'parse-duration';
-import { env, utils } from '~/shared/config/env';
+import { isProtectedPath } from '~/shared/config/auth';
+import { env } from '~/shared/config/env';
 
 /**
  * 인증관련 설정 - 접근 제한 페이지
@@ -11,7 +12,7 @@ export async function authMiddleware(request: NextRequest, response: NextRespons
   const { pathname, search } = request.nextUrl;
 
   // 접근 제한 페이지가 아니면, 리턴
-  if (!utils.isProtectedPath(pathname)) {
+  if (!isProtectedPath(pathname)) {
     return response;
   }
 

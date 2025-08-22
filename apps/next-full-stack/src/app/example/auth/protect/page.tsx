@@ -1,5 +1,5 @@
 import { Button } from '@monorepo-starter/ui/components/button';
-import { signout } from '~/shared/api/signout-actions';
+import { signout } from '~/shared/actions/signout-actions';
 import { checkAuthorization } from '~/shared/lib/check-auth';
 
 export default async function ProtectPage() {

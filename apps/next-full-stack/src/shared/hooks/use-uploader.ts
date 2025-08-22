@@ -1,12 +1,15 @@
 'use client';
 
 import { useRef } from 'react';
-import { useUploaderStore } from '~/app/providers/uploader-store-provider';
+import { useUploaderStore } from '~/shared/store/uploader-provider';
 
 type UseUploaderProps = {
   chunkSize?: number;
 };
 
+/**
+ * 클라이언트 전용 대용량 업로드 Hook
+ */
 export const useUploader = ({ chunkSize }: UseUploaderProps = {}) => {
   const CHUNK_SIZE = chunkSize ?? 1024 * 1024; // 1MB
   const fileRef = useRef<HTMLInputElement>(null);

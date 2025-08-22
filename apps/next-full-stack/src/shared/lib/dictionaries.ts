@@ -16,6 +16,12 @@ export function createI18n(locale: Locale = i18n.defaultLocale) {
   };
 }
 
+/**
+ * 다국어 유틸리티 함수
+ * @example
+ * const { t } = getI18nUtils('ko');
+ * t('Common.language');
+ */
 export function getI18nUtils(locale?: Locale) {
   const currentLocale = locale || i18n.defaultLocale;
   return createI18n(currentLocale);

@@ -43,15 +43,3 @@ export const env = createEnv({
     NEXT_PUBLIC_WEB_PUSH_EMAIL: process.env.NEXT_PUBLIC_WEB_PUSH_EMAIL,
   },
 });
-
-export const utils = {
-  protectedPaths: [
-    /^\/(protect|private|mypage)(\/.*)?$/, // regExp
-    '/example/auth/protect', // string(startsWith)
-  ],
-  isProtectedPath: (pathValue: string) => {
-    return utils.protectedPaths.some((path) =>
-      typeof path === 'string' ? pathValue.startsWith(path) : path.test(pathValue),
-    );
-  },
-};

@@ -4,9 +4,9 @@ import { ThemeProvider } from 'next-themes';
 import localFont from 'next/font/local';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { TanstackQueryProvider } from '~/app/providers/query-provider';
-import { UploaderStoreProvider } from '~/app/providers/uploader-store-provider';
 import { WebPushProvider } from '~/app/providers/web-push-provider';
 import { getLocale } from '~/shared/lib/locale';
+import { UploaderStoreProvider } from '~/shared/store/uploader-provider';
 import { ComponentInfoPanel } from '~/shared/ui/command/component-info-panel';
 import { Spotlight } from '~/shared/ui/command/spotlight';
 
