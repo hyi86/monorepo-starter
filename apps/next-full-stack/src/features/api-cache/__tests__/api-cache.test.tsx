@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { ExampleCacheData } from './api-cache';
+import { ExampleCacheData } from '../ui/api-cache';
 
 // Mock dependencies
 vi.mock('@henry-hong/common-utils/console', () => ({
@@ -42,7 +42,7 @@ describe('ExampleCacheData 컴포넌트', () => {
       compressedSize: 1024,
     };
 
-    const { apiHybridCache } = await import('~/common/lib/api-cache');
+    const { apiHybridCache } = await import('~/features/api-cache/lib/api-cache');
     vi.mocked(apiHybridCache).mockResolvedValue(mockCacheResult);
 
     (global.fetch as any).mockResolvedValue({
@@ -70,7 +70,7 @@ describe('ExampleCacheData 컴포넌트', () => {
       compressedSize: 512,
     };
 
-    const { apiHybridCache } = await import('~/common/lib/api-cache');
+    const { apiHybridCache } = await import('~/features/api-cache/lib/api-cache');
     vi.mocked(apiHybridCache).mockResolvedValue(mockCacheResult);
 
     (global.fetch as any).mockResolvedValue({

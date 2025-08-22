@@ -2,17 +2,17 @@
 
 import { Separator } from '@monorepo-starter/ui/components/separator';
 import { type Editor } from '@tiptap/react';
-import { AlignBlock } from './blocks/align';
-import { CodeBlockBlock } from './blocks/code-block';
-import { DocumentBlock } from './blocks/document';
-import { LinkBlock } from './blocks/link';
-import { ListBlock } from './blocks/list';
-import { MediaBlock } from './blocks/media';
-import { TablesBlock } from './blocks/tables';
-import { TextBasicBlock } from './blocks/text-basic';
-import { TextColorBlock } from './blocks/text-color';
-import { TextStylesBlock } from './blocks/text-styles';
-import { UndoRedoBlock } from './blocks/undo-redo';
+import { AlignBlock } from './AlignBlock';
+import { CodeBlockBlock } from './CodeBlock';
+import { DocumentBlock } from './DocumentBlock';
+import { LinkBlock } from './LinkBlock';
+import { ListBlock } from './ListBlock';
+import { MediaBlock } from './MediaBlock';
+import { TablesBlock } from './TablesBlock';
+import { TextStylesBlock } from './text-styles';
+import { TextBasicBlock } from './TextBasicBlock';
+import { TextColorBlock } from './TextColorBlock';
+import { UndoRedoBlock } from './UndoRedoBlock';
 
 export function WysiwygToolbar({ editor }: { editor: Editor }) {
   if (!editor) return null;

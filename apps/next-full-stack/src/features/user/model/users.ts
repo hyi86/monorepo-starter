@@ -3,8 +3,8 @@ import Fuse from 'fuse.js';
 import { cache } from 'react';
 import { z } from 'zod';
 import { db } from '~/common/lib/db-client';
-import { createRandomUser, toUnix } from '~/common/lib/db-utils';
 import { usersTable } from '~/common/model/schema';
+import { createRandomUser, toUnix } from '~/features/user/lib/db-utils';
 
 export type User = typeof usersTable.$inferSelect;
 export type Gender = (typeof usersTable.gender.enumValues)[number];

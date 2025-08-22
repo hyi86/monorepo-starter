@@ -5,10 +5,10 @@ import localFont from 'next/font/local';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { TanstackQueryProvider } from '~/app/providers/query-provider';
 import { getLocale } from '~/common/lib/locale';
-import { UploaderStoreProvider } from '~/features/file-upload/lib/uploader-provider';
+import { ComponentInfoPanel } from '~/features/component-info-panel/ui/ComponentInfoPanel';
+import { UploaderStoreProvider } from '~/features/file-upload/lib/uploader-context';
+import { Spotlight } from '~/features/spotlight/ui/Spotlight';
 import { WebPushProvider } from '~/features/web-push/lib/web-push-context';
-import { ComponentInfoPanel } from '~/widgets/component-info-panel/ui/ComponentInfoPanel';
-import { Spotlight } from '~/widgets/spotlight/ui/Spotlight';
 
 import 'react-advanced-cropper/dist/style.css';
 import './globals.css';

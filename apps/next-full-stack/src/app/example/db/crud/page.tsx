@@ -11,7 +11,7 @@ import {
   toggleUserStatusAction,
   updateUserAction,
 } from '~/common/actions/database-actions';
-import { getUsers } from '~/common/model/users';
+import { getUsers } from '~/features/user/model/users';
 
 export default async function DbPage() {
   const users = await getUsers({ limit: 500 });

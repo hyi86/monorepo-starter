@@ -1,7 +1,7 @@
 'use client';
 
 import { type CommandProps, type Editor, Node, ReactNodeViewRenderer, mergeAttributes } from '@tiptap/react';
-import { ImagePlaceholderComponent } from './image-placeholder-comp';
+import { ImagePlaceholderComponent } from './ImagePlaceholderComp';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {

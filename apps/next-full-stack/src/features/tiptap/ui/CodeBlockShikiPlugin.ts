@@ -3,7 +3,7 @@ import { Node as ProsemirrorNode } from '@tiptap/pm/model';
 import { Plugin, PluginKey, PluginView } from '@tiptap/pm/state';
 import { Decoration, DecorationSet } from '@tiptap/pm/view';
 import { BundledLanguage, BundledTheme } from 'shiki';
-import { getShiki, initHighlighter, loadLanguage, loadTheme } from './code-block-highlighter';
+import { getShiki, initHighlighter, loadLanguage, loadTheme } from './CodeBlockHighlighter';
 
 /** Create code decorations for the current document */
 function getDecorations({

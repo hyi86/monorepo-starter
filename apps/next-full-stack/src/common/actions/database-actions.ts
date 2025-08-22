@@ -2,8 +2,8 @@
 
 import { revalidateTag } from 'next/cache';
 import { getTypedPath } from '~/app-path-types';
-import { createRandomUser } from '~/common/lib/db-utils';
-import { createRandomUsers, deleteUser, getUserById, updateUser } from '~/common/model/users';
+import { createRandomUser } from '~/features/user/lib/db-utils';
+import { createRandomUsers, deleteUser, getUserById, updateUser } from '~/features/user/model/users';
 
 /**
  * 랜덤 유저 생성 Action

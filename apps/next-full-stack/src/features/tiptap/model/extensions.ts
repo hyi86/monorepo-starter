@@ -10,10 +10,10 @@ import { TextStyle } from '@tiptap/extension-text-style';
 import Youtube from '@tiptap/extension-youtube';
 import { CharacterCount, Gapcursor, Placeholder } from '@tiptap/extensions';
 import StarterKit from '@tiptap/starter-kit';
-import { CodeBlockShiki } from './code-block-shiki';
-import { ImagePlaceholder } from './image-placeholder';
-import { ImageExtension } from './image-resize';
-import { shouldAutoLink } from './link';
+import { shouldAutoLink } from '../model/link';
+import { CodeBlockShiki } from '../ui/CodeBlockShiki';
+import { ImagePlaceholder } from '../ui/ImagePlaceholder';
+import { ImageExtension } from '../ui/ImageResize';
 import { onDrop, onPaste, uploadImages } from './upload-images';
 
 export const extensions = [
