@@ -1,88 +1,17 @@
-'use client';
-
-import { type TreeRoute } from '@henry-hong/common-utils/tree';
+import { TreeRoute } from '@henry-hong/common-utils/tree';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@monorepo-starter/ui/components/collapsible';
 import {
-  SidebarGroup,
-  SidebarGroupAction,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
   SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
 } from '@monorepo-starter/ui/components/sidebar';
-import { useIsMobile } from '@monorepo-starter/ui/hooks/use-mobile';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { ChevronRight, ChevronRightCircle, CopyMinus, CopyPlus, File, Folder, FolderOpen } from 'lucide-react';
+import { ChevronRight, ChevronRightCircle, FileIcon, FolderIcon, FolderOpenIcon } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import LinkIndicator from './link-indicator';
+import LinkIndicator from './LinkIndicator';
 
-export default function FileTreeMenuGroup({ routes, folderPaths }: { routes: TreeRoute[]; folderPaths: string[] }) {
-  const [openPaths, setOpenPaths] = useState<string[]>([...folderPaths]);
-  const pathname = usePathname();
-  const isMobile = useIsMobile();
-
-  // 현재 페이지가 폴더 경로에 있는 경우, 해당 폴더를 스크롤 하여 보여줌
-  useEffect(() => {
-    const target = document.querySelector(`[data-slot="sidebar-menu-button"][data-active="true"]`);
-    if (!target) {
-      return;
-    }
-
-    if (isMobile) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry], obs) => {
-        const isVisible = entry?.isIntersecting;
-        if (!isVisible) {
-          target.scrollIntoView({ behavior: 'auto', block: 'center' });
-        }
-
-        obs.disconnect();
-      },
-      {
-        root: null,
-        threshold: 0.1,
-      },
-    );
-
-    observer.observe(target);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [pathname]);
-
-  return (
-    <SidebarGroup>
-      <SidebarGroupLabel>Files</SidebarGroupLabel>
-      <SidebarGroupAction title="Toggle all" onClick={() => setOpenPaths(openPaths.length > 0 ? [] : [...folderPaths])}>
-        {openPaths.length > 0 ? <CopyMinus className="size-4" /> : <CopyPlus className="size-4" />}
-      </SidebarGroupAction>
-      <SidebarGroupContent>
-        <SidebarMenu>
-          {routes.map((route) => (
-            <FileTree
-              pathname={pathname}
-              key={route.path}
-              item={route}
-              openPaths={openPaths}
-              setOpenPaths={setOpenPaths}
-            />
-          ))}
-        </SidebarMenu>
-      </SidebarGroupContent>
-    </SidebarGroup>
-  );
-}
-
-export function FileTree({
+export function FileTreeMenuItem({
   pathname,
   item,
   openPaths,
@@ -103,7 +32,7 @@ export function FileTree({
           {item.hasPath ? (
             <Link href={item.path} className="pl-8" prefetch={false}>
               <LinkIndicator>
-                <File className="size-4" />
+                <FileIcon className="size-4" />
               </LinkIndicator>
               <span>{item.name}</span>
             </Link>
@@ -131,7 +60,7 @@ export function FileTree({
         <CollapsibleTrigger asChild>
           <SidebarMenuButton size="sm" isActive={item.path === pathname} className={menuItemClassName}>
             <ChevronRight className="transition-transform" />
-            {openPaths.includes(item.path) ? <FolderOpen /> : <Folder />}
+            {openPaths.includes(item.path) ? <FolderOpenIcon /> : <FolderIcon />}
             {item.name}
           </SidebarMenuButton>
         </CollapsibleTrigger>
@@ -139,7 +68,7 @@ export function FileTree({
           {/* 우측 여백 제거로 오른쪽 액션 버튼 노출 */}
           <SidebarMenuSub className="mr-0 pr-0">
             {item.children.map((subItem, index) => (
-              <FileTree
+              <FileTreeMenuItem
                 pathname={pathname}
                 key={index}
                 item={subItem}

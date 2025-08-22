@@ -1,7 +1,5 @@
-import { SidebarInset, SidebarProvider } from '@monorepo-starter/ui/components/sidebar';
 import { type Metadata } from 'next';
-import AppMainLayout from '~/common/ui/example/app-main';
-import AppSidebar from '~/common/ui/example/app-sidebar';
+import { DashboardProvider } from '~/widgets/dashboard/ui/DashboardProvider';
 
 export const metadata: Metadata = {
   title: 'Examples',
@@ -9,12 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default async function ExampleLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <SidebarProvider>
-      <AppSidebar variant="sidebar" />
-      <SidebarInset>
-        <AppMainLayout>{children}</AppMainLayout>
-      </SidebarInset>
-    </SidebarProvider>
-  );
+  return <DashboardProvider>{children}</DashboardProvider>;
 }

@@ -6,7 +6,7 @@ import dictionaries from '~/dictionaries.json';
 /**
  * next-intl 의 translator 만 별도로 가져와서 사용
  */
-export function createI18n(locale: Locale = i18n.defaultLocale) {
+function createI18n(locale: Locale = i18n.defaultLocale) {
   const translator = createTranslator({ locale, messages: dictionaries[locale] });
   return {
     t: translator as typeof translator & {

@@ -1,4 +1,4 @@
-import { buildTree, getAllFolderPaths } from '@henry-hong/common-utils/tree';
+import { getAllFolderPaths } from '@henry-hong/common-utils/tree';
 import {
   Sidebar,
   SidebarContent,
@@ -9,51 +9,17 @@ import {
 } from '@monorepo-starter/ui/components/sidebar';
 import { NotebookPen } from 'lucide-react';
 import Link from 'next/link';
-import { appPathRoutes } from '~/app-path-types';
 import { checkAuthorization } from '~/features/auth/lib/check-auth';
-import FileTreeMenuGroup from './file-tree';
-import { NavUser } from './nav-user';
-import { AppSidebarCommandInput } from './sidebar-command-input';
+import { getAllRouteTree } from '../lib/all-routes';
+import { DashboardSidebarSearchInput } from './DashboardSidebarSearchInput';
+import FileTreeMenuGroup from './FileTreeMenuGroup';
+import { NavUser } from './NavUser';
 
 type Props = React.ComponentProps<typeof Sidebar>;
 
-export default async function AppSidebar({ ...props }: Props) {
+export default async function DashboardSidebar({ ...props }: Props) {
   const { payload } = await checkAuthorization();
-
-  const exampleRoutes = appPathRoutes
-    .filter((route) => !route.isDynamicRoute)
-    .filter((route) => route.href.startsWith('/example/'))
-    .map((route) => route.href);
-
-  const routeTree = buildTree(exampleRoutes)[0]?.children || [];
-
-  // 커스텀 라우트 직접 추가
-  routeTree.push({
-    name: 'internationalization',
-    path: '/example/[lang]',
-    hasPath: false,
-    children: [
-      {
-        name: 'Korean',
-        path: '/example/ko',
-        hasPath: true,
-        children: [],
-      },
-      {
-        name: 'English',
-        path: '/example/en',
-        hasPath: true,
-        children: [],
-      },
-      {
-        name: 'Chinese',
-        path: '/example/cn',
-        hasPath: true,
-        children: [],
-      },
-    ],
-  });
-
+  const routeTree = getAllRouteTree();
   const folderPaths = getAllFolderPaths(routeTree);
 
   return (
@@ -70,7 +36,7 @@ export default async function AppSidebar({ ...props }: Props) {
             </div>
           </Link>
         </SidebarMenuButton>
-        <AppSidebarCommandInput />
+        <DashboardSidebarSearchInput />
       </SidebarHeader>
       <SidebarContent className="[&_[data-active='true']]:bg-foreground/8">
         <FileTreeMenuGroup routes={routeTree} folderPaths={folderPaths} />
@@ -82,3 +48,5 @@ export default async function AppSidebar({ ...props }: Props) {
     </Sidebar>
   );
 }
+
+DashboardSidebar.displayName = 'DashboardSidebar';
