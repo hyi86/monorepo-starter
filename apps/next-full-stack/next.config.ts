@@ -86,6 +86,7 @@ const nextConfig: NextConfig = {
     return config;
   },
 
+  // 서비스 워커 헤더 추가
   headers: async () => {
     return [
       {
