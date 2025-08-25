@@ -1,5 +1,5 @@
 import { generateRandomData } from '~/common/lib/faker/utils';
-import NestedListForm from './form';
+import NestedListForm from './client';
 import { type Schema } from './schema';
 
 export default function FormNestedListPage() {

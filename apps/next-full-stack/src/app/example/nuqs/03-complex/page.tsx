@@ -1,7 +1,7 @@
 import { SearchParams } from 'nuqs/server';
 import { Suspense } from 'react';
 import { Client } from './client';
-import { cache } from './searchParams';
+import { cache } from './search-params';
 import { Server } from './server';
 
 /**

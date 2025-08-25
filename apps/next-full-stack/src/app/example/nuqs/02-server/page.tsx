@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import type { SearchParams } from 'nuqs/server';
-import { loadSearchParams, serialize } from './searchParams';
+import { loadSearchParams, serialize } from './search-params';
 
 type Props = {
   searchParams: Promise<SearchParams>;

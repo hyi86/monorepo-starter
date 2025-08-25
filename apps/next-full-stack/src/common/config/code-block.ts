@@ -75,7 +75,7 @@ export const transformers: ShikiTransformer[] = [
       const className = cn(
         'text-[13px]/5 w-full min-h-5',
         'before:content-[attr(data-line-number)] before:inline-block before:w-12 before:pr-5 before:text-xs before:text-right before:text-muted-foreground',
-        'before:opacity-0 before:w-6',
+        'before:opacity-70 before:w-6',
       );
 
       this.addClassToHast(node, className);

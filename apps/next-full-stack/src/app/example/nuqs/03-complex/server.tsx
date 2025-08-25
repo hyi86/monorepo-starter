@@ -1,7 +1,7 @@
 import { Button } from '@monorepo-starter/ui/components/button';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
-import { cache, serialize } from './searchParams';
+import { cache, serialize } from './search-params';
 
 /**
  * 서버 컴포넌트 - URL 파라미터를 읽고 링크로 업데이트

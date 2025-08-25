@@ -22,7 +22,7 @@ export default function ExampleDndSortableGridPage() {
   return (
     <div>
       <h1>Sortable Grid</h1>
-      <ScrollArea className="size-150 rounded-md border border-stone-300 p-4 shadow-lg">
+      <ScrollArea className="h-120 w-140 rounded-md border border-stone-300 p-4 shadow-lg">
         <Sortable
           items={items}
           setItems={setItems}
@@ -38,7 +38,8 @@ export default function ExampleDndSortableGridPage() {
               isDragOverlay={isDragOverlay}
               useGrip
               classNames={{
-                base: cn(`p-2 border rounded-md shadow-sm truncate flex items-center whitespace-nowrap px-4 gap-2`),
+                base: cn(`p-2 border rounded-md shadow-sm px-4 gap-2 flex items-center`),
+                content: cn(`w-full truncate`),
               }}
             >
               {item.name}

@@ -116,13 +116,13 @@ export default App;
 
 export default async function CodePage() {
   return (
-    <div>
-      <h1>코드 에디터</h1>
+    <div className="max-h-full">
+      <h1>Code Editor</h1>
       <div className="flex flex-col gap-4">
         <CodeEditor language="typescript" height="50vh">
           {code}
         </CodeEditor>
-        <CodeEditor language="yaml" height="30vh">
+        <CodeEditor language="yaml" height="26vh">
           {`
 a: 1
 b: 2

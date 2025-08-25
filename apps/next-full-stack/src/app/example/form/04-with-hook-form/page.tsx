@@ -336,7 +336,12 @@ export default function NextServerActionClientWithHookFormPage() {
             )}
           />
 
-          <Button type="submit">Submit</Button>
+          <div className="bg-background sticky bottom-0 flex justify-center gap-2 py-2">
+            <Button type="reset" variant="outline">
+              Reset
+            </Button>
+            <Button type="submit">Submit</Button>
+          </div>
         </form>
       </Form>
     </div>

@@ -6,7 +6,7 @@ import { Label } from '@monorepo-starter/ui/components/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@monorepo-starter/ui/components/select';
 import { useQueryStates } from 'nuqs';
 import { useTransition } from 'react';
-import { Literal, literals, parsers, urlKeys } from './searchParams';
+import { Literal, literals, parsers, urlKeys } from './search-params';
 
 /**
  * 클라이언트 컴포넌트 - 실시간 URL 파라미터 업데이트

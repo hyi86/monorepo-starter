@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function TableLayout({ children }: { children: React.ReactNode }) {
-  return <Article>{children}</Article>;
+  return <Article className="p-4">{children}</Article>;
 }

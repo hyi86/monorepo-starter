@@ -1,3 +1,3 @@
 export default function ExamplePage() {
-  return <div>Example Root Page</div>;
+  return <div className="p-4">Example Root Page</div>;
 }

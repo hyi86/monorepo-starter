@@ -1,5 +1,5 @@
 import { format } from '@henry-hong/common-utils/number';
-import FixedColumn from './column';
+import FixedColumn from './client';
 
 export default function FixedColumnPage() {
   const columns = new Array(100_000).fill(true).map(() => 100 + Math.round(Math.random() * 50));

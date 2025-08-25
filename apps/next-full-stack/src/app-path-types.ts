@@ -28,7 +28,6 @@ export type StaticPath =
   | '/example/dnd/01-sortable-vertical'
   | '/example/dnd/02-sortable-horizontal'
   | '/example/dnd/03-sortable-grid'
-  | '/example/dnd/04-multiple-container'
   | '/example/experimental'
   | '/example/experimental/api-cache'
   | '/example/experimental/file-upload'
@@ -921,34 +920,6 @@ export const appPathRoutes: AppPathRoutes[] = [
                 children: [
                   {
                     path: 'src/app/example/dnd/03-sortable-grid/page.tsx',
-                    children: [],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    href: '/example/dnd/04-multiple-container',
-    linkTypes: '/example/dnd/04-multiple-container',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/dnd/04-multiple-container/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/dnd/layout.tsx',
-                children: [
-                  {
-                    path: 'src/app/example/dnd/04-multiple-container/page.tsx',
                     children: [],
                   },
                 ],

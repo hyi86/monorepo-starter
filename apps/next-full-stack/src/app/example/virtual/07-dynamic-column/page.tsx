@@ -1,5 +1,5 @@
 import { generateRandomData, generator } from '~/common/lib/faker/utils';
-import VirtualDynamicColumn from './column';
+import VirtualDynamicColumn from './client';
 
 export default function DynamicColumnPage() {
   const randomNumber = (min: number, max: number) => generator.number.int({ min, max });

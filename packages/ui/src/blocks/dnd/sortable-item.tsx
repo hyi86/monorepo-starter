@@ -20,6 +20,7 @@ export function SortableItem({
     dragOverlay: string;
     dragging: string;
     sorting: string;
+    content: string;
   }>;
   children: React.ReactNode;
 }) {
@@ -53,7 +54,7 @@ export function SortableItem({
       <div className="cursor-grab" {...attributes} {...listeners}>
         {isHorizontal ? <GripHorizontalIcon className="size-4" /> : <GripVerticalIcon className="size-4" />}
       </div>
-      <div>{children}</div>
+      <div className={classNames?.content}>{children}</div>
     </div>
   );
 }

@@ -11,7 +11,7 @@ export default function DashboardMain({ children }: { children: React.ReactNode 
       <header
         className={cn(
           'h-(--sidebar-header-height)',
-          'bg-background sticky top-0 z-10 flex w-full items-center border-b px-4',
+          'bg-background sticky top-0 z-10 flex w-full items-center gap-2 border-b px-4',
         )}
       >
         <SidebarTrigger className="-ml-1" />

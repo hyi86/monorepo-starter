@@ -139,9 +139,14 @@ export default function ServerActionClientPage() {
           </p>
         </div>
 
-        <Button disabled={pending} type="submit">
-          전송
-        </Button>
+        <div className="bg-background sticky bottom-0 flex justify-center gap-2 py-2">
+          <Button type="reset" variant="outline">
+            Reset
+          </Button>
+          <Button type="submit" disabled={pending}>
+            Submit
+          </Button>
+        </div>
       </form>
     </div>
   );

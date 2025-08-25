@@ -28,7 +28,7 @@ export async function signinAction(
     return { success: false, error: 'Invalid credentials', message: '입력정보가 올바르지 않습니다.' };
   }
 
-  if (!validatedFields.data.loginId.match(/@(naver|google|kakao)\.com$/)) {
+  if (!validatedFields.data.loginId.match(/@(naver|gmail|kakao)\.com$/)) {
     return {
       success: false,
       error: 'Invalid credentials',
@@ -51,6 +51,9 @@ export async function signinAction(
 
   const accessTokenMaxAge = parseDuration(env.ACCESS_TOKEN_SECRET_TIME, 's') || 60 * 15;
   const refreshTokenMaxAge = parseDuration(env.REFRESH_TOKEN_SECRET_TIME, 's') || 60 * 60 * 24 * 7;
+
+  console.log('accessToken', accessToken);
+  console.log('refreshToken', refreshToken);
 
   cookieStore.set(env.ACCESS_TOKEN_COOKIE_NAME, accessToken, {
     httpOnly: true,

@@ -1,5 +1,5 @@
 import { cachedGetUsers } from '~/features/user/model/users';
-import TableClientBasic from './components/table';
+import TableClientBasic from './table';
 
 export default async function TableClientFullPage() {
   const data = await cachedGetUsers({ offset: 0, limit: 500 });

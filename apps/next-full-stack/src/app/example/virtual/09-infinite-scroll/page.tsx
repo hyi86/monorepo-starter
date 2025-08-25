@@ -1,4 +1,4 @@
-import InfiniteScroll from './infinite-scroll';
+import InfiniteScroll from './client';
 
 export default function InfiniteScrollPage() {
   return (

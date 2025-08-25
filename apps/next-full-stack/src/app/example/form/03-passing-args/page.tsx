@@ -12,11 +12,7 @@ import { Switch } from '@monorepo-starter/ui/components/switch';
 import { use, useActionState } from 'react';
 import { submitAction } from './actions';
 
-export default function ServerActionClientPassingArgsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+export default function ClientPassingArgsPage({ searchParams }: PageProps<'/example/form/03-passing-args'>) {
   const { code } = use(searchParams) as { code: string };
   const submitActionWithCode = submitAction.bind(null, code ?? '');
   const [state, formAction, pending] = useActionState(submitActionWithCode, {});
@@ -144,9 +140,14 @@ export default function ServerActionClientPassingArgsPage({
           </p>
         </div>
 
-        <Button disabled={pending} type="submit">
-          전송
-        </Button>
+        <div className="bg-background sticky bottom-0 flex justify-center gap-2 py-2">
+          <Button type="reset" variant="outline">
+            Reset
+          </Button>
+          <Button type="submit" disabled={pending}>
+            Submit
+          </Button>
+        </div>
       </form>
     </div>
   );

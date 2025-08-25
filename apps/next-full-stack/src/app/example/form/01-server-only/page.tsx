@@ -177,10 +177,10 @@ export default async function FormServerOnlyPage() {
         </div>
 
         <div className="bg-background sticky bottom-0 flex justify-center gap-2 py-2">
-          <Button type="submit">Submit</Button>
           <Button type="reset" variant="outline">
             Reset
           </Button>
+          <Button type="submit">Submit</Button>
         </div>
       </form>
     </div>

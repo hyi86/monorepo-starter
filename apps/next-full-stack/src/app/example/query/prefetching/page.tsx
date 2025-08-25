@@ -1,6 +1,6 @@
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 import { getQueryClient } from '~/common/lib/query/client';
-import { PokemonInfo } from './detail';
+import { PokemonInfo } from './client';
 import { pokemonOptions } from './pokemon';
 
 export default async function Home(props: PageProps<'/example/query/prefetching'>) {
