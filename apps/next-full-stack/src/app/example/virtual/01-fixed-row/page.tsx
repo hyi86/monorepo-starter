@@ -1,5 +1,5 @@
 import { format } from '@henry-hong/common-utils/number';
-import { generateRandomData } from '~/common/lib/faker-utils';
+import { generateRandomData } from '~/common/lib/faker/utils';
 import FixedRow from './row';
 
 export type Row = {

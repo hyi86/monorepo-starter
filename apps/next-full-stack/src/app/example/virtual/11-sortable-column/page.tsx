@@ -1,4 +1,4 @@
-import { generateRandomData } from '~/common/lib/faker-utils';
+import { generateRandomData } from '~/common/lib/faker/utils';
 import FixedColumns from './columns';
 
 export default function FixedSortableRowPage() {

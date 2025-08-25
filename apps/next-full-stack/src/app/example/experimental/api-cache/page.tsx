@@ -1,7 +1,8 @@
 import { Skeleton } from '@monorepo-starter/ui/components/skeleton';
 import { Suspense } from 'react';
-import { ExampleCacheData } from '~/features/api-cache/ui/api-cache';
+import { ExampleCacheData } from './client';
 
+// next.js 기본 페이지 캐시 비활성화
 export const dynamic = 'force-dynamic';
 
 export default async function ExampleCachePage() {

@@ -1,7 +1,7 @@
 import { devLog } from '@henry-hong/common-utils/console';
 import { format } from '@henry-hong/common-utils/number';
 import parseDuration from 'parse-duration';
-import { apiHybridCache } from '~/features/api-cache/lib/api-cache';
+import { apiHybridCache } from '~/common/lib/api-cache/instance';
 
 export async function ExampleCacheData() {
   const offset = 10;

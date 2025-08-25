@@ -16,6 +16,7 @@ export default defineConfig({
     },
     env: {
       DB_FILE_NAME: 'database/local.db',
+      CACHE_PATH: '.cache',
     },
   },
 });

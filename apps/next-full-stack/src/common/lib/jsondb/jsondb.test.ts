@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import fs from 'fs';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { JsonFileDB } from './jsondb';
+import { JsonFileDB } from './instance';
 
 type JsonRow = Record<string, any>;
 

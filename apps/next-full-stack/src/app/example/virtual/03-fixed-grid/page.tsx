@@ -1,4 +1,4 @@
-import { generateRandomData } from '~/common/lib/faker-utils';
+import { generateRandomData } from '~/common/lib/faker/utils';
 import FixedGrid from './grid';
 
 export default function FixedGridPage() {

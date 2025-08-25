@@ -4,7 +4,7 @@
  */
 import Link from 'next/link';
 import { i18n, Locale } from '~/common/config/i18n';
-import { getI18nUtils } from '~/common/lib/dictionaries';
+import { getI18nUtils } from '~/common/lib/i18n/dictionaries';
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));

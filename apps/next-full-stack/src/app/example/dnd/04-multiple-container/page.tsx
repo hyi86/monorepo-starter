@@ -1,5 +1,5 @@
-import { generateRandomData } from '~/common/lib/faker-utils';
-import { Container } from '~/common/ui/dnd-multiple-container';
+import { generateRandomData } from '~/common/lib/faker/utils';
+import { Container } from '~/common/ui/dnd/dnd-multiple-container';
 
 export default function ExampleDndMultipleContainerPage() {
   const generateItems = (length: number) => {

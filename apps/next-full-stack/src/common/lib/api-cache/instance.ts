@@ -9,12 +9,13 @@ import path from 'node:path';
 import { promisify } from 'node:util';
 import { gunzip, gzipSync } from 'node:zlib';
 import { env } from '~/common/config/env';
-import { db } from '~/common/lib/db-client';
+import { db } from '~/common/lib/database/client';
 import { cacheTable } from '~/common/model/schema';
 
 const MAX_SQLITE_BYTES = 1 * 1024 * 1024; // 1MB 이상이면, SQLite 캐시 미사용
 const asyncGunzip = promisify(gunzip);
 const rootPath = process.cwd();
+
 const cacheDir = path.join(rootPath, env.CACHE_PATH);
 
 // 동시 실행 제한
