@@ -1,3 +1,31 @@
-# 캐싱 시스템 예제
+# Next.js 캐싱 시스템 예제
 
-- `data cache`, `full route cache`, `isr` 의 기본 사용 예제 포함
+Next.js의 다양한 캐싱 전략을 실습할 수 있는 예제 모음입니다.
+
+## 📚 캐싱 종류
+
+### 1. Data Cache (데이터 캐싱)
+- **02-data-cache-time-based**: 시간 기반 데이터 캐시 (10초)
+- **03-data-cache-on-demand**: 태그 기반 데이터 캐시 (수동 무효화)
+
+### 2. Full Route Cache (전체 라우트 캐싱)
+- **04-full-route-disabled**: 라우트 캐시 비활성화
+- **05-full-route-force-static**: 강제 정적 생성
+- **06-full-route-time-based**: 시간 기반 라우트 캐시 (15초)
+
+### 3. ISR (Incremental Static Regeneration)
+- **07-isr**: 기본 ISR (20초)
+- **08-isr-force-static**: 강제 정적 ISR
+- **09-isr-data-cache-revalidate**: 데이터 캐시와 ISR 조합 (10초)
+
+## 🎯 학습 목표
+
+- 각 캐싱 전략의 차이점 이해
+- 실제 동작 확인 및 테스트
+- 성능 최적화 방법 습득
+
+## 💡 사용 팁
+
+- 개발 환경에서는 일부 캐싱이 비활성화될 수 있습니다
+- 프로덕션 빌드에서 실제 캐싱 동작을 확인해보세요
+- 브라우저 개발자 도구의 Network 탭을 활용하여 캐시 상태를 모니터링하세요

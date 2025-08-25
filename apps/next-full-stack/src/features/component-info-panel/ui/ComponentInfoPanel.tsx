@@ -49,15 +49,6 @@ export function ComponentInfoPanel() {
     toast.success('Path copied to clipboard', { duration: 1000 });
   };
 
-  // 소스코드 복사
-  const handleCopyToClipboardSourceCode = (path: string) => async () => {
-    const code = await getCodeFromFile(path);
-    if (!code) return;
-
-    copyToClipboard(code);
-    toast.success('Source code copied to clipboard', { duration: 1000 });
-  };
-
   // 코드 수정 저장
   const handleSaveCode = async () => {
     if (!selectedPath) return;
@@ -123,12 +114,11 @@ export function ComponentInfoPanel() {
       <Dialog open={openComponentInfoPanel} onOpenChange={setOpenComponentInfoPanel}>
         <DialogContent className="max-h-[calc(100vh-15rem)] overflow-y-auto sm:max-w-2xl">
           <DialogHeader>
-            <DialogTitle>컴포넌트 정보</DialogTitle>
-            <DialogDescription>현재 경로의 파일, 컴포넌트에 대한 상세한 정보를 확인할 수 있습니다</DialogDescription>
+            <DialogTitle>Next App Route Hierarchy</DialogTitle>
+            <DialogDescription>Next App 라우터 계층 구조를 확인할 수 있습니다</DialogDescription>
           </DialogHeader>
           {currentRouteStructure ? (
             <div>
-              <h3 className="text-muted-foreground mb-2 font-semibold">Next Page Hierarchy</h3>
               <ScrollArea className="w-full max-w-[calc(--spacing(42*4)-3.25rem)]">
                 <div className="border-muted-foreground/20 w-full rounded border bg-stone-800 p-4 font-mono text-xs leading-5 tracking-normal *:border-l-0">
                   {currentRouteStructure.structures && (
@@ -137,7 +127,6 @@ export function ComponentInfoPanel() {
                       onOpenInIde={handleOpenInIde}
                       onOpenInWebEditor={handleOpenInWebEditor}
                       onCopyToClipboardPath={handleCopyToClipboardPath}
-                      onCopyToClipboardSourceCode={handleCopyToClipboardSourceCode}
                     />
                   )}
                 </div>
@@ -145,8 +134,8 @@ export function ComponentInfoPanel() {
               </ScrollArea>
             </div>
           ) : (
-            <div>
-              <p>No component info</p>
+            <div className="bg-muted-foreground/20">
+              <p className="text-muted-foreground p-4 text-sm">No component info</p>
             </div>
           )}
         </DialogContent>

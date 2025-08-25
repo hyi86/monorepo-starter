@@ -9,7 +9,6 @@ export type StaticPath =
   | '/example/auth/protect'
   | '/example/auth/public'
   | '/example/cache'
-  | '/example/cache/01-data-cache-disabled'
   | '/example/cache/02-data-cache-time-based'
   | '/example/cache/03-data-cache-on-demand'
   | '/example/cache/04-full-route-disabled'
@@ -306,34 +305,6 @@ export const appPathRoutes: AppPathRoutes[] = [
                 children: [
                   {
                     path: 'src/app/example/cache/page.mdx',
-                    children: [],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    href: '/example/cache/01-data-cache-disabled',
-    linkTypes: '/example/cache/01-data-cache-disabled',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/cache/01-data-cache-disabled/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/cache/layout.tsx',
-                children: [
-                  {
-                    path: 'src/app/example/cache/01-data-cache-disabled/page.tsx',
                     children: [],
                   },
                 ],

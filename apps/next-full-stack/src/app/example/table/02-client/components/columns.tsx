@@ -15,7 +15,6 @@ import { ArrowDownToLine, ArrowUpToLine, PinIcon, PinOffIcon } from 'lucide-reac
 import { type User } from '~/features/user/model/users';
 
 declare module '@tanstack/react-table' {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
     useDropdown?: boolean;
     useSortableColumn?: boolean;

@@ -1,7 +1,6 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { getTypedPath } from '~/app-path-types';
 import { createRandomUser } from '~/features/user/lib/db-utils';
 import { createRandomUsers, deleteUser, getUserById, updateUser } from '~/features/user/model/users';
 
@@ -17,7 +16,7 @@ export const createRandomUserAction = async (formData: FormData) => {
   }
 
   await createRandomUsers(countNumber);
-  revalidateTag(getTypedPath('/example/db/crud'));
+  revalidateTag('/example/db/crud');
 };
 
 /**
@@ -25,7 +24,7 @@ export const createRandomUserAction = async (formData: FormData) => {
  */
 export const deleteUserAction = async (id: number) => {
   await deleteUser(id);
-  revalidateTag(getTypedPath('/example/db/crud'));
+  revalidateTag('/example/db/crud');
 };
 
 /**
@@ -34,7 +33,7 @@ export const deleteUserAction = async (id: number) => {
 export const updateUserAction = async (id: number) => {
   const randomInfo = createRandomUser();
   await updateUser(id, { bio: randomInfo.bio });
-  revalidateTag(getTypedPath('/example/db/crud'));
+  revalidateTag('/example/db/crud');
 };
 
 /**
@@ -47,5 +46,5 @@ export const toggleUserStatusAction = async (id: number) => {
   }
 
   await updateUser(id, { status: user.status === 'active' ? 'inactive' : 'active' });
-  revalidateTag(getTypedPath('/example/db/crud'));
+  revalidateTag('/example/db/crud');
 };

@@ -3,8 +3,9 @@ import { getQueryClient } from '~/common/lib/query-client';
 import { PokemonInfo } from './detail';
 import { pokemonOptions } from './pokemon';
 
-export default async function Home({ searchParams }: { searchParams: Promise<{ id: string }> }) {
-  const { id = '25' } = await searchParams;
+export default async function Home(props: PageProps<'/example/query/prefetching'>) {
+  const searchParams = await props.searchParams;
+  const id = searchParams.id as string;
   const queryClient = getQueryClient();
 
   void queryClient.prefetchQuery(pokemonOptions(id));

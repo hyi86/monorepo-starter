@@ -1,9 +1,9 @@
+import { type AppRoutes } from '.next/types/routes';
 import { devLog } from '@henry-hong/common-utils/console';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Input } from '@monorepo-starter/ui/components/input';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
-import { getTypedPath } from '~/app-path-types';
 
 export default async function ServerActionCookiePage() {
   const cookieStore = await cookies();
@@ -20,7 +20,7 @@ export default async function ServerActionCookiePage() {
     }
 
     devLog('info', `formData.get('name'): ${formData.get('name')}`);
-    revalidatePath(getTypedPath('/example/form/05-server-cookies'));
+    revalidatePath('/example/form/05-server-cookies' as AppRoutes, 'page');
   }
 
   return (

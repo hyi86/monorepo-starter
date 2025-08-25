@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   description: 'Examples Page',
 };
 
-export default async function ExampleLayout({ children }: { children: React.ReactNode }) {
+async function ExampleLayout({ children }: LayoutProps<'/example'>) {
   return <DashboardProvider>{children}</DashboardProvider>;
 }
+
+export default ExampleLayout;

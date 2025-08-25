@@ -22,13 +22,11 @@ export function ComponentHierarchy({
   onOpenInIde,
   onOpenInWebEditor,
   onCopyToClipboardPath,
-  onCopyToClipboardSourceCode,
 }: {
   structures: Structure[];
   onOpenInIde: (path: string) => () => void;
   onOpenInWebEditor: (path: string) => () => void;
   onCopyToClipboardPath: (path: string) => () => void;
-  onCopyToClipboardSourceCode: (path: string) => () => void;
 }) {
   const LinkSpan = ({ path, children }: { path: string; children: React.ReactNode }) => {
     return (
@@ -40,7 +38,6 @@ export function ComponentHierarchy({
           <DropdownMenuItem onClick={onOpenInIde(path)}>Open in IDE</DropdownMenuItem>
           <DropdownMenuItem onClick={onOpenInWebEditor(path)}>Open Code in Web Editor</DropdownMenuItem>
           <DropdownMenuItem onClick={onCopyToClipboardPath(path)}>Copy Path</DropdownMenuItem>
-          <DropdownMenuItem onClick={onCopyToClipboardSourceCode(path)}>Copy Code</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     );
@@ -76,7 +73,6 @@ export function ComponentHierarchy({
                   onOpenInIde={onOpenInIde}
                   onOpenInWebEditor={onOpenInWebEditor}
                   onCopyToClipboardPath={onCopyToClipboardPath}
-                  onCopyToClipboardSourceCode={onCopyToClipboardSourceCode}
                 />
               </div>
               <CloseTag component="Layout" />
@@ -96,7 +92,6 @@ export function ComponentHierarchy({
                   onOpenInIde={onOpenInIde}
                   onOpenInWebEditor={onOpenInWebEditor}
                   onCopyToClipboardPath={onCopyToClipboardPath}
-                  onCopyToClipboardSourceCode={onCopyToClipboardSourceCode}
                 />
               </div>
               <CloseTag component="Template" />
@@ -124,7 +119,6 @@ export function ComponentHierarchy({
                   onOpenInIde={onOpenInIde}
                   onOpenInWebEditor={onOpenInWebEditor}
                   onCopyToClipboardPath={onCopyToClipboardPath}
-                  onCopyToClipboardSourceCode={onCopyToClipboardSourceCode}
                 />
               </div>
               <CloseTag component="Suspense" />
@@ -152,7 +146,6 @@ export function ComponentHierarchy({
                   onOpenInIde={onOpenInIde}
                   onOpenInWebEditor={onOpenInWebEditor}
                   onCopyToClipboardPath={onCopyToClipboardPath}
-                  onCopyToClipboardSourceCode={onCopyToClipboardSourceCode}
                 />
               </div>
               <CloseTag component="ErrorBoundary" />
@@ -180,7 +173,6 @@ export function ComponentHierarchy({
                   onOpenInIde={onOpenInIde}
                   onOpenInWebEditor={onOpenInWebEditor}
                   onCopyToClipboardPath={onCopyToClipboardPath}
-                  onCopyToClipboardSourceCode={onCopyToClipboardSourceCode}
                 />
               </div>
               <CloseTag component="ErrorBoundary" />

@@ -1,3 +1,4 @@
+import { AppRoutes } from '.next/types/routes';
 import { devLog } from '@henry-hong/common-utils/console';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Checkbox } from '@monorepo-starter/ui/components/checkbox';
@@ -12,7 +13,6 @@ import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { z } from 'zod';
 import { ko } from 'zod/locales';
-import { getTypedPath } from '~/app-path-types';
 
 const schema = z.object({
   textInput1: z.string().min(1),
@@ -64,7 +64,7 @@ export default async function FormServerOnlyPage() {
       cookieStore.delete('server_action_basic_error');
     }
 
-    revalidatePath(getTypedPath('/example/form/01-server-only'));
+    revalidatePath('/example/form/01-server-only' as AppRoutes);
   }
 
   return (

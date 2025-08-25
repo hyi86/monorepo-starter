@@ -1,8 +1,8 @@
 'use server';
 
+import { AppRoutes } from '.next/types/routes';
 import { devLog } from '@henry-hong/common-utils/console';
 import { revalidatePath } from 'next/cache';
-import { getTypedPath } from '~/app-path-types';
 import { schema, type Schema } from './schema';
 
 export async function formTestAction(data: Schema, formData: FormData) {
@@ -17,5 +17,5 @@ export async function formTestAction(data: Schema, formData: FormData) {
   devLog('info', 'formData');
   devLog('info', JSON.stringify(Object.fromEntries(formData), null, 2));
 
-  revalidatePath(getTypedPath('/example/form/08-nested-list'));
+  revalidatePath('/example/form/08-nested-list' as AppRoutes, 'page');
 }

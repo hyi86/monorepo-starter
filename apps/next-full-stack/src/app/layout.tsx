@@ -14,7 +14,7 @@ import 'react-advanced-cropper/dist/style.css';
 import './globals.css';
 
 const pretendard = localFont({
-  src: '../common/ui/fonts/PretendardVariable.woff2',
+  src: '../common/fonts/PretendardVariable.woff2',
   display: 'swap',
   weight: '45 920',
   variable: '--font-pretendard',
@@ -36,11 +36,7 @@ export const viewport: Viewport = {
   themeColor: '#000',
 };
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default async function RootLayout(props: LayoutProps<'/'>) {
   const locale = await getLocale();
 
   return (
@@ -51,7 +47,7 @@ export default async function RootLayout({
             <TanstackQueryProvider>
               <UploaderStoreProvider>
                 <WebPushProvider>
-                  {children}
+                  {props.children}
                   <Spotlight />
                   <ComponentInfoPanel />
                 </WebPushProvider>

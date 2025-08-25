@@ -5,6 +5,6 @@ export const metadata: Metadata = {
   title: 'Tanstack Query',
 };
 
-export default async function TanstackQueryLayout({ children }: { children: React.ReactNode }) {
+export default async function TanstackQueryLayout({ children }: LayoutProps<'/example/query'>) {
   return <Article>{children}</Article>;
 }
