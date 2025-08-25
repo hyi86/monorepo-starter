@@ -5,7 +5,6 @@ import {
   createOnDropHandler,
   dragAndDropFeature,
   expandAllFeature,
-  FeatureImplementation,
   hotkeysCoreFeature,
   keyboardDragAndDropFeature,
   renamingFeature,
@@ -15,34 +14,36 @@ import {
   TreeState,
 } from '@headless-tree/core';
 import { AssistiveTreeDescription, useTree } from '@headless-tree/react';
+import { delay } from '@henry-hong/common-utils/fn';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Checkbox } from '@monorepo-starter/ui/components/checkbox';
 import { Input } from '@monorepo-starter/ui/components/input';
 import { Tree, TreeDragLine, TreeItem, TreeItemLabel } from '@monorepo-starter/ui/components/tree';
 import { cn } from '@monorepo-starter/ui/lib/utils';
+import { produce } from 'immer';
 import {
   ExternalLinkIcon,
   FileIcon,
   FolderIcon,
   FolderOpenIcon,
-  LinkIcon,
   ListCollapseIcon,
   ListTreeIcon,
   PencilIcon,
+  PlusIcon,
   SearchIcon,
+  TrashIcon,
 } from 'lucide-react';
 import { useState } from 'react';
 
-interface Item {
+type Item = {
   name: string;
   url?: string;
   children?: string[];
-}
+};
 
 const initialItems: Record<string, Item> = {
-  company: {
-    name: 'Company',
-    url: 'https://www.google.com',
+  root: {
+    name: 'root',
     children: ['engineering', 'marketing', 'operations'],
   },
   engineering: {
@@ -71,55 +72,26 @@ const initialItems: Record<string, Item> = {
   finance: { name: 'Finance' },
 };
 
+const initialExpandedItems = ['engineering', 'frontend', 'design-system'];
+const initialSelectedItems = ['components'];
+const initialCheckedItems = ['components', 'tokens'];
+
 const indent = 20;
 
 export default function TreeFull() {
   const [items, setItems] = useState(initialItems);
-  const initialExpandedItems = ['engineering', 'frontend', 'design-system'];
   const [state, setState] = useState<Partial<TreeState<Item>>>({});
-
-  const doubleClickExpandFeature: FeatureImplementation = {
-    itemInstance: {
-      getProps: ({ tree, item, prev }) => ({
-        ...prev?.(),
-        onDoubleClick: (e: React.MouseEvent) => {
-          item.primaryAction();
-
-          if (!item.isFolder()) {
-            return;
-          }
-
-          if (item.isExpanded()) {
-            item.collapse();
-          } else {
-            item.expand();
-          }
-        },
-        onClick: (e: React.MouseEvent) => {
-          if (e.shiftKey) {
-            item.selectUpTo(e.ctrlKey || e.metaKey);
-          } else if (e.ctrlKey || e.metaKey) {
-            item.toggleSelect();
-          } else {
-            tree.setSelectedItems([item.getItemMeta().itemId]);
-          }
-
-          item.setFocused();
-        },
-      }),
-    },
-  };
 
   const tree = useTree<Item>({
     state,
     setState,
     initialState: {
       expandedItems: initialExpandedItems,
-      selectedItems: ['components'],
-      checkedItems: ['components', 'tokens'],
+      selectedItems: initialSelectedItems,
+      checkedItems: initialCheckedItems,
     },
     indent,
-    rootItemId: 'company',
+    rootItemId: 'root',
     getItemName: (item) => item.getItemData().name,
     isItemFolder: (item) => (item.getItemData()?.children?.length ?? 0) > 0,
     canReorder: true,
@@ -144,8 +116,8 @@ export default function TreeFull() {
       }));
     },
     dataLoader: {
-      getItem: (itemId: any) => items[itemId]!,
-      getChildren: (itemId: any) => items[itemId]!.children ?? [],
+      getItem: (itemId: string) => items[itemId]!,
+      getChildren: (itemId: string) => items[itemId]!.children ?? [],
     },
     features: [
       syncDataLoaderFeature,
@@ -157,35 +129,197 @@ export default function TreeFull() {
       searchFeature,
       expandAllFeature,
       checkboxesFeature,
-      doubleClickExpandFeature,
     ],
   });
+
+  // 검색
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const originalProps = tree.getSearchInputElementProps();
+    if (originalProps.onChange) {
+      originalProps.onChange(e);
+    }
+
+    const value = e.target.value;
+    if (value.length > 0) {
+      tree.expandAll();
+    } else {
+      setState((prevState) => ({
+        ...prevState,
+        expandedItems: initialExpandedItems,
+      }));
+    }
+  };
+
+  // 모두 펼치기
+  const handleExpandAll = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    tree.expandAll();
+  };
+
+  // 모두 접기
+  const handleCollapseAll = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    tree.collapseAll();
+  };
+
+  // 이름 변경
+  const handleRename = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const selectedItems = tree.getSelectedItems();
+    if (selectedItems.length > 0) {
+      selectedItems[0]!.startRenaming();
+    }
+  };
+
+  // 하위에 항목 추가
+  const handleAddItem = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const selectedItems = tree.getSelectedItems();
+    if (selectedItems.length === 0) {
+      return;
+    }
+
+    const selectedItem = selectedItems[0]!;
+    const newItemId = `item-${Date.now()}`;
+    const parentId = selectedItem.getId();
+
+    setItems(
+      produce(items, (draft) => {
+        if (!draft[parentId]) {
+          return;
+        }
+
+        if (!draft[parentId].children) {
+          draft[parentId].children = [];
+        }
+
+        draft[parentId].children.push(newItemId);
+
+        draft[newItemId] = {
+          name: 'New Item',
+          children: [],
+        };
+      }),
+    );
+
+    await delay(100);
+    tree.rebuildTree();
+    selectedItem.expand();
+  };
+
+  // 형제에 항목 추가
+  const handleAddSiblingItem = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    const selectedItems = tree.getSelectedItems();
+    if (selectedItems.length === 0) {
+      return;
+    }
+
+    const parentItem = selectedItems[0]!.getParent();
+    if (!parentItem) {
+      return;
+    }
+
+    const newItemId = `item-${Date.now()}`;
+    const parentId = parentItem.getId();
+
+    setItems(
+      produce(items, (draft) => {
+        if (!draft[parentId]) {
+          return;
+        }
+
+        if (!draft[parentId].children) {
+          draft[parentId].children = [];
+        }
+
+        draft[parentId].children.push(newItemId);
+
+        draft[newItemId] = {
+          name: 'New Item',
+          children: [],
+        };
+      }),
+    );
+
+    await delay(100);
+    tree.rebuildTree();
+    parentItem.expand();
+  };
+
+  // 항목 삭제
+  const handleDeleteItem = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    const selectedItems = tree.getSelectedItems();
+    if (selectedItems.length === 0) {
+      return;
+    }
+
+    const selectedItem = selectedItems[0]!;
+    const parentId = selectedItem.getParent()!.getId();
+
+    setItems(
+      produce(items, (draft) => {
+        if (!draft[parentId]) {
+          return;
+        }
+
+        if (!draft[parentId].children) {
+          draft[parentId].children = [];
+        }
+
+        draft[parentId].children = draft[parentId].children.filter((childId) => childId !== selectedItem.getId());
+      }),
+    );
+
+    await delay(100);
+    tree.rebuildTree();
+  };
 
   return (
     <div className="max-w-140 flex h-full w-full flex-col gap-4 p-4">
       {/* 검색 및 컨트롤 섹션 */}
       <div className="flex flex-col gap-2">
+        <div className="flex items-center gap-2">
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={handleExpandAll}
+            disabled={state.expandedItems?.length === tree.getItems().filter((item) => item.isFolder()).length}
+          >
+            <ListTreeIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
+            모두 펼치기
+          </Button>
+          <Button size="sm" variant="outline" onClick={handleCollapseAll} disabled={state.expandedItems?.length === 0}>
+            <ListCollapseIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
+            모두 접기
+          </Button>
+          <Button size="sm" variant="outline" onClick={handleRename}>
+            <PencilIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
+            이름변경
+          </Button>
+          <Button size="sm" variant="outline" onClick={handleAddItem}>
+            <PlusIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
+            하위에 항목 추가
+          </Button>
+          <Button size="sm" variant="outline" onClick={handleAddSiblingItem}>
+            <TrashIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
+            형제에 항목 추가
+          </Button>
+          <Button size="sm" variant="outline" onClick={handleDeleteItem}>
+            <TrashIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
+            항목 삭제
+          </Button>
+        </div>
         <div className="relative">
           <Input
             className="peer ps-9"
             {...{
               ...tree.getSearchInputElementProps(),
-              onChange: (e) => {
-                const originalProps = tree.getSearchInputElementProps();
-                if (originalProps.onChange) {
-                  originalProps.onChange(e);
-                }
-
-                const value = e.target.value;
-                if (value.length > 0) {
-                  tree.expandAll();
-                } else {
-                  setState((prevState) => ({
-                    ...prevState,
-                    expandedItems: initialExpandedItems,
-                  }));
-                }
-              },
+              onChange: handleSearch,
             }}
             type="search"
             placeholder="트리 검색..."
@@ -193,48 +327,6 @@ export default function TreeFull() {
           <div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
             <SearchIcon className="size-4" aria-hidden="true" />
           </div>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <Button size="sm" variant="outline" onClick={() => tree.expandAll()}>
-            <ListTreeIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
-            모두 펼치기
-          </Button>
-          <Button size="sm" variant="outline" onClick={tree.collapseAll}>
-            <ListCollapseIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
-            모두 접기
-          </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            disabled={tree.getSelectedItems().length === 0}
-            onClick={() => {
-              const selectedItems = tree.getSelectedItems();
-              if (selectedItems.length > 0) {
-                selectedItems[0]!.startRenaming();
-              }
-            }}
-          >
-            <PencilIcon className="-ms-1 opacity-60" size={16} aria-hidden="true" />
-            이름변경
-          </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() => {
-              const selectedItems = tree.getSelectedItems();
-              if (selectedItems.length === 0) {
-                return;
-              }
-
-              const selectedItem = selectedItems[0]!;
-              const newItemId = `new-item-${Date.now()}`;
-
-              // TODO: 새 항목 추가 로직 구현
-            }}
-          >
-            항목 추가
-          </Button>
         </div>
       </div>
 
@@ -260,11 +352,10 @@ export default function TreeFull() {
                 />
                 <TreeItem item={item} className="not-last:pb-0 relative flex-1">
                   <TreeItemLabel
-                    disableChevron
                     className="before:bg-background relative before:absolute before:-inset-y-0.5 before:inset-x-0 before:-z-10"
-                    // onDoubleClick={(e) => {
-                    //   item.startRenaming();
-                    // }}
+                    onDoubleClick={(e) => {
+                      item.startRenaming();
+                    }}
                   >
                     <span className="flex items-center gap-2">
                       {item.isFolder() ? (
