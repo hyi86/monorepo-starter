@@ -21,6 +21,8 @@
     "@dnd-kit/modifiers": "^9.0.0",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
+    "@headless-tree/core": "^1.4.0",
+    "@headless-tree/react": "^1.4.0",
     "@henry-hong/common-utils": "^0.1.8",
     "@hookform/resolvers": "^5.2.1",
     "@monaco-editor/react": "^4.7.0",

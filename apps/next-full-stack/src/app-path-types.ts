@@ -60,6 +60,11 @@ export type StaticPath =
   | '/example/table/01-server'
   | '/example/table/02-client'
   | '/example/tiptap/01-basic'
+  | '/example/tree/01-default'
+  | '/example/tree/02-controls'
+  | '/example/tree/03-search'
+  | '/example/tree/04-checkbox'
+  | '/example/tree/05-full'
   | '/example/virtual'
   | '/example/virtual/01-fixed-row'
   | '/example/virtual/02-fixed-column'
@@ -1904,6 +1909,146 @@ export const appPathRoutes: AppPathRoutes[] = [
               {
                 path: 'src/app/example/tiptap/01-basic/page.tsx',
                 children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/tree/01-default',
+    linkTypes: '/example/tree/01-default',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/tree/01-default/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/tree/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/tree/01-default/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/tree/02-controls',
+    linkTypes: '/example/tree/02-controls',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/tree/02-controls/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/tree/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/tree/02-controls/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/tree/03-search',
+    linkTypes: '/example/tree/03-search',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/tree/03-search/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/tree/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/tree/03-search/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/tree/04-checkbox',
+    linkTypes: '/example/tree/04-checkbox',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/tree/04-checkbox/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/tree/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/tree/04-checkbox/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/tree/05-full',
+    linkTypes: '/example/tree/05-full',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/tree/05-full/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/tree/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/tree/05-full/page.tsx',
+                    children: [],
+                  },
+                ],
               },
             ],
           },
