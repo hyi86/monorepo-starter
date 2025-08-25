@@ -11,7 +11,7 @@ import {
   CommandShortcut,
 } from '@monorepo-starter/ui/components/command';
 import { InfoIcon, MoonIcon, Sidebar, SunIcon } from 'lucide-react';
-import { useSpotlight } from '../model/useSpotlight';
+import { useSpotlight } from '~/features/spotlight/model/useSpotlight';
 
 export function Spotlight() {
   const {

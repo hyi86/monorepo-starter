@@ -2,7 +2,7 @@
 
 import { type ReactNode, createContext, useContext, useRef } from 'react';
 import { useStore } from 'zustand';
-import { createCounterStore, initCounterStore } from '../model/counter.store';
+import { createCounterStore, initCounterStore } from '~/features/counter/model/counter.store';
 
 type CounterStoreApi = ReturnType<typeof createCounterStore>;
 
