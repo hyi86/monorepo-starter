@@ -1,3 +1,5 @@
+import { Badge } from '@monorepo-starter/ui/components/badge';
+
 export default function ScrollbarDemo() {
   return (
     <div
@@ -15,7 +17,9 @@ export default function ScrollbarDemo() {
       className="scrollable"
     >
       <div style={{ padding: 16 }}>
-        <h2>Scrollbar Demo</h2>
+        <h2>
+          Scrollbar Demo <Badge>Stable</Badge>
+        </h2>
         <p>
           아래 박스는 <code>scrollbar-gutter</code>와<code>scrollbar-color</code>를 적용한 영역입니다.
         </p>

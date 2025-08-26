@@ -17,7 +17,16 @@ import { AssistiveTreeDescription, useTree } from '@headless-tree/react';
 import { delay } from '@henry-hong/common-utils/fn';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Checkbox } from '@monorepo-starter/ui/components/checkbox';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@monorepo-starter/ui/components/dialog';
 import { Input } from '@monorepo-starter/ui/components/input';
+import { ScrollArea } from '@monorepo-starter/ui/components/scroll-area';
 import { Tree, TreeDragLine, TreeItem, TreeItemLabel } from '@monorepo-starter/ui/components/tree';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { produce } from 'immer';
@@ -40,6 +49,19 @@ type Item = {
   url?: string;
   children?: string[];
 };
+
+/**
+ * 데이터 구조
+ * [id]: { name: "Name", children: ['id1', 'id2', 'id3'] } 의 배열로 들어감
+ *
+ * - 데이터 구조가 단순하고 직관적임
+ * - 정렬이 간단함(children 배열의 순서를 변경하면 됨)
+ * - 무조건 루트가 필요함 (루트의 자식들만 노출)
+ * - 신규 생성시,
+ *   items에 신규항목을 push 하고, 루트에서부터 부모노드를 찾아서 children 배열에 추가해야 함
+ * - 삭제 시,
+ *   items에서 선택된 항목을 삭제하고, 부모노드의 children 배열에서 해당 항목을 제거해야 함
+ */
 
 const initialItems: Record<string, Item> = {
   root: {
@@ -79,6 +101,7 @@ const initialCheckedItems = ['components', 'tokens'];
 const indent = 20;
 
 export default function TreeFull() {
+  const [newItemIndex, setNewItemIndex] = useState(1);
   const [items, setItems] = useState(initialItems);
   const [state, setState] = useState<Partial<TreeState<Item>>>({});
 
@@ -197,9 +220,11 @@ export default function TreeFull() {
         draft[parentId].children.push(newItemId);
 
         draft[newItemId] = {
-          name: 'New Item',
+          name: `New Item ${newItemIndex}`,
           children: [],
         };
+
+        setNewItemIndex(newItemIndex + 1);
       }),
     );
 
@@ -238,9 +263,11 @@ export default function TreeFull() {
         draft[parentId].children.push(newItemId);
 
         draft[newItemId] = {
-          name: 'New Item',
+          name: `New Item ${newItemIndex}`,
           children: [],
         };
+
+        setNewItemIndex(newItemIndex + 1);
       }),
     );
 
@@ -314,7 +341,7 @@ export default function TreeFull() {
             항목 삭제
           </Button>
         </div>
-        <div className="relative">
+        <div className="relative flex gap-2">
           <Input
             className="peer ps-9"
             {...{
@@ -416,6 +443,20 @@ export default function TreeFull() {
           <div>검색 결과: {tree.getItems().filter((item: any) => item.isMatchingSearch?.()).length}개 항목</div>
         </div>
       </div>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="outline">데이터 조회</Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>데이터 조회</DialogTitle>
+            <DialogDescription>데이터를 조회합니다.</DialogDescription>
+            <ScrollArea className="h-[500px]">
+              <pre className="bg-muted-foreground/30 p-4 text-xs">{JSON.stringify(items, null, 2)}</pre>
+            </ScrollArea>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

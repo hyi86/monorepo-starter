@@ -22,11 +22,6 @@ export type StaticPath =
   | '/example/code-block/02-html'
   | '/example/code-block/03-mdx'
   | '/example/code-block/04-editor'
-  | '/example/css'
-  | '/example/css/01-popover'
-  | '/example/css/02-offset-path'
-  | '/example/css/03-scrollbar'
-  | '/example/css/04-content-visibility'
   | '/example/db'
   | '/example/db/crud'
   | '/example/dnd'
@@ -47,6 +42,11 @@ export type StaticPath =
   | '/example/form/08-nested-list'
   | '/example/form/09-date-picker'
   | '/example/image-edit'
+  | '/example/modern-web'
+  | '/example/modern-web/01-popover'
+  | '/example/modern-web/02-offset-path'
+  | '/example/modern-web/03-scrollbar'
+  | '/example/modern-web/04-content-visibility'
   | '/example/nuqs'
   | '/example/nuqs/01-client'
   | '/example/nuqs/02-server'
@@ -772,121 +772,6 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
-    href: '/example/css',
-    linkTypes: '/example/css',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/css/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/css/page.tsx',
-                children: [],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    href: '/example/css/01-popover',
-    linkTypes: '/example/css/01-popover',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/css/01-popover/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/css/01-popover/page.tsx',
-                children: [],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    href: '/example/css/02-offset-path',
-    linkTypes: '/example/css/02-offset-path',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/css/02-offset-path/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/css/02-offset-path/page.tsx',
-                children: [],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    href: '/example/css/03-scrollbar',
-    linkTypes: '/example/css/03-scrollbar',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/css/03-scrollbar/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/css/03-scrollbar/page.tsx',
-                children: [],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    href: '/example/css/04-content-visibility',
-    linkTypes: '/example/css/04-content-visibility',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/css/04-content-visibility/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/css/04-content-visibility/page.tsx',
-                children: [],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
     href: '/example/db',
     linkTypes: '/example/db',
     isParallelRoute: false,
@@ -1433,6 +1318,121 @@ export const appPathRoutes: AppPathRoutes[] = [
             children: [
               {
                 path: 'src/app/example/image-edit/page.tsx',
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/modern-web',
+    linkTypes: '/example/modern-web',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/modern-web/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/modern-web/page.tsx',
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/modern-web/01-popover',
+    linkTypes: '/example/modern-web/01-popover',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/modern-web/01-popover/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/modern-web/01-popover/page.tsx',
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/modern-web/02-offset-path',
+    linkTypes: '/example/modern-web/02-offset-path',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/modern-web/02-offset-path/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/modern-web/02-offset-path/page.tsx',
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/modern-web/03-scrollbar',
+    linkTypes: '/example/modern-web/03-scrollbar',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/modern-web/03-scrollbar/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/modern-web/03-scrollbar/page.tsx',
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/modern-web/04-content-visibility',
+    linkTypes: '/example/modern-web/04-content-visibility',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/modern-web/04-content-visibility/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/modern-web/04-content-visibility/page.tsx',
                 children: [],
               },
             ],

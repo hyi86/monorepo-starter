@@ -1,5 +1,6 @@
 'use client';
 
+import { Badge } from '@monorepo-starter/ui/components/badge';
 import { useState } from 'react';
 
 /**
@@ -24,6 +25,9 @@ export default function OffsetPathDemo() {
         padding: 16,
       }}
     >
+      <h1>
+        OffsetPathDemo <Badge>Stable</Badge>
+      </h1>
       <div
         style={{
           width: 360,

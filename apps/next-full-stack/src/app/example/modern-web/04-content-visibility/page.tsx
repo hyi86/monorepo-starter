@@ -1,3 +1,5 @@
+import { Badge } from '@monorepo-starter/ui/components/badge';
+
 export default function ContentVisibilityDemo() {
   return (
     <div
@@ -8,13 +10,15 @@ export default function ContentVisibilityDemo() {
         fontFamily: 'system-ui, sans-serif',
       }}
     >
-      <h1>content-visibility Demo</h1>
+      <h1>
+        content-visibility Demo <Badge>Stable</Badge>
+      </h1>
       <p>
         아래 카드들은 <code>content-visibility: auto</code>를 사용합니다. 화면에 보이지 않을 땐 렌더링을 건너뛰어 성능을
         최적화합니다.
       </p>
 
-      {Array.from({ length: 40 }).map((_, i) => (
+      {Array.from({ length: 1_000 }).map((_, i) => (
         <div
           key={i}
           className="card"

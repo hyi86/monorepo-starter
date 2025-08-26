@@ -18,7 +18,7 @@ export function reportResult(
 ) {
   devLog('info', `report result ${green(workspace)}...`);
 
-  const unusedTable = new Table({
+  const localUnusedTable = new Table({
     columns: [
       { name: 'Types', alignment: 'center' },
       { name: 'Path', alignment: 'left' },
@@ -39,7 +39,7 @@ export function reportResult(
     const formattedValue = formatNumber(value);
 
     if (value === 0) {
-      unusedTable.addRow({
+      localUnusedTable.addRow({
         Types: cyan('Local'),
         Path: formattedKey,
       });
@@ -61,13 +61,6 @@ export function reportResult(
     const formattedKey = value === 0 ? dim2(key) : white(key);
     const formattedValue = formatNumber(value);
 
-    if (value === 0) {
-      unusedTable.addRow({
-        Types: yellow('External'),
-        Path: formattedKey,
-      });
-    }
-
     allTable.addRow({
       Types: yellow('External'),
       Path: formattedKey,
@@ -76,8 +69,8 @@ export function reportResult(
   });
 
   console.log('\n');
-  devLog('info', 'Unused Imports');
-  unusedTable.printTable();
+  devLog('info', `Local Unused Imports: ${green(localUnusedTable.table.rows.length.toString())}`);
+  localUnusedTable.printTable();
   console.log('\n');
   devLog('info', 'All Imports');
   allTable.printTable();

@@ -32,7 +32,7 @@ describe('JsonFileDB', () => {
   });
 
   [50, 100].forEach((N) => {
-    it(`should write and read all rows (${new Intl.NumberFormat('ko-KR').format(N * 1000)} rows)`, async () => {
+    it(`모든 행을 쓰고 읽을 수 있어야 함 (${new Intl.NumberFormat('ko-KR').format(N * 1000)}개 행)`, async () => {
       const rows = Array.from({ length: N }, () => templateData).flat();
       await db.writeAll(rows);
 
@@ -44,7 +44,7 @@ describe('JsonFileDB', () => {
     });
   });
 
-  it('should append rows (100,000 + 20,000 rows)', async () => {
+  it('행을 추가할 수 있어야 함 (100,000 + 20,000개 행)', async () => {
     const rows1: JsonRow[] = Array.from({ length: 100 }, () => templateData).flat();
     const rows2: JsonRow[] = Array.from({ length: 10 }, () => templateData).flat();
     const rows3: JsonRow[] = Array.from({ length: 10 }, () => templateData).flat();
@@ -59,7 +59,7 @@ describe('JsonFileDB', () => {
     expect(result).toEqual(rows1.concat(rows2).concat(rows3));
   });
 
-  it('should updated and sort rows (500,000 rows)', async () => {
+  it('행을 업데이트하고 정렬할 수 있어야 함 (500,000개 행)', async () => {
     const rows: JsonRow[] = Array.from({ length: 300 }, () => templateData).flat();
     await db.writeAll(rows);
     const updatedRows = rows.map((row) => ({ ...row, name: row.name + 'updated' }));
