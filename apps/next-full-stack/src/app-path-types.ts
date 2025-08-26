@@ -52,7 +52,6 @@ export type StaticPath =
   | '/example/query'
   | '/example/query/prefetching'
   | '/example/query/straming'
-  | '/example/route'
   | '/example/route/intercepting'
   | '/example/route/parallel'
   | '/example/route/parallel/login'
@@ -1603,34 +1602,6 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
-    href: '/example/route',
-    linkTypes: '/example/route',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/route/page.mdx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/route/layout.tsx',
-                children: [
-                  {
-                    path: 'src/app/example/route/page.mdx',
-                    children: [],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
     href: '/example/route/intercepting',
     linkTypes: '/example/route/intercepting',
     isParallelRoute: false,
@@ -2465,8 +2436,13 @@ export const appPathRoutes: AppPathRoutes[] = [
                         path: 'src/app/example/virtual/12-with-parallel-route/loading.tsx',
                         children: [
                           {
-                            path: 'src/app/example/virtual/12-with-parallel-route/@detail/[...slug]/page.tsx',
-                            children: [],
+                            path: 'src/app/example/virtual/12-with-parallel-route/@detail/[...slug]/loading.tsx',
+                            children: [
+                              {
+                                path: 'src/app/example/virtual/12-with-parallel-route/@detail/[...slug]/page.tsx',
+                                children: [],
+                              },
+                            ],
                           },
                         ],
                       },
