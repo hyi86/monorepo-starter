@@ -82,6 +82,7 @@ export type StaticPath =
   | '/example/virtual/10-sortable-row'
   | '/example/virtual/11-sortable-column'
   | '/example/virtual/12-with-parallel-route'
+  | '/example/virtual/13-spreadsheet'
   | '/signin';
 
 export type TypedRoute = LiteralUnion<
@@ -2567,6 +2568,34 @@ export const appPathRoutes: AppPathRoutes[] = [
                         ],
                       },
                     ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/virtual/13-spreadsheet',
+    linkTypes: '/example/virtual/13-spreadsheet',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/virtual/13-spreadsheet/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/virtual/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/virtual/13-spreadsheet/page.tsx',
+                    children: [],
                   },
                 ],
               },

@@ -1,5 +1,5 @@
 import { generateRandomData } from '~/common/lib/faker/utils';
-import FixedGrid from './grid';
+import SpreadsheetGrid from './grid';
 
 export default function FixedGridPage() {
   const columns = generateRandomData(120, (index, generator) => ({
@@ -14,8 +14,8 @@ export default function FixedGridPage() {
 
   return (
     <div>
-      <h1>Tanstack Virtual Fixed Grid</h1>
-      <FixedGrid columns={columns} rows={data} />
+      <h1>Tanstack Virtual Spreadsheet Grid</h1>
+      <SpreadsheetGrid columns={columns} rows={data} />
     </div>
   );
 }

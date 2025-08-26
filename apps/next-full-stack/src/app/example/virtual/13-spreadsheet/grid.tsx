@@ -2,9 +2,11 @@
 
 import { format } from '@henry-hong/common-utils/number';
 import { Button } from '@monorepo-starter/ui/components/button';
+import { Input } from '@monorepo-starter/ui/components/input';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useRef, useState } from 'react';
+import { indexToColumnLabel } from './utils';
 
 type Column = {
   id: string;
@@ -17,22 +19,12 @@ type Data = {
   height?: number;
 };
 
-// 인덱스를 A, B, C... Z, AA, AB... ZZ 형태로 변환하는 함수
-function indexToColumnLabel(index: number) {
-  let result = '';
-  while (index >= 0) {
-    result = String.fromCharCode(65 + (index % 26)) + result;
-    index = Math.floor(index / 26) - 1;
-  }
-  return result;
-}
-
-export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns: Column[] }) {
+export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; columns: Column[] }) {
   const parentRef = useRef<HTMLDivElement>(null);
   const rowCount = Math.floor(rows.length / columns.length);
   const indexColumnWidth = 60; // 인덱스 컬럼 너비
   const defaultColumnHeight = 32; // 기본 컬럼 높이
-  const bodyHeight = 400; // 본문 높이
+  const bodyHeight = 380; // 본문 높이
   const [scrollTop, setScrollTop] = useState(0); // 스크롤 위치
 
   const rowVirtualizer = useVirtualizer({
@@ -50,6 +42,27 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
     estimateSize: (index) => columns[index]?.width || 10,
     overscan: 5,
   });
+
+  // 전체 클릭 이벤트
+  const handleClickAll = () => {
+    console.log('all');
+  };
+
+  // Column 클릭 이벤트
+  const handleClickHeaderCell = (index: number) => () => {
+    console.log(index);
+  };
+
+  // Row 클릭 이벤트
+  const handleClickRowCell = (index: number) => () => {
+    console.log(index);
+  };
+
+  // 개별 셀 클릭 이벤트
+  const handleClickCell = (row: Data | undefined) => () => {
+    if (!row) return;
+    console.log(row);
+  };
 
   // 스크롤 이벤트 감지
   useEffect(() => {
@@ -92,6 +105,7 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
           <div
             className="block border-b bg-gray-100 pt-1.5 text-center text-sm"
             style={{ height: `${defaultColumnHeight + 5}px` }}
+            onClick={handleClickAll}
           >
             &nbsp;
           </div>
@@ -107,6 +121,7 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
                     width: `${indexColumnWidth}px`,
                     height: `${rows[index]?.height || defaultColumnHeight}px`,
                   }}
+                  onClick={handleClickRowCell(index)}
                 >
                   {index + 1}
                 </div>
@@ -134,6 +149,7 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
                     width: `${virtualColumn.size}px`,
                     transform: `translateX(${virtualColumn.start}px)`,
                   }}
+                  onClick={handleClickHeaderCell(virtualColumn.index)}
                 >
                   {indexToColumnLabel(virtualColumn.index)}
                 </div>
@@ -158,7 +174,7 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
                   return (
                     <div
                       key={virtualColumn.key}
-                      className={cn('truncate whitespace-nowrap border-b border-r bg-white p-1 text-sm')}
+                      className={cn('truncate whitespace-nowrap border-b border-r bg-white text-sm')}
                       style={{
                         position: 'absolute',
                         top: 0,
@@ -167,8 +183,9 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
                         height: `${virtualRow.size}px`,
                         transform: `translateX(${virtualColumn.start}px) translateY(${virtualRow.start}px)`,
                       }}
+                      onClick={handleClickCell(rows[index])}
                     >
-                      {rows[index]?.value}
+                      <Input value={rows[index]?.value} className="h-full w-full rounded-none border-none" readOnly />
                     </div>
                   );
                 })}
