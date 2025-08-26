@@ -2,6 +2,7 @@ import { FileHandlePluginOptions } from '@tiptap/extension-file-handler';
 
 const CHUNK_SIZE = 1024 * 1024; // 1MB
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 5MB
+const UPLOAD_URL = '/api/upload';
 
 /**
  * onDrop callback
@@ -36,6 +37,9 @@ export const onPaste: FileHandlePluginOptions['onPaste'] = async (currentEditor,
   }
 };
 
+/**
+ * Upload images to the server
+ */
 export async function uploadImages(files: File[]) {
   const uploadedFiles: { name: string; url: string }[] = [];
 
@@ -55,7 +59,7 @@ export async function uploadImages(files: File[]) {
       const end = Math.min(start + CHUNK_SIZE, totalSizeOfFile);
       const chunk = file.slice(start, end);
 
-      await fetch('/api/upload', {
+      await fetch(UPLOAD_URL, {
         method: 'POST',
         headers: {
           'x-file-name': encodeURIComponent(file.name),

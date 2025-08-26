@@ -1,3 +1,4 @@
+import { delay } from '@henry-hong/common-utils/fn';
 import { format } from '@henry-hong/common-utils/number';
 import { generateRandomData } from '~/common/lib/faker/utils';
 import FixedRow from './row';
@@ -10,8 +11,10 @@ export type Row = {
   height: number;
 };
 
-export default function FixedRowPage() {
-  const rows = generateRandomData(500, (index, generator) => ({
+export default async function FixedRowPage() {
+  await delay(2000);
+
+  const rows = generateRandomData(1500, (index, generator) => ({
     id: index + 1,
     color: generator.color.hsl({ format: 'css' }),
     name: `${generator.commerce.productAdjective()} ${generator.commerce.product()}`,

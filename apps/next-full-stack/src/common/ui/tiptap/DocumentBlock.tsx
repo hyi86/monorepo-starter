@@ -1,4 +1,5 @@
 'use client';
+
 import { Button } from '@monorepo-starter/ui/components/button';
 import { type Editor } from '@tiptap/react';
 import { EyeIcon } from 'lucide-react';

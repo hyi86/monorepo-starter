@@ -1,3 +1,4 @@
+import { delay } from '@henry-hong/common-utils/fn';
 import { notFound } from 'next/navigation';
 import { generator } from '~/common/lib/faker/utils';
 import DetailFullPage from './full-page';
@@ -12,6 +13,8 @@ export default async function DetailPage({ params }: { params: Promise<{ slug: S
   if (!id || !pageType) {
     notFound();
   }
+
+  await delay(1000);
 
   if (pageType === 'modal') {
     return (

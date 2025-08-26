@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from '@monorepo-starter/ui/components/dialog';
 import { cn } from '@monorepo-starter/ui/lib/utils';
+import { XIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -37,8 +38,14 @@ export default function DetailModal({ children, className }: { children: React.R
 
   return (
     <Dialog open>
-      <DialogContent onInteractOutside={handleGoBack} onEscapeKeyDown={handleGoBack} className={cn(className)}>
+      <DialogContent
+        onInteractOutside={handleGoBack}
+        onEscapeKeyDown={handleGoBack}
+        className={cn(className)}
+        showCloseButton={false}
+      >
         <DialogHeader>
+          <XIcon className="absolute right-4 top-4 size-5 cursor-pointer opacity-85" onClick={handleGoBack} />
           <DialogTitle>Detail Modal</DialogTitle>
           <DialogDescription>Detail Modal with Parallel Route</DialogDescription>
         </DialogHeader>

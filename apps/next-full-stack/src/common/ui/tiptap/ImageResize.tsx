@@ -1,10 +1,5 @@
 'use client';
 
-import Image from '@tiptap/extension-image';
-import { type NodeViewProps, NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react';
-import { AlignCenter, AlignLeft, AlignRight, Columns2, Copy, Maximize, MoreVertical, Trash } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
-
 import { Button } from '@monorepo-starter/ui/components/button';
 import {
   DropdownMenu,
@@ -16,6 +11,10 @@ import {
 import { Separator } from '@monorepo-starter/ui/components/separator';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { Editor } from '@tiptap/core';
+import Image from '@tiptap/extension-image';
+import { type NodeViewProps, NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react';
+import { AlignCenter, AlignLeft, AlignRight, Columns2, Copy, Maximize, MoreVertical, Trash } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 export const ImageExtension = Image.extend({
   addAttributes() {

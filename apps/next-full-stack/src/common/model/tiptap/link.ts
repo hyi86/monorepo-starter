@@ -1,4 +1,4 @@
-export const shouldAutoLink = (url: string) => {
+export function shouldAutoLink(url: string) {
   try {
     // construct URL
     const parsedUrl = url.includes(':') ? new URL(url) : new URL(`https://${url}`);
@@ -11,4 +11,4 @@ export const shouldAutoLink = (url: string) => {
   } catch {
     return false;
   }
-};
+}
