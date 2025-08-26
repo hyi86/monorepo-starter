@@ -25,7 +25,7 @@ export function reportResult(
     ],
   });
 
-  const table = new Table({
+  const allTable = new Table({
     columns: [
       { name: 'Types', alignment: 'center' },
       { name: 'Path', alignment: 'left' },
@@ -34,7 +34,7 @@ export function reportResult(
   });
 
   Object.entries(result.local).forEach(([key, value], index) => {
-    const workspacePath = path.join(workspace, key);
+    const workspacePath = path.join(process.cwd(), workspace, key);
     const formattedKey = value === 0 ? dim2(workspacePath) : white(workspacePath);
     const formattedValue = formatNumber(value);
 
@@ -45,7 +45,7 @@ export function reportResult(
       });
     }
 
-    table.addRow(
+    allTable.addRow(
       {
         Types: cyan('Local'),
         Path: formattedKey,
@@ -68,7 +68,7 @@ export function reportResult(
       });
     }
 
-    table.addRow({
+    allTable.addRow({
       Types: yellow('External'),
       Path: formattedKey,
       Count: formattedValue,
@@ -76,11 +76,11 @@ export function reportResult(
   });
 
   console.log('\n');
-  devLog('info', 'unused Imports');
+  devLog('info', 'Unused Imports');
   unusedTable.printTable();
   console.log('\n');
   devLog('info', 'All Imports');
-  table.printTable();
+  allTable.printTable();
 }
 
 function formatNumber(value: number) {

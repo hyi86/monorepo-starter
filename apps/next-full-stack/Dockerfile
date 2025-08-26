@@ -6,7 +6,7 @@ FROM node:22-alpine AS base
 # 전역 환경변수
 ENV WORKDIR=/app
 ENV APP_NAME=next-full-stack
-ENV PORT=3000
+ENV PORT=3001
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV PNPM_VERSION=10.15.0

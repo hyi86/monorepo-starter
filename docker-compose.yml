@@ -28,7 +28,7 @@ services:
       - ./apps/next-full-stack/.env
     restart: always
     ports:
-      - 3001:3000
+      - 3001:3001
     networks:
       - base_network
     volumes:

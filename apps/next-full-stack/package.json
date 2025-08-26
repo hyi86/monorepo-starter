@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "predev": "pnpx nextjs-devtools",
-    "dev": "next dev --turbopack",
+    "dev": "PORT=3001 next dev --turbopack",
     "prebuild": "pnpx nextjs-devtools",
     "build": "next build --turbopack",
     "start": "next start",
@@ -18,7 +18,7 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    "tunnel": "lt --port 3000"
+    "tunnel": "lt --port 3001"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

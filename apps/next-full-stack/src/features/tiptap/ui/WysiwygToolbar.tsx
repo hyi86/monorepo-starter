@@ -9,9 +9,9 @@ import { LinkBlock } from './LinkBlock';
 import { ListBlock } from './ListBlock';
 import { MediaBlock } from './MediaBlock';
 import { TablesBlock } from './TablesBlock';
-import { TextStylesBlock } from './text-styles';
 import { TextBasicBlock } from './TextBasicBlock';
 import { TextColorBlock } from './TextColorBlock';
+import { TextStylesBlock } from './TextStylesBlock';
 import { UndoRedoBlock } from './UndoRedoBlock';
 
 export function WysiwygToolbar({ editor }: { editor: Editor }) {

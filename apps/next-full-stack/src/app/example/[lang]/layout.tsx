@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
-import { AppLanguageProvider } from '~/app/providers/app-language-provider';
 import { i18n, type Locale } from '~/common/config/i18n';
+import { AppLanguageProvider } from '~/common/providers/i18n/app-language-provider';
 import { Article } from '~/common/ui/layout/article';
 
 /**

@@ -1,14 +1,4 @@
-export default function AppRouteParallelLayout({
-  users,
-  comments,
-  notifications,
-  modal,
-}: {
-  users: React.ReactNode;
-  comments: React.ReactNode;
-  notifications: React.ReactNode;
-  modal: React.ReactNode;
-}) {
+export default function AppRouteParallelLayout(props: LayoutProps<'/example/route/parallel'>) {
   return (
     <div>
       <h1 className="mb-4 text-2xl font-bold text-blue-800">Next.js Parallel Route</h1>
@@ -21,11 +11,11 @@ export default function AppRouteParallelLayout({
       </ul>
 
       <div className="grid grid-cols-3 gap-4">
-        <div className="rounded-lg border p-4">{users}</div>
-        <div className="rounded-lg border p-4">{comments}</div>
-        <div className="rounded-lg border p-4">{notifications}</div>
+        <div className="rounded-lg border p-4">{props.users}</div>
+        <div className="rounded-lg border p-4">{props.comments}</div>
+        <div className="rounded-lg border p-4">{props.notifications}</div>
       </div>
-      {modal}
+      {props.modal}
     </div>
   );
 }

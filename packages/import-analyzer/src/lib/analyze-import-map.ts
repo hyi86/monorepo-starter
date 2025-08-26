@@ -3,6 +3,7 @@ import { type ImportMap } from '..';
 const regExpList = [
   /(src\/)?((manifest|mdx-components|middleware|instrumentation|instrumentation-client)\.(ts|tsx))$/, // next.js
   /(src\/)?app\/.*((layout|page|loading|not-found|error|global-error|default|route|template|default)\.(ts|tsx))$/, // next.js
+  /(test|spec)\.(ts|tsx)$/, // test files
   /src\/vite-env\.d\.ts$/, // vite vanilla
   /src\/main\.(ts|tsx)$/, // vite vanilla
 ];

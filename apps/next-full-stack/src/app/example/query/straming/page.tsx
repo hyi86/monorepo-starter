@@ -2,6 +2,7 @@
 
 import { isServer, useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense } from 'react';
+import { env } from '~/common/config/env';
 
 // export const runtime = 'edge'; // 'nodejs' (default) | 'edge'
 
@@ -10,7 +11,7 @@ function getBaseURL() {
     return '';
   }
 
-  return 'http://localhost:3000';
+  return env.NEXT_PUBLIC_URL;
 }
 
 const baseUrl = getBaseURL();

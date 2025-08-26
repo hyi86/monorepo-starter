@@ -30,7 +30,7 @@ export const env = createEnv({
     REFRESH_TOKEN_COOKIE_NAME: z.string().default('refresh-token'),
   },
   client: {
-    NEXT_PUBLIC_URL: z.string().default('http://localhost:3000'),
+    NEXT_PUBLIC_URL: z.string().default('http://localhost:3001'),
     NEXT_PUBLIC_VAPID_PUBLIC_KEY: z.string(),
     NEXT_PUBLIC_VAPID_PRIVATE_KEY: z.string(),
     NEXT_PUBLIC_WEB_PUSH_EMAIL: z.string().default('example@example.com'),
