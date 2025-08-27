@@ -2,12 +2,12 @@ import { generateRandomData } from '~/common/lib/faker/utils';
 import SpreadsheetGrid from './grid';
 
 export default function FixedGridPage() {
-  const columns = generateRandomData(120, (index, generator) => ({
+  const columns = generateRandomData(20, (index, generator) => ({
     id: `${index + 1}`,
-    width: generator.number.int({ min: 90, max: 200 }),
+    width: generator.number.int({ min: 90, max: 160 }),
   }));
 
-  const data = generateRandomData(150_000, (index, generator) => ({
+  const data = generateRandomData(500, (index, generator) => ({
     id: `${index + 1}`,
     value: `${generator.color.human()} ${generator.animal.type()}`,
   }));

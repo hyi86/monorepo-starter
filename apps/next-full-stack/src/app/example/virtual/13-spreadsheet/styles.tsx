@@ -1,16 +1,7 @@
-/*
-getRootStyle
-  ├── getCornerStyle
-  ├── getRowHeaderStyle
-  └── getRootContainerStyle
-      ├── getColumnHeaderStyle
-          ├── getColumnHeaderContentStyle
-      └── getColumnHeaderItemStyle
-  ├── getResizeHandleStyle
-  └── getCellStyle
-      ├── getCellContentStyle
-      └── getCellContentItemStyle
-*/
+export const defaultColumnWidth: React.CSSProperties['width'] = 42;
+export const defaultColumnHeight: React.CSSProperties['height'] = 36;
+export const contentWidth: React.CSSProperties['width'] = 700;
+export const contentHeight: React.CSSProperties['height'] = 380;
 
 // ------------------- Root -------------------
 export const getRootStyle = () => {
@@ -20,28 +11,31 @@ export const getRootStyle = () => {
   } as React.CSSProperties;
 };
 
-export const getCornerStyle = (height: React.CSSProperties['height']) => {
+export const getCornerStyle = () => {
   return {
     position: 'absolute',
     left: 0,
     top: 0,
-    width: 36,
-    height,
+    width: defaultColumnWidth,
+    height: defaultColumnHeight,
     zIndex: 20,
   } as React.CSSProperties;
 };
 
-export const getRootContainerStyle = (width: React.CSSProperties['width'], height: React.CSSProperties['height']) => {
+export const getRootContainerStyle = () => {
   return {
-    width,
-    height,
+    width: contentWidth,
+    height: contentHeight,
     overflow: 'auto',
   } as React.CSSProperties;
 };
 
 // ------------------- Row Header -------------------
 
-export const getRowHeaderStyle = (height: React.CSSProperties['height'], paddingTop: number) => {
+export const getRowHeaderStyle = (
+  height: React.CSSProperties['height'],
+  paddingTop: React.CSSProperties['paddingTop'],
+) => {
   return {
     height,
     flexShrink: 0,
@@ -62,11 +56,12 @@ export const getRowHeaderContentScrollStyle = (scrollTop: number) => {
   } as React.CSSProperties;
 };
 
-export const getRowHeaderContentItemStyle = (height: number) => {
+export const getRowHeaderContentItemStyle = () => {
   return {
     contentVisibility: 'auto',
-    containIntrinsicSize: height,
-    height,
+    containIntrinsicSize: defaultColumnHeight,
+    height: defaultColumnHeight,
+    width: defaultColumnWidth,
   } as React.CSSProperties;
 };
 
@@ -86,7 +81,11 @@ export const getColumnHeaderContentStyle = (width: React.CSSProperties['width'])
   } as React.CSSProperties;
 };
 
-export const getColumnHeaderItemStyle = (height: number, width: number, start: number) => {
+export const getColumnHeaderItemStyle = (
+  height: React.CSSProperties['height'],
+  width: React.CSSProperties['width'],
+  start: number,
+) => {
   return {
     position: 'absolute',
     left: 0,
@@ -103,7 +102,7 @@ export const getResizeHandleStyle = () => {
   return {
     position: 'absolute',
     height: '100%',
-    width: 2,
+    width: 4,
     top: 0,
     right: 0,
     cursor: 'col-resize',
