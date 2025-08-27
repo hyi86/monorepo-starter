@@ -3,20 +3,13 @@ import { Badge } from '@monorepo-starter/ui/components/badge';
 export default function ScrollbarDemo() {
   return (
     <div
+      className="ml-4 mt-4 size-80 overflow-auto rounded border shadow"
       style={{
-        width: 300,
-        height: 200,
-        border: '1px solid #ddd',
-        borderRadius: 12,
-        overflow: 'auto',
-
-        // 스크롤바 관련 CSS
         scrollbarGutter: 'stable both-edges',
-        scrollbarColor: '#444 #ccc', // thumb: 어두움, track: 밝음
+        scrollbarColor: '#44d #ccc',
       }}
-      className="scrollable"
     >
-      <div style={{ padding: 16 }}>
+      <div className="p-4">
         <h2>
           Scrollbar Demo <Badge>Stable</Badge>
         </h2>

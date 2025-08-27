@@ -1,6 +1,11 @@
 import { generateRandomData } from '~/common/lib/faker/utils';
 import SpreadsheetGrid from './grid';
 
+type Data = {
+  id: string;
+  value: string;
+};
+
 export default function FixedGridPage() {
   const columns = generateRandomData(20, (index, generator) => ({
     id: `${index + 1}`,

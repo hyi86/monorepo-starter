@@ -1,26 +1,76 @@
+import { Virtualizer } from '@tanstack/react-virtual';
 import { useEffect } from 'react';
 
-export function useKeyboardNavigation(
-  rowCount: number,
-  columnCount: number,
-  lastSelectedCell: { row: number; col: number } | null,
-  selectCell: (row: number, col: number) => void,
-  selectRow: (rowIndex: number) => void,
-  selectColumn: (columnIndex: number) => void,
-  extendRange: (endRow: number, endCol: number) => void,
-  rowVirtualizer: any,
-  columnVirtualizer: any,
-  isResizing: boolean = false,
-) {
+type UseKeyboardNavigationParams = {
+  rowCount: number;
+  columnCount: number;
+  lastSelectedCell: { row: number; col: number } | null;
+  selectCell: (row: number, col: number) => void;
+  selectRow: (rowIndex: number) => void;
+  selectColumn: (columnIndex: number) => void;
+  extendRange: (endRow: number, endCol: number) => void;
+  rowVirtualizer: Virtualizer<HTMLDivElement, any>;
+  columnVirtualizer: Virtualizer<HTMLDivElement, any>;
+  isResizing: boolean;
+  startEditing?: (rowIndex: number, colIndex: number) => void;
+  finishEditing?: (save: boolean) => void;
+  isEditing: boolean;
+  copySelectedCells?: () => void;
+  pasteToSelectedCell?: () => void;
+};
+
+export function useKeyboardNavigation({
+  rowCount,
+  columnCount,
+  lastSelectedCell,
+  selectCell,
+  selectRow,
+  selectColumn,
+  extendRange,
+  isResizing,
+  isEditing,
+  copySelectedCells,
+  pasteToSelectedCell,
+  startEditing,
+  finishEditing,
+  rowVirtualizer,
+  columnVirtualizer,
+}: UseKeyboardNavigationParams) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isResizing || !lastSelectedCell) return;
+
+      // 편집 중일 때는 내비게이션 키를 무시
+      if (isEditing) {
+        return;
+      }
 
       const { row, col } = lastSelectedCell;
       let newRow = row;
       let newCol = col;
 
       switch (e.key) {
+        case 'c':
+          if ((e.ctrlKey || e.metaKey) && copySelectedCells) {
+            e.preventDefault();
+            copySelectedCells();
+            return;
+          }
+          break;
+        case 'v':
+          if ((e.ctrlKey || e.metaKey) && pasteToSelectedCell) {
+            e.preventDefault();
+            pasteToSelectedCell();
+            return;
+          }
+          break;
+
+        case 'Enter':
+          e.preventDefault();
+          if (startEditing) {
+            startEditing(row, col);
+          }
+          return;
         case 'ArrowUp':
           e.preventDefault();
           newRow = Math.max(0, row - 1);
@@ -94,5 +144,10 @@ export function useKeyboardNavigation(
     rowVirtualizer,
     columnVirtualizer,
     isResizing,
+    startEditing,
+    finishEditing,
+    isEditing,
+    copySelectedCells,
+    pasteToSelectedCell,
   ]);
 }
