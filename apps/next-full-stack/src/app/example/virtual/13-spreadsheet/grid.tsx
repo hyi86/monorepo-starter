@@ -4,6 +4,7 @@ import { format } from '@henry-hong/common-utils/number';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { useColumnResize } from './hooks/use-column-resize';
+import { useKeyboardNavigation } from './hooks/use-keyboard-navigation';
 import { useSelection } from './hooks/use-selection';
 import { useVirtualization } from './hooks/use-virtualization';
 import {
@@ -49,11 +50,29 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
     selectedColumn,
     selectedRow,
     lastSelectedCell,
+    selectCell,
+    selectRow,
+    selectColumn,
+    extendRange,
     handleClickAll,
     handleClickHeaderCell,
     handleClickRowCell,
     handleClickCell,
   } = useSelection(rowCount, columnsState.length, isResizing);
+
+  // 키보드 내비게이션 훅
+  useKeyboardNavigation(
+    rowCount,
+    columnsState.length,
+    lastSelectedCell,
+    selectCell,
+    selectRow,
+    selectColumn,
+    extendRange,
+    rowVirtualizer,
+    columnVirtualizer,
+    isResizing,
+  );
 
   return (
     <div className={cn(isResizing && 'cursor-col-resize select-none')}>
@@ -76,6 +95,10 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
       <div className="mb-2 text-xs text-gray-500">
         💡 <strong>사용법:</strong> 클릭으로 선택, Shift+클릭으로 범위 선택, Cmd/Ctrl+클릭으로 다중 선택, 선택된 항목
         재클릭으로 해제
+      </div>
+      <div className="mb-2 text-xs text-gray-500">
+        ⌨️ <strong>키보드:</strong> 화살표키로 셀 이동 (↑↓←→), Shift+화살표키로 범위 선택, Shift+Space로 행 전체 선택,
+        Ctrl+Space로 열 전체 선택
       </div>
       <div className="mb-2 flex gap-2">
         <Button variant="outline" onClick={() => rowVirtualizer.scrollToIndex(0)}>

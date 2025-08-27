@@ -9,6 +9,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
   const [selectedColumn, setSelectedColumn] = useState<number | null>(null);
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
   const [lastSelectedCell, setLastSelectedCell] = useState<{ row: number; col: number } | null>(null);
+  const [rangeStartCell, setRangeStartCell] = useState<{ row: number; col: number } | null>(null);
 
   // Cmd/Ctrl 키 감지 유틸리티
   const isCmdOrCtrlPressed = (e: React.MouseEvent | MouseEvent) => {
@@ -21,6 +22,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
     setSelectionMode('none');
     setSelectedColumn(null);
     setSelectedRow(null);
+    setRangeStartCell(null);
   };
 
   const selectAll = () => {
@@ -112,6 +114,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
     setSelectedRow(null);
     const newLastSelectedCell = { row: rowIndex, col: columnIndex };
     setLastSelectedCell(newLastSelectedCell);
+    setRangeStartCell({ row: rowIndex, col: columnIndex });
   };
 
   const toggleCellSelection = (rowIndex: number, columnIndex: number) => {
@@ -142,6 +145,30 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
   };
 
   const selectRange = (startRow: number, startCol: number, endRow: number, endCol: number) => {
+    const rangeCells = new Set<string>();
+    const minRow = Math.min(startRow, endRow);
+    const maxRow = Math.max(startRow, endRow);
+    const minCol = Math.min(startCol, endCol);
+    const maxCol = Math.max(startCol, endCol);
+
+    for (let row = minRow; row <= maxRow; row++) {
+      for (let col = minCol; col <= maxCol; col++) {
+        rangeCells.add(`${row}-${col}`);
+      }
+    }
+
+    setSelectedCells(rangeCells);
+    setSelectionMode('none');
+    setSelectedColumn(null);
+    setSelectedRow(null);
+    const newLastSelectedCell = { row: endRow, col: endCol };
+    setLastSelectedCell(newLastSelectedCell);
+  };
+
+  const extendRange = (endRow: number, endCol: number) => {
+    if (!rangeStartCell) return;
+
+    const { row: startRow, col: startCol } = rangeStartCell;
     const rangeCells = new Set<string>();
     const minRow = Math.min(startRow, endRow);
     const maxRow = Math.max(startRow, endRow);
@@ -240,6 +267,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
     if (e.shiftKey && lastSelectedCell) {
       // Shift + Click: 범위 선택
       selectRange(lastSelectedCell.row, lastSelectedCell.col, rowIndex, columnIndex);
+      setRangeStartCell({ row: lastSelectedCell.row, col: lastSelectedCell.col });
     } else if (isCmdOrCtrlPressed(e)) {
       // Cmd/Ctrl + Click: 다중 선택 토글
       toggleCellSelection(rowIndex, columnIndex);
@@ -249,6 +277,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
     } else {
       // 일반 클릭: 단일 셀 선택
       selectCell(rowIndex, columnIndex);
+      setRangeStartCell({ row: rowIndex, col: columnIndex });
     }
   };
 
@@ -274,6 +303,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
     toggleCellSelection,
     deselectCell,
     selectRange,
+    extendRange,
 
     // 이벤트 핸들러들
     handleClickAll,
