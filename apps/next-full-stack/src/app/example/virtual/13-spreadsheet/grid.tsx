@@ -5,7 +5,7 @@ import { Button } from '@monorepo-starter/ui/components/button';
 import { Input } from '@monorepo-starter/ui/components/input';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { indexToColumnLabel } from './utils';
 
 type Column = {
@@ -27,6 +27,18 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
   const bodyHeight = 380; // 본문 높이
   const [scrollTop, setScrollTop] = useState(0); // 스크롤 위치
 
+  // 컬럼 리사이징 관련 상태
+  const [isResizing, setIsResizing] = useState(false);
+  const [resizeColumnIndex, setResizeColumnIndex] = useState<number | null>(null);
+  const [columnsState, setColumnsState] = useState<Column[]>(columns);
+
+  // 리사이징을 위한 ref
+  const resizeRef = useRef<{
+    startX: number;
+    startWidth: number;
+    columnIndex: number;
+  } | null>(null);
+
   const rowVirtualizer = useVirtualizer({
     count: rowCount,
     getScrollElement: () => parentRef.current,
@@ -37,9 +49,9 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
 
   const columnVirtualizer = useVirtualizer({
     horizontal: true,
-    count: columns.length,
+    count: columnsState.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: (index) => columns[index]?.width || 10,
+    estimateSize: (index) => columnsState[index]?.width || 10,
     overscan: 5,
   });
 
@@ -79,10 +91,61 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
     }
   }, []);
 
+  // 컬럼 리사이징 이벤트 핸들러들
+  const handleResizeStart = (columnIndex: number, e: React.MouseEvent) => {
+    e.preventDefault();
+    const column = columnsState[columnIndex];
+    if (!column) return;
+
+    setIsResizing(true);
+    setResizeColumnIndex(columnIndex);
+    resizeRef.current = {
+      startX: e.clientX,
+      startWidth: column.width,
+      columnIndex,
+    };
+  };
+
+  const handleResizeMove = (e: MouseEvent) => {
+    if (!resizeRef.current) return;
+
+    const { startX, startWidth, columnIndex } = resizeRef.current;
+    const deltaX = e.clientX - startX;
+    const newWidth = Math.max(50, startWidth + deltaX); // 최소 너비 50px
+
+    setColumnsState((prev) => {
+      const newState = prev.map((col, index) => (index === columnIndex ? { ...col, width: newWidth } : col));
+      return newState;
+    });
+
+    // 즉시 virtualizer 업데이트
+    columnVirtualizer.measure();
+  };
+
+  const handleResizeEnd = () => {
+    setIsResizing(false);
+    setResizeColumnIndex(null);
+    resizeRef.current = null;
+  };
+
+  // 전역 마우스 이벤트 리스너
+  useEffect(() => {
+    if (isResizing) {
+      document.addEventListener('mousemove', handleResizeMove);
+      document.addEventListener('mouseup', handleResizeEnd);
+
+      return () => {
+        document.removeEventListener('mousemove', handleResizeMove);
+        document.removeEventListener('mouseup', handleResizeEnd);
+      };
+    }
+  }, [isResizing]);
+
   return (
-    <div>
+    <div className={cn(isResizing && 'cursor-col-resize select-none')}>
       <div className="mb-2">
-        Total Content Size: {format(rowCount)} * {format(columns.length)} = {format(rowCount * columns.length)} Rows
+        Total Content Size: {format(rowCount)} * {format(columnsState.length)} ={' '}
+        {format(rowCount * columnsState.length)} Rows
       </div>
       <div className="mb-2 flex gap-2">
         <Button variant="outline" onClick={() => rowVirtualizer.scrollToIndex(0)}>
@@ -99,7 +162,7 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
         </Button>
       </div>
       <div className="relative flex border">
-        {/* 고정된 인덱스 컬럼 */}
+        {/* 고정된 행 인덱스 컬럼 */}
         <div className="flex flex-shrink-0 flex-col" style={{ height: `${bodyHeight}px` }}>
           {/* 인덱스 컬럼 헤더 */}
           <div
@@ -132,7 +195,7 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
 
         {/* 스크롤 가능한 데이터 영역 */}
         <div ref={parentRef} className="w-200 overflow-auto border" style={{ height: `${bodyHeight}px` }}>
-          {/* 고정된 헤더 */}
+          {/* 고정된 열 헤더 */}
           <div className="sticky top-0 z-20 border-b bg-gray-100">
             <div
               className="relative"
@@ -143,7 +206,12 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
               {columnVirtualizer.getVirtualItems().map((virtualColumn) => (
                 <div
                   key={`header-${virtualColumn.key}`}
-                  className="absolute left-0 top-0 z-0 border-b border-r bg-gray-100 p-1 text-center text-sm font-semibold"
+                  className={cn(
+                    'absolute left-0 top-0 z-0 border-b border-r p-1 text-center text-sm font-semibold transition-all duration-150',
+                    isResizing && resizeColumnIndex === virtualColumn.index
+                      ? 'border-blue-300 bg-blue-100'
+                      : 'bg-gray-100',
+                  )}
                   style={{
                     height: `${defaultColumnHeight}px`,
                     width: `${virtualColumn.size}px`,
@@ -152,6 +220,16 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
                   onClick={handleClickHeaderCell(virtualColumn.index)}
                 >
                   {indexToColumnLabel(virtualColumn.index)}
+                  {/* 리사이징 핸들 */}
+                  <div
+                    className={cn(
+                      'absolute right-0 top-0 h-full w-2 cursor-col-resize border opacity-0 transition-colors duration-150',
+                      isResizing && resizeColumnIndex === virtualColumn.index
+                        ? 'bg-blue-600 bg-opacity-80 shadow-lg'
+                        : 'bg-transparent hover:bg-blue-400 hover:bg-opacity-60',
+                    )}
+                    onMouseDown={(e) => handleResizeStart(virtualColumn.index, e)}
+                  />
                 </div>
               ))}
             </div>
@@ -168,13 +246,18 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
             {rowVirtualizer.getVirtualItems().map((virtualRow) => (
               <div key={virtualRow.key} data-index={virtualRow.index}>
                 {columnVirtualizer.getVirtualItems().map((virtualColumn) => {
-                  const index = virtualRow.index * columns.length + virtualColumn.index;
+                  const index = virtualRow.index * columnsState.length + virtualColumn.index;
                   if (index >= rows.length) return null;
 
                   return (
                     <div
                       key={virtualColumn.key}
-                      className={cn('truncate whitespace-nowrap border-b border-r bg-white text-sm')}
+                      className={cn(
+                        'truncate whitespace-nowrap border-b border-r text-sm transition-all duration-150',
+                        isResizing && resizeColumnIndex === virtualColumn.index
+                          ? 'border-blue-200 bg-blue-50'
+                          : 'bg-white',
+                      )}
                       style={{
                         position: 'absolute',
                         top: 0,
@@ -194,6 +277,13 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
           </div>
         </div>
       </div>
+
+      {/* 리사이징 중 오버레이 */}
+      {isResizing && (
+        <div className="pointer-events-none fixed inset-0 z-50">
+          <div className="absolute left-0 right-0 top-0 h-1 bg-blue-500 opacity-50" />
+        </div>
+      )}
     </div>
   );
 }

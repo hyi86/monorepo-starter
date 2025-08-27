@@ -4,7 +4,7 @@ import SpreadsheetGrid from './grid';
 export default function FixedGridPage() {
   const columns = generateRandomData(120, (index, generator) => ({
     id: `${index + 1}`,
-    width: generator.number.int({ min: 90, max: 120 }),
+    width: generator.number.int({ min: 90, max: 200 }),
   }));
 
   const data = generateRandomData(150_000, (index, generator) => ({
