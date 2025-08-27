@@ -48,11 +48,14 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
   const [lastSelectedCell, setLastSelectedCell] = useState<{ row: number; col: number } | null>(null);
 
+  // 키보드 내비게이션 관련 상태
+  const [focusedCell, setFocusedCell] = useState<{ row: number; col: number } | null>(null);
+
   const rowVirtualizer = useVirtualizer({
     count: rowCount,
     getScrollElement: () => parentRef.current,
     estimateSize: (index) => rows[index]?.height || defaultColumnHeight,
-    overscan: 3,
+    overscan: 20,
     paddingStart: 32,
     enabled: true,
   });
@@ -62,7 +65,7 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
     count: columnsState.length,
     getScrollElement: () => parentRef.current,
     estimateSize: (index) => columnsState[index]?.width || 10,
-    overscan: 5,
+    overscan: 20,
     enabled: true,
   });
 
@@ -160,6 +163,203 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
     return e.metaKey || e.ctrlKey;
   };
 
+  // 키보드 내비게이션 함수들
+  const moveToCell = (row: number, col: number, isRangeSelection = false) => {
+    // 범위 체크
+    if (row < 0 || row >= rowCount || col < 0 || col >= columnsState.length) {
+      return;
+    }
+
+    // 스크롤을 먼저 처리하여 가상화된 영역 확장
+    rowVirtualizer.scrollToIndex(row, { align: 'auto' });
+    columnVirtualizer.scrollToIndex(col, { align: 'auto' });
+
+    // 가상화된 영역이 업데이트된 후 포커스 설정
+    requestAnimationFrame(() => {
+      setFocusedCell({ row, col });
+
+      if (isRangeSelection && rangeStart) {
+        // 범위 선택인 경우
+        selectRange(rangeStart.row, rangeStart.col, row, col);
+      } else {
+        // 일반 선택인 경우
+        selectCell(row, col);
+      }
+    });
+  };
+
+  // 범위 선택을 위한 이동 함수
+  const moveToCellWithRange = (row: number, col: number, startRow: number, startCol: number) => {
+    // 범위 체크
+    if (row < 0 || row >= rowCount || col < 0 || col >= columnsState.length) {
+      return;
+    }
+
+    // 스크롤을 먼저 처리하여 가상화된 영역 확장
+    rowVirtualizer.scrollToIndex(row, { align: 'auto' });
+    columnVirtualizer.scrollToIndex(col, { align: 'auto' });
+
+    // 가상화된 영역이 업데이트된 후 포커스 설정
+    requestAnimationFrame(() => {
+      setFocusedCell({ row, col });
+      selectRange(startRow, startCol, row, col);
+    });
+  };
+
+  // 범위 선택을 위한 시작점
+  const [rangeStart, setRangeStart] = useState<{ row: number; col: number } | null>(null);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!focusedCell) return;
+
+    const { row, col } = focusedCell;
+
+    switch (e.key) {
+      case 'ArrowUp':
+        e.preventDefault();
+        if (e.shiftKey) {
+          // Shift + ArrowUp: 범위 선택
+          const startRow = rangeStart ? rangeStart.row : row;
+          const startCol = rangeStart ? rangeStart.col : col;
+          if (!rangeStart) {
+            setRangeStart({ row, col });
+          }
+          const newRow = Math.max(0, row - 1);
+          moveToCellWithRange(newRow, col, startRow, startCol);
+        } else if (e.metaKey || e.ctrlKey) {
+          // Cmd/Ctrl + ArrowUp: 맨 위로 이동
+          setRangeStart(null);
+          moveToCell(0, col);
+        } else {
+          // 일반 ArrowUp: 위로 이동
+          setRangeStart(null);
+          moveToCell(row - 1, col);
+        }
+        break;
+      case 'ArrowDown':
+        e.preventDefault();
+        if (e.shiftKey) {
+          // Shift + ArrowDown: 범위 선택
+          const startRow = rangeStart ? rangeStart.row : row;
+          const startCol = rangeStart ? rangeStart.col : col;
+          if (!rangeStart) {
+            setRangeStart({ row, col });
+          }
+          const newRow = Math.min(rowCount - 1, row + 1);
+          moveToCellWithRange(newRow, col, startRow, startCol);
+        } else if (e.metaKey || e.ctrlKey) {
+          // Cmd/Ctrl + ArrowDown: 맨 아래로 이동
+          setRangeStart(null);
+          moveToCell(rowCount - 1, col);
+        } else {
+          // 일반 ArrowDown: 아래로 이동
+          setRangeStart(null);
+          moveToCell(row + 1, col);
+        }
+        break;
+      case 'ArrowLeft':
+        e.preventDefault();
+        if (e.shiftKey) {
+          // Shift + ArrowLeft: 범위 선택
+          const startRow = rangeStart ? rangeStart.row : row;
+          const startCol = rangeStart ? rangeStart.col : col;
+          if (!rangeStart) {
+            setRangeStart({ row, col });
+          }
+          const newCol = Math.max(0, col - 1);
+          moveToCellWithRange(row, newCol, startRow, startCol);
+        } else if (e.metaKey || e.ctrlKey) {
+          // Cmd/Ctrl + ArrowLeft: 맨 왼쪽으로 이동
+          setRangeStart(null);
+          moveToCell(row, 0);
+        } else {
+          // 일반 ArrowLeft: 왼쪽으로 이동
+          setRangeStart(null);
+          moveToCell(row, col - 1);
+        }
+        break;
+      case 'ArrowRight':
+        e.preventDefault();
+        if (e.shiftKey) {
+          // Shift + ArrowRight: 범위 선택
+          const startRow = rangeStart ? rangeStart.row : row;
+          const startCol = rangeStart ? rangeStart.col : col;
+          if (!rangeStart) {
+            setRangeStart({ row, col });
+          }
+          const newCol = Math.min(columnsState.length - 1, col + 1);
+          moveToCellWithRange(row, newCol, startRow, startCol);
+        } else if (e.metaKey || e.ctrlKey) {
+          // Cmd/Ctrl + ArrowRight: 맨 오른쪽으로 이동
+          setRangeStart(null);
+          moveToCell(row, columnsState.length - 1);
+        } else {
+          // 일반 ArrowRight: 오른쪽으로 이동
+          setRangeStart(null);
+          moveToCell(row, col + 1);
+        }
+        break;
+      case 'Enter':
+        e.preventDefault();
+        setRangeStart(null); // 범위 선택 초기화
+        if (e.shiftKey) {
+          // Shift + Enter: 위로 이동
+          moveToCell(row - 1, col);
+        } else {
+          // Enter: 아래로 이동
+          moveToCell(row + 1, col);
+        }
+        break;
+      case 'Tab':
+        e.preventDefault();
+        setRangeStart(null); // 범위 선택 초기화
+        if (e.shiftKey) {
+          // Shift + Tab: 왼쪽으로 이동
+          moveToCell(row, col - 1);
+        } else {
+          // Tab: 오른쪽으로 이동
+          moveToCell(row, col + 1);
+        }
+        break;
+      case 'Home':
+        e.preventDefault();
+        setRangeStart(null); // 범위 선택 초기화
+        if (e.ctrlKey) {
+          // Ctrl + Home: 첫 번째 셀로 이동
+          moveToCell(0, 0);
+        } else {
+          // Home: 현재 행의 첫 번째 셀로 이동
+          moveToCell(row, 0);
+        }
+        break;
+      case 'End':
+        e.preventDefault();
+        setRangeStart(null); // 범위 선택 초기화
+        if (e.ctrlKey) {
+          // Ctrl + End: 마지막 셀로 이동
+          moveToCell(rowCount - 1, columnsState.length - 1);
+        } else {
+          // End: 현재 행의 마지막 셀로 이동
+          moveToCell(row, columnsState.length - 1);
+        }
+        break;
+      case 'PageUp':
+        e.preventDefault();
+        setRangeStart(null); // 범위 선택 초기화
+        moveToCell(Math.max(0, row - 10), col);
+        break;
+      case 'PageDown':
+        e.preventDefault();
+        setRangeStart(null); // 범위 선택 초기화
+        moveToCell(Math.min(rowCount - 1, row + 10), col);
+        break;
+      case 'Escape':
+        e.preventDefault();
+        setRangeStart(null); // 범위 선택 초기화
+        break;
+    }
+  };
+
   const selectCell = (rowIndex: number, columnIndex: number) => {
     const cellKey = `${rowIndex}-${columnIndex}`;
     setSelectedCells(new Set([cellKey]));
@@ -167,6 +367,8 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
     setSelectedColumn(null);
     setSelectedRow(null);
     setLastSelectedCell({ row: rowIndex, col: columnIndex });
+    setFocusedCell({ row: rowIndex, col: columnIndex });
+    setRangeStart(null); // 범위 선택 초기화
   };
 
   const toggleCellSelection = (rowIndex: number, columnIndex: number) => {
@@ -186,8 +388,7 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
     setLastSelectedCell({ row: rowIndex, col: columnIndex });
   };
 
-  const deselectCell = (rowIndex: number, columnIndex: number) => {
-    const cellKey = `${rowIndex}-${columnIndex}`;
+  const deselectCell = () => {
     setSelectedCells(new Set());
     setSelectionMode('none');
     setSelectedColumn(null);
@@ -296,7 +497,7 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
       toggleCellSelection(rowIndex, columnIndex);
     } else if (isCurrentlySelected && selectedCells.size === 1) {
       // 이미 선택된 단일 셀을 다시 클릭: 선택 해제
-      deselectCell(rowIndex, columnIndex);
+      deselectCell();
     } else {
       // 일반 클릭: 단일 셀 선택
       selectCell(rowIndex, columnIndex);
@@ -371,7 +572,7 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
   }, [isResizing]);
 
   return (
-    <div className={cn(isResizing && 'cursor-col-resize select-none')}>
+    <div className={cn(isResizing && 'cursor-col-resize select-none')} onKeyDown={handleKeyDown} tabIndex={0}>
       <div className="mb-2">
         Total Content Size: {format(rowCount)} x {format(columnsState.length)} ={' '}
         {format(rowCount * columnsState.length)} Rows
@@ -392,6 +593,10 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
       <div className="mb-2 text-xs text-gray-500">
         💡 <strong>사용법:</strong> 클릭으로 선택, Shift+클릭으로 범위 선택, Cmd/Ctrl+클릭으로 다중 선택, 선택된 항목
         재클릭으로 해제
+      </div>
+      <div className="mb-2 text-xs text-gray-500">
+        ⌨️ <strong>키보드:</strong> 화살표키로 이동, Enter로 아래 이동, Tab으로 다음 셀, Home/End로 행 이동,
+        Ctrl+Home/End로 처음/끝 이동, Cmd/Ctrl+화살표로 맨 끝/처음 이동, Shift+화살표로 범위 선택
       </div>
       <div className="mb-2 flex gap-2">
         <Button variant="outline" onClick={() => rowVirtualizer.scrollToIndex(0)}>
@@ -514,7 +719,9 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
                           ? 'border-blue-200 bg-blue-50'
                           : selectedCells.has(`${virtualRow.index}-${virtualColumn.index}`)
                             ? 'border-blue-500 bg-blue-100'
-                            : 'bg-white hover:bg-gray-50',
+                            : focusedCell?.row === virtualRow.index && focusedCell?.col === virtualColumn.index
+                              ? 'border-green-500 bg-green-50 ring-2 ring-green-300'
+                              : 'bg-white hover:bg-gray-50',
                       )}
                       style={{
                         position: 'absolute',
