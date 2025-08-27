@@ -5,7 +5,22 @@ import { Button } from '@monorepo-starter/ui/components/button';
 import { Input } from '@monorepo-starter/ui/components/input';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
+import {
+  getCellRootStyle,
+  getCellStyle,
+  getColumnHeaderContentStyle,
+  getColumnHeaderItemStyle,
+  getColumnHeaderStyle,
+  getCornerStyle,
+  getResizeHandleStyle,
+  getRootContainerStyle,
+  getRootStyle,
+  getRowHeaderContentItemStyle,
+  getRowHeaderContentScrollStyle,
+  getRowHeaderContentStyle,
+  getRowHeaderStyle,
+} from './styles';
 import { indexToColumnLabel } from './utils';
 
 type Column = {
@@ -20,11 +35,22 @@ type Data = {
 };
 
 export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; columns: Column[] }) {
+  // 컨테이너 Ref
   const parentRef = useRef<HTMLDivElement>(null);
+  // 리사이징 Ref
+  const resizeRef = useRef<{
+    startX: number;
+    startWidth: number;
+    columnIndex: number;
+  } | null>(null);
+
   const rowCount = Math.floor(rows.length / columns.length);
-  const indexColumnWidth = 60; // 인덱스 컬럼 너비
-  const defaultColumnHeight = 32; // 기본 컬럼 높이
-  const bodyHeight = 380; // 본문 높이
+  // 기본 컬럼 높이
+  const defaultColumnHeight = 36;
+  const contentSize: { width: CSSProperties['width']; height: CSSProperties['height'] } = {
+    width: 500,
+    height: 380,
+  };
 
   // 스크롤 위치 상태
   const [scrollTop, setScrollTop] = useState(0);
@@ -33,13 +59,6 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
   const [isResizing, setIsResizing] = useState(false);
   const [resizeColumnIndex, setResizeColumnIndex] = useState<number | null>(null);
   const [columnsState, setColumnsState] = useState<Column[]>(columns);
-
-  // 리사이징을 위한 ref
-  const resizeRef = useRef<{
-    startX: number;
-    startWidth: number;
-    columnIndex: number;
-  } | null>(null);
 
   // 셀 선택 관련 상태
   const [selectedCells, setSelectedCells] = useState<Set<string>>(new Set());
@@ -51,15 +70,17 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
   // 키보드 내비게이션 관련 상태
   const [focusedCell, setFocusedCell] = useState<{ row: number; col: number } | null>(null);
 
+  // 행 가상화
   const rowVirtualizer = useVirtualizer({
     count: rowCount,
     getScrollElement: () => parentRef.current,
     estimateSize: (index) => rows[index]?.height || defaultColumnHeight,
     overscan: 20,
-    paddingStart: 32,
+    paddingStart: defaultColumnHeight,
     enabled: true,
   });
 
+  // 열 가상화
   const columnVirtualizer = useVirtualizer({
     horizontal: true,
     count: columnsState.length,
@@ -516,7 +537,7 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
   useEffect(() => {
     const scrollElement = parentRef.current;
     if (scrollElement) {
-      scrollElement.addEventListener('scroll', handleScroll);
+      scrollElement.addEventListener('scroll', handleScroll, { passive: true });
       return () => scrollElement.removeEventListener('scroll', handleScroll);
     }
   }, [handleScroll]);
@@ -612,37 +633,21 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
           Scroll to right
         </Button>
       </div>
-      <div className="relative flex border">
-        {/* 고정된 행 인덱스 컬럼 */}
-        <div className="flex flex-shrink-0 flex-col" style={{ height: `${bodyHeight}px` }}>
-          {/* 인덱스 컬럼 헤더 */}
-          <div
-            className={cn(
-              'block cursor-pointer border-b pt-1.5 text-center text-sm transition-all duration-150',
-              selectionMode === 'all' ? 'border-blue-500 bg-blue-200 text-blue-800' : 'bg-gray-100 hover:bg-gray-200',
-            )}
-            style={{ height: `${defaultColumnHeight + 5}px` }}
-            onClick={handleClickAll}
-          >
-            &nbsp;
-          </div>
 
-          {/* 인덱스 컬럼 데이터 - 스크롤 위치에 따라 동기화 */}
-          <div className="relative h-full overflow-hidden">
-            <div style={{ transform: `translateY(-${scrollTop}px)` }}>
+      <div style={getRootStyle()}>
+        {/* 고정 코너 */}
+        <div onClick={handleClickAll} style={getCornerStyle(defaultColumnHeight)}>
+          #
+        </div>
+
+        {/* 고정 행(Row) 헤더 */}
+        <div style={getRowHeaderStyle(contentSize.height, defaultColumnHeight)}>
+          <div style={getRowHeaderContentStyle(rowVirtualizer.getTotalSize())}>
+            <div style={getRowHeaderContentScrollStyle(scrollTop)}>
               {Array.from({ length: rowCount }, (_, index) => (
                 <div
-                  key={`index-${index}`}
-                  className={cn(
-                    'cursor-pointer border-b border-r p-1 text-center text-sm font-medium transition-all duration-150',
-                    selectedRow === index
-                      ? 'border-blue-500 bg-blue-200 text-blue-800'
-                      : 'bg-gray-50 hover:bg-gray-100',
-                  )}
-                  style={{
-                    width: `${indexColumnWidth}px`,
-                    height: `${rows[index]?.height || defaultColumnHeight}px`,
-                  }}
+                  key={index}
+                  style={getRowHeaderContentItemStyle(rows[index]?.height || defaultColumnHeight)}
                   onClick={handleClickRowCell(index)}
                 >
                   {index + 1}
@@ -652,88 +657,41 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
           </div>
         </div>
 
-        {/* 스크롤 가능한 데이터 영역 */}
-        <div ref={parentRef} className="w-200 overflow-auto border" style={{ height: `${bodyHeight}px` }}>
-          {/* 고정된 열 헤더 */}
-          <div className="sticky top-0 z-20 border-b bg-gray-100">
-            <div
-              className="relative"
-              style={{
-                width: `${columnVirtualizer.getTotalSize()}px`,
-              }}
-            >
+        {/* 데이터 컨테이너 */}
+        <div ref={parentRef} style={getRootContainerStyle(contentSize.width, contentSize.height)}>
+          {/* 고정 열(Column) 헤더 */}
+          <div style={getColumnHeaderStyle()}>
+            <div style={getColumnHeaderContentStyle(columnVirtualizer.getTotalSize())}>
               {columnVirtualizer.getVirtualItems().map((virtualColumn) => (
                 <div
-                  key={`header-${virtualColumn.key}`}
-                  className={cn(
-                    'absolute left-0 top-0 z-0 cursor-pointer border-b border-r p-1 text-center text-sm font-semibold transition-all duration-150',
-                    isResizing && resizeColumnIndex === virtualColumn.index
-                      ? 'border-blue-300 bg-blue-100'
-                      : selectedColumn === virtualColumn.index
-                        ? 'border-blue-500 bg-blue-200 text-blue-800'
-                        : 'bg-gray-100 hover:bg-gray-200',
-                  )}
-                  style={{
-                    height: `${defaultColumnHeight}px`,
-                    width: `${virtualColumn.size}px`,
-                    transform: `translateX(${virtualColumn.start}px)`,
-                  }}
+                  key={virtualColumn.key}
+                  style={getColumnHeaderItemStyle(defaultColumnHeight, virtualColumn.size, virtualColumn.start)}
                   onClick={handleClickHeaderCell(virtualColumn.index)}
                 >
                   {indexToColumnLabel(virtualColumn.index)}
+
                   {/* 리사이징 핸들 */}
-                  <div
-                    className={cn(
-                      'absolute right-0 top-0 h-full w-2 cursor-col-resize border opacity-0 transition-colors duration-150',
-                      isResizing && resizeColumnIndex === virtualColumn.index
-                        ? 'bg-blue-600 bg-opacity-80 shadow-lg'
-                        : 'bg-transparent hover:bg-blue-400 hover:bg-opacity-60',
-                    )}
-                    onMouseDown={(e) => handleResizeStart(virtualColumn.index, e)}
-                  />
+                  <div style={getResizeHandleStyle()} onMouseDown={(e) => handleResizeStart(virtualColumn.index, e)} />
                 </div>
               ))}
             </div>
           </div>
 
-          {/* 스크롤 가능한 데이터 영역 */}
-          <div
-            className={cn('relative')}
-            style={{
-              height: `${rowVirtualizer.getTotalSize()}px`,
-              width: `${columnVirtualizer.getTotalSize()}px`,
-            }}
-          >
+          {/* 데이터 영역 */}
+          <div style={getCellRootStyle(rowVirtualizer.getTotalSize(), columnVirtualizer.getTotalSize())}>
             {rowVirtualizer.getVirtualItems().map((virtualRow) => (
-              <div key={virtualRow.key} data-index={virtualRow.index}>
+              <div key={virtualRow.key}>
                 {columnVirtualizer.getVirtualItems().map((virtualColumn) => {
                   const index = virtualRow.index * columnsState.length + virtualColumn.index;
-                  if (index >= rows.length) return null;
+                  if (index >= rows.length || rows[index] === undefined) return null;
 
                   return (
                     <div
                       key={virtualColumn.key}
-                      className={cn(
-                        'cursor-pointer truncate whitespace-nowrap border-b border-r text-sm transition-all duration-150',
-                        isResizing && resizeColumnIndex === virtualColumn.index
-                          ? 'border-blue-200 bg-blue-50'
-                          : selectedCells.has(`${virtualRow.index}-${virtualColumn.index}`)
-                            ? 'border-blue-500 bg-blue-100'
-                            : focusedCell?.row === virtualRow.index && focusedCell?.col === virtualColumn.index
-                              ? 'border-green-500 bg-green-50 ring-2 ring-green-300'
-                              : 'bg-white hover:bg-gray-50',
-                      )}
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: `${virtualColumn.size}px`,
-                        height: `${virtualRow.size}px`,
-                        transform: `translateX(${virtualColumn.start}px) translateY(${virtualRow.start}px)`,
-                      }}
+                      style={getCellStyle(virtualRow.size, virtualColumn.size, virtualColumn.start, virtualRow.start)}
                       onClick={handleClickCell(virtualRow.index, virtualColumn.index)}
                     >
-                      <Input value={rows[index]?.value} className="size-full rounded-none border-none" readOnly />
+                      {rows[index]?.value}
                     </div>
                   );
                 })}
