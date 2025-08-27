@@ -25,7 +25,9 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
   const indexColumnWidth = 60; // 인덱스 컬럼 너비
   const defaultColumnHeight = 32; // 기본 컬럼 높이
   const bodyHeight = 380; // 본문 높이
-  const [scrollTop, setScrollTop] = useState(0); // 스크롤 위치
+
+  // 스크롤 위치 상태
+  const [scrollTop, setScrollTop] = useState(0);
 
   // 컬럼 리사이징 관련 상태
   const [isResizing, setIsResizing] = useState(false);
@@ -39,12 +41,20 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
     columnIndex: number;
   } | null>(null);
 
+  // 셀 선택 관련 상태
+  const [selectedCells, setSelectedCells] = useState<Set<string>>(new Set());
+  const [selectionMode, setSelectionMode] = useState<'none' | 'all' | 'column' | 'row'>('none');
+  const [selectedColumn, setSelectedColumn] = useState<number | null>(null);
+  const [selectedRow, setSelectedRow] = useState<number | null>(null);
+  const [lastSelectedCell, setLastSelectedCell] = useState<{ row: number; col: number } | null>(null);
+
   const rowVirtualizer = useVirtualizer({
     count: rowCount,
     getScrollElement: () => parentRef.current,
     estimateSize: (index) => rows[index]?.height || defaultColumnHeight,
-    overscan: 5,
+    overscan: 3,
     paddingStart: 32,
+    enabled: true,
   });
 
   const columnVirtualizer = useVirtualizer({
@@ -53,43 +63,262 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
     getScrollElement: () => parentRef.current,
     estimateSize: (index) => columnsState[index]?.width || 10,
     overscan: 5,
+    enabled: true,
   });
+
+  // 셀 선택 관련 함수들
+  const clearSelection = () => {
+    setSelectedCells(new Set());
+    setSelectionMode('none');
+    setSelectedColumn(null);
+    setSelectedRow(null);
+  };
+
+  const selectAll = () => {
+    const allCells = new Set<string>();
+    for (let row = 0; row < rowCount; row++) {
+      for (let col = 0; col < columnsState.length; col++) {
+        allCells.add(`${row}-${col}`);
+      }
+    }
+    setSelectedCells(allCells);
+    setSelectionMode('all');
+    setSelectedColumn(null);
+    setSelectedRow(null);
+  };
+
+  const selectColumn = (columnIndex: number) => {
+    const columnCells = new Set<string>();
+    for (let row = 0; row < rowCount; row++) {
+      columnCells.add(`${row}-${columnIndex}`);
+    }
+    setSelectedCells(columnCells);
+    setSelectionMode('column');
+    setSelectedColumn(columnIndex);
+    setSelectedRow(null);
+  };
+
+  const toggleColumnSelection = (columnIndex: number) => {
+    const columnCells = new Set<string>();
+    for (let row = 0; row < rowCount; row++) {
+      columnCells.add(`${row}-${columnIndex}`);
+    }
+
+    const newSelectedCells = new Set(selectedCells);
+    const isColumnSelected = Array.from(columnCells).every((cell) => newSelectedCells.has(cell));
+
+    if (isColumnSelected) {
+      // 열이 이미 선택되어 있으면 제거
+      columnCells.forEach((cell) => newSelectedCells.delete(cell));
+    } else {
+      // 열이 선택되어 있지 않으면 추가
+      columnCells.forEach((cell) => newSelectedCells.add(cell));
+    }
+
+    setSelectedCells(newSelectedCells);
+    setSelectionMode('none');
+    setSelectedColumn(null);
+    setSelectedRow(null);
+  };
+
+  const selectRow = (rowIndex: number) => {
+    const rowCells = new Set<string>();
+    for (let col = 0; col < columnsState.length; col++) {
+      rowCells.add(`${rowIndex}-${col}`);
+    }
+    setSelectedCells(rowCells);
+    setSelectionMode('row');
+    setSelectedRow(rowIndex);
+    setSelectedColumn(null);
+  };
+
+  const toggleRowSelection = (rowIndex: number) => {
+    const rowCells = new Set<string>();
+    for (let col = 0; col < columnsState.length; col++) {
+      rowCells.add(`${rowIndex}-${col}`);
+    }
+
+    const newSelectedCells = new Set(selectedCells);
+    const isRowSelected = Array.from(rowCells).every((cell) => newSelectedCells.has(cell));
+
+    if (isRowSelected) {
+      // 행이 이미 선택되어 있으면 제거
+      rowCells.forEach((cell) => newSelectedCells.delete(cell));
+    } else {
+      // 행이 선택되어 있지 않으면 추가
+      rowCells.forEach((cell) => newSelectedCells.add(cell));
+    }
+
+    setSelectedCells(newSelectedCells);
+    setSelectionMode('none');
+    setSelectedColumn(null);
+    setSelectedRow(null);
+  };
+
+  // Cmd/Ctrl 키 감지 유틸리티
+  const isCmdOrCtrlPressed = (e: React.MouseEvent | MouseEvent) => {
+    return e.metaKey || e.ctrlKey;
+  };
+
+  const selectCell = (rowIndex: number, columnIndex: number) => {
+    const cellKey = `${rowIndex}-${columnIndex}`;
+    setSelectedCells(new Set([cellKey]));
+    setSelectionMode('none');
+    setSelectedColumn(null);
+    setSelectedRow(null);
+    setLastSelectedCell({ row: rowIndex, col: columnIndex });
+  };
+
+  const toggleCellSelection = (rowIndex: number, columnIndex: number) => {
+    const cellKey = `${rowIndex}-${columnIndex}`;
+    const newSelectedCells = new Set(selectedCells);
+
+    if (newSelectedCells.has(cellKey)) {
+      newSelectedCells.delete(cellKey);
+    } else {
+      newSelectedCells.add(cellKey);
+    }
+
+    setSelectedCells(newSelectedCells);
+    setSelectionMode('none');
+    setSelectedColumn(null);
+    setSelectedRow(null);
+    setLastSelectedCell({ row: rowIndex, col: columnIndex });
+  };
+
+  const deselectCell = (rowIndex: number, columnIndex: number) => {
+    const cellKey = `${rowIndex}-${columnIndex}`;
+    setSelectedCells(new Set());
+    setSelectionMode('none');
+    setSelectedColumn(null);
+    setSelectedRow(null);
+    setLastSelectedCell(null);
+  };
+
+  const selectRange = (startRow: number, startCol: number, endRow: number, endCol: number) => {
+    const rangeCells = new Set<string>();
+    const minRow = Math.min(startRow, endRow);
+    const maxRow = Math.max(startRow, endRow);
+    const minCol = Math.min(startCol, endCol);
+    const maxCol = Math.max(startCol, endCol);
+
+    for (let row = minRow; row <= maxRow; row++) {
+      for (let col = minCol; col <= maxCol; col++) {
+        rangeCells.add(`${row}-${col}`);
+      }
+    }
+
+    setSelectedCells(rangeCells);
+    setSelectionMode('none');
+    setSelectedColumn(null);
+    setSelectedRow(null);
+    setLastSelectedCell({ row: endRow, col: endCol });
+  };
 
   // 전체 클릭 이벤트
   const handleClickAll = () => {
-    console.log('all');
+    if (selectionMode === 'all') {
+      // 이미 전체 선택된 상태에서 다시 클릭: 선택 해제
+      clearSelection();
+    } else {
+      selectAll();
+    }
   };
 
   // Column 클릭 이벤트
-  const handleClickHeaderCell = (index: number) => () => {
-    console.log(index);
+  const handleClickHeaderCell = (index: number) => (e: React.MouseEvent) => {
+    if (e.shiftKey && selectedColumn !== null) {
+      // Shift + Click: 열 범위 선택
+      const minCol = Math.min(selectedColumn, index);
+      const maxCol = Math.max(selectedColumn, index);
+      const columnRangeCells = new Set<string>();
+
+      for (let row = 0; row < rowCount; row++) {
+        for (let col = minCol; col <= maxCol; col++) {
+          columnRangeCells.add(`${row}-${col}`);
+        }
+      }
+
+      setSelectedCells(columnRangeCells);
+      setSelectionMode('none');
+      setSelectedColumn(null);
+      setSelectedRow(null);
+    } else if (isCmdOrCtrlPressed(e)) {
+      // Cmd/Ctrl + Click: 열 다중 선택 토글
+      toggleColumnSelection(index);
+    } else if (selectedColumn === index && selectionMode === 'column') {
+      // 이미 선택된 열을 다시 클릭: 선택 해제
+      clearSelection();
+    } else {
+      selectColumn(index);
+    }
   };
 
   // Row 클릭 이벤트
-  const handleClickRowCell = (index: number) => () => {
-    console.log(index);
+  const handleClickRowCell = (index: number) => (e: React.MouseEvent) => {
+    if (e.shiftKey && selectedRow !== null) {
+      // Shift + Click: 행 범위 선택
+      const minRow = Math.min(selectedRow, index);
+      const maxRow = Math.max(selectedRow, index);
+      const rowRangeCells = new Set<string>();
+
+      for (let row = minRow; row <= maxRow; row++) {
+        for (let col = 0; col < columnsState.length; col++) {
+          rowRangeCells.add(`${row}-${col}`);
+        }
+      }
+
+      setSelectedCells(rowRangeCells);
+      setSelectionMode('none');
+      setSelectedColumn(null);
+      setSelectedRow(null);
+    } else if (isCmdOrCtrlPressed(e)) {
+      // Cmd/Ctrl + Click: 행 다중 선택 토글
+      toggleRowSelection(index);
+    } else if (selectedRow === index && selectionMode === 'row') {
+      // 이미 선택된 행을 다시 클릭: 선택 해제
+      clearSelection();
+    } else {
+      selectRow(index);
+    }
   };
 
   // 개별 셀 클릭 이벤트
-  const handleClickCell = (row: Data | undefined) => () => {
-    if (!row) return;
-    console.log(row);
+  const handleClickCell = (rowIndex: number, columnIndex: number) => (e: React.MouseEvent) => {
+    const cellKey = `${rowIndex}-${columnIndex}`;
+    const isCurrentlySelected = selectedCells.has(cellKey);
+
+    if (e.shiftKey && lastSelectedCell) {
+      // Shift + Click: 범위 선택
+      selectRange(lastSelectedCell.row, lastSelectedCell.col, rowIndex, columnIndex);
+    } else if (isCmdOrCtrlPressed(e)) {
+      // Cmd/Ctrl + Click: 다중 선택 토글
+      toggleCellSelection(rowIndex, columnIndex);
+    } else if (isCurrentlySelected && selectedCells.size === 1) {
+      // 이미 선택된 단일 셀을 다시 클릭: 선택 해제
+      deselectCell(rowIndex, columnIndex);
+    } else {
+      // 일반 클릭: 단일 셀 선택
+      selectCell(rowIndex, columnIndex);
+    }
   };
+
+  // 스크롤 이벤트 핸들러
+  const handleScroll = useCallback(() => {
+    if (parentRef.current) {
+      const newScrollTop = parentRef.current.scrollTop;
+      setScrollTop(newScrollTop);
+    }
+  }, []);
 
   // 스크롤 이벤트 감지
   useEffect(() => {
-    const handleScroll = () => {
-      if (parentRef.current) {
-        setScrollTop(parentRef.current.scrollTop);
-      }
-    };
-
     const scrollElement = parentRef.current;
     if (scrollElement) {
       scrollElement.addEventListener('scroll', handleScroll);
       return () => scrollElement.removeEventListener('scroll', handleScroll);
     }
-  }, []);
+  }, [handleScroll]);
 
   // 컬럼 리사이징 이벤트 핸들러들
   const handleResizeStart = (columnIndex: number, e: React.MouseEvent) => {
@@ -144,8 +373,25 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
   return (
     <div className={cn(isResizing && 'cursor-col-resize select-none')}>
       <div className="mb-2">
-        Total Content Size: {format(rowCount)} * {format(columnsState.length)} ={' '}
+        Total Content Size: {format(rowCount)} x {format(columnsState.length)} ={' '}
         {format(rowCount * columnsState.length)} Rows
+      </div>
+      <div className="mb-2 text-sm text-gray-600">
+        {selectionMode === 'all' && '전체 선택됨'}
+        {selectionMode === 'column' && selectedColumn !== null && `열 ${indexToColumnLabel(selectedColumn)} 선택됨`}
+        {selectionMode === 'row' && selectedRow !== null && `행 ${selectedRow + 1} 선택됨`}
+        {selectionMode === 'none' && selectedCells.size > 0 && `${selectedCells.size}개 셀 선택됨`}
+        {selectionMode === 'none' && selectedCells.size === 0 && '선택된 셀 없음'}
+        {lastSelectedCell && (
+          <span className="ml-2 text-gray-500">
+            (마지막 선택: {indexToColumnLabel(lastSelectedCell.col)}
+            {lastSelectedCell.row + 1})
+          </span>
+        )}
+      </div>
+      <div className="mb-2 text-xs text-gray-500">
+        💡 <strong>사용법:</strong> 클릭으로 선택, Shift+클릭으로 범위 선택, Cmd/Ctrl+클릭으로 다중 선택, 선택된 항목
+        재클릭으로 해제
       </div>
       <div className="mb-2 flex gap-2">
         <Button variant="outline" onClick={() => rowVirtualizer.scrollToIndex(0)}>
@@ -166,7 +412,10 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
         <div className="flex flex-shrink-0 flex-col" style={{ height: `${bodyHeight}px` }}>
           {/* 인덱스 컬럼 헤더 */}
           <div
-            className="block border-b bg-gray-100 pt-1.5 text-center text-sm"
+            className={cn(
+              'block cursor-pointer border-b pt-1.5 text-center text-sm transition-all duration-150',
+              selectionMode === 'all' ? 'border-blue-500 bg-blue-200 text-blue-800' : 'bg-gray-100 hover:bg-gray-200',
+            )}
             style={{ height: `${defaultColumnHeight + 5}px` }}
             onClick={handleClickAll}
           >
@@ -179,7 +428,12 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
               {Array.from({ length: rowCount }, (_, index) => (
                 <div
                   key={`index-${index}`}
-                  className="border-b border-r bg-gray-50 p-1 text-center text-sm font-medium"
+                  className={cn(
+                    'cursor-pointer border-b border-r p-1 text-center text-sm font-medium transition-all duration-150',
+                    selectedRow === index
+                      ? 'border-blue-500 bg-blue-200 text-blue-800'
+                      : 'bg-gray-50 hover:bg-gray-100',
+                  )}
                   style={{
                     width: `${indexColumnWidth}px`,
                     height: `${rows[index]?.height || defaultColumnHeight}px`,
@@ -207,10 +461,12 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
                 <div
                   key={`header-${virtualColumn.key}`}
                   className={cn(
-                    'absolute left-0 top-0 z-0 border-b border-r p-1 text-center text-sm font-semibold transition-all duration-150',
+                    'absolute left-0 top-0 z-0 cursor-pointer border-b border-r p-1 text-center text-sm font-semibold transition-all duration-150',
                     isResizing && resizeColumnIndex === virtualColumn.index
                       ? 'border-blue-300 bg-blue-100'
-                      : 'bg-gray-100',
+                      : selectedColumn === virtualColumn.index
+                        ? 'border-blue-500 bg-blue-200 text-blue-800'
+                        : 'bg-gray-100 hover:bg-gray-200',
                   )}
                   style={{
                     height: `${defaultColumnHeight}px`,
@@ -253,10 +509,12 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
                     <div
                       key={virtualColumn.key}
                       className={cn(
-                        'truncate whitespace-nowrap border-b border-r text-sm transition-all duration-150',
+                        'cursor-pointer truncate whitespace-nowrap border-b border-r text-sm transition-all duration-150',
                         isResizing && resizeColumnIndex === virtualColumn.index
                           ? 'border-blue-200 bg-blue-50'
-                          : 'bg-white',
+                          : selectedCells.has(`${virtualRow.index}-${virtualColumn.index}`)
+                            ? 'border-blue-500 bg-blue-100'
+                            : 'bg-white hover:bg-gray-50',
                       )}
                       style={{
                         position: 'absolute',
@@ -266,9 +524,9 @@ export default function SpreadsheetGrid({ rows, columns }: { rows: Data[]; colum
                         height: `${virtualRow.size}px`,
                         transform: `translateX(${virtualColumn.start}px) translateY(${virtualRow.start}px)`,
                       }}
-                      onClick={handleClickCell(rows[index])}
+                      onClick={handleClickCell(virtualRow.index, virtualColumn.index)}
                     >
-                      <Input value={rows[index]?.value} className="h-full w-full rounded-none border-none" readOnly />
+                      <Input value={rows[index]?.value} className="size-full rounded-none border-none" readOnly />
                     </div>
                   );
                 })}
