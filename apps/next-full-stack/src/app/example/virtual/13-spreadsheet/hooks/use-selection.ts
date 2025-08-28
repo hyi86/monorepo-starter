@@ -1,8 +1,13 @@
 import { useState } from 'react';
+import { type SelectionMode } from '../types';
 
-type SelectionMode = 'none' | 'all' | 'column' | 'row';
+type UseSelectionParams = {
+  rowCount: number;
+  columnCount: number;
+  isResizing: boolean;
+};
 
-export function useSelection(rowCount: number, columnCount: number, isResizing: boolean = false) {
+export function useSelection({ rowCount, columnCount, isResizing }: UseSelectionParams) {
   // 셀 선택 관련 상태
   const [selectedCells, setSelectedCells] = useState<Set<string>>(new Set());
   const [selectionMode, setSelectionMode] = useState<SelectionMode>('none');

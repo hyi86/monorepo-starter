@@ -1,15 +1,15 @@
 import { useCallback, useState } from 'react';
-import { Data } from '../sheet';
+import type { Cell, Data, SelectionMode } from '../types';
 
 type UseCopyPasteParams = {
   rows: Data[];
   rowCount: number;
   columnCount: number;
   selectedCells: Set<string>;
-  selectionMode: 'none' | 'row' | 'column' | 'all';
+  selectionMode: SelectionMode;
   selectedColumn: number | null;
   selectedRow: number | null;
-  lastSelectedCell: { row: number; col: number } | null;
+  lastSelectedCell: Cell | null;
   onCellEdit?: (rowIndex: number, colIndex: number, newValue: string) => void;
 };
 
@@ -139,6 +139,7 @@ export function useCopyPaste({
       await navigator.clipboard.writeText(csvData);
     } catch (error) {
       // 클립보드 API가 실패하면 임시 클립보드에 저장
+      console.error(error);
       setTempClipboard(csvData);
     }
   }, [selectedCells, selectionMode, selectedColumn, selectedRow, lastSelectedCell, rows, rowCount, columnCount]);
@@ -152,6 +153,7 @@ export function useCopyPaste({
       try {
         clipboardText = await navigator.clipboard.readText();
       } catch (error) {
+        console.error(error);
         clipboardText = tempClipboard;
       }
 
@@ -232,7 +234,7 @@ export function useCopyPaste({
         }
       }
     } catch (error) {
-      // 에러 무시
+      console.error(error);
     }
   }, [lastSelectedCell, rowCount, columnCount, onCellEdit, tempClipboard]);
 

@@ -9,12 +9,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@monorepo-starter/ui/components/dropdown-menu';
-import { RowData, type ColumnDef, type Row } from '@tanstack/react-table';
+import type { ColumnDef, Row, RowData } from '@tanstack/react-table';
 import { isAfter } from 'date-fns';
 import { ArrowDownToLine, ArrowUpToLine, PinIcon, PinOffIcon } from 'lucide-react';
 import { type User } from '~/features/user/model/users';
 
 declare module '@tanstack/react-table' {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
     useDropdown?: boolean;
     useSortableColumn?: boolean;

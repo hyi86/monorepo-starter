@@ -1,9 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-
-type Column = {
-  id: string;
-  width: number;
-};
+import { type Column } from '../types';
 
 export function useColumnResize(initialColumns: Column[]) {
   // 컬럼 리사이징 관련 상태

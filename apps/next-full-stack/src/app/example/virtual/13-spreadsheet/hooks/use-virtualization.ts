@@ -1,28 +1,14 @@
-import { useVirtualizer, type Virtualizer } from '@tanstack/react-virtual';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { defaultColumnHeight } from '../styles';
+import { type Column, type Data } from '../types';
 
-type Data = {
-  id: string;
-  value: string;
-  height?: number;
+type UseVirtualizationParams = {
+  rows: Data[];
+  columns: Column[];
 };
 
-type Column = {
-  id: string;
-  width: number;
-};
-
-export function useVirtualization(
-  rows: Data[],
-  columns: Column[],
-): {
-  parentRef: React.RefObject<HTMLDivElement | null>;
-  scrollTop: number;
-  rowCount: number;
-  rowVirtualizer: Virtualizer<HTMLDivElement, Element>;
-  columnVirtualizer: Virtualizer<HTMLDivElement, Element>;
-} {
+export function useVirtualization({ rows, columns }: UseVirtualizationParams) {
   // 컨테이너 Ref
   const parentRef = useRef<HTMLDivElement>(null);
 
@@ -50,6 +36,20 @@ export function useVirtualization(
     overscan: 20,
     enabled: true,
   });
+
+  // 스크롤 이동 함수
+  const handleScrollMove = useCallback(
+    (direction: 'top' | 'bottom') => {
+      if (direction === 'top') {
+        rowVirtualizer.scrollToOffset(0); // 패딩이 잡혀있어서 Offset으로 해야 함
+        columnVirtualizer.scrollToIndex(0);
+      } else {
+        rowVirtualizer.scrollToIndex(rowCount - 1);
+        columnVirtualizer.scrollToIndex(columns.length - 1);
+      }
+    },
+    [rowCount, rowVirtualizer, columnVirtualizer, columns],
+  );
 
   // 컬럼 변경 시 virtualizer 업데이트
   useEffect(() => {
@@ -84,5 +84,8 @@ export function useVirtualization(
     // Virtualizers
     rowVirtualizer,
     columnVirtualizer,
+
+    // 함수
+    handleScrollMove,
   };
 }

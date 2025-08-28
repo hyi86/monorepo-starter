@@ -380,7 +380,7 @@ export default function TreeFull() {
                 <TreeItem item={item} className="not-last:pb-0 relative flex-1">
                   <TreeItemLabel
                     className="before:bg-background relative before:absolute before:-inset-y-0.5 before:inset-x-0 before:-z-10"
-                    onDoubleClick={(e) => {
+                    onDoubleClick={() => {
                       item.startRenaming();
                     }}
                   >
