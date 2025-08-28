@@ -1,4 +1,3 @@
-import { Virtualizer } from '@tanstack/react-virtual';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 type Column = {
@@ -19,7 +18,7 @@ export function useColumnResize(initialColumns: Column[]) {
     columnIndex: number;
   } | null>(null);
 
-  // 컬럼 리사이징 이벤트 핸들러들
+  // 컬럼 리사이징 시작(마우스 버튼 누르고 움직일 때)
   const handleResizeStart = (columnIndex: number, e: React.MouseEvent) => {
     e.preventDefault();
     const column = columnsState[columnIndex];
@@ -34,6 +33,7 @@ export function useColumnResize(initialColumns: Column[]) {
     };
   };
 
+  // 리사이징 중(마우스 버튼 누르고 움직일 때)
   const handleResizeMove = useCallback((e: MouseEvent) => {
     if (!resizeRef.current) return;
 
@@ -47,6 +47,7 @@ export function useColumnResize(initialColumns: Column[]) {
     });
   }, []);
 
+  // 리사이징 종료(마우스 버튼 놓을 때)
   const handleResizeEnd = useCallback(() => {
     setIsResizing(false);
     setResizeColumnIndex(null);

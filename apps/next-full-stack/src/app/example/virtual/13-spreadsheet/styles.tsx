@@ -1,4 +1,11 @@
-export const defaultColumnWidth: React.CSSProperties['width'] = 42;
+/**
+ * 컴포넌트별 필수 스타일 목록
+ * - style 태그로 들어감
+ * - width, height, position, transform, overflow 등 렌더링에 필요한 필수 스타일
+ * - border, padding, color, font 등은 제외
+ */
+
+export const defaultColumnWidth: React.CSSProperties['width'] = 48;
 export const defaultColumnHeight: React.CSSProperties['height'] = 36;
 export const contentWidth: React.CSSProperties['width'] = 700;
 export const contentHeight: React.CSSProperties['height'] = 380;

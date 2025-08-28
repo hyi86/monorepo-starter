@@ -1,9 +1,5 @@
 import { useCallback, useState } from 'react';
-
-type Data = {
-  id: string;
-  value: string;
-};
+import { Data } from '../sheet';
 
 type UseCopyPasteParams = {
   rows: Data[];

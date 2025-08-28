@@ -28,17 +28,18 @@ import {
 } from './styles';
 import { indexToColumnLabel } from './utils';
 
-type Column = {
+export type Column = {
   id: string;
   width: number;
 };
 
-type Data = {
+export type Data = {
+  [key: string]: any;
   id: string;
   value: string;
 };
 
-export default function SpreadsheetGrid({ rows: initialRows, columns }: { rows: Data[]; columns: Column[] }) {
+export function Sheet({ rows: initialRows, columns }: { rows: Data[]; columns: Column[] }) {
   // 내부 상태로 데이터 관리
   const [rows, setRows] = useState<Data[]>(initialRows);
 
@@ -220,7 +221,7 @@ export default function SpreadsheetGrid({ rows: initialRows, columns }: { rows: 
         <Button
           variant="outline"
           onClick={() => {
-            rowVirtualizer.scrollToIndex(0);
+            rowVirtualizer.scrollToOffset(0); // 패딩이 잡혀있어서 Offset으로 해야 함
             columnVirtualizer.scrollToIndex(0);
           }}
         >
@@ -266,8 +267,9 @@ export default function SpreadsheetGrid({ rows: initialRows, columns }: { rows: 
                 <div
                   key={index}
                   style={getRowHeaderContentItemStyle()}
+                  title={`${index + 1}`}
                   className={cn(
-                    'bg-muted text-muted-foreground border-accent-foreground/15 border border-b-0 p-2 text-center text-sm first:border-t-0 last:border-b',
+                    'bg-muted text-muted-foreground border-accent-foreground/15 truncate border border-b-0 p-1 text-center text-sm first:border-t-0 last:border-b',
                     selectionMode === 'row' && selectedRow === index && 'bg-blue-200',
                   )}
                   onClick={handleClickRowCell(index)}

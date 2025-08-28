@@ -25,6 +25,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
     setRangeStartCell(null);
   };
 
+  // 전체 선택
   const selectAll = () => {
     const allCells = new Set<string>();
     for (let row = 0; row < rowCount; row++) {
@@ -38,6 +39,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
     setSelectedRow(null);
   };
 
+  // 열 선택
   const selectColumn = (columnIndex: number) => {
     const columnCells = new Set<string>();
     for (let row = 0; row < rowCount; row++) {
@@ -49,6 +51,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
     setSelectedRow(null);
   };
 
+  // 열 선택 토글
   const toggleColumnSelection = (columnIndex: number) => {
     const columnCells = new Set<string>();
     for (let row = 0; row < rowCount; row++) {
@@ -72,6 +75,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
     setSelectedRow(null);
   };
 
+  // 행 선택
   const selectRow = (rowIndex: number) => {
     const rowCells = new Set<string>();
     for (let col = 0; col < columnCount; col++) {
@@ -106,6 +110,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
     setSelectedRow(null);
   };
 
+  // 셀 선택
   const selectCell = (rowIndex: number, columnIndex: number) => {
     const cellKey = `${rowIndex}-${columnIndex}`;
     setSelectedCells(new Set([cellKey]));
@@ -117,6 +122,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
     setRangeStartCell({ row: rowIndex, col: columnIndex });
   };
 
+  // 셀 선택 토글
   const toggleCellSelection = (rowIndex: number, columnIndex: number) => {
     const cellKey = `${rowIndex}-${columnIndex}`;
     const newSelectedCells = new Set(selectedCells);
@@ -135,6 +141,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
     setLastSelectedCell(newLastSelectedCell);
   };
 
+  // 셀 선택 해제
   const deselectCell = () => {
     setSelectedCells(new Set());
     setSelectionMode('none');
@@ -144,6 +151,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
     // deselectCell에서는 콜백을 호출하지 않음 (포커스 유지)
   };
 
+  // 범위 선택
   const selectRange = (startRow: number, startCol: number, endRow: number, endCol: number) => {
     const rangeCells = new Set<string>();
     const minRow = Math.min(startRow, endRow);
@@ -165,6 +173,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
     setLastSelectedCell(newLastSelectedCell);
   };
 
+  // 범위 확장
   const extendRange = (endRow: number, endCol: number) => {
     if (!rangeStartCell) return;
 
@@ -230,6 +239,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
     }
   };
 
+  // 행 셀 클릭 이벤트 핸들러
   const handleClickRowCell = (index: number) => (e: React.MouseEvent) => {
     if (isResizing) return;
 
@@ -260,6 +270,7 @@ export function useSelection(rowCount: number, columnCount: number, isResizing: 
     }
   };
 
+  // 셀 클릭 이벤트 핸들러
   const handleClickCell = (rowIndex: number, columnIndex: number) => (e: React.MouseEvent) => {
     const cellKey = `${rowIndex}-${columnIndex}`;
     const isCurrentlySelected = selectedCells.has(cellKey);
