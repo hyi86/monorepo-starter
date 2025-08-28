@@ -10,9 +10,10 @@ export default defineConfig({
     passWithNoTests: true,
     coverage: {
       provider: 'v8',
-      all: false,
-      // include: ['src/**/*.{ts,tsx}'],
-      reporter: ['text'],
+      all: true,
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: ['src/app-path-types.ts'],
+      reporter: ['html'],
     },
     env: {
       DB_FILE_NAME: 'database/local.db',
