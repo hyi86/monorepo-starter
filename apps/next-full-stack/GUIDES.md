@@ -30,29 +30,23 @@ entities → features → widgets → pages → app
 - 여러 `features`와 `entities`를 조합
 - 재사용 가능한 큰 UI 단위
 
-### 4. `pages` (큼)
+### 4. `pages` & `app` -> `app` (가장 큼)
 - 실제 페이지 컴포넌트들
 - 라우팅과 직접 연결
-- `widgets`, `features`, `entities`를 모두 조합
-
-### 5. `app` (가장 큼)
 - 애플리케이션의 진입점
 - 전역 설정과 프로바이더들
 - 모든 레이어를 포함하는 최상위 레이어
+- `widgets`, `features`, `entities`를 모두 조합
 
-이중, `4. pages`, `5. app` 레이어는 통합하여 `app`으로 사용함  
-추가로, `0. shared` 레이어는 폴더명을 변경하여 `common` 레이어로 사용함
+### 레이어 조건 (import 참조 가능한 범위)
 
-### 레이어 조건
-
-| 레이어        | shared | entities | features | widgets | pages | app |
-|---------------|:------:|:--------:|:--------:|:-------:|:-----:|:---:|
-| **common**    | ✅     | ❌       | ❌       | ❌      | ❌    | ❌  |
-| **entities**  | ✅     | ✅       | ❌       | ❌      | ❌    | ❌  |
-| **features**  | ✅     | ✅       | ✅       | ❌      | ❌    | ❌  |
-| **widgets**   | ✅     | ✅       | ✅       | ✅      | ❌    | ❌  |
-| **pages**     | ✅     | ✅       | ✅       | ✅      | ✅    | ❌  |
-| **app**       | ✅     | ✅       | ✅       | ✅      | ✅    | ✅  |
+| Layers        | common | entities | features | widgets | app  |
+|---------------|:------:|:--------:|:--------:|:-------:|:----:|
+| **common**    | ✅     | ❌       | ❌       | ❌      |  ❌  |
+| **entities**  | ✅     | ✅       | ❌       | ❌      |  ❌  |
+| **features**  | ✅     | ✅       | ✅       | ❌      |  ❌  |
+| **widgets**   | ✅     | ✅       | ✅       | ✅      |  ❌  |
+| **app**       | ✅     | ✅       | ✅       | ✅      |  ✅  |
 
 **의존성 규칙:**
 - 각 레이어는 자신과 하위 레이어들만 사용 가능
@@ -148,7 +142,6 @@ entities/
 - **기능 중심** 네이밍: `product-filter`, `search-suggestions`
 
 
-
 <br/>
 
 ## 세그먼트
@@ -171,14 +164,15 @@ features/auth/              # auth 슬라이스
 
 ### 세그먼트 종류
 
-| 세그먼트 | 설명 | 예시 |
-|----------|------|------|
-| **ui/** | 사용자 인터페이스 컴포넌트 | Button, Form, Modal |
-| **model/** | 비즈니스 로직, 상태 관리, API | slice, api, hooks |
-| **lib/** | 유틸리티 함수, 헬퍼 | utils, helpers, constants |
-| **api/** | API 관련 로직 | api-client, endpoints |
-| **config/** | 설정 파일 | config, constants |
-| **types/** | 타입 정의 | types, interfaces |
+| 세그먼트    | 설명                            | Examples |
+|-------------|---------------------------------|----------------------------------|
+| **ui/**     | 사용자 인터페이스 컴포넌트      | Button, Form, Modal              |
+| **model/**  | 비즈니스 로직, 상태 관리, API   | slice, api, hooks                |
+| **lib/**    | 유틸리티 함수, 헬퍼             | utils, helpers, constants, hooks |
+| **api/**    | API 관련 로직                   | api-client, endpoints            |
+| **config/** | 설정 파일                       | config, constants                |
+| **types/**  | 타입 정의                       | types, interfaces                |
+| **hooks/**  | 훅 함수                         | use-auth, use-cart               |
 
 ### 슬라이스 간 의존성 규칙
 

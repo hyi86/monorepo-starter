@@ -27,7 +27,7 @@ export default async function AppLangLayout({
   }
 
   return (
-    <Article>
+    <Article className="p-4">
       <AppLanguageProvider lang={lang}>{children}</AppLanguageProvider>
     </Article>
   );

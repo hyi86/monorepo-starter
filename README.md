@@ -25,20 +25,20 @@
 
 ### In-house Implementations
 
-- [`Hybrid API Cache`](./apps/next-full-stack/src/lib/experimental-cache/api-cache.ts): 
+- [`Hybrid API Cache`](apps/next-full-stack/src/app/example/experimental/api-cache/page.tsx): 
   `File System`과 `Local SQLite DB`를 기반으로 하는 **Custom API Data Cache** 구현.
 - [`Large File Uploader`](./apps/next-full-stack/src/app/example/experimental/file-upload/page.tsx): 
-  페이지 이동중에도 끊기지 않는 **Large Multi-Chunk Streaming File Uploader** 구현.
-- [`Next Command Spotlight`](./apps/next-full-stack/src/components/command/spotlight.tsx): 
+  자체 **Large Multi-Chunk Streaming File Uploader** 구현.
+- [`Next Component Info Panel`](./apps/next-full-stack/src/features/component-info-panel/ui/ComponentInfoPanel.tsx): 
   `Next.js` Component Tree 구조를 시각화하는 **Nextjs Component Visualizer**.
 - [`Authentication`](./apps/next-full-stack/src/app/example/auth/page.mdx): 
-  외부 라이브러리 없이, `JWT Access/Refresh Token` 기반의 **Server-only Authentication System** 구축.
+  `JWT Access/Refresh Token` 기반의 **Server-only Authentication System** 구축.
 - [`Internationalization`](./apps/next-full-stack/src/app/example/[lang]/page.tsx)
-  외부 라이브러리 없이, 선택적 페이지의 쉬운 국제화를 위해 별도로 구축.
+  선택적 페이지의 쉬운 국제화를 위해 별도로 구축.
 
 ### Third-Party Dependencies
 
-- 📦 **Monorepo**: 
+- 📦 **Monorepo**:
   [`pnpm`](https://pnpm.io) 기반의 [`Turborepo`](https://turbo.build) 템플릿으로 하나의 저장소에서 여러 프로젝트와 패키지를 효율적으로 관리할 수 있습니다.
 - 🧩 **Frameworks**:
   [`Next.js`](https://nextjs.org), [`react-router(Declarative mode)`](https://reactrouter.com/start/declarative/installation), `Vanilla JS`와 같은 프론트엔드 프레임워크와, 
@@ -54,25 +54,28 @@
 - 📜 **Code Formatting/Linting**: 
   코드 포맷팅과 린팅을 위한 [`Prettier`](https://prettier.io)와 [`ESLint`](https://eslint.org)가 통합되어 있습니다.
 - 🔄 **Data Fetching/State Management**: 
-  [`TanStack Query`](https://tanstack.com/query/latest), [`Zustand`](https://zustand-demo.pmnd.rs), [`Nuqs`](https://nuqs.47ng.com) 등 라이브러리를 활용, `Client`와 `Server` 환경 모두에서 효율적인 데이터 패칭과 상태 관리를 지원합니다.
+  - [`TanStack Query`](https://tanstack.com/query/latest): 서버/클라이언트 데이터 패칭과 캐싱을 위한 라이브러리
+  - [`Zustand`](https://zustand-demo.pmnd.rs): 전역 클라이언트 상태 관리를 위한 라이브러리
+  - [`Nuqs`](https://nuqs.47ng.com): 쿼리 파라미터 관리를 위한 라이브러리
 - 🖍️ **Code Blocks**: 
-  [`Shiki`](https://shiki.style)를 이용한 Code highlighting 과 [`Monaco Editor`](https://github.com/microsoft/monaco-editor)를 통한 Real-time Code Editing 기능을 제공합니다.
+  [`Shiki`](https://shiki.style)를 이용한 Code highlighting 과 [`Monaco Editor`](https://github.com/microsoft/monaco-editor)를 통한 **Real-time Code Editing** 기능을 제공합니다.
 - 📝 **WYSIWYG Editor**: 
   [`Tiptap`](https://tiptap.dev)을 활용한 실시간 에디터를 제공합니다.
 - ✅ **CommitLint**: 
-  [`commitlint`](https://commitlint.js.org), [`husky`](https://typicode.github.io/husky), [`lint-staged`](https://github.com/okonet/lint-staged)를 활용한 커밋 메시지 규칙 적용.
+  [`commitlint`](https://commitlint.js.org), [`husky`](https://typicode.github.io/husky), [`lint-staged`](https://github.com/okonet/lint-staged)를 활용한 커밋 메시지 규칙이 적용되어 있습니다.
 - 📦 **Others**:
-  - 🛟 **Env**: [`t3-env`](https://env.t3.gg)
-  - 📄 **Logging**: [`pino`](https://getpino.io)
-  - 📅 **Date & Time**: [`date-fns`](https://date-fns.org)
-  - 📦 **Useful Hooks**: [`@mantine/hooks`](https://mantine.dev/hooks/package)
-  - 🔔 **Notification**: [`web-push`](https://github.com/web-push-libs/web-push)
-  - 📝 **Drag & Drop**: [`Dnd Kit`](https://dndkit.com)
-  - 📊 **Table UI**: [`TanStack Table`](https://tanstack.com/table/latest)
-  - 📦 **Large List/Virtualization**: [`TanStack Virtual`](https://tanstack.com/virtual/latest)
-  - 📝 **Data Schema Validation**: [`Zod`](https://zod.dev)
-  - 🪄 **Dummy Data Generation**: [`faker.js`](https://fakerjs.dev)
-  - 📝 **Route Exploration & AST Structure Analysis**: [`ts-morph`](https://ts-morph.com)
+  - 🛟 **Env**: [`t3-env`](https://env.t3.gg): 환경 변수 관리를 위한 라이브러리
+  - 📄 **Logging**: [`pino`](https://getpino.io): 로깅을 위한 라이브러리
+  - 📅 **Date & Time**: [`date-fns`](https://date-fns.org): 날짜 및 시간 처리를 위한 라이브러리
+  - 📦 **Useful Hooks**: [`@mantine/hooks`](https://mantine.dev/hooks/package): 유용한 훅을 제공하는 라이브러리
+  - 🔔 **Notification**: [`web-push`](https://github.com/web-push-libs/web-push): 웹 푸시 알림
+  - 📝 **Drag & Drop**: [`Dnd Kit`](https://dndkit.com): 드래그&드롭을 위한 라이브러리
+  - 📊 **Table UI**: [`TanStack Table`](https://tanstack.com/table/latest): 테이블 UI를 위한 라이브러리
+  - 📦 **Large List/Virtualization**: [`TanStack Virtual`](https://tanstack.com/virtual/latest): 대용량 리스트/그리드 렌더링을 위한 라이브러리
+  - 📝 **Data Schema Validation**: [`Zod`](https://zod.dev): 데이터 스키마 검증을 위한 라이브러리
+  - 🪄 **Dummy Data Generation**: [`faker.js`](https://fakerjs.dev): 더미 데이터 생성을 위한 라이브러리
+  - 📝 **Route Exploration & AST Structure Analysis**: [`ts-morph`](https://ts-morph.com): 라우트 탐색과 AST 구조 분석을 위한 라이브러리
+  - 🌳 **Tree Structure Component**: [`headless-tree`](https://github.com/henry-hong/headless-tree): 트리 구조 컴포넌트 구현을 위한 라이브러리
 
 <br />
 
@@ -132,58 +135,6 @@ docker-compose logs -f
 ```
 
 <br />
-
-## 📦 Examples
-
-- [`Next.js Caching`](./apps/next-full-stack/src/app/example/cache/page.mdx)
-  - `data cache`, `full route cache`, `ISR`의 기본 사용 예시
-- [`Code Block and Editor`](./apps/next-full-stack/src/app/example/code-block/page.mdx)
-  - `shiki`를 활용한 구문 강조: 단어/라인 하이라이트, 경고/에러 표시, 자동 줄번호, 테마 지원 등
-  - `MDX` 통합: 마크다운에서 자동 코드블록 하이라이팅
-  - `Monaco Editor` 기반 코드 에디터 구현
-  - 파일 시스템 기반 패널: 실시간 코드 편집, 하이라이팅, 복사, 에디터에서 열기 등 다양한 기능 제공
-- [`Drag and Drop Sortable`](./apps/next-full-stack/src/app/example/dnd/page.mdx)
-  - `@dnd-kit/sortable`로 구현한 정렬 가능한 UI
-  - 가로, 세로, 그리드 정렬 리스트 예시
-  - 접근성을 위한 키보드 네비게이션 지원
-- [`Server Action & react-hook-form`](./apps/next-full-stack/src/app/example/form/page.mdx)
-  - `Server Action`과 `Server Component`의 다양한 사용 예시
-  - `zod`를 활용한 폼 검증
-  - `react-hook-form`을 활용한 클라이언트 폼 상태 관리
-  - `useOptimistic`을 활용한 클라이언트 폼 상태 관리 예시
-  - `Virtual List`, `Drag and Drop`, `Nested List` 등 다양한 기술 활용 예시
-- [`Nuqs State management`](./apps/next-full-stack/src/app/example/nuqs/page.mdx)
-  - `nuqs`의 기본 사용법 및 예시
-  - 다양한 쿼리 파라미터 처리 방법 데모
-  - 클라이언트/서버/하이브리드 환경에서의 쿼리 관리
-  - 실제 서비스에서 활용할 수 있는 실전 패턴과 팁
-- [`Web Push Notification`](./apps/next-full-stack/src/app/example/push/page.mdx)
-  - `web-push`의 기본 사용법 및 예시
-  - `service-worker` 포함
-- [`Tanstack Query SSR`](./apps/next-full-stack/src/app/example/query/page.mdx)
-  - `Tanstack Query`의 기본 사용법 및 예시
-    - **Prefetching**: 서버에서 쿼리 데이터를 미리 가져와 클라이언트에 전달
-    - **Streaming**: Suspense와 함께 여러 쿼리를 스트리밍 방식으로 처리하는 예시
-  - 쿼리 옵션, 캐싱, 데이터 패칭, 실전 활용 등 다양한 패턴 예시
-- [`Next.js Advanced Routing`](./apps/next-full-stack/src/app/example/route/page.mdx)
-  - Next.js의 고급 라우팅 기능 실전 예시
-    - **Parallel Routes**: 여러 UI 영역을 병렬로 렌더링하는 라우팅 패턴
-    - **Intercepting Routes**: 기존 라우트 흐름을 가로채는 패턴
-- [`Table`](./apps/next-full-stack/src/app/example/table/page.mdx)
-  - 다양한 Table UI/UX 패턴 실전 예시
-  - `Tanstack Table`, `Shadcn/ui`, `Nuqs` 등 라이브러리 활용
-    - **Server Controls**: 서버 컴포넌트 기반 필터, 정렬, 페이지네이션 등 제어 기능
-    - **Client Full**: 클라이언트 컴포넌트 기반 데이터 그리드
-      - 필터, 정렬, 페이지네이션, 행/열 선택, 크기 조절, 고정 행/열, 가상화, 드래그&드롭 등 다양한 기능 포함
-- [`Virtual List`](./apps/next-full-stack/src/app/example/virtual/page.mdx)
-  - 대용량 리스트/그리드 렌더링 성능 최적화 실전 예시
-    - **Fixed Row/Column/Grid**: 고정 크기 행/열/그리드의 가상 스크롤링
-    - **Fixed Masonry (Vertical/Horizontal)**: Masonry 레이아웃의 고정형 가상화
-    - **Dynamic Row/Column/Grid**: 동적(가변) 크기 행/열/그리드의 가상화
-    - **Infinite Scroll**: 무한 스크롤 기반 데이터 로딩 및 가상화
-    - **Sortable Row/Column**: 행/열 드래그&드롭 정렬과 가상화 결합 예시
-    - **Parallel Route**: 대용량 리스트/그리드 성능 최적화 실전 예시
-  - 실제 서비스에서 자주 쓰이는 스크롤/렌더 최적화, 드래그&드롭, Masonry, 무한 스크롤 등 고급 패턴
 
 ## 🌍 Goals
 
