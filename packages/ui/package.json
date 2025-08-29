@@ -85,7 +85,7 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@vitejs/plugin-react": "^5.0.1",
+    "@vitejs/plugin-react": "^5.0.2",
     "eslint": "catalog:",
     "jsdom": "^26.1.0",
     "postcss": "^8.5.6",
