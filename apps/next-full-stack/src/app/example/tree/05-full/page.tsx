@@ -46,6 +46,7 @@ import { useState } from 'react';
 
 type Item = {
   name: string;
+  status?: string;
   url?: string;
   children?: string[];
 };
@@ -76,7 +77,7 @@ const initialItems: Record<string, Item> = {
   frontend: { name: 'Frontend', children: ['design-system', 'web-platform'] },
   'design-system': {
     name: 'Design System',
-    children: ['components', 'tokens', 'guidelines'],
+    children: ['components', 'guidelines', 'tokens'],
   },
   components: { name: 'Components' },
   tokens: { name: 'Tokens' },
@@ -101,8 +102,11 @@ const initialCheckedItems = ['components', 'tokens'];
 const indent = 20;
 
 export default function TreeFull() {
+  // 신규 항목 인덱스
   const [newItemIndex, setNewItemIndex] = useState(1);
+  // 데이터
   const [items, setItems] = useState(initialItems);
+  // 트리 상태
   const [state, setState] = useState<Partial<TreeState<Item>>>({});
 
   const tree = useTree<Item>({
@@ -119,24 +123,34 @@ export default function TreeFull() {
     isItemFolder: (item) => (item.getItemData()?.children?.length ?? 0) > 0,
     canReorder: true,
     canCheckFolders: true,
-    onDrop: createOnDropHandler((parentItem: any, newChildrenIds: any) => {
-      setItems((prevItems) => ({
-        ...prevItems,
-        [parentItem.getId()]: {
-          ...prevItems[parentItem.getId()]!,
-          children: newChildrenIds,
-        },
-      }));
+    onDrop: createOnDropHandler((parentItem, newChildrenIds) => {
+      setItems(
+        produce((draft) => {
+          const selectedItemId = parentItem.getId();
+
+          if (!draft[selectedItemId]) {
+            draft[selectedItemId] = {
+              name: parentItem.getItemData().name,
+              children: newChildrenIds,
+            };
+            return;
+          }
+
+          draft[selectedItemId].children = newChildrenIds;
+        }),
+      );
     }),
-    onRename: (item: any, newName: any) => {
-      const itemId = item.getId();
-      setItems((prevItems) => ({
-        ...prevItems,
-        [itemId]: {
-          ...prevItems[itemId],
-          name: newName,
-        },
-      }));
+    onRename: (selectedItem, value) => {
+      setItems(
+        produce((draft) => {
+          const selectedItemId = selectedItem.getId();
+          if (!draft[selectedItemId]) {
+            return;
+          }
+
+          draft[selectedItemId].name = value;
+        }),
+      );
     },
     dataLoader: {
       getItem: (itemId: string) => items[itemId]!,
@@ -208,7 +222,7 @@ export default function TreeFull() {
     const parentId = selectedItem.getId();
 
     setItems(
-      produce(items, (draft) => {
+      produce((draft) => {
         if (!draft[parentId]) {
           return;
         }
@@ -251,7 +265,7 @@ export default function TreeFull() {
     const parentId = parentItem.getId();
 
     setItems(
-      produce(items, (draft) => {
+      produce((draft) => {
         if (!draft[parentId]) {
           return;
         }
@@ -289,7 +303,7 @@ export default function TreeFull() {
     const parentId = selectedItem.getParent()!.getId();
 
     setItems(
-      produce(items, (draft) => {
+      produce((draft) => {
         if (!draft[parentId]) {
           return;
         }
@@ -299,6 +313,25 @@ export default function TreeFull() {
         }
 
         draft[parentId].children = draft[parentId].children.filter((childId) => childId !== selectedItem.getId());
+
+        // 재귀적으로 자식들을 삭제 상태로 만드는 함수
+        const markChildrenAsDeleted = (itemId: string) => {
+          const item = draft[itemId];
+          if (!item) return;
+
+          // 현재 아이템을 삭제 상태로 표시
+          item.status = 'deleted';
+
+          // 자식들이 있다면 재귀적으로 처리
+          if (item.children && item.children.length > 0) {
+            item.children.forEach((childId: string) => {
+              markChildrenAsDeleted(childId);
+            });
+          }
+        };
+
+        // 선택된 아이템과 모든 자식들을 삭제 상태로 표시
+        markChildrenAsDeleted(selectedItem.getId());
       }),
     );
 
@@ -425,22 +458,25 @@ export default function TreeFull() {
       {/* 상태 정보 섹션 */}
       <div className="border-t pt-4">
         <div className="text-muted-foreground text-sm">
-          <div>
-            선택된 항목:{' '}
-            {tree
-              .getSelectedItems()
-              .map((item: any) => item.getItemName())
-              .join(', ') || '없음'}
-          </div>
-          <div>
-            체크된 항목:{' '}
-            {tree
-              .getItems()
-              .filter((item: any) => item.getCheckedState() === 'checked')
-              .map((item: any) => item.getItemName())
-              .join(', ') || '없음'}
-          </div>
-          <div>검색 결과: {tree.getItems().filter((item: any) => item.isMatchingSearch?.()).length}개 항목</div>
+          <dl className="grid grid-cols-[auto_1fr] *:px-2 *:py-1 [&_dt]:bg-zinc-100">
+            <dt>선택된 항목</dt>
+            <dd>
+              {tree
+                .getSelectedItems()
+                .map((item: any) => item.getItemName())
+                .join(', ') || '없음'}
+            </dd>
+            <dt>체크된 항목</dt>
+            <dd>
+              {tree
+                .getItems()
+                .filter((item: any) => item.getCheckedState() === 'checked')
+                .map((item: any) => item.getItemName())
+                .join(', ') || '없음'}
+            </dd>
+            <dt>검색 결과</dt>
+            <dd>{tree.getItems().filter((item: any) => item.isMatchingSearch?.()).length}개 항목</dd>
+          </dl>
         </div>
       </div>
       <Dialog>
