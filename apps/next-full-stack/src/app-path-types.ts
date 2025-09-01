@@ -69,6 +69,7 @@ export type StaticPath =
   | '/example/tree/03-search'
   | '/example/tree/04-checkbox'
   | '/example/tree/05-full'
+  | '/example/tree/06-menus'
   | '/example/virtual'
   | '/example/virtual/01-fixed-row'
   | '/example/virtual/02-fixed-column'
@@ -2138,6 +2139,34 @@ export const appPathRoutes: AppPathRoutes[] = [
                 children: [
                   {
                     path: 'src/app/example/tree/05-full/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/tree/06-menus',
+    linkTypes: '/example/tree/06-menus',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/tree/06-menus/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/tree/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/tree/06-menus/page.tsx',
                     children: [],
                   },
                 ],
