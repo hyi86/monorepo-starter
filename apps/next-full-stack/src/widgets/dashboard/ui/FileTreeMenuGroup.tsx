@@ -11,7 +11,7 @@ import {
 import { CopyMinus, CopyPlus } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { useScrollToMenuObserver } from '~/features/dashboard/model/use-scroll-to-menu-observer';
+import { useScrollToMenuObserver } from '~/widgets/dashboard/model/use-scroll-to-menu-observer';
 import { FileTreeMenuItem } from './FileTreeMenuItem';
 
 export default function FileTreeMenuGroup({ routes, folderPaths }: { routes: TreeRoute[]; folderPaths: string[] }) {

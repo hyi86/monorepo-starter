@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default async function TanstackQueryLayout({ children }: LayoutProps<'/example/query'>) {
-  return <Article>{children}</Article>;
+  return <Article className="p-4">{children}</Article>;
 }

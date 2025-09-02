@@ -1,5 +1,5 @@
 import { type Metadata } from 'next';
-import { DashboardProvider } from '~/features/dashboard/ui/DashboardProvider';
+import { DashboardProvider } from '~/widgets/dashboard/ui/DashboardProvider';
 
 export const metadata: Metadata = {
   title: 'Examples',

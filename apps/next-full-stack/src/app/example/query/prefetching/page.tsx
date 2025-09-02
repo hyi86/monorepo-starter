@@ -14,7 +14,7 @@ import { pokemonOptions } from './pokemon';
 
 export default async function Home(props: PageProps<'/example/query/prefetching'>) {
   const searchParams = await props.searchParams;
-  const id = searchParams.id as string;
+  const id = (searchParams.id as string) || '1';
 
   // 서버에서 새로운 QueryClient 인스턴스 생성
   // - 서버에서는 요청마다 새로운 인스턴스를 생성하여 메모리 누수 방지

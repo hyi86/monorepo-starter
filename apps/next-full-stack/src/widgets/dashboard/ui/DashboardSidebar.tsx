@@ -10,7 +10,7 @@ import {
 import { NotebookPen } from 'lucide-react';
 import Link from 'next/link';
 import { checkAuthorization } from '~/features/auth/lib/check-auth';
-import { getAllRouteTree } from '~/features/dashboard/lib/all-routes';
+import { getAllRouteTree } from '~/widgets/dashboard/lib/all-routes';
 import { DashboardSidebarSearchInput } from './DashboardSidebarSearchInput';
 import FileTreeMenuGroup from './FileTreeMenuGroup';
 import { NavUser } from './NavUser';

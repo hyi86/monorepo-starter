@@ -7,7 +7,7 @@ import {
   SidebarMenuSub,
 } from '@monorepo-starter/ui/components/sidebar';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { ChevronRight, ChevronRightCircle, FileIcon, FolderIcon, FolderOpenIcon } from 'lucide-react';
+import { ChevronRight, FileIcon, FolderIcon, FolderOpenIcon, SquareChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import LinkIndicator from './LinkIndicator';
 
@@ -82,7 +82,7 @@ export function FileTreeMenuItem({
       {item.hasPath && (
         <SidebarMenuAction asChild>
           <Link href={item.path}>
-            <ChevronRightCircle className="text-foreground/30" />
+            <SquareChevronDown className={cn(pathname === item.path && '-rotate-90')} />
           </Link>
         </SidebarMenuAction>
       )}
