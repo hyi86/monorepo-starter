@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { isProtectedPath } from '~/common/config/auth';
+import { isProtectedPath } from '~/shared/config/auth';
 
 /**
  * 공통 로그아웃 Action

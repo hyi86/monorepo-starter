@@ -16,9 +16,8 @@ import { Input } from '@monorepo-starter/ui/components/input';
 import { GripVerticalIcon, Plus, Trash2 } from 'lucide-react';
 import { FieldErrors, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { generator } from '~/common/lib/faker/utils';
-import VirtualSortable from '~/common/ui/sortable/virtual-sortable';
-import SortableItem from '~/common/ui/sortable/virtual-sortable-item';
+import { generator } from '~/shared/lib/faker/utils';
+import { VirtualSortable, VirtualSortableItem } from '~/shared/ui/sortable';
 import { formTestAction } from './actions';
 import { MAX_ITEM_LENGTH, schema, type Schema } from './schema';
 
@@ -92,7 +91,7 @@ export default function NestedListForm({ data: initialData }: { data: Schema }) 
               if (!field) return null;
 
               return (
-                <SortableItem id={id} key={field.id} className="">
+                <VirtualSortableItem id={id} key={field.id} className="">
                   <FormField
                     control={form.control}
                     name={`items.${index}.name`}
@@ -134,7 +133,7 @@ export default function NestedListForm({ data: initialData }: { data: Schema }) 
                   <Button type="button" variant="outline" onClick={() => remove(index)}>
                     <Trash2 className="h-4 w-4" />
                   </Button>
-                </SortableItem>
+                </VirtualSortableItem>
               );
             }}
             renderOverlay={(_id, index) => {

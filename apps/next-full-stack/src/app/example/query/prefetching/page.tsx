@@ -8,7 +8,7 @@
  * 4. 중복 요청 방지: 클라이언트에서 같은 데이터를 다시 요청하지 않음
  */
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
-import { getQueryClient } from '~/common/lib/query/client';
+import { getQueryClient } from '~/shared/lib/query/client';
 import { PokemonInfo } from './client';
 import { pokemonOptions } from './pokemon';
 

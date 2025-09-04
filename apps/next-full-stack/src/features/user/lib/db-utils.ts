@@ -1,6 +1,6 @@
 import { formatDate } from '@henry-hong/common-utils/date';
 import { romanizedSurnames } from '@henry-hong/common-utils/string';
-import { generator } from '~/common/lib/faker/utils';
+import { generator } from '~/shared/lib/faker/utils';
 
 // date to unix epoch
 export function toUnix(dateStr: string) {

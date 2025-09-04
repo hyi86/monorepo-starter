@@ -3,12 +3,12 @@
 import { webLog } from '@henry-hong/common-utils/console-web';
 import { createContext, ReactNode, useContext, useEffect, useState, useTransition } from 'react';
 import type { PushSubscription } from 'web-push';
-import { env } from '~/common/config/env';
 import {
   sendPushNotificationAction,
   subscribeAction,
   unsubscribeAction,
 } from '~/features/web-push/api/webpush-actions';
+import { env } from '~/shared/config/env';
 
 interface SendPushNotificationOptions {
   title: string;

@@ -2,9 +2,9 @@ import { and, asc, desc, eq, getTableColumns, gte, like, lte } from 'drizzle-orm
 import Fuse from 'fuse.js';
 import { cache } from 'react';
 import { z } from 'zod';
-import { db } from '~/common/lib/database/client';
-import { usersTable } from '~/common/model/schema';
 import { createRandomUser, toUnix } from '~/features/user/lib/db-utils';
+import { db } from '~/shared/lib/database/client';
+import { usersTable } from '~/shared/model/schema';
 
 export type User = typeof usersTable.$inferSelect;
 export type Gender = (typeof usersTable.gender.enumValues)[number];

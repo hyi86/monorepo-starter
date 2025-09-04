@@ -1,7 +1,7 @@
 import { devLog } from '@henry-hong/common-utils/console';
 import { verifyToken } from '@henry-hong/common-utils/jwt';
 import { cookies } from 'next/headers';
-import { env } from '~/common/config/env';
+import { env } from '~/shared/config/env';
 
 /**
  * 서버 컴포넌트에서 인증 확인

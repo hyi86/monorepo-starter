@@ -7,7 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
 import tar from 'tar-stream';
-import { env } from '~/common/config/env';
+import { env } from '~/shared/config/env';
 
 /**
  * 코드 가져오기 Action

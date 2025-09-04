@@ -4,7 +4,7 @@ import { generateToken } from '@henry-hong/common-utils/jwt';
 import { cookies } from 'next/headers';
 import parseDuration from 'parse-duration';
 import { z } from 'zod';
-import { env } from '~/common/config/env';
+import { env } from '~/shared/config/env';
 
 const signinSchema = z.object({
   loginId: z.email(),

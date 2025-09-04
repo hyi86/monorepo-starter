@@ -1,6 +1,6 @@
 import { delay } from '@henry-hong/common-utils/fn';
 import { format } from '@henry-hong/common-utils/number';
-import { generateRandomData } from '~/common/lib/faker/utils';
+import { generateRandomData } from '~/shared/lib/faker/utils';
 import FixedRow from './row';
 
 export type Row = {

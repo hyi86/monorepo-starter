@@ -1,4 +1,4 @@
-import { generateRandomData } from '~/common/lib/faker/utils';
+import { generateRandomData } from '~/shared/lib/faker/utils';
 import NestedListForm from './client';
 import { type Schema } from './schema';
 

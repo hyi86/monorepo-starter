@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { authMiddleware } from '~/common/middleware/auth-middleware';
-import { i18nMiddleware } from '~/common/middleware/i18n-middleware';
-// import { loggerMiddleware } from '~/common/middleware/logger-middleware';
+import { authMiddleware } from '~/shared/middleware/auth-middleware';
+import { i18nMiddleware } from '~/shared/middleware/i18n-middleware';
+import { loggerMiddleware } from '~/shared/middleware/logger-middleware';
 
 /**
  * Next Middleware
@@ -28,7 +28,7 @@ export async function middleware(request: NextRequest) {
   response.cookies.set('next-search', request.nextUrl.search, { httpOnly: true });
 
   // 요청 로그 기록
-  // loggerMiddleware(request);
+  loggerMiddleware(request);
 
   // i18n 처리
   const withI18nResponse = await i18nMiddleware(request, response);

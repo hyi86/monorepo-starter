@@ -3,7 +3,7 @@ import { format } from '@henry-hong/common-utils/number';
 import { Badge } from '@monorepo-starter/ui/components/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@monorepo-starter/ui/components/card';
 import parseDuration from 'parse-duration';
-import { apiHybridCache } from '~/common/lib/api-cache/instance';
+import { apiHybridCache } from '~/shared/lib/api-cache/instance';
 
 export async function ExampleCacheData() {
   const offset = 10;

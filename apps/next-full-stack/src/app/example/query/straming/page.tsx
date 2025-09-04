@@ -2,7 +2,7 @@
 
 import { isServer, useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense } from 'react';
-import { env } from '~/common/config/env';
+import { env } from '~/shared/config/env';
 
 // export const runtime = 'edge'; // 'nodejs' (default) | 'edge'
 

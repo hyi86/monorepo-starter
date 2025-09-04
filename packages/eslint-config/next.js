@@ -50,7 +50,7 @@ export const nextJsConfig = [
       'turbo/no-undeclared-env-vars': 'off',
       'react-hooks/exhaustive-deps': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'warn',
       '@next/next/no-img-element': 'off',
       quotes: 'off',
     },

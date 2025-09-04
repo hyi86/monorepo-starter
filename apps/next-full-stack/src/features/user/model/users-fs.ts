@@ -5,8 +5,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { cache } from 'react';
 import { z } from 'zod';
-import { env } from '~/common/config/env';
 import { createRandomUser, toUnix } from '~/features/user/lib/db-utils';
+import { env } from '~/shared/config/env';
 
 const rootPath = process.cwd();
 

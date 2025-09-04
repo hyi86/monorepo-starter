@@ -1,5 +1,8 @@
 # Next Full Stack
 
+변형된 FSD 구조를 가집니다.
+기존의 FSD 구조에서 편의성을 좀 더 추가한 버전입니다.
+
 <br/>
 
 ## 레이어
@@ -7,115 +10,37 @@
 구조는 고정입니다.
 
 ```
-entities → features → widgets → pages → app
+shared → features → app
 ```
 
 ### 0. `shared` (공통 레이어)
 - 공통 유틸리티 함수, 훅, 컴포넌트
 - 모든 레이어에서 사용 가능
-- 다른 레이어에 의존하지 않음
+- `features`, `app` 레이어에 의존하지 않음
 
-### 1. `entities` (가장 작음)
-- 비즈니스 엔티티들의 순수한 표현
-- 도메인 객체들의 UI 컴포넌트
-- 가장 작고 재사용 가능한 단위
-
-### 2. `features` (작음)
+### 2. `features` (기능이 포함된 레이어)
 - 비즈니스 로직을 담당하는 기능들
-- 사용자 액션과 관련된 기능
-- `entities`를 조합하여 만든 기능
 
-### 3. `widgets` (중간)
-- 복잡한 UI 블록들
-- 여러 `features`와 `entities`를 조합
-- 재사용 가능한 큰 UI 단위
-
-### 4. `pages` & `app` -> `app` (가장 큼)
+### 4. `app` (next.js app router)
 - 실제 페이지 컴포넌트들
 - 라우팅과 직접 연결
 - 애플리케이션의 진입점
 - 전역 설정과 프로바이더들
 - 모든 레이어를 포함하는 최상위 레이어
-- `widgets`, `features`, `entities`를 모두 조합
+- `common`, `features` 를 모두 조합
 
 ### 레이어 조건 (import 참조 가능한 범위)
 
-| Layers        | common | entities | features | widgets | app  |
-|---------------|:------:|:--------:|:--------:|:-------:|:----:|
-| **shared**    | ✅     | ❌       | ❌       | ❌      |  ❌  |
-| **entities**  | ✅     | ✅       | ❌       | ❌      |  ❌  |
-| **features**  | ✅     | ✅       | ✅       | ❌      |  ❌  |
-| **widgets**   | ✅     | ✅       | ✅       | ✅      |  ❌  |
-| **app**       | ✅     | ✅       | ✅       | ✅      |  ✅  |
+| Layers        | common | features | app  |
+|---------------|:------:|:--------:|:----:|
+| **shared**    | ✅     | ❌       |  ❌  |
+| **features**  | ✅     | ✅       |  ❌  |
+| **app**       | ✅     | ✅       |  ✅  |
 
 **의존성 규칙:**
 - 각 레이어는 자신과 하위 레이어들만 사용 가능
 - 상위 레이어는 사용할 수 없음 (순환 의존성 방지)
 - `shared`는 모든 레이어에서 사용 가능하지만 다른 레이어에 의존하지 않음
-
-### 예제
-
-#### ✅ 올바른 사용 예시
-
-**`entities` 레이어:**
-```typescript
-// entities/user/ui/user-avatar.tsx
-import { Button } from '~/shared/ui/button'; // ✅ shared 사용 가능
-import { useUser } from './model/use-user'; // ✅ 같은 레이어 사용 가능
-```
-
-**`features` 레이어:**
-```typescript
-// features/auth/ui/login-form.tsx
-import { Button, Input } from '~/shared/ui'; // ✅ shared 사용 가능
-import { UserAvatar } from '~/entities/user'; // ✅ entities 사용 가능
-import { useAuth } from './model/use-auth'; // ✅ 같은 레이어 사용 가능
-```
-
-**`widgets` 레이어:**
-```typescript
-// widgets/header/ui/header.tsx
-import { Button } from '~/shared/ui/button'; // ✅ shared 사용 가능
-import { UserAvatar } from '~/entities/user'; // ✅ entities 사용 가능
-import { LoginForm } from '~/features/auth'; // ✅ features 사용 가능
-import { useHeader } from './model/use-header'; // ✅ 같은 레이어 사용 가능
-```
-
-**`pages` 레이어:**
-```typescript
-// pages/auth/ui/login-page.tsx
-import { Button } from '~/common/ui/button'; // ✅ shared 사용 가능
-import { UserAvatar } from '~/entities/user'; // ✅ entities 사용 가능
-import { LoginForm } from '~/features/auth'; // ✅ features 사용 가능
-import { Header } from '~/widgets/header'; // ✅ widgets 사용 가능
-import { useLoginPage } from './model/use-login-page'; // ✅ 같은 레이어 사용 가능
-```
-
-#### ❌ 잘못된 사용 예시
-
-**entities에서 features 사용 (❌):**
-```typescript
-// entities/user/ui/user-avatar.tsx
-import { LoginForm } from '~/features/auth'; // ❌ 상위 레이어 사용 불가
-```
-
-**features에서 widgets 사용 (❌):**
-```typescript
-// features/auth/ui/login-form.tsx
-import { Header } from '~/widgets/header'; // ❌ 상위 레이어 사용 불가
-```
-
-**widgets에서 pages 사용 (❌):**
-```typescript
-// widgets/header/ui/header.tsx
-import { LoginPage } from '~/pages/auth'; // ❌ 상위 레이어 사용 불가
-```
-
-**shared에서 다른 레이어 사용 (❌):**
-```typescript
-// common/ui/button/button.tsx
-import { UserAvatar } from '~/entities/user'; // ❌ shared는 다른 레이어에 의존 불가
-```
 
 <br/>
 

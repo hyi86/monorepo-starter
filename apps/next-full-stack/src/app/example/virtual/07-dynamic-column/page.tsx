@@ -1,4 +1,4 @@
-import { generateRandomData, generator } from '~/common/lib/faker/utils';
+import { generateRandomData, generator } from '~/shared/lib/faker/utils';
 import VirtualDynamicColumn from './client';
 
 export default function DynamicColumnPage() {

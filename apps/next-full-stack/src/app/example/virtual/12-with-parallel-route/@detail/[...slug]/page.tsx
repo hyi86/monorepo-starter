@@ -1,6 +1,6 @@
 import { delay } from '@henry-hong/common-utils/fn';
 import { notFound } from 'next/navigation';
-import { generator } from '~/common/lib/faker/utils';
+import { generator } from '~/shared/lib/faker/utils';
 import DetailFullPage from './full-page';
 import DetailModal from './modal';
 

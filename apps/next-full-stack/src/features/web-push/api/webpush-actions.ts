@@ -2,7 +2,7 @@
 
 import { devLog } from '@henry-hong/common-utils/console';
 import webPush from 'web-push';
-import { env } from '~/common/config/env';
+import { env } from '~/shared/config/env';
 
 /**
  * 푸시 알림 전송
