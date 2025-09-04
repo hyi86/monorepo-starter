@@ -10,7 +10,7 @@
 entities → features → widgets → pages → app
 ```
 
-### 0. `shared` -> `common` (공통 레이어)
+### 0. `shared` (공통 레이어)
 - 공통 유틸리티 함수, 훅, 컴포넌트
 - 모든 레이어에서 사용 가능
 - 다른 레이어에 의존하지 않음
@@ -42,7 +42,7 @@ entities → features → widgets → pages → app
 
 | Layers        | common | entities | features | widgets | app  |
 |---------------|:------:|:--------:|:--------:|:-------:|:----:|
-| **common**    | ✅     | ❌       | ❌       | ❌      |  ❌  |
+| **shared**    | ✅     | ❌       | ❌       | ❌      |  ❌  |
 | **entities**  | ✅     | ✅       | ❌       | ❌      |  ❌  |
 | **features**  | ✅     | ✅       | ✅       | ❌      |  ❌  |
 | **widgets**   | ✅     | ✅       | ✅       | ✅      |  ❌  |
@@ -60,34 +60,34 @@ entities → features → widgets → pages → app
 **`entities` 레이어:**
 ```typescript
 // entities/user/ui/user-avatar.tsx
-import { Button } from '@/common/ui/button'; // ✅ shared 사용 가능
+import { Button } from '~/shared/ui/button'; // ✅ shared 사용 가능
 import { useUser } from './model/use-user'; // ✅ 같은 레이어 사용 가능
 ```
 
 **`features` 레이어:**
 ```typescript
 // features/auth/ui/login-form.tsx
-import { Button, Input } from '@/common/ui'; // ✅ shared 사용 가능
-import { UserAvatar } from '@/entities/user'; // ✅ entities 사용 가능
+import { Button, Input } from '~/shared/ui'; // ✅ shared 사용 가능
+import { UserAvatar } from '~/entities/user'; // ✅ entities 사용 가능
 import { useAuth } from './model/use-auth'; // ✅ 같은 레이어 사용 가능
 ```
 
 **`widgets` 레이어:**
 ```typescript
 // widgets/header/ui/header.tsx
-import { Button } from '@/common/ui/button'; // ✅ shared 사용 가능
-import { UserAvatar } from '@/entities/user'; // ✅ entities 사용 가능
-import { LoginForm } from '@/features/auth'; // ✅ features 사용 가능
+import { Button } from '~/shared/ui/button'; // ✅ shared 사용 가능
+import { UserAvatar } from '~/entities/user'; // ✅ entities 사용 가능
+import { LoginForm } from '~/features/auth'; // ✅ features 사용 가능
 import { useHeader } from './model/use-header'; // ✅ 같은 레이어 사용 가능
 ```
 
 **`pages` 레이어:**
 ```typescript
 // pages/auth/ui/login-page.tsx
-import { Button } from '@/common/ui/button'; // ✅ shared 사용 가능
-import { UserAvatar } from '@/entities/user'; // ✅ entities 사용 가능
-import { LoginForm } from '@/features/auth'; // ✅ features 사용 가능
-import { Header } from '@/widgets/header'; // ✅ widgets 사용 가능
+import { Button } from '~/common/ui/button'; // ✅ shared 사용 가능
+import { UserAvatar } from '~/entities/user'; // ✅ entities 사용 가능
+import { LoginForm } from '~/features/auth'; // ✅ features 사용 가능
+import { Header } from '~/widgets/header'; // ✅ widgets 사용 가능
 import { useLoginPage } from './model/use-login-page'; // ✅ 같은 레이어 사용 가능
 ```
 
@@ -96,25 +96,25 @@ import { useLoginPage } from './model/use-login-page'; // ✅ 같은 레이어 �
 **entities에서 features 사용 (❌):**
 ```typescript
 // entities/user/ui/user-avatar.tsx
-import { LoginForm } from '@/features/auth'; // ❌ 상위 레이어 사용 불가
+import { LoginForm } from '~/features/auth'; // ❌ 상위 레이어 사용 불가
 ```
 
 **features에서 widgets 사용 (❌):**
 ```typescript
 // features/auth/ui/login-form.tsx
-import { Header } from '@/widgets/header'; // ❌ 상위 레이어 사용 불가
+import { Header } from '~/widgets/header'; // ❌ 상위 레이어 사용 불가
 ```
 
 **widgets에서 pages 사용 (❌):**
 ```typescript
 // widgets/header/ui/header.tsx
-import { LoginPage } from '@/pages/auth'; // ❌ 상위 레이어 사용 불가
+import { LoginPage } from '~/pages/auth'; // ❌ 상위 레이어 사용 불가
 ```
 
 **shared에서 다른 레이어 사용 (❌):**
 ```typescript
 // common/ui/button/button.tsx
-import { UserAvatar } from '@/entities/user'; // ❌ shared는 다른 레이어에 의존 불가
+import { UserAvatar } from '~/entities/user'; // ❌ shared는 다른 레이어에 의존 불가
 ```
 
 <br/>
@@ -179,14 +179,14 @@ features/auth/              # auth 슬라이스
 **✅ 같은 레이어 내 슬라이스 간 의존성 허용:**
 ```typescript
 // features/cart/model/use-cart.ts
-import { useAuth } from '@/features/auth'; // ✅ 같은 레이어의 다른 슬라이스
-import { Product } from '@/entities/product'; // ✅ 하위 레이어의 슬라이스
+import { useAuth } from '~/features/auth'; // ✅ 같은 레이어의 다른 슬라이스
+import { Product } from '~/entities/product'; // ✅ 하위 레이어의 슬라이스
 ```
 
 **❌ 다른 레이어의 슬라이스에 직접 의존 금지:**
 ```typescript
 // entities/user/ui/user-avatar.tsx
-import { LoginForm } from '@/features/auth'; // ❌ 상위 레이어 슬라이스
+import { LoginForm } from '~/features/auth'; // ❌ 상위 레이어 슬라이스
 ```
 
 <br/>
@@ -231,14 +231,14 @@ export const useAuth = () => {
 };
 
 // widgets/header/ui/header.tsx
-import { useAuth } from '@/features/auth';
+import { useAuth } from '~/features/auth';
 // 필요한 기능만 가져와서 사용
 ```
 
 **❌ 피해야 할 상태 공유 패턴:**
 ```typescript
 // 전역 상태를 모든 곳에서 직접 사용
-import { useStore } from '@/app/store';
+import { useStore } from '~/app/store';
 // 너무 많은 의존성과 결합도 증가
 ```
 
@@ -263,7 +263,7 @@ UserAvatar.displayName = 'UserAvatar';
 // app/dashboard/ui/dashboard-page.tsx
 import dynamic from 'next/dynamic';
 
-const HeavyChart = dynamic(() => import('@/widgets/charts'), {
+const HeavyChart = dynamic(() => import('~/widgets/charts'), {
   loading: () => <div>로딩 중...</div>,
   ssr: false
 });
@@ -273,13 +273,13 @@ const HeavyChart = dynamic(() => import('@/widgets/charts'), {
 
 **✅ 트리 쉐이킹을 위한 export 방식:**
 ```typescript
-// common/ui/button/button.tsx
+// shared/ui/button/button.tsx
 export { Button } from './button';
 
-// common/ui/input/input.tsx
+// shared/ui/input/input.tsx
 export { Input } from './input';
 
-// common/ui/modal/modal.tsx
+// shared/ui/modal/modal.tsx
 export { Modal } from './modal';
 // 필요한 것만 import 가능
 ```
