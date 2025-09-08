@@ -2,9 +2,10 @@
 source "$(dirname "${BASH_SOURCE[0]}")/ui-utils.sh"
 
 # ------------------------------------------------------------
-# interactive UI
+# 신규 패키지 생성 (대화형 UI)
 # ------------------------------------------------------------
-# menu_select "$(color.blue "▶ Select template?")" "hono" "next" "react-router" "vanilla"
+
+# interactive UI (대화형 모드)
 menu_select "$(color.blue "▶ Select template?")" "hono" "next"
 prompt_input "$(color.blue "▶ Enter package name")"
 
@@ -19,9 +20,7 @@ else
   mkdir -p apps/$INPUT
 fi
 
-# ------------------------------------------------------------
-# call template specific script
-# ------------------------------------------------------------
+# 템플릿 스크립트 호출
 SCRIPT_DIR="$(dirname "${BASH_SOURCE[0]}")"
 
 echo $SELECTED
