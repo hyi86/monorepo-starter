@@ -104,7 +104,7 @@ export default function WysiwygBasicPage() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative p-4">
       <Button className="mb-4" onClick={() => setIsEditing(!isEditing)}>
         {isEditing ? 'Edit Source' : 'Edit'}
       </Button>

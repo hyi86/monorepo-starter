@@ -6,6 +6,7 @@
     "typegen": "next typegen",
     "predev": "pnpx nextjs-devtools",
     "dev": "PORT=3001 next dev --turbopack",
+    "dev:watch": "pnpx nextjs-devtools & PORT=3001 next dev --turbopack",
     "prebuild": "pnpx nextjs-devtools && sh ../../scripts/compress.sh ./public",
     "build": "next build --turbopack",
     "start": "next start",

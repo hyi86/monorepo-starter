@@ -1,6 +1,6 @@
 import { formatDate } from '@henry-hong/common-utils/date';
-import { ScrollArea, ScrollBar } from '@monorepo-starter/ui/components/scroll-area';
-import { Table, TableBody, TableCell, TableHeader, TableRow } from '@monorepo-starter/ui/components/table';
+import { TableBody, TableCell, TableHeader, TableRow } from '@monorepo-starter/ui/components/table';
+import { cn } from '@monorepo-starter/ui/lib/utils';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import { SearchParams } from 'nuqs/server';
@@ -31,15 +31,13 @@ export default async function TableServerControlsPage({ searchParams }: { search
   });
 
   return (
-    <div className="flex flex-col">
-      <h1>Table with Controls - Server Components Only</h1>
-      <div className="flex-1 space-y-2">
-        <div className="max-w-240 not-prose">
-          <FuzzySearch currentUrl={currentUrl} allParams={searchParamsCache.all()} />
-          <TableFilters currentUrl={currentUrl} />
-        </div>
-        <ScrollArea className="max-w-240 h-150 rounded border">
-          <Table>
+    <div className="size-full">
+      <h1 className="mb-4 text-xl font-semibold">Table with Controls - Server Components Only</h1>
+      <div className="space-y-3">
+        <FuzzySearch currentUrl={currentUrl} allParams={searchParamsCache.all()} />
+        <TableFilters currentUrl={currentUrl} />
+        <div data-slot="table-container" className="relative w-[calc(95vw-var(--sidebar-width))] overflow-x-auto">
+          <table data-slot="table" className={cn('w-full caption-bottom text-sm')}>
             <TableHeader>
               <TableRow>
                 <SortHeader name="id" currentUrl={currentUrl}>
@@ -105,9 +103,8 @@ export default async function TableServerControlsPage({ searchParams }: { search
                 </TableRow>
               ))}
             </TableBody>
-          </Table>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
+          </table>
+        </div>
         <TablePagination currentUrl={currentUrl} totalCount={data.totalCount} />
       </div>
     </div>

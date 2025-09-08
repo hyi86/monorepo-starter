@@ -212,7 +212,7 @@ export default function TableClientBasic({ data: initialData }: { data: Data[] }
         onDragEnd={handleDragEnd}
         sensors={sensors}
       >
-        <div ref={tableContainerRef} className="relative h-[70dvh] w-full overflow-x-auto">
+        <div ref={tableContainerRef} className="relative h-[60dvh] w-[calc(95vw-var(--sidebar-width))] overflow-x-auto">
           <table style={{ width: `${table.getCenterTotalSize()}px` }} className="grid caption-bottom text-sm">
             <TableHeader className={cn(`bg-background/80 sticky top-0 z-10 grid backdrop-blur-md`)}>
               {table.getHeaderGroups().map((headerGroup) => (
