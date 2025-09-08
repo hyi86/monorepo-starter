@@ -25,7 +25,7 @@ type HybridOptions<T> = {
 type CacheResult<T> = {
   data: T;
   traceId: string;
-  cacheStatus: 'HIT:SQLite' | 'HIT:File' | 'MISS' | 'WAIT';
+  cacheStatus: 'HIT' | 'MISS' | 'WAIT';
   compressedSize: number;
 };
 
@@ -50,7 +50,7 @@ export async function apiHybridCache<T>({ key, ttl = 15 * 1000, fetcher }: Hybri
       const buffer = fs.readFileSync(filePath);
       const decompressed = await asyncGunzip(buffer);
       const data = JSON.parse(decompressed.toString());
-      return { data, traceId, cacheStatus: 'HIT:File', compressedSize: buffer.length };
+      return { data, traceId, cacheStatus: 'HIT', compressedSize: buffer.length };
     }
   } catch {
     devLog('warn', `[CACHE_FILE_NOT_FOUND ERROR] key=${key} traceId=${traceId} filePath=${filePath}`);

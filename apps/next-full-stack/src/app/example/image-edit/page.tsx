@@ -38,7 +38,7 @@ export default function ImageEditPage() {
     <div>
       <h1 className="mb-4 text-2xl font-bold">Image Edit</h1>
       <div className="mb-4 flex gap-2">
-        <Button onClick={() => onReset()}>Reset</Button>
+        <Button onClick={onReset}>Reset</Button>
         <Button onClick={() => onFlip(true, false)}>Flip Horizontal</Button>
         <Button onClick={() => onFlip(false, true)}>Flip Vertical</Button>
         <Button onClick={() => onRotate(90)}>Rotate 90°</Button>
