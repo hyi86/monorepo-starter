@@ -14,7 +14,7 @@ import {
   PaginationItem,
   PaginationLink,
 } from '@monorepo-starter/ui/components/pagination';
-import { calculatePaginationRange } from '@monorepo-starter/ui/hooks/pagination';
+import { calculatePaginationRange } from '@monorepo-starter/ui/lib/pagination';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { pageSizes, searchParamsCache, serialize } from './searchParams';

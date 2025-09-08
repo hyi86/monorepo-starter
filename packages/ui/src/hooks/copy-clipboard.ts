@@ -1,6 +1,9 @@
 'use client';
 
-// 보안상의 이유로 localhost 또는 https 에서만 동작 (IP로 접근하는 경우 동작하지 않음)
+/**
+ * 클립보드에 텍스트를 복사하는 유틸리티 Hook
+ * ⚠️ 보안상의 이유로 `http://localhost` 또는 `https://` 에서만 동작 (IP로 접근하는 경우 동작하지 않음)
+ */
 export function copyToClipboard(text: string) {
   try {
     // navigator.clipboard 기본 동작

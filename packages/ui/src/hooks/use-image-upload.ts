@@ -6,6 +6,10 @@ interface UseImageUploadProps {
   onUpload?: (url: string) => void;
 }
 
+/**
+ * 이미지 업로드를 관리하는 유틸리티 Hook
+ * - 이미지 업로드를 관리하고, 이미지 미리보기를 제공
+ */
 export function useImageUpload({ onUpload }: UseImageUploadProps = {}) {
   const previewRef = useRef<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);

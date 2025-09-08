@@ -1,11 +1,10 @@
-function range(start: number, end: number) {
-  const length = end - start + 1;
-  return Array.from({ length }, (_, index) => index + start);
-}
-
 export const DOTS = 'dots';
 
-// 서버 & 클라이언트 컴포넌트에서 사용할 수 있는 순수 함수
+/**
+ * 페이지네이션 범위를 계산하는 유틸리티 함수
+ * - 서버 & 클라이언트 컴포넌트에서 사용가능
+ * - 결과 형태는 `[1, 2, 3, 'dots', 8, 9, 10]` 와 같은 형태로 반환
+ */
 export function calculatePaginationRange({
   total,
   siblings = 1,
@@ -47,4 +46,9 @@ export function calculatePaginationRange({
     DOTS,
     ...range(_total - boundaries + 1, _total),
   ];
+}
+
+function range(start: number, end: number) {
+  const length = end - start + 1;
+  return Array.from({ length }, (_, index) => index + start);
 }

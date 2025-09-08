@@ -7,7 +7,7 @@ import {
   PaginationLink,
 } from '@monorepo-starter/ui/components/pagination';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@monorepo-starter/ui/components/select';
-import { calculatePaginationRange } from '@monorepo-starter/ui/hooks/pagination';
+import { calculatePaginationRange } from '@monorepo-starter/ui/lib/pagination';
 import { Table } from '@tanstack/react-table';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 

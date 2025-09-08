@@ -13,6 +13,11 @@ interface UseAutoScrollOptions {
   content?: React.ReactNode;
 }
 
+/**
+ * 자동 스크롤 기능을 제공하는 Custom Hook.
+ * 채팅 메시지, 로그, 실시간 데이터 스트림 등에서 새로운 콘텐츠가 추가될 때,
+ * 자동으로 맨 아래로 스크롤하는 기능을 구현할 때 사용
+ */
 export function useAutoScroll(options: UseAutoScrollOptions = {}) {
   const { offset = 20, smooth = false, content } = options;
   const scrollRef = useRef<HTMLDivElement>(null);

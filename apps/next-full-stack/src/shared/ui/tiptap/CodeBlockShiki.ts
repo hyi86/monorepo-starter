@@ -17,6 +17,8 @@ export const CodeBlockShiki = CodeBlock.extend<CodeBlockShikiOptions>({
       exitOnTripleEnter: true,
       exitOnArrowDown: true,
       HTMLAttributes: {},
+      enableTabIndentation: true,
+      tabSize: 2,
     };
   },
 

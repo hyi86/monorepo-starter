@@ -9,6 +9,13 @@ type UseSliderWithInputProps = {
   defaultValue?: number[];
 };
 
+/**
+ * 슬라이더와 인풋을 함께 사용하는 유틸리티 Hook
+ * - 슬라이더와 인풋을 함께 사용하여 값을 조절할 수 있음
+ * - 슬라이더와 인풋의 값을 동기화함
+ * - 슬라이더와 인풋의 값을 초기화할 수 있음
+ * - 슬라이더와 인풋의 값을 검증하고 업데이트할 수 있음
+ */
 export function useSliderWithInput({
   minValue = 0,
   maxValue = 100,
