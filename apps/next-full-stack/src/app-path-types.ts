@@ -4,6 +4,11 @@ export type LiteralUnion<LiteralType, BaseType extends Primitive> = LiteralType 
 
 export type StaticPath =
   | '/'
+  | '/blocks'
+  | '/blocks/sidebar-01'
+  | '/blocks/sidebar-02'
+  | '/blocks/sidebar-03'
+  | '/blocks/sidebar-04'
   | '/example'
   | '/example/auth'
   | '/example/auth/protect'
@@ -137,6 +142,96 @@ export const appPathRoutes: AppPathRoutes[] = [
         children: [
           {
             path: 'src/app/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/blocks',
+    linkTypes: '/blocks',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/blocks/sidebar-01',
+    linkTypes: '/blocks/sidebar-01',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/sidebar-01/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/sidebar-01/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/blocks/sidebar-02',
+    linkTypes: '/blocks/sidebar-02',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/sidebar-02/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/sidebar-02/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/blocks/sidebar-03',
+    linkTypes: '/blocks/sidebar-03',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/sidebar-03/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/sidebar-03/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/blocks/sidebar-04',
+    linkTypes: '/blocks/sidebar-04',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/sidebar-04/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/sidebar-04/page.tsx',
             children: [],
           },
         ],
