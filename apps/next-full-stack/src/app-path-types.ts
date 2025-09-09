@@ -31,6 +31,7 @@ export type StaticPath =
   | '/example/experimental'
   | '/example/experimental/api-cache'
   | '/example/experimental/file-upload'
+  | '/example/filter'
   | '/example/form'
   | '/example/form/01-server-only'
   | '/example/form/02-client'
@@ -1018,6 +1019,29 @@ export const appPathRoutes: AppPathRoutes[] = [
                     children: [],
                   },
                 ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/filter',
+    linkTypes: '/example/filter',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/filter/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/filter/page.tsx',
+                children: [],
               },
             ],
           },
