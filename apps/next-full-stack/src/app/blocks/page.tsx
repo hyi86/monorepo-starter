@@ -21,6 +21,18 @@ export default function BlocksPage() {
         <li>
           <Link href="/blocks/sidebar-04">Sidebar 04</Link>
         </li>
+        <li>
+          <Link href="/blocks/sidebar-06">Sidebar 06</Link>
+        </li>
+        <li>
+          <Link href="/blocks/sidebar-07">Sidebar 07</Link>
+        </li>
+        <li>
+          <Link href="/blocks/sidebar-08">Sidebar 08</Link>
+        </li>
+        <li>
+          <Link href="/blocks/sidebar-09">Sidebar 09</Link>
+        </li>
       </ul>
     </div>
   );

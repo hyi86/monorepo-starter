@@ -1,4 +1,4 @@
-import { AppSidebar } from '@monorepo-starter/ui/blocks/sidebar-with-collapsible-sections/app-sidebar';
+import { AppSidebar } from '@monorepo-starter/ui/blocks/sidebar-collapsible-sections/app-sidebar';
 import {
   Breadcrumb,
   BreadcrumbItem,

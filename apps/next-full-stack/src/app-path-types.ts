@@ -9,6 +9,10 @@ export type StaticPath =
   | '/blocks/sidebar-02'
   | '/blocks/sidebar-03'
   | '/blocks/sidebar-04'
+  | '/blocks/sidebar-06'
+  | '/blocks/sidebar-07'
+  | '/blocks/sidebar-08'
+  | '/blocks/sidebar-09'
   | '/example'
   | '/example/auth'
   | '/example/auth/protect'
@@ -232,6 +236,78 @@ export const appPathRoutes: AppPathRoutes[] = [
         children: [
           {
             path: 'src/app/blocks/sidebar-04/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/blocks/sidebar-06',
+    linkTypes: '/blocks/sidebar-06',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/sidebar-06/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/sidebar-06/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/blocks/sidebar-07',
+    linkTypes: '/blocks/sidebar-07',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/sidebar-07/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/sidebar-07/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/blocks/sidebar-08',
+    linkTypes: '/blocks/sidebar-08',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/sidebar-08/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/sidebar-08/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/blocks/sidebar-09',
+    linkTypes: '/blocks/sidebar-09',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/sidebar-09/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/sidebar-09/page.tsx',
             children: [],
           },
         ],
