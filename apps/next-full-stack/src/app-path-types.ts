@@ -31,6 +31,13 @@ export type StaticPath =
   | '/example/experimental'
   | '/example/experimental/api-cache'
   | '/example/experimental/file-upload'
+  | '/example/file-upload/01-basic'
+  | '/example/file-upload/02-avatar-droppable'
+  | '/example/file-upload/03-drop-area-with-button'
+  | '/example/file-upload/04-multiple-image'
+  | '/example/file-upload/05-multiple-table'
+  | '/example/file-upload/06-multiple-card'
+  | '/example/file-upload/08-multiple-progress-track'
   | '/example/filter'
   | '/example/form'
   | '/example/form/01-server-only'
@@ -42,6 +49,7 @@ export type StaticPath =
   | '/example/form/07-use-optimistic'
   | '/example/form/08-nested-list'
   | '/example/form/09-date-picker'
+  | '/example/form/10-inputs'
   | '/example/image-edit'
   | '/example/modern-web'
   | '/example/modern-web/01-popover'
@@ -1027,6 +1035,202 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
+    href: '/example/file-upload/01-basic',
+    linkTypes: '/example/file-upload/01-basic',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/file-upload/01-basic/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/file-upload/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/file-upload/01-basic/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/file-upload/02-avatar-droppable',
+    linkTypes: '/example/file-upload/02-avatar-droppable',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/file-upload/02-avatar-droppable/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/file-upload/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/file-upload/02-avatar-droppable/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/file-upload/03-drop-area-with-button',
+    linkTypes: '/example/file-upload/03-drop-area-with-button',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/file-upload/03-drop-area-with-button/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/file-upload/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/file-upload/03-drop-area-with-button/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/file-upload/04-multiple-image',
+    linkTypes: '/example/file-upload/04-multiple-image',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/file-upload/04-multiple-image/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/file-upload/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/file-upload/04-multiple-image/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/file-upload/05-multiple-table',
+    linkTypes: '/example/file-upload/05-multiple-table',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/file-upload/05-multiple-table/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/file-upload/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/file-upload/05-multiple-table/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/file-upload/06-multiple-card',
+    linkTypes: '/example/file-upload/06-multiple-card',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/file-upload/06-multiple-card/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/file-upload/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/file-upload/06-multiple-card/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/file-upload/08-multiple-progress-track',
+    linkTypes: '/example/file-upload/08-multiple-progress-track',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/file-upload/08-multiple-progress-track/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/file-upload/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/file-upload/08-multiple-progress-track/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
     href: '/example/filter',
     linkTypes: '/example/filter',
     isParallelRoute: false,
@@ -1319,6 +1523,34 @@ export const appPathRoutes: AppPathRoutes[] = [
                 children: [
                   {
                     path: 'src/app/example/form/09-date-picker/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/form/10-inputs',
+    linkTypes: '/example/form/10-inputs',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/form/10-inputs/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/form/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/form/10-inputs/page.tsx',
                     children: [],
                   },
                 ],
