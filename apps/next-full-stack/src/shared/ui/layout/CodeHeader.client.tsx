@@ -1,15 +1,13 @@
 'use client';
 
-import { copyToClipboard } from '@monorepo-starter/ui/hooks/copy-clipboard';
+import { copyToClipboard } from '@monorepo-starter/ui/lib/clipboard';
 import { CheckIcon, CopyIcon } from 'lucide-react';
 import { useState } from 'react';
 
 export function CodeHeader({ fileName, lang, code }: { fileName: string; lang: string; code: string }) {
   const [isCopied, setIsCopied] = useState(false);
 
-  /**
-   * 코드 복사
-   */
+  // 코드 복사
   const handleCopy = () => {
     copyToClipboard(code);
     setIsCopied(true);
@@ -18,9 +16,7 @@ export function CodeHeader({ fileName, lang, code }: { fileName: string; lang: s
     }, 1000);
   };
 
-  /**
-   * 코드 헤더 렌더링
-   */
+  // 코드 헤더 렌더링
   if (lang !== 'bash' && !fileName) {
     return null;
   }

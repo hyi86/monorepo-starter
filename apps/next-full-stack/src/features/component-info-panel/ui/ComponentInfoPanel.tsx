@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from '@monorepo-starter/ui/components/dialog';
 import { ScrollArea, ScrollBar } from '@monorepo-starter/ui/components/scroll-area';
-import { copyToClipboard } from '@monorepo-starter/ui/hooks/copy-clipboard';
+import { copyToClipboard } from '@monorepo-starter/ui/lib/clipboard';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
