@@ -29,6 +29,8 @@ export const infoColor = rgb('59 130 246');
 export const warnColor = rgb('250 204 21');
 export const errorColor = rgb('239 68 68');
 
+export const whiteSpace = ' '.repeat(13);
+
 type LogType = LiteralUnion<'process' | 'success' | 'info' | 'warn' | 'error', string>;
 
 /**
@@ -70,9 +72,7 @@ export function devLog(type: LogType, ...args: any[]) {
       log(errorColor(` ✗ ${now}`), ...args);
       return;
     default:
-      log(whiteSpace, ...args);
+      log(whiteSpace, type, ...args);
       return;
   }
 }
-
-export const whiteSpace = ' '.repeat(13);
