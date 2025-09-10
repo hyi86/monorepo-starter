@@ -1,0 +1,22 @@
+{
+  "name": "@monorepo-starter/e2e",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "test": "pnpm exec playwright test",
+    "test:report": "pnpm exec playwright show-report",
+    "test:ui": "pnpm exec playwright test --ui"
+  },
+  "devDependencies": {
+    "@monorepo-starter/eslint-config": "workspace:*",
+    "@monorepo-starter/typescript-config": "workspace:*",
+    "@playwright/test": "^1.55.0",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "type-fest": "^4.41.0",
+    "typescript": "catalog:"
+  }
+}

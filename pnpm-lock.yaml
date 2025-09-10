@@ -592,6 +592,30 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@22.18.1)(jiti@2.5.1)(jsdom@26.1.0)(lightningcss@1.30.1)(sass@1.92.1)(tsx@4.20.5)(yaml@2.8.1)
 
+  packages/e2e:
+    devDependencies:
+      '@monorepo-starter/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@monorepo-starter/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@playwright/test':
+        specifier: ^1.55.0
+        version: 1.55.0
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.18.1
+      eslint:
+        specifier: 'catalog:'
+        version: 9.35.0(jiti@2.5.1)
+      type-fest:
+        specifier: ^4.41.0
+        version: 4.41.0
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.2
+
   packages/eslint-config:
     devDependencies:
       '@eslint/js':
@@ -9782,7 +9806,7 @@ snapshots:
 
   '@types/tar-fs@2.0.4':
     dependencies:
-      '@types/node': 22.18.1
+      '@types/node': 24.3.1
       '@types/tar-stream': 3.1.4
 
   '@types/tar-stream@3.1.4':
