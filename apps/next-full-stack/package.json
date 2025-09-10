@@ -29,7 +29,7 @@
     "@floating-ui/dom": "^1.7.4",
     "@headless-tree/core": "^1.4.0",
     "@headless-tree/react": "^1.4.0",
-    "@henry-hong/common-utils": "^0.1.8",
+    "@henry-hong/common-utils": "^0.1.9",
     "@hookform/resolvers": "^5.2.1",
     "@mantine/hooks": "^8.3.0",
     "@mdx-js/loader": "^3.1.1",

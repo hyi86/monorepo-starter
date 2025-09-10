@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^10.0.0",
-    "@henry-hong/common-utils": "^0.1.8",
+    "@henry-hong/common-utils": "^0.1.9",
     "@hono/node-server": "^1.19.1",
     "@hono/zod-validator": "^0.7.2",
     "better-sqlite3": "^12.2.0",
