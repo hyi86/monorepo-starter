@@ -23,13 +23,13 @@ const keys = [
 ] as const;
 export type OrderByKey = (typeof keys)[number];
 
-export const pageSizes = ['10', '20', '30', '50', '100'] as const;
+export const pageSizes = ['5', '10', '20', '30', '50', '100'] as const;
 export type PageSizes = (typeof pageSizes)[number];
 
 export const parsers = {
   // pagination
   pageIndex: parseAsInteger.withDefault(1),
-  pageSize: parseAsStringLiteral(pageSizes).withDefault('20'),
+  pageSize: parseAsStringLiteral(pageSizes).withDefault('5'),
   // sorting
   orderBy: parseAsStringLiteral(keys).withDefault('id'),
   sortDirection: parseAsStringLiteral(['asc', 'desc']).withDefault('desc'),

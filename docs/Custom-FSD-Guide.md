@@ -154,9 +154,10 @@ features/
 
 `next.js` 의 `app router` 와 관련된 [next.js 공식 파일 컨벤션](https://nextjs.org/docs/app/getting-started/project-structure)을 그대로 따릅니다.  
 
-기본 라우트 이외에 다음의 파일을 비공식 파일 컨벤션으로 사용합니다.
+기본 라우트 이외에 다음의 파일을 비공식 파일 컨벤션으로 사용합니다.  
 
-| 파일명 | 설명 |
-|--------|------|
-| `search-params.tsx` | 검색 파라미터 컴포넌트(Nuqs) |
+| 파일명 | 설명 | 라이브러리 | 
+|--------|------|------|
+| `search-params.tsx` | 검색 파라미터 정의 | [Nuqs](https://nuqs.dev) |
+| `columns.tsx` | 테이블 컬럼 정의 | [TanStack Table](https://tanstack.com/table/latest/docs/introduction) |
 
