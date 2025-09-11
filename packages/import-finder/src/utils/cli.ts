@@ -27,7 +27,11 @@ export async function findWorkspaceAndTsConfigPath() {
  */
 export async function findFilePathInput() {
   intro('File Path Input');
-  const filePath = await text({ message: 'Enter the file path?', placeholder: 'ex) src/app/page.tsx' });
+  const filePath = await text({
+    message: 'Enter the file path?',
+    placeholder: 'ex) src/app/page.tsx or src/app/**/*.tsx',
+    defaultValue: 'src/app/**/page.tsx',
+  });
   outro(`File Path: ${filePath.toString()}`);
   return filePath as string;
 }

@@ -1,64 +1,143 @@
-import { devLog } from '@henry-hong/common-utils/console';
+import { dim2, green, magenta, red, yellow } from '@henry-hong/common-utils/console';
 import { type RecursiveImportResult } from './import-finder';
 
 export type TreeNode = {
   filePath: string;
   depth: number;
+  count: number;
   children: TreeNode[];
 };
 
 /**
- * 재귀적 import 결과를 트리 구조로 변환
+ * 재귀적 import 결과를 트리 구조로 변환 (순환 참조 방지)
  */
 export function buildTree(results: RecursiveImportResult[]): TreeNode {
   // 파일 경로를 키로 하는 맵 생성
   const nodeMap = new Map<string, TreeNode>();
+  const processed = new Set<string>(); // 이미 처리된 노드 추적
 
   // 모든 노드 생성
   results.forEach((result) => {
     nodeMap.set(result.filePath, {
       filePath: result.filePath,
       depth: result.depth,
+      count: result.imports.length,
       children: [],
     });
   });
 
-  // 부모-자식 관계 설정
-  const rootNodes: TreeNode[] = [];
+  // 루트 노드 찾기 (깊이 0인 노드)
+  const rootResult = results.find((result) => result.depth === 0);
+  if (!rootResult) {
+    return nodeMap.values().next().value as TreeNode;
+  }
 
-  results.forEach((result) => {
-    const currentNode = nodeMap.get(result.filePath);
-    if (!currentNode) return;
+  // 재귀적으로 트리 구조 생성 (순환 참조 방지)
+  function buildNodeRecursive(filePath: string, visited: Set<string>): TreeNode | null {
+    // 순환 참조 체크
+    if (visited.has(filePath)) {
+      return null;
+    }
 
-    // 자식 노드들 추가
+    const node = nodeMap.get(filePath);
+    if (!node) {
+      return null;
+    }
+
+    // 이미 처리된 노드는 복사본 반환
+    if (processed.has(filePath)) {
+      return {
+        filePath: node.filePath,
+        depth: node.depth,
+        count: node.count,
+        children: [],
+      };
+    }
+
+    visited.add(filePath);
+    processed.add(filePath);
+
+    // 해당 파일의 import 결과 찾기
+    const result = results.find((r) => r.filePath === filePath);
+    if (!result) {
+      return node;
+    }
+
+    // 자식 노드들 생성
+    const children: TreeNode[] = [];
     result.imports.forEach((importPath) => {
-      const childNode = nodeMap.get(importPath);
+      const childNode = buildNodeRecursive(importPath, new Set(visited));
       if (childNode) {
-        currentNode.children.push(childNode);
+        children.push(childNode);
       }
     });
 
-    // 루트 노드 찾기 (깊이 0인 노드)
-    if (result.depth === 0) {
-      rootNodes.push(currentNode);
-    }
-  });
+    return {
+      filePath: node.filePath,
+      depth: node.depth,
+      count: node.count,
+      children,
+    };
+  }
 
-  // 루트 노드가 없으면 첫 번째 노드를 루트로 사용
-  return rootNodes[0] || (nodeMap.values().next().value as TreeNode);
+  return buildNodeRecursive(rootResult.filePath, new Set()) || nodeMap.get(rootResult.filePath)!;
 }
 
 /**
  * 트리를 콘솔에 출력
  */
-export function renderTreeInTerminal(node: TreeNode, prefix: string = '', isLast: boolean = true): void {
-  const connector = isLast ? '└─ ' : '├─ ';
-  devLog('info', `${prefix}${connector} ${node.filePath}`);
+export function renderTreeInTerminal(node: TreeNode, color: boolean = true) {
+  let result = '';
 
-  // 자식 노드들 출력
-  node.children.forEach((child, index) => {
-    const isLastChild = index === node.children.length - 1;
-    const childPrefix = prefix + (isLast ? '   ' : '│  ');
-    renderTreeInTerminal(child, childPrefix, isLastChild);
-  });
+  const renderTreeString = (node: TreeNode, prefix: string = '', isLast: boolean = true) => {
+    const connector = isLast ? ' └─ ' : ' ├─ ';
+
+    if (color) {
+      result += `${prefix}${connector}${getFilePathText(node.filePath)} ${getCountText(node.count)}\n`;
+    } else {
+      result += `${prefix}${connector}${node.filePath}\n`;
+    }
+
+    node.children.forEach((child, index) => {
+      const isLastChild = index === node.children.length - 1;
+      const childPrefix = prefix + (isLast ? '   ' : ' │ ');
+      renderTreeString(child, childPrefix, isLastChild);
+    });
+
+    return result;
+  };
+
+  result = renderTreeString(node);
+
+  return result.trim();
+}
+
+/**
+ * count 에 따라 색상을 반환
+ */
+function getCountText(count: number): string {
+  if (count > 5) {
+    return red(`(${count})`);
+  }
+
+  if (count > 2) {
+    return yellow(`(${count})`);
+  }
+
+  if (count > 0) {
+    return green(`(${count})`);
+  }
+
+  return dim2(`(${count})`);
+}
+
+/**
+ * 파일 경로에 따른 구분
+ */
+function getFilePathText(filePath: string): string {
+  if (filePath.startsWith('packages/ui/')) {
+    return magenta(filePath);
+  }
+
+  return filePath;
 }

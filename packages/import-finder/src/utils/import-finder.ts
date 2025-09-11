@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { Project } from 'ts-morph';
+import type { Project } from 'ts-morph';
 
 export type RecursiveImportResult = {
   filePath: string;
@@ -73,8 +73,6 @@ export function findRecursiveImports(
     }
   }
 
-  // 프로젝트에 파일 추가
-  project.addSourceFilesAtPaths(startFilePath);
   traverseFile(startFilePath);
   return results;
 }

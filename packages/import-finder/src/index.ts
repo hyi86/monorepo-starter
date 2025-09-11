@@ -1,4 +1,5 @@
 import { devLog, red } from '@henry-hong/common-utils/console';
+import FastGlob from 'fast-glob';
 import fs from 'node:fs';
 import path from 'node:path';
 import { Project } from 'ts-morph';
@@ -87,13 +88,6 @@ export async function main() {
 
   startFilePath = path.resolve(workspace, startFilePath);
 
-  try {
-    fs.accessSync(startFilePath, fs.constants.F_OK);
-  } catch {
-    devLog('error', `Start file path ${red(startFilePath)} not found`);
-    return;
-  }
-
   /**
    * --------------------------------
    * Search import files
@@ -109,13 +103,24 @@ export async function main() {
     skipAddingFilesFromTsConfig: true,
   });
 
-  // 재귀적으로 모든 import 찾기
-  const recursiveResults = findRecursiveImports(project, startFilePath, process.cwd());
+  // file glob
+  const files = await FastGlob([`${startFilePath}`]);
 
-  // 트리구조 생성
-  const tree = buildTree(recursiveResults);
+  // 프로젝트에 파일 추가
+  project.addSourceFilesAtPaths(files);
+
+  const result: { filePath: string; graph: string }[] = [];
 
   // 트리구조 출력
-  devLog('info', '.');
-  renderTreeInTerminal(tree);
+  for (const file of files) {
+    // 재귀적으로 모든 import 찾기
+    const recursiveResults = findRecursiveImports(project, file, process.cwd());
+    // 트리구조 생성
+    const tree = buildTree(recursiveResults);
+    // 트리구조 출력 String 추가
+    result.push({ filePath: file, graph: renderTreeInTerminal(tree, false) });
+  }
+
+  devLog('info', JSON.stringify(result, null, 2));
+  // fs.writeFileSync('result.json', JSON.stringify(result, null, 2));
 }
