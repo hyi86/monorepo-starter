@@ -3,7 +3,7 @@
 import { Separator } from '@monorepo-starter/ui/components/separator';
 import { SidebarTrigger } from '@monorepo-starter/ui/components/sidebar';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { DashboardBreadcrumb } from './DashboardBreadcrumb';
+import { DashboardBreadcrumb } from './dashboard-breadcrumb';
 
 export default function DashboardMain({ children }: { children: React.ReactNode }) {
   return (

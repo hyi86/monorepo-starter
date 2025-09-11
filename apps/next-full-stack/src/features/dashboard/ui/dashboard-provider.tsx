@@ -1,6 +1,6 @@
 import { SidebarInset, SidebarProvider } from '@monorepo-starter/ui/components/sidebar';
-import DashboardMain from './DashboardMain';
-import DashboardSidebar from './DashboardSidebar';
+import DashboardMain from './dashboard-main';
+import DashboardSidebar from './dashboard-sidebar';
 
 export function DashboardProvider({ children }: { children: React.ReactNode }) {
   return (

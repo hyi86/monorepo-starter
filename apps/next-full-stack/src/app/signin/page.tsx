@@ -1,7 +1,7 @@
 import { type Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { checkAuthorization } from '~/features/auth/lib/check-auth';
-import { SigninForm } from '~/features/auth/ui/SigninForm';
+import { SigninForm } from '~/features/auth/ui/signin-form';
 
 export const metadata: Metadata = {
   title: 'Signin',

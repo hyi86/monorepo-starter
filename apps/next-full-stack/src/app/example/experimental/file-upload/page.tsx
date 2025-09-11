@@ -1,6 +1,6 @@
 'use client';
 
-import { FileUploader } from '~/features/file-upload/ui/FileUploader';
+import { FileUploader } from '~/features/file-upload/ui/file-uploader';
 
 export default function UploadPage() {
   return (

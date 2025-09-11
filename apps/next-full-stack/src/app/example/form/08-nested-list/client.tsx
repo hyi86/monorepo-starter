@@ -17,7 +17,8 @@ import { GripVerticalIcon, Plus, Trash2 } from 'lucide-react';
 import { FieldErrors, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { generator } from '~/shared/lib/faker/utils';
-import { VirtualSortable, VirtualSortableItem } from '~/shared/ui/sortable';
+import { VirtualSortableItem } from '~/shared/ui/sortable/virtual-sortable-item.client';
+import { VirtualSortable } from '~/shared/ui/sortable/virtual-sortable.client';
 import { formTestAction } from './actions';
 import { MAX_ITEM_LENGTH, schema, type Schema } from './schema';
 

@@ -1,6 +1,6 @@
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { type MDXComponents } from 'mdx/types';
-import { Pre } from '~/shared/ui/layout/Pre';
+import { Pre } from '~/shared/ui/layout/pre';
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {

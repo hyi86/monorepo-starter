@@ -1,4 +1,4 @@
-import { SimpleWebPushButton } from '~/features/web-push/ui/SimpleWebPushButton';
+import { SimpleWebPushButton } from '~/features/web-push/ui/simple-web-push-button';
 
 export default function WebPushSimplePage() {
   return (

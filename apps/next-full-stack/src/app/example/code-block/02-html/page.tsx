@@ -1,4 +1,4 @@
-import { CodeBlock } from '~/shared/ui/shiki';
+import { CodeBlock } from '~/shared/ui/shiki/code-block';
 
 const code = `
 'use client';

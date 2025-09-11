@@ -1,6 +1,6 @@
 import CodeBlock, { CodeBlockOptions } from '@tiptap/extension-code-block';
 import { BundledLanguage, BundledTheme } from 'shiki';
-import { ShikiPlugin } from './CodeBlockShikiPlugin';
+import { ShikiPlugin } from './code-block-shiki-plugin';
 
 export interface CodeBlockShikiOptions extends CodeBlockOptions {
   defaultLanguage: BundledLanguage | null | undefined;

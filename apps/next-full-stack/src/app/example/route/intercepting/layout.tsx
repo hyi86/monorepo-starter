@@ -1,4 +1,4 @@
-import { Article } from '~/shared/ui/layout';
+import { Article } from '~/shared/ui/layout/article';
 
 export default function AppInterceptingLayout({
   children,

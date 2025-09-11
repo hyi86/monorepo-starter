@@ -1,5 +1,5 @@
 import { type Metadata } from 'next';
-import { Article } from '~/shared/ui/layout';
+import { Article } from '~/shared/ui/layout/article';
 
 export const metadata: Metadata = {
   title: 'Dnd Sortable',

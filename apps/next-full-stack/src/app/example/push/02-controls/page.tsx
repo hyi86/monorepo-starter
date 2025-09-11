@@ -1,4 +1,4 @@
-import { ComplexWebPushButtons } from '~/features/web-push/ui/ComplexWebPushButtons';
+import { ComplexWebPushButtons } from '~/features/web-push/ui/complex-web-push-buttons';
 
 export default function WebPushControlsPage() {
   return (

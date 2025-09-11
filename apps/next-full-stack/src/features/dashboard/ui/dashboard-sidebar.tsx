@@ -11,9 +11,9 @@ import { NotebookPen } from 'lucide-react';
 import Link from 'next/link';
 import { checkAuthorization } from '~/features/auth/lib/check-auth';
 import { getAllRouteTree } from '~/features/dashboard/lib/all-routes';
-import { DashboardSidebarSearchInput } from './DashboardSidebarSearchInput';
-import FileTreeMenuGroup from './FileTreeMenuGroup';
-import { NavUser } from './NavUser';
+import { DashboardSidebarSearchInput } from './dashboard-sidebar-search-input';
+import FileTreeMenuGroup from './file-tree-menu-group';
+import { NavUser } from './nav-user';
 
 type Props = React.ComponentProps<typeof Sidebar>;
 
