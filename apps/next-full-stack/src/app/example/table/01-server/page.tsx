@@ -4,11 +4,11 @@ import { cn } from '@monorepo-starter/ui/lib/utils';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import { SearchParams } from 'nuqs/server';
-import { cachedGetUsers } from '~/features/user/model/users';
+import { cachedGetUsers } from '~/features/user/model/user.selector';
 import TableFilters from './filters';
 import FuzzySearch from './fuzzy-search';
 import TablePagination from './pagination';
-import { searchParamsCache } from './searchParams';
+import { searchParamsCache } from './search-params';
 import SortHeader from './sort-header';
 
 export default async function TableServerControlsPage({ searchParams }: { searchParams: Promise<SearchParams> }) {

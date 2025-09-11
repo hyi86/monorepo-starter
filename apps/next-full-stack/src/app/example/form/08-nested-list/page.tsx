@@ -1,14 +1,14 @@
-import { generateRandomData } from '~/shared/lib/faker/utils';
-import NestedListForm from './client';
+import { faker } from '@faker-js/faker/locale/ko';
+import { NestedListForm } from './client';
 import { type Schema } from './schema';
 
 export default function FormNestedListPage() {
   const generateRandomList = (count: number) => {
-    return generateRandomData(count, (index, generator) => ({
+    return Array.from({ length: count }).map((_, index) => ({
       id: `id-${index}`,
-      name: generator.person.fullName(),
-      age: generator.number.int({ min: 17, max: 99 }),
-      status: generator.helpers.arrayElement(['active', 'inactive']),
+      name: faker.person.fullName(),
+      age: faker.number.int({ min: 17, max: 99 }),
+      status: faker.helpers.arrayElement(['active', 'inactive']),
     }));
   };
 

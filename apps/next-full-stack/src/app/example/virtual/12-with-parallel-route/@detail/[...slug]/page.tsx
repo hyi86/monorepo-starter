@@ -1,6 +1,6 @@
+import { faker } from '@faker-js/faker/locale/ko';
 import { delay } from '@henry-hong/common-utils/fn';
 import { notFound } from 'next/navigation';
-import { generator } from '~/shared/lib/faker/utils';
 import DetailFullPage from './full-page';
 import DetailModal from './modal';
 
@@ -29,7 +29,7 @@ export default async function DetailPage({ params }: { params: Promise<{ slug: S
   }
 
   if (pageType === 'full') {
-    return <DetailFullPage>{generator.lorem.paragraphs(20)}</DetailFullPage>;
+    return <DetailFullPage>{faker.lorem.paragraphs(20)}</DetailFullPage>;
   }
 
   return (

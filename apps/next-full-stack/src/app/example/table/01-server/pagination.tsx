@@ -17,7 +17,7 @@ import {
 import { calculatePaginationRange } from '@monorepo-starter/ui/lib/pagination';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import { pageSizes, searchParamsCache, serialize } from './searchParams';
+import { pageSizes, searchParamsCache, serialize } from './search-params';
 
 export default function TablePagination({ currentUrl, totalCount }: { currentUrl: string; totalCount: number }) {
   const allParams = searchParamsCache.all();

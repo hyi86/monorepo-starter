@@ -1,9 +1,9 @@
-import { generateRandomData, generator } from '~/shared/lib/faker/utils';
+import { faker } from '@faker-js/faker/locale/ko';
 import VirtualDynamicColumn from './client';
 
 export default function DynamicColumnPage() {
-  const randomNumber = (min: number, max: number) => generator.number.int({ min, max });
-  const sentences = generateRandomData(10_000, (_index, faker) => faker.lorem.sentence(randomNumber(20, 70)));
+  const randomNumber = (min: number, max: number) => faker.number.int({ min, max });
+  const sentences = Array.from({ length: 10_000 }).map(() => faker.lorem.sentence(randomNumber(20, 70)));
 
   return (
     <div>

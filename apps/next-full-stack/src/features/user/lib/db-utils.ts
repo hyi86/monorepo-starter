@@ -1,32 +1,27 @@
+import { faker } from '@faker-js/faker/locale/ko';
 import { formatDate } from '@henry-hong/common-utils/date';
 import { romanizedSurnames } from '@henry-hong/common-utils/string';
-import { generator } from '~/shared/lib/faker/utils';
-
-// date to unix epoch
-export function toUnix(dateStr: string) {
-  return new Date(dateStr).getTime() / 1000;
-}
 
 /**
- * 랜덤 유저 정보
+ * 랜덤 유저 정보 생성
  */
 export function createRandomUser() {
-  const gender = generator.person.sexType();
-  const lastName = generator.person.lastName();
-  const firstName = generator.person.firstName(gender);
+  const gender = faker.person.sexType();
+  const lastName = faker.person.lastName();
+  const firstName = faker.person.firstName(gender);
   const romanizedLastName = romanizedSurnames[lastName as keyof typeof romanizedSurnames] ?? undefined;
-  const birth = generator.date.birthdate({ min: 16, max: 65, mode: 'age' });
+  const birth = faker.date.birthdate({ min: 16, max: 65, mode: 'age' });
 
   return {
-    loginId: generator.internet.username({ firstName, lastName: romanizedLastName }),
+    loginId: faker.internet.username({ firstName, lastName: romanizedLastName }),
     name: `${lastName}${firstName}`,
-    email: generator.internet.email({ lastName: romanizedLastName, allowSpecialCharacters: false }),
+    email: faker.internet.email({ lastName: romanizedLastName, allowSpecialCharacters: false }),
     gender,
     birth: formatDate(birth, 'iso9075/date'),
-    contact: `010-${generator.finance.pin(4)}-${generator.finance.pin(4)}`,
+    contact: `010-${faker.finance.pin(4)}-${faker.finance.pin(4)}`,
     profile: {
-      avatar: generator.image.personPortrait({ sex: gender, size: 256 }),
+      avatar: faker.image.personPortrait({ sex: gender, size: 256 }),
     },
-    bio: generator.person.bio(),
+    bio: faker.person.bio(),
   };
 }

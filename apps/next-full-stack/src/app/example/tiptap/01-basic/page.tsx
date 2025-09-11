@@ -8,7 +8,7 @@ import { BubbleMenu } from '@tiptap/react/menus';
 import prettierHtml from 'prettier/plugins/html';
 import prettier from 'prettier/standalone';
 import { useEffect, useState } from 'react';
-import { extensions } from '~/shared/model/tiptap/extensions';
+import { extensions } from '~/shared/lib/tiptap/extensions';
 import { TablesBlock } from '~/shared/ui/tiptap/tables-block';
 import { WysiwygToolbar } from '~/shared/ui/tiptap/wysiwyg-toolbar';
 

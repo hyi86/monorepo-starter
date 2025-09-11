@@ -14,7 +14,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { appPathRoutes } from '~/app-path-types';
-import { getCodeFromFile, openInEditor, saveCodeToFile } from '~/features/component-info-panel/api/cli-actions';
+import { getCodeFromFile, openInEditor, saveCodeToFile } from '~/features/component-info-panel/api/cli.action';
 import { ComponentHierarchy } from './component-hierarchy';
 
 export function ComponentInfoPanel() {

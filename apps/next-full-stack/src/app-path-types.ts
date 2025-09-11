@@ -1242,8 +1242,13 @@ export const appPathRoutes: AppPathRoutes[] = [
                 path: 'src/app/example/experimental/layout.tsx',
                 children: [
                   {
-                    path: 'src/app/example/experimental/api-cache/page.tsx',
-                    children: [],
+                    path: 'src/app/example/experimental/api-cache/loading.tsx',
+                    children: [
+                      {
+                        path: 'src/app/example/experimental/api-cache/page.tsx',
+                        children: [],
+                      },
+                    ],
                   },
                 ],
               },

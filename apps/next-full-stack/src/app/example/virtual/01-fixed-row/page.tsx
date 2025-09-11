@@ -1,5 +1,5 @@
+import { faker } from '@faker-js/faker/locale/ko';
 import { format } from '@henry-hong/common-utils/number';
-import { generateRandomData } from '~/shared/lib/faker/utils';
 import FixedRow from './row';
 
 export type Row = {
@@ -11,12 +11,12 @@ export type Row = {
 };
 
 export default function FixedRowPage() {
-  const rows = generateRandomData(100_005, (index, generator) => ({
+  const rows = Array.from({ length: 100_005 }).map((_, index) => ({
     id: index + 1,
-    color: generator.color.hsl({ format: 'css' }),
-    name: `${generator.commerce.productAdjective()} ${generator.commerce.product()}`,
-    description: generator.commerce.productDescription(),
-    height: generator.number.int({ min: 40, max: 50 }),
+    color: faker.color.hsl({ format: 'css' }),
+    name: `${faker.commerce.productAdjective()} ${faker.commerce.product()}`,
+    description: faker.commerce.productDescription(),
+    height: faker.number.int({ min: 40, max: 50 }),
   }));
 
   return (

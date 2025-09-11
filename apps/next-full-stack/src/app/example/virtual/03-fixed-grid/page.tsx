@@ -1,15 +1,15 @@
-import { generateRandomData } from '~/shared/lib/faker/utils';
+import { faker } from '@faker-js/faker/locale/ko';
 import FixedGrid from './grid';
 
 export default function FixedGridPage() {
-  const columns = generateRandomData(120, (index, generator) => ({
+  const columns = Array.from({ length: 120 }).map((_, index) => ({
     id: `${index + 1}`,
-    width: generator.number.int({ min: 90, max: 120 }),
+    width: faker.number.int({ min: 90, max: 120 }),
   }));
 
-  const data = generateRandomData(150_000, (index, generator) => ({
+  const data = Array.from({ length: 150_000 }).map((_, index) => ({
     id: `${index + 1}`,
-    value: `${generator.color.human()} ${generator.animal.type()}`,
+    value: `${faker.color.human()} ${faker.animal.type()}`,
   }));
 
   return (

@@ -1,7 +1,7 @@
 import { Toggle } from '@monorepo-starter/ui/components/toggle';
 import { Calendar1, Eraser, Mail, User } from 'lucide-react';
 import Link from 'next/link';
-import { parsers, searchParamsCache, serialize } from './searchParams';
+import { parsers, searchParamsCache, serialize } from './search-params';
 
 // 서버컴포넌트는 이벤트 핸들러를 사용할 수 없기때문에 사전정의된 필터만 사용
 export default function TableFilters({ currentUrl }: { currentUrl: string }) {

@@ -23,7 +23,12 @@ import {
   SearchIcon,
   TrashIcon,
 } from 'lucide-react';
-import { useTreeMenu } from './use-tree-menu';
+import { appPathRoutes } from '~/app-path-types';
+import { useTreeMenu } from '~/shared/model/use-tree-menu';
+
+const routes = appPathRoutes
+  .filter((route) => !route.isParallelRoute && !route.isDynamicRoute)
+  .map((route) => route.href);
 
 export default function TreeFull() {
   const {
@@ -36,7 +41,7 @@ export default function TreeFull() {
     handleAddItem,
     handleAddSiblingItem,
     handleDeleteItem,
-  } = useTreeMenu();
+  } = useTreeMenu({ routes });
 
   return (
     <div className="max-w-lg flex-1 overflow-auto p-2 shadow">

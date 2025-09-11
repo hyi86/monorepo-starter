@@ -5,13 +5,13 @@ import { cn } from '@monorepo-starter/ui/lib/utils';
 import { PencilIcon, ToggleLeft, ToggleRight, TrashIcon } from 'lucide-react';
 import Image from 'next/image';
 import { Fragment } from 'react';
-import { getUsers } from '~/features/user/model/users';
+import { getUsers } from '~/features/user/model/user.selector';
 import {
   createRandomUserAction,
   deleteUserAction,
   toggleUserStatusAction,
   updateUserAction,
-} from '~/shared/actions/database-actions';
+} from '~/shared/action/database.action';
 
 export default async function DbPage() {
   const users = await getUsers({ limit: 500 });

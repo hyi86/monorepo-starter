@@ -10,7 +10,7 @@ import { promisify } from 'node:util';
 import { gunzip, gzipSync } from 'node:zlib';
 import { env } from '~/shared/config/env';
 import { db } from '~/shared/lib/database/client';
-import { cacheTable } from '~/shared/model/schema';
+import { cacheTable } from '~/shared/model/entities';
 
 const MAX_SQLITE_BYTES = 1 * 1024 * 1024; // 1MB 이상이면, SQLite 캐시 미사용
 const asyncGunzip = promisify(gunzip);

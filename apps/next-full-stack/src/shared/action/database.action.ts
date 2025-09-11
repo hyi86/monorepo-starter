@@ -2,7 +2,7 @@
 
 import { revalidateTag } from 'next/cache';
 import { createRandomUser } from '~/features/user/lib/db-utils';
-import { createRandomUsers, deleteUser, getUserById, updateUser } from '~/features/user/model/users';
+import { createRandomUsers, deleteUser, getUserById, updateUser } from '~/features/user/model/user.selector';
 
 /**
  * 랜덤 유저 생성 Action

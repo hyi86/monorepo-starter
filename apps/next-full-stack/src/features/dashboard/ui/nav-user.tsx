@@ -15,7 +15,7 @@ import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@mo
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { ChevronsUpDown, LogIn, LogOut, Search, UserRoundIcon } from 'lucide-react';
 import { useState } from 'react';
-import { signoutAction } from '~/features/auth/api/signout-actions';
+import { signoutAction } from '~/features/auth/api/signout.action';
 import { type AuthorizationPayload } from '~/features/auth/lib/check-auth';
 import { useSigninUrl } from '~/features/auth/model/use-signin';
 

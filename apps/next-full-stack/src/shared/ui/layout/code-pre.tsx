@@ -1,7 +1,7 @@
 import { type BundledLanguage, codeToHtml } from 'shiki';
 import { themes, transformers } from '~/shared/config/code-block';
 import { parseRawMeta } from '~/shared/lib/mdx/utils';
-import { CodeHeader } from './code-header.client';
+import { CodeHeader } from './code-header';
 
 export async function Pre({ metastring, className, code }: { metastring: string; className: string; code: string }) {
   const metaData = { __raw: metastring };

@@ -1,8 +1,8 @@
-import { generateRandomData } from '~/shared/lib/faker/utils';
+import { faker } from '@faker-js/faker/locale/ko';
 import VirtualDynamicRow from './row';
 
 export default function VirtualDynamicRowPage() {
-  const sentences = generateRandomData(10_000, (_index, faker) => faker.lorem.sentence());
+  const sentences = Array.from({ length: 10_000 }).map(() => faker.lorem.sentence());
   return (
     <div>
       <h1>Tanstack Virtual Dynamic Row</h1>

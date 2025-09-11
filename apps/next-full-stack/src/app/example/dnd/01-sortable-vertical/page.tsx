@@ -1,20 +1,20 @@
 'use client';
 
+import { faker } from '@faker-js/faker/locale/ko';
 import { Sortable } from '@monorepo-starter/ui/blocks/dnd/sortable';
 import { SortableItem } from '@monorepo-starter/ui/blocks/dnd/sortable-item';
 import { ScrollArea } from '@monorepo-starter/ui/components/scroll-area';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { useEffect, useState } from 'react';
-import { generateRandomData } from '~/shared/lib/faker/utils';
 
 export default function ExampleDndSortableBasicPage() {
   const [items, setItems] = useState<{ id: string; name: string }[]>([]);
 
   useEffect(() => {
-    const initialItems = generateRandomData(10, (index, generator) => {
+    const initialItems = Array.from({ length: 10 }).map((_, index) => {
       return {
         id: `id-${index}`,
-        name: generator.food.fruit(),
+        name: faker.food.fruit(),
       };
     });
 

@@ -1,5 +1,6 @@
 'use client';
 
+import { faker } from '@faker-js/faker/locale/ko';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Checkbox } from '@monorepo-starter/ui/components/checkbox';
@@ -16,13 +17,12 @@ import { Input } from '@monorepo-starter/ui/components/input';
 import { GripVerticalIcon, Plus, Trash2 } from 'lucide-react';
 import { FieldErrors, SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { generator } from '~/shared/lib/faker/utils';
-import { VirtualSortableItem } from '~/shared/ui/sortable/virtual-sortable-item.client';
-import { VirtualSortable } from '~/shared/ui/sortable/virtual-sortable.client';
-import { formTestAction } from './actions';
+import { VirtualSortable } from '~/shared/ui/sortable/virtual-sortable';
+import { VirtualSortableItem } from '~/shared/ui/sortable/virtual-sortable-item';
+import { formTestAction } from './action';
 import { MAX_ITEM_LENGTH, schema, type Schema } from './schema';
 
-export default function NestedListForm({ data: initialData }: { data: Schema }) {
+export function NestedListForm({ data: initialData }: { data: Schema }) {
   const maxItemLength = MAX_ITEM_LENGTH;
 
   // 1. Define form
@@ -55,9 +55,9 @@ export default function NestedListForm({ data: initialData }: { data: Schema }) 
       return;
     }
 
-    const name = generator.person.fullName();
-    const age = generator.number.int({ min: 17, max: 99 });
-    append({ name, age, status: 'active', id: generator.string.uuid() });
+    const name = faker.person.fullName();
+    const age = faker.number.int({ min: 17, max: 99 });
+    append({ name, age, status: 'active', id: faker.string.uuid() });
   };
 
   return (

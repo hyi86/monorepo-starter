@@ -17,7 +17,6 @@ import { useTree } from '@headless-tree/react';
 import { delay } from '@henry-hong/common-utils/fn';
 import { produce } from 'immer';
 import { useEffect, useState } from 'react';
-import { appPathRoutes } from '~/app-path-types';
 
 export type TreeData = {
   name: string;
@@ -26,7 +25,7 @@ export type TreeData = {
   children?: string[];
 };
 
-export function useTreeMenu() {
+export function useTreeMenu({ routes }: { routes: string[] }) {
   // Tree Data
   const [items, setItems] = useState<Record<string, TreeData>>({});
 
@@ -266,11 +265,7 @@ export function useTreeMenu() {
   // 데이터 로드
   useEffect(() => {
     const loadData = async () => {
-      const data = appPathRoutes
-        .filter((route) => !route.isParallelRoute && !route.isDynamicRoute)
-        .map((route) => route.href);
-
-      setItems(parseRoutesToTree(data));
+      setItems(parseRoutesToTree(routes));
       await delay(50);
       tree.rebuildTree();
     };

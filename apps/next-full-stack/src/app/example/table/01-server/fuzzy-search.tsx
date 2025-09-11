@@ -5,7 +5,7 @@ import { Input } from '@monorepo-starter/ui/components/input';
 import { Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
-import { searchParamsCache, serialize } from './searchParams';
+import { searchParamsCache, serialize } from './search-params';
 
 export default function FuzzySearch({
   currentUrl,

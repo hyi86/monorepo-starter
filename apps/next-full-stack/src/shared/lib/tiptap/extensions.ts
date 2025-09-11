@@ -10,7 +10,7 @@ import { TextStyle } from '@tiptap/extension-text-style';
 import Youtube from '@tiptap/extension-youtube';
 import { CharacterCount, Gapcursor, Placeholder } from '@tiptap/extensions';
 import StarterKit from '@tiptap/starter-kit';
-import { shouldAutoLink } from '~/shared/model/tiptap/link';
+import { shouldAutoLink } from '~/shared/lib/tiptap/link';
 import { CodeBlockShiki } from '~/shared/ui/tiptap/code-block-shiki';
 import { ImagePlaceholder } from '~/shared/ui/tiptap/image-placeholder';
 import { ImageExtension } from '~/shared/ui/tiptap/image-resize';

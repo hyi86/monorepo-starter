@@ -1,19 +1,45 @@
-import { getTableColumns } from 'drizzle-orm';
 import z from 'zod';
-import { usersTable } from '~/shared/model/entities';
 
-export type User = typeof usersTable.$inferSelect;
-export type Gender = (typeof usersTable.gender.enumValues)[number];
-export type Status = (typeof usersTable.status.enumValues)[number];
+export type User = {
+  id: number;
+  loginId: string;
+  name: string;
+  email: string | null;
+  gender: 'male' | 'female' | null;
+  birth: string | null;
+  contact: string | null;
+  profile: Record<string, string> | null;
+  bio: string | null;
+  status: 'active' | 'inactive';
+  createdAt: number;
+  updatedAt: number;
+};
+export type Gender = Exclude<User['gender'], null>;
+export type Status = Exclude<User['status'], null>;
 
-export const keys = Object.keys(getTableColumns(usersTable)) as (keyof User)[];
+export type InsertUser = Omit<User, 'id' | 'createdAt' | 'updatedAt'>;
+
+export const keys = [
+  'id',
+  'loginId',
+  'name',
+  'email',
+  'gender',
+  'birth',
+  'contact',
+  'profile',
+  'bio',
+  'status',
+  'createdAt',
+  'updatedAt',
+] as const;
 
 export const findUsersSchema = z.object({
   // pagination
   offset: z.coerce.number().default(0),
   limit: z.coerce.number().default(50),
   // sorting
-  orderBy: z.enum(Object.keys(getTableColumns(usersTable)) as [string, ...string[]]).default('id'),
+  orderBy: z.enum(keys).default('id'),
   sortDirection: z.enum(['asc', 'desc']).default('desc'),
   // filters
   idFrom: z.coerce.number().optional(), // range start
