@@ -1,3 +1,4 @@
+import type { AppRoutes } from '.next/types/routes';
 import Link from 'next/link';
 
 export const metadata = {
@@ -5,34 +6,30 @@ export const metadata = {
 };
 
 export default function BlocksPage() {
+  const links: { href: AppRoutes; label: string }[] = [
+    { href: '/blocks/sidebar-01', label: 'Sidebar 01' },
+    { href: '/blocks/sidebar-02', label: 'Sidebar 02' },
+    { href: '/blocks/sidebar-03', label: 'Sidebar 03' },
+    { href: '/blocks/sidebar-04', label: 'Sidebar 04' },
+    { href: '/blocks/sidebar-06', label: 'Sidebar 06' },
+    { href: '/blocks/sidebar-07', label: 'Sidebar 07' },
+    { href: '/blocks/sidebar-08', label: 'Sidebar 08' },
+    { href: '/blocks/sidebar-09', label: 'Sidebar 09' },
+    { href: '/blocks/sidebar-10', label: 'Sidebar 10' },
+    { href: '/blocks/sidebar-13', label: 'Sidebar 13' },
+    { href: '/blocks/sidebar-15', label: 'Sidebar 15' },
+    { href: '/blocks/sidebar-16', label: 'Sidebar 16' },
+  ];
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 p-8">
       <h2 className="text-2xl font-bold">Example Blocks</h2>
-      <ul>
-        <li>
-          <Link href="/blocks/sidebar-01">Sidebar 01</Link>
-        </li>
-        <li>
-          <Link href="/blocks/sidebar-02">Sidebar 02</Link>
-        </li>
-        <li>
-          <Link href="/blocks/sidebar-03">Sidebar 03</Link>
-        </li>
-        <li>
-          <Link href="/blocks/sidebar-04">Sidebar 04</Link>
-        </li>
-        <li>
-          <Link href="/blocks/sidebar-06">Sidebar 06</Link>
-        </li>
-        <li>
-          <Link href="/blocks/sidebar-07">Sidebar 07</Link>
-        </li>
-        <li>
-          <Link href="/blocks/sidebar-08">Sidebar 08</Link>
-        </li>
-        <li>
-          <Link href="/blocks/sidebar-09">Sidebar 09</Link>
-        </li>
+      <ul className="*:bg-muted *:text-muted-foreground grid grid-cols-2 gap-4 *:rounded-lg *:p-4 md:grid-cols-4">
+        {links.map((link, index) => (
+          <li key={index}>
+            <Link href={link.href}>{link.label}</Link>
+          </li>
+        ))}
       </ul>
     </div>
   );
