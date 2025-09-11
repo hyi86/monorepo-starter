@@ -19,13 +19,13 @@
   "dependencies": {
     "@faker-js/faker": "^10.0.0",
     "@henry-hong/common-utils": "^0.1.9",
-    "@hono/node-server": "^1.19.1",
+    "@hono/node-server": "^1.19.2",
     "@hono/zod-validator": "^0.7.2",
     "better-sqlite3": "^12.2.0",
     "dotenv": "^17.2.2",
     "drizzle-orm": "^0.44.5",
     "hono": "^4.9.6",
-    "pino": "^9.9.4",
+    "pino": "^9.9.5",
     "pino-pretty": "^13.1.1",
     "zod": "catalog:"
   },
