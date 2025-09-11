@@ -1,16 +1,16 @@
 {
-  "name": "@monorepo-starter/import-analyzer",
+  "name": "@monorepo-starter/import-finder",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "bin": {
-    "import-analyzer": "./bin/index.js"
+    "import-finder": "./bin/index.js"
   },
   "scripts": {
     "check-types": "tsc --noEmit",
     "lint": "eslint . --max-warnings 0",
     "test": "vitest run",
-    "dev": "tsx src/index.ts",
+    "start": "tsx src/index.ts",
     "build": "tsup",
     "postbuild": "chmod +x bin/*"
   },
@@ -20,18 +20,11 @@
     "@monorepo-starter/eslint-config": "workspace:*",
     "@monorepo-starter/typescript-config": "workspace:*",
     "@types/node": "catalog:",
-    "@types/tar-fs": "^2.0.4",
-    "@types/tar-stream": "^3.1.4",
     "console-table-printer": "^2.14.6",
-    "deepmerge": "^4.3.1",
-    "esbuild": "^0.25.9",
     "eslint": "catalog:",
     "fast-glob": "^3.3.3",
     "nanoid": "^5.1.5",
     "prettier": "^3.6.2",
-    "strip-ansi": "^7.1.2",
-    "tar-fs": "^3.1.0",
-    "tar-stream": "^3.1.7",
     "ts-morph": "^27.0.0",
     "tsup": "^8.5.0",
     "tsx": "^4.20.5",
