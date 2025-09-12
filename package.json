@@ -17,13 +17,13 @@
     "test": "turbo run test"
   },
   "lint-staged": {
-    "*.{js,ts,tsx,jsx}": [
-      "pnpm format './{apps,packages}/**/*.{js,jsx,ts,tsx,css,mdx}'"
+    "*.{js,ts,tsx,mdx}": [
+      "prettier --write './{apps,packages}/**/*.{js,jsx,ts,tsx,css,mdx}'",
+      "turbo run check-types",
+      "turbo run lint"
     ]
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^19.8.1",
     "eslint": "catalog:",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.6",
