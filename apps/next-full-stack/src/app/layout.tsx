@@ -3,12 +3,12 @@ import { Viewport, type Metadata } from 'next';
 import { ThemeProvider } from 'next-themes';
 import localFont from 'next/font/local';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
-import { ComponentInfoPanel } from '~/features/component-info-panel/ui/component-info-panel';
 import { UploaderStoreProvider } from '~/features/file-upload/model/uploader.context';
-import { Spotlight } from '~/features/spotlight/ui/spotlight-dialog';
 import { WebPushProvider } from '~/features/web-push/model/web-push.context';
 import { getLocale } from '~/shared/lib/i18n/locale';
 import { TanstackQueryProvider } from '~/shared/provider/query';
+import { ComponentInfoPanel } from '~/widgets/component-info-panel/ui/component-info-panel';
+import { Spotlight } from '~/widgets/spotlight/ui/spotlight-dialog';
 
 import 'react-advanced-cropper/dist/style.css';
 import './globals.css';

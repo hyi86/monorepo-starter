@@ -2,7 +2,7 @@ import { and, asc, desc, eq, getTableColumns, gte, like, lte } from 'drizzle-orm
 import Fuse from 'fuse.js';
 import { cache } from 'react';
 import { z } from 'zod';
-import { createRandomUser } from '~/features/user/lib/db-utils';
+import { createRandomUser } from '~/entities/user/lib/db-utils';
 import { db } from '~/shared/lib/database/client';
 import { toUnix } from '~/shared/lib/database/utils';
 import { usersTable } from '~/shared/model/entities';

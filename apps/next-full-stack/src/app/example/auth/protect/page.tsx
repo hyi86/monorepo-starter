@@ -1,6 +1,6 @@
 import { Button } from '@monorepo-starter/ui/components/button';
-import { signoutAction } from '~/features/auth/api/signout.action';
-import { checkAuthorization } from '~/features/auth/lib/check-auth';
+import { checkAuthorization } from '~/entities/user/lib/check-auth';
+import { signoutAction } from '~/features/signout/api/signout.action';
 
 export default async function ProtectPage() {
   const { isAuthenticated, payload } = await checkAuthorization();

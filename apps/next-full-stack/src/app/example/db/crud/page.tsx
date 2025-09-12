@@ -5,7 +5,7 @@ import { cn } from '@monorepo-starter/ui/lib/utils';
 import { PencilIcon, ToggleLeft, ToggleRight, TrashIcon } from 'lucide-react';
 import Image from 'next/image';
 import { Fragment } from 'react';
-import { getUsers } from '~/features/user/model/user.selector';
+import { getUsers } from '~/entities/user/model/user.selector';
 import {
   createRandomUserAction,
   deleteUserAction,

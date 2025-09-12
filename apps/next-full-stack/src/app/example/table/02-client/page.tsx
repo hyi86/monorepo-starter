@@ -1,4 +1,4 @@
-import { cachedGetUsers } from '~/features/user/model/user.selector';
+import { cachedGetUsers } from '~/entities/user/model/user.selector';
 import TableClientBasic from './table';
 
 export default async function TableClientFullPage() {

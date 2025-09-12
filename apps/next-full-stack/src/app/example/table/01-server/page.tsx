@@ -7,7 +7,7 @@ import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SearchParams } from 'nuqs/server';
-import { cachedGetUsers } from '~/features/user/model/user.selector';
+import { cachedGetUsers } from '~/entities/user/model/user.selector';
 import TableFilters from './filters';
 import FuzzySearch from './fuzzy-search';
 import { pageSizes, searchParamsCache, serialize } from './search-params';

@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { cache } from 'react';
 import { z } from 'zod';
-import { createRandomUser } from '~/features/user/lib/db-utils';
+import { createRandomUser } from '~/entities/user/lib/db-utils';
 import { env } from '~/shared/config/env';
 import { toUnix } from '~/shared/lib/database/utils';
 import { findUsersSchema, type InsertUser, type User } from './user-fs.schema';

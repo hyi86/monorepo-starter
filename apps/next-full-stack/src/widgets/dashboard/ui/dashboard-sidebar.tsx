@@ -9,8 +9,8 @@ import {
 } from '@monorepo-starter/ui/components/sidebar';
 import { NotebookPen } from 'lucide-react';
 import Link from 'next/link';
-import { checkAuthorization } from '~/features/auth/lib/check-auth';
-import { getAllRouteTree } from '~/features/dashboard/lib/all-routes';
+import { checkAuthorization } from '~/entities/user/lib/check-auth';
+import { getAllRouteTree } from '~/widgets/dashboard/lib/all-routes';
 import { DashboardSidebarSearchInput } from './dashboard-sidebar-search-input';
 import FileTreeMenuGroup from './file-tree-menu-group';
 import { NavUser } from './nav-user';

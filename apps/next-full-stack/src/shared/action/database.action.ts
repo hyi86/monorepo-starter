@@ -1,8 +1,8 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
-import { createRandomUser } from '~/features/user/lib/db-utils';
-import { createRandomUsers, deleteUser, getUserById, updateUser } from '~/features/user/model/user.selector';
+import { createRandomUser } from '~/entities/user/lib/db-utils';
+import { createRandomUsers, deleteUser, getUserById, updateUser } from '~/entities/user/model/user.selector';
 
 /**
  * 랜덤 유저 생성 Action
