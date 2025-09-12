@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker/locale/ko';
-import { formatDate } from '@henry-hong/common-utils/date';
-import { romanizedSurnames } from '@henry-hong/common-utils/string';
+import { formatDate } from '@monorepo-starter/utils/date';
+import { romanizedSurnames } from '@monorepo-starter/utils/string';
 
 /**
  * 랜덤 유저 정보 생성

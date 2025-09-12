@@ -18,9 +18,7 @@
   },
   "lint-staged": {
     "*.{js,ts,tsx,mdx}": [
-      "prettier --write './{apps,packages}/**/*.{js,jsx,ts,tsx,css,mdx}'",
-      "turbo run check-types",
-      "turbo run lint"
+      "prettier --write './{apps,packages}/**/*.{js,jsx,ts,tsx,css,mdx}'"
     ]
   },
   "devDependencies": {

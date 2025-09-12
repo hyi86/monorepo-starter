@@ -1,8 +1,8 @@
 import 'dotenv/config';
 
-import { devLog, successColor } from '@henry-hong/common-utils/console';
 import { serve, type HttpBindings } from '@hono/node-server';
 import { serveStatic } from '@hono/node-server/serve-static';
+import { devLog, successColor } from '@monorepo-starter/utils/console';
 import { Hono } from 'hono';
 import { compress } from 'hono/compress';
 import { cors } from 'hono/cors';

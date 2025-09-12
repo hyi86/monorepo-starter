@@ -1,4 +1,4 @@
-import { devLog, red } from '@henry-hong/common-utils/console';
+import { devLog, red } from '@monorepo-starter/utils/console';
 import FastGlob from 'fast-glob';
 import fs from 'node:fs';
 import path from 'node:path';

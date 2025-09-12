@@ -1,4 +1,4 @@
-import { floor } from '@henry-hong/common-utils/math';
+import { floor } from '@monorepo-starter/utils/math';
 import { sort } from 'fast-sort';
 import Fuse from 'fuse.js';
 import fs from 'node:fs';

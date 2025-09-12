@@ -1,5 +1,5 @@
-import { delay } from '@henry-hong/common-utils/fn';
-import { random } from '@henry-hong/common-utils/number';
+import { delay } from '@monorepo-starter/utils/fn';
+import { random } from '@monorepo-starter/utils/number';
 
 async function getData() {
   const delayTime = random(500, 1500);

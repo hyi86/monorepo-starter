@@ -1,5 +1,5 @@
-import { devLog } from '@henry-hong/common-utils/console';
-import { verifyToken } from '@henry-hong/common-utils/jwt';
+import { devLog } from '@monorepo-starter/utils/console';
+import { verifyToken } from '@monorepo-starter/utils/jwt';
 import { cookies } from 'next/headers';
 import { env } from '~/shared/config/env';
 

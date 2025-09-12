@@ -1,4 +1,4 @@
-import { format } from '@henry-hong/common-utils/number';
+import { format } from '@monorepo-starter/utils/number';
 import FixedColumn from './client';
 
 export default function FixedColumnPage() {

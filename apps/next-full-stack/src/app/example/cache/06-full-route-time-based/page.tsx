@@ -1,8 +1,8 @@
 import { type AppRoutes } from '.next/types/routes';
-import { formatDate } from '@henry-hong/common-utils/date';
 import { Badge } from '@monorepo-starter/ui/components/badge';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@monorepo-starter/ui/components/card';
+import { formatDate } from '@monorepo-starter/utils/date';
 import { revalidatePath } from 'next/cache';
 
 export const dynamic = 'force-static';

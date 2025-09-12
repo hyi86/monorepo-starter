@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker/locale/ko';
-import { delay } from '@henry-hong/common-utils/fn';
+import { delay } from '@monorepo-starter/utils/fn';
 import { notFound } from 'next/navigation';
 import DetailFullPage from './full-page';
 import DetailModal from './modal';

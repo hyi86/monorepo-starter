@@ -1,6 +1,6 @@
 'use server';
 
-import { generateToken } from '@henry-hong/common-utils/jwt';
+import { generateToken } from '@monorepo-starter/utils/jwt';
 import { cookies } from 'next/headers';
 import parseDuration from 'parse-duration';
 import { z } from 'zod';

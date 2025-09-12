@@ -1,4 +1,4 @@
-import { dim2, green, magenta, red, yellow } from '@henry-hong/common-utils/console';
+import { dim2, green, magenta, red, yellow } from '@monorepo-starter/utils/console';
 import { type RecursiveImportResult } from './import-finder';
 
 export type TreeNode = {

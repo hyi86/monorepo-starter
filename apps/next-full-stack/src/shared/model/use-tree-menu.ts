@@ -14,7 +14,7 @@ import {
   TreeState,
 } from '@headless-tree/core';
 import { useTree } from '@headless-tree/react';
-import { delay } from '@henry-hong/common-utils/fn';
+import { delay } from '@monorepo-starter/utils/fn';
 import { produce } from 'immer';
 import { useEffect, useState } from 'react';
 

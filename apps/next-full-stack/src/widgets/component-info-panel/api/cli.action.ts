@@ -1,7 +1,7 @@
 'use server';
 
-import { openInEditorCommand } from '@henry-hong/common-utils/commands';
-import { devLog } from '@henry-hong/common-utils/console';
+import { openInEditorCommand } from '@monorepo-starter/utils/commands';
+import { devLog } from '@monorepo-starter/utils/console';
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';

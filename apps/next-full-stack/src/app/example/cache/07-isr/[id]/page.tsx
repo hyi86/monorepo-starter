@@ -1,7 +1,7 @@
-import { formatDate } from '@henry-hong/common-utils/date';
 import { Badge } from '@monorepo-starter/ui/components/badge';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@monorepo-starter/ui/components/card';
+import { formatDate } from '@monorepo-starter/utils/date';
 import { formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { revalidatePath } from 'next/cache';

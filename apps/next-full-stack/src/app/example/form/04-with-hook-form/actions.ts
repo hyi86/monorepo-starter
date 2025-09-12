@@ -1,7 +1,7 @@
 'use server';
 
 import { AppRoutes } from '.next/types/routes';
-import { devLog } from '@henry-hong/common-utils/console';
+import { devLog } from '@monorepo-starter/utils/console';
 import { revalidatePath } from 'next/cache';
 import { Schema, schema } from './schema';
 

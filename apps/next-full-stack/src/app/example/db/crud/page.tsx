@@ -1,7 +1,7 @@
-import { formatDate } from '@henry-hong/common-utils/date';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Input } from '@monorepo-starter/ui/components/input';
 import { cn } from '@monorepo-starter/ui/lib/utils';
+import { formatDate } from '@monorepo-starter/utils/date';
 import { PencilIcon, ToggleLeft, ToggleRight, TrashIcon } from 'lucide-react';
 import Image from 'next/image';
 import { Fragment } from 'react';

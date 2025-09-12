@@ -119,10 +119,6 @@ export type TypedRoute = LiteralUnion<
   | '/example/virtual/12-with-parallel-route/${string}'
 >;
 
-export function getTypedPath(path: TypedRoute) {
-  return path;
-}
-
 export type Structure = {
   path: string;
   children: Structure[];

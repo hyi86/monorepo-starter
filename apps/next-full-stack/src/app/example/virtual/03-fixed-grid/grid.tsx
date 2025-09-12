@@ -1,8 +1,8 @@
 'use client';
 
-import { format } from '@henry-hong/common-utils/number';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { cn } from '@monorepo-starter/ui/lib/utils';
+import { format } from '@monorepo-starter/utils/number';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useRef, useState } from 'react';
 

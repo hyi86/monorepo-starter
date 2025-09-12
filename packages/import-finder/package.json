@@ -16,9 +16,9 @@
   },
   "devDependencies": {
     "@clack/prompts": "^0.11.0",
-    "@henry-hong/common-utils": "^0.1.9",
     "@monorepo-starter/eslint-config": "workspace:*",
     "@monorepo-starter/typescript-config": "workspace:*",
+    "@monorepo-starter/utils": "workspace:*",
     "@types/node": "catalog:",
     "console-table-printer": "^2.14.6",
     "eslint": "catalog:",

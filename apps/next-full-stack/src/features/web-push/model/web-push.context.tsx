@@ -1,6 +1,6 @@
 'use client';
 
-import { webLog } from '@henry-hong/common-utils/console-web';
+import { webLog } from '@monorepo-starter/utils/console-web';
 import { createContext, ReactNode, useContext, useEffect, useState, useTransition } from 'react';
 import type { PushSubscription } from 'web-push';
 import { sendPushNotificationAction, subscribeAction, unsubscribeAction } from '~/features/web-push/api/webpush.action';

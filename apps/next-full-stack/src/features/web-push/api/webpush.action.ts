@@ -1,6 +1,6 @@
 'use server';
 
-import { devLog } from '@henry-hong/common-utils/console';
+import { devLog } from '@monorepo-starter/utils/console';
 import webPush from 'web-push';
 import { env } from '~/shared/config/env';
 

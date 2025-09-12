@@ -70,7 +70,6 @@ cat <<EOF > package.json
     "postbuild": "chmod +x bin/*"
   },
   "devDependencies": {
-    "@henry-hong/common-utils": "^0.1.9",
     "@monorepo-starter/eslint-config": "workspace:*",
     "@monorepo-starter/typescript-config": "workspace:*",
     "@types/node": "catalog:",

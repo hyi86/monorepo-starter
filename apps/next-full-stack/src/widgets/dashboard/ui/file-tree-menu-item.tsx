@@ -1,4 +1,3 @@
-import { TreeRoute } from '@henry-hong/common-utils/tree';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@monorepo-starter/ui/components/collapsible';
 import {
   SidebarMenuAction,
@@ -7,6 +6,7 @@ import {
   SidebarMenuSub,
 } from '@monorepo-starter/ui/components/sidebar';
 import { cn } from '@monorepo-starter/ui/lib/utils';
+import { TreeRoute } from '@monorepo-starter/utils/tree';
 import { ChevronRight, FileIcon, FolderIcon, FolderOpenIcon, SquareChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import LinkIndicator from './link-indicator';

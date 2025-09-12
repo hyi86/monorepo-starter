@@ -1,4 +1,4 @@
-import { delay } from '@henry-hong/common-utils/fn';
+import { delay } from '@monorepo-starter/utils/fn';
 
 export default async function AppRouteParallelLayout(props: LayoutProps<'/example/virtual/12-with-parallel-route'>) {
   await delay(1000);

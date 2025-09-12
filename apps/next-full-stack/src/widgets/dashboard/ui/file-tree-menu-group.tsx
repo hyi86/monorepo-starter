@@ -1,6 +1,5 @@
 'use client';
 
-import { type TreeRoute } from '@henry-hong/common-utils/tree';
 import {
   SidebarGroup,
   SidebarGroupAction,
@@ -8,6 +7,7 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
 } from '@monorepo-starter/ui/components/sidebar';
+import { type TreeRoute } from '@monorepo-starter/utils/tree';
 import { CopyMinus, CopyPlus } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';

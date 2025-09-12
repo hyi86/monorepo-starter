@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker/locale/ko';
-import { delay } from '@henry-hong/common-utils/fn';
-import { format } from '@henry-hong/common-utils/number';
+import { delay } from '@monorepo-starter/utils/fn';
+import { format } from '@monorepo-starter/utils/number';
 import FixedRow from './row';
 
 export type Row = {

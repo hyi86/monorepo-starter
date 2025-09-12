@@ -1,5 +1,4 @@
 import { AppRoutes } from '.next/types/routes';
-import { devLog } from '@henry-hong/common-utils/console';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Checkbox } from '@monorepo-starter/ui/components/checkbox';
 import { Input } from '@monorepo-starter/ui/components/input';
@@ -9,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { SelectNative } from '@monorepo-starter/ui/components/select-native';
 import { Slider } from '@monorepo-starter/ui/components/slider';
 import { Switch } from '@monorepo-starter/ui/components/switch';
+import { devLog } from '@monorepo-starter/utils/console';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { z } from 'zod';

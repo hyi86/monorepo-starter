@@ -1,7 +1,7 @@
 /**
  * 로컬 File 기반 API 캐시 (Server-side Only)
  */
-import { devLog } from '@henry-hong/common-utils/console';
+import { devLog } from '@monorepo-starter/utils/console';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';

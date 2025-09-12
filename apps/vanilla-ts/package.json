@@ -10,6 +10,7 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
+    "@monorepo-starter/utils": "workspace:*",
     "zustand": "^5.0.8"
   },
   "devDependencies": {

@@ -1,8 +1,8 @@
-import { formatDate } from '@henry-hong/common-utils/date';
-import { floor } from '@henry-hong/common-utils/math';
 import { PaginationBlock } from '@monorepo-starter/ui/blocks/pagination/pagenation-block';
 import { TableBody, TableCell, TableHeader, TableRow } from '@monorepo-starter/ui/components/table';
 import { cn } from '@monorepo-starter/ui/lib/utils';
+import { formatDate } from '@monorepo-starter/utils/date';
+import { floor } from '@monorepo-starter/utils/math';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';

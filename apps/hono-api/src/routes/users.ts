@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker/locale/ko';
-import { formatDate } from '@henry-hong/common-utils/date';
-import { romanizedSurnames } from '@henry-hong/common-utils/string';
 import { zValidator } from '@hono/zod-validator';
-import { and, asc, between, count, desc, eq, getTableColumns, gte, like, lte, sql, SQL } from 'drizzle-orm';
+import { formatDate } from '@monorepo-starter/utils/date';
+import { romanizedSurnames } from '@monorepo-starter/utils/string';
+import { and, asc, count, desc, eq, getTableColumns, gte, like, lte, sql } from 'drizzle-orm';
 import { Hono } from 'hono';
 import { z } from 'zod';
 import { db } from '../db/index.js';
@@ -111,6 +111,7 @@ export const users = new Hono()
         });
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { createdAt, updatedAt, ...rest } = getTableColumns(usersTable);
       const createdAtKst = sql`datetime(createdAt + 9 * 3600, 'unixepoch')`;
       const updatedAtKst = sql`datetime(updatedAt + 9 * 3600, 'unixepoch')`;

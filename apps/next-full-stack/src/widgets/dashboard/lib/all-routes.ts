@@ -1,4 +1,4 @@
-import { buildTree } from '@henry-hong/common-utils/tree';
+import { buildTree } from '@monorepo-starter/utils/tree';
 import { appPathRoutes } from '~/app-path-types';
 
 export function getAllRouteTree() {
