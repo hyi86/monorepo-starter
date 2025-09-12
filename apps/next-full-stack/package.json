@@ -117,6 +117,7 @@
     "drizzle-kit": "^0.31.4",
     "eslint": "catalog:",
     "eslint-config-next": "catalog:",
+    "eslint-plugin-boundaries": "^5.0.1",
     "html-react-parser": "^5.2.6",
     "jsdom": "^26.1.0",
     "rehype-code-meta": "^1.0.2",
