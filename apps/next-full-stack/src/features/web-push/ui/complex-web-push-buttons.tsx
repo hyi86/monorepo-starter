@@ -58,7 +58,7 @@ export function ComplexWebPushButtons() {
         </Button>
         <Button
           onClick={async () => {
-            await sendPush({ title: '화남 아이콘', body: message, icon: '/angry-face.png' });
+            await sendPush({ title: '화남 아이콘', body: message, icon: '/images/angry-face.png' });
           }}
           disabled={sendPushLoading}
         >
