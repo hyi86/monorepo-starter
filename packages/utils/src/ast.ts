@@ -1,8 +1,9 @@
 import { ObjectLiteralExpression, SyntaxKind } from 'ts-morph';
 
-// 재귀적으로 객체로 변환
+//
 /**
  * 객체 리터럴을 재귀적으로 파싱하여 객체로 변환
+ *
  * @param expr - 파싱할 객체 리터럴
  * @returns 파싱된 객체
  * @example

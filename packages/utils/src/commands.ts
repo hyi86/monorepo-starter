@@ -8,6 +8,10 @@ export type EditorType =
   | 'sublimetext'
   | 'emacs';
 
+/**
+ * IDE에서 파일을 여는 명령어 (개발 전용)
+ * 각 IDE에 맞는 `에디터로 열기` 명령어를 반환
+ */
 export function openInEditorCommand(editor: EditorType, fileName: string, lineNumber?: number) {
   switch (editor) {
     case 'cursor':

@@ -1,6 +1,11 @@
+/**
+ * 코드에서 주석을 제거
+ */
 export const removeComments = (code: string) => code.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
 
-// 한글 성 로마자 변환 테이블
+/**
+ * 한글 성 로마자 변환 테이블
+ */
 export const romanizedSurnames = {
   가: 'Ka',
   간: 'Kan',

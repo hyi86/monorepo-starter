@@ -1,9 +1,15 @@
 import { SignJWT, jwtVerify } from 'jose';
 
+/**
+ * 인코드 시크릿
+ */
 function encodeSecret(secret: string) {
   return new TextEncoder().encode(secret);
 }
 
+/**
+ * jose JWT 기반의 토큰 생성
+ */
 export async function generateToken({
   userId,
   expiresIn,
@@ -22,6 +28,9 @@ export async function generateToken({
     .sign(encodeSecret(secret));
 }
 
+/**
+ * jose JWT 기반의 토큰 검증
+ */
 export async function verifyToken({ token, secret }: { token: string; secret: string }) {
   const { payload } = await jwtVerify(token, encodeSecret(secret));
   return payload;

@@ -3,6 +3,9 @@ import FastGlob from 'fast-glob';
 import fs from 'node:fs';
 import path from 'node:path';
 
+/**
+ * 모노레포에서 워크스페이스와 tsconfig.json 경로를 찾는 기능
+ */
 export async function findWorkspaceAndTsConfigPath() {
   let workspace = '';
   if (process.argv.length === 3) {

@@ -1,3 +1,6 @@
+/**
+ * `web` 에서 콘솔 로그 스타일을 유지하기 위한 유틸리티 Logger
+ */
 export function webLog(type: 'process' | 'success' | 'info' | 'warn' | 'error' | 'none', ...args: any[]) {
   switch (type) {
     case 'process':
