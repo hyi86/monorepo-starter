@@ -26,10 +26,10 @@
     "@clack/prompts": "^0.11.0",
     "date-fns": "^4.1.0",
     "fast-glob": "^3.3.3",
-    "jose": "^6.0.11",
+    "jose": "^6.1.0",
     "microdiff": "^1.5.0",
-    "ts-morph": "^26.0.0",
-    "type-fest": "^4.41.0"
+    "ts-morph": "^27.0.0",
+    "type-fest": "catalog:"
   },
   "devDependencies": {
     "@monorepo-starter/eslint-config": "workspace:*",
