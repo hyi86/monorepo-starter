@@ -454,9 +454,6 @@ importers:
       remark-mdx-frontmatter:
         specifier: ^5.2.0
         version: 5.2.0
-      sass:
-        specifier: ^1.92.1
-        version: 1.92.1
       tailwindcss:
         specifier: 'catalog:'
         version: 4.1.13
@@ -11220,7 +11217,8 @@ snapshots:
 
   immer@10.1.3: {}
 
-  immutable@5.1.3: {}
+  immutable@5.1.3:
+    optional: true
 
   import-fresh@3.3.1:
     dependencies:
@@ -13050,6 +13048,7 @@ snapshots:
       source-map-js: 1.2.1
     optionalDependencies:
       '@parcel/watcher': 2.5.1
+    optional: true
 
   saxes@6.0.0:
     dependencies:
