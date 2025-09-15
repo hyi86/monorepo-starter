@@ -18,10 +18,12 @@ import {
 } from '@monorepo-starter/ui/components/form';
 import { Input } from '@monorepo-starter/ui/components/input';
 import { Label } from '@monorepo-starter/ui/components/label';
+import MultipleSelector from '@monorepo-starter/ui/components/multiselect';
 import { RadioGroup, RadioGroupItem } from '@monorepo-starter/ui/components/radio-group';
 import { Slider } from '@monorepo-starter/ui/components/slider';
+import { Switch } from '@monorepo-starter/ui/components/switch';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { CircleIcon, TrashIcon, TriangleIcon } from 'lucide-react';
+import { CircleIcon, PenBoxIcon, TrashIcon, TriangleIcon } from 'lucide-react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { submitAction } from './actions';
 import { schema, type Schema } from './schema';
@@ -34,8 +36,10 @@ export default function FormDatePickerPage() {
       checkboxBox1: false,
       checkboxBox2: false,
       radioBox1: 'r1',
+      switchBox1: false,
       slider: 5,
       sliderDual: [5, 10],
+      multiSelect: [],
       dateInput: '',
       datePickerSingleDefault: undefined,
       datePickerSingle: '',
@@ -76,7 +80,7 @@ export default function FormDatePickerPage() {
             name="checkboxBox1"
             render={({ field }) => (
               <FormItem className="max-w-100">
-                <FormLabel>Checkbox Box 1</FormLabel>
+                <FormLabel>체크박스 1</FormLabel>
                 <FormControl>
                   <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950">
                     <Checkbox
@@ -94,7 +98,7 @@ export default function FormDatePickerPage() {
                     </div>
                   </Label>
                 </FormControl>
-                <FormDescription>체크박스 예제 입니다.</FormDescription>
+                <FormDescription>기본 체크박스의 박스 예제 입니다.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -106,25 +110,25 @@ export default function FormDatePickerPage() {
             name="checkboxBox2"
             render={({ field }) => (
               <FormItem className="max-w-100">
-                <FormLabel>Checkbox Box 2</FormLabel>
+                <FormLabel>체크박스 2</FormLabel>
                 <FormControl>
-                  <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950">
+                  <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-green-600 has-[[aria-checked=true]]:bg-green-50 dark:has-[[aria-checked=true]]:border-green-900 dark:has-[[aria-checked=true]]:bg-green-950">
                     <Checkbox
                       id="toggle-2"
                       defaultChecked
                       checked={field.value}
                       onCheckedChange={field.onChange}
-                      className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
+                      className="data-[state=checked]:border-green-600 data-[state=checked]:bg-green-600 data-[state=checked]:text-white dark:data-[state=checked]:border-green-700 dark:data-[state=checked]:bg-green-700"
                     />
                     <div className="grid gap-1.5 font-normal">
-                      <p className="text-sm font-medium leading-none">Enable notifications</p>
+                      <p className="text-sm font-medium leading-none">알림 활성화</p>
                       <p className="text-muted-foreground text-sm">
                         You can enable or disable notifications at any time.
                       </p>
                     </div>
                   </Label>
                 </FormControl>
-                <FormDescription>체크박스 예제 입니다.</FormDescription>
+                <FormDescription>기본 체크박스의 박스 예제 입니다.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -215,6 +219,40 @@ export default function FormDatePickerPage() {
             )}
           />
 
+          {/* Switch Box 1 */}
+          <FormField
+            control={form.control}
+            name="switchBox1"
+            render={({ field }) => (
+              <FormItem className="max-w-100 in-[.dark]:[--primary:var(--color-indigo-500)] in-[.dark]:[--ring:var(--color-indigo-900)] [--primary:var(--color-indigo-500)] [--ring:var(--color-indigo-300)]">
+                <FormLabel>Switch Box 1</FormLabel>
+                <FormControl>
+                  <div className="border-input has-data-[state=checked]:border-primary/50 shadow-xs relative flex w-full items-start gap-2 rounded-md border p-4 outline-none">
+                    <Switch
+                      id={field.name}
+                      className="order-1 after:absolute after:inset-0"
+                      aria-describedby={`${field.name}-description`}
+                    />
+                    <div className="flex grow items-center gap-3">
+                      <PenBoxIcon />
+                      <div className="grid grow gap-2">
+                        <Label htmlFor={field.name}>
+                          Label{' '}
+                          <span className="text-muted-foreground text-xs font-normal leading-[inherit]">
+                            (Sublabel)
+                          </span>
+                        </Label>
+                        <p id={`${field.name}-description`} className="text-muted-foreground text-xs">
+                          A short description goes here.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
           {/* Slider Single */}
           <FormField
             control={form.control}
@@ -276,6 +314,43 @@ export default function FormDatePickerPage() {
                       ))}
                     </span>
                   </div>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          {/* Multi Select */}
+          <FormField
+            control={form.control}
+            name="multiSelect"
+            render={({ field }) => (
+              <FormItem className="max-w-100">
+                <FormLabel>Multi Select</FormLabel>
+                <FormControl>
+                  <MultipleSelector
+                    commandProps={{
+                      label: 'Multi Select(Select Frameworks)',
+                    }}
+                    options={[
+                      { value: 'react', label: 'React' },
+                      { value: 'vue', label: 'Vue' },
+                      { value: 'angular', label: 'Angular' },
+                      { value: 'svelte', label: 'Svelte' },
+                      { value: 'next', label: 'Next' },
+                      { value: 'remix', label: 'Remix' },
+                      { value: 'astro', label: 'Astro' },
+                      { value: 'nuxt', label: 'Nuxt' },
+                      { value: 'blitz', label: 'Blitz' },
+                      { value: 'sapper', label: 'Sapper' },
+                      { value: 'solid', label: 'Solid' },
+                      { value: 'qwik', label: 'Qwik' },
+                    ]}
+                    onChange={field.onChange}
+                    value={field.value}
+                    hideClearAllButton
+                    hidePlaceholderWhenSelected
+                    emptyIndicator={<p className="text-center text-sm">No results found</p>}
+                  />
                 </FormControl>
               </FormItem>
             )}

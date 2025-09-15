@@ -6,8 +6,12 @@ export const schema = z.object({
 
   radioBox1: z.enum(['r1', 'r2', 'r3']),
 
+  switchBox1: z.boolean(),
+
   slider: z.number(),
   sliderDual: z.tuple([z.number(), z.number()]),
+
+  multiSelect: z.array(z.object({ value: z.string(), label: z.string() })),
 
   dateInput: z.string(),
   datePickerSingleDefault: z.date().optional(),
