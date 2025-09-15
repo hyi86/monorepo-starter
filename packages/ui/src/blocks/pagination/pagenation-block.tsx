@@ -1,4 +1,3 @@
-import { format } from '@henry-hong/common-utils/number';
 import { Button } from '@monorepo-starter/ui/components/button';
 import {
   DropdownMenu,
@@ -15,6 +14,7 @@ import {
 } from '@monorepo-starter/ui/components/pagination';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@monorepo-starter/ui/components/select';
 import { calculatePaginationRange } from '@monorepo-starter/ui/lib/pagination';
+import { format } from '@monorepo-starter/utils/number';
 import { Table } from '@tanstack/react-table';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 

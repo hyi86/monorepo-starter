@@ -61,8 +61,7 @@ export type StaticPath =
   | '/example/form/06-events'
   | '/example/form/07-use-optimistic'
   | '/example/form/08-nested-list'
-  | '/example/form/09-date-picker'
-  | '/example/form/10-inputs'
+  | '/example/form/09-form-controls'
   | '/example/image-edit'
   | '/example/modern-web'
   | '/example/modern-web/01-popover'
@@ -1754,11 +1753,11 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
-    href: '/example/form/09-date-picker',
-    linkTypes: '/example/form/09-date-picker',
+    href: '/example/form/09-form-controls',
+    linkTypes: '/example/form/09-form-controls',
     isParallelRoute: false,
     isDynamicRoute: false,
-    files: ['src/app/example/form/09-date-picker/page.tsx'],
+    files: ['src/app/example/form/09-form-controls/page.tsx'],
     structures: [
       {
         path: 'src/app/layout.tsx',
@@ -1770,35 +1769,7 @@ export const appPathRoutes: AppPathRoutes[] = [
                 path: 'src/app/example/form/layout.tsx',
                 children: [
                   {
-                    path: 'src/app/example/form/09-date-picker/page.tsx',
-                    children: [],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    href: '/example/form/10-inputs',
-    linkTypes: '/example/form/10-inputs',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/form/10-inputs/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/form/layout.tsx',
-                children: [
-                  {
-                    path: 'src/app/example/form/10-inputs/page.tsx',
+                    path: 'src/app/example/form/09-form-controls/page.tsx',
                     children: [],
                   },
                 ],

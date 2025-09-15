@@ -1,15 +1,16 @@
 'use client';
 
-import { formatDate } from '@henry-hong/common-utils/date';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Calendar } from '@monorepo-starter/ui/components/calendar';
 import { Input } from '@monorepo-starter/ui/components/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@monorepo-starter/ui/components/popover';
 import { cn } from '@monorepo-starter/ui/lib/utils';
+import { formatDate } from '@monorepo-starter/utils/date';
+import { addDays } from 'date-fns';
 import { CalendarIcon, XIcon } from 'lucide-react';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-export default function DatePicker({
+export function DatePickerInput({
   name,
   value,
   onChange,
@@ -22,30 +23,35 @@ export default function DatePicker({
   const [date, setDate] = useState<Date | undefined>(value ? new Date(value) : undefined);
   const [inputValue, setInputValue] = useState(value ? formatDate(new Date(value), 'iso9075/date') : '');
 
-  const handleDayPickerSelect = (date: Date | undefined) => {
+  // 선택된 날짜 변경
+  const handleDayPickerSelect = (date?: Date) => {
     if (!date) {
       setInputValue('');
       setDate(undefined);
-    } else {
-      setDate(date);
-      setMonth(date);
-      setInputValue(formatDate(date, 'iso9075/date'));
+      return;
     }
+
+    setDate(date);
+    setMonth(date);
+    setInputValue(formatDate(date, 'iso9075/date'));
   };
 
+  // 입력된 날짜 변경
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
 
-    if (value) {
-      const parsedDate = new Date(value);
-      setDate(parsedDate);
-      setMonth(parsedDate);
-    } else {
+    if (!value) {
       setDate(undefined);
+      return;
     }
+
+    const parsedDate = new Date(value);
+    setDate(parsedDate);
+    setMonth(parsedDate);
   };
 
+  // 날짜 초기화
   const handleClear = () => {
     setInputValue('');
     setDate(undefined);
@@ -89,14 +95,16 @@ export default function DatePicker({
               className="text-muted-foreground/80 group-hover:text-foreground shrink-0 transition-colors"
               aria-hidden="true"
             />
+            <span className="sr-only">Select date</span>
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto overflow-hidden p-0" align="end">
+        <PopoverContent className="w-auto overflow-hidden p-0" align="end" alignOffset={-8} sideOffset={10}>
           <Calendar
             mode="single"
             captionLayout="dropdown"
             endMonth={new Date(2026, 11)}
             disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
+            className="[--cell-size:--spacing(9)]"
             classNames={{
               dropdowns: 'flex flex-row-reverse gap-2',
             }}
@@ -105,6 +113,26 @@ export default function DatePicker({
             selected={date}
             onSelect={handleDayPickerSelect}
           />
+          <div className="grid grid-cols-3 gap-2 p-2">
+            {[
+              { label: '오늘', value: 0 },
+              { label: '어제', value: -1 },
+              { label: '3일 전', value: -3 },
+            ].map((preset) => (
+              <Button
+                key={preset.value}
+                variant="outline"
+                size="sm"
+                className="flex-1"
+                onClick={() => {
+                  const newDate = addDays(new Date(), preset.value);
+                  setDate(newDate);
+                }}
+              >
+                {preset.label}
+              </Button>
+            ))}
+          </div>
         </PopoverContent>
       </Popover>
     </div>

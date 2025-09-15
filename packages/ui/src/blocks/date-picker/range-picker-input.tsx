@@ -1,17 +1,17 @@
 'use client';
 
-import { formatDate } from '@henry-hong/common-utils/date';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Calendar } from '@monorepo-starter/ui/components/calendar';
 import { Input } from '@monorepo-starter/ui/components/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@monorepo-starter/ui/components/popover';
 import { cn } from '@monorepo-starter/ui/lib/utils';
+import { formatDate } from '@monorepo-starter/utils/date';
 import { compareAsc, parse } from 'date-fns';
 import { CalendarIcon, MinusIcon, XIcon } from 'lucide-react';
 import { Dispatch, SetStateAction, useEffect, useId, useState } from 'react';
 import { type DateRange } from 'react-day-picker';
 
-export default function DateRangePicker({
+export function RangePickerInput({
   value,
   onChange,
 }: {

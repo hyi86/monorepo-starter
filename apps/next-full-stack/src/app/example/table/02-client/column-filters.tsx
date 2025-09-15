@@ -1,8 +1,8 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import DatePicker from '@monorepo-starter/ui/blocks/date-picker/date-picker';
-import DateRangePicker from '@monorepo-starter/ui/blocks/date-picker/date-range-picker';
+import { DatePickerInput } from '@monorepo-starter/ui/blocks/date-picker/date-picker-input';
+import { RangePickerInput } from '@monorepo-starter/ui/blocks/date-picker/range-picker-input';
 import { Button } from '@monorepo-starter/ui/components/button';
 import {
   Drawer,
@@ -241,7 +241,7 @@ export default function TableFilters({ table }: { table: Table<Data> }) {
                     <FormItem>
                       <FormLabel>생년월일 - Date 이후 출생자 검색</FormLabel>
                       <FormControl>
-                        <DatePicker value={field.value} onChange={field.onChange} />
+                        <DatePickerInput value={field.value} onChange={field.onChange} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -255,7 +255,7 @@ export default function TableFilters({ table }: { table: Table<Data> }) {
                     <FormItem>
                       <FormLabel>생성일시</FormLabel>
                       <FormControl>
-                        <DateRangePicker value={field.value} onChange={field.onChange} />
+                        <RangePickerInput value={field.value} onChange={field.onChange} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

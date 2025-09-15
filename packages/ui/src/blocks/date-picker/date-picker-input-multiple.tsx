@@ -1,15 +1,14 @@
 'use client';
 
-import { formatDate } from '@henry-hong/common-utils/date';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Calendar } from '@monorepo-starter/ui/components/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@monorepo-starter/ui/components/popover';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-
+import { formatDate } from '@monorepo-starter/utils/date';
 import { CalendarIcon, XIcon } from 'lucide-react';
 import { Dispatch, SetStateAction, useEffect, useId, useState } from 'react';
 
-export default function DatePickerMultiple({
+export function DatePickerInputMultiple({
   value,
   onChange,
 }: {
