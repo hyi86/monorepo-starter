@@ -1,12 +1,11 @@
 'use client';
 
+import { Command, CommandGroup, CommandItem, CommandList } from '@monorepo-starter/ui/components/command';
+import { cn } from '@monorepo-starter/ui/lib/utils';
 import { Command as CommandPrimitive, useCommandState } from 'cmdk';
 import { XIcon } from 'lucide-react';
 import * as React from 'react';
 import { useEffect } from 'react';
-
-import { Command, CommandGroup, CommandItem, CommandList } from '@monorepo-starter/ui/components/command';
-import { cn } from '@monorepo-starter/ui/lib/utils';
 
 export interface Option {
   value: string;
@@ -144,7 +143,7 @@ const CommandEmpty = ({ className, ...props }: React.ComponentProps<typeof Comma
   if (!render) return null;
 
   return (
-    <div className={cn('px-2 py-4 text-center text-sm', className)} cmdk-empty="" role="presentation" {...props} />
+    <div className={cn('px-2 py-4 text-center text-base', className)} cmdk-empty="" role="presentation" {...props} />
   );
 };
 
@@ -400,7 +399,7 @@ const MultipleSelector = ({
     >
       <div
         className={cn(
-          'border-input focus-within:border-ring focus-within:ring-ring/50 has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40 has-aria-invalid:border-destructive has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50 relative min-h-[38px] rounded-md border text-sm outline-none transition-[color,box-shadow] focus-within:ring-[3px]',
+          'border-input focus-within:border-ring focus-within:ring-ring/50 has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40 has-aria-invalid:border-destructive has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50 relative min-h-[38px] rounded-md border text-base outline-none transition-[color,box-shadow] focus-within:ring-[3px]',
           {
             'p-1': selected.length !== 0,
             'cursor-text': !disabled && selected.length !== 0,
