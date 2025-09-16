@@ -2,35 +2,32 @@
 
 import { Button } from '@monorepo-starter/ui/components/button';
 import { useRef } from 'react';
-import { Cropper, CropperRef } from 'react-advanced-cropper';
+import { Cropper, type CropperRef } from 'react-advanced-cropper';
 
 export default function ImageEditPage() {
   const cropperRef = useRef<CropperRef>(null);
 
   const onReset = () => {
-    if (cropperRef.current) {
-      cropperRef.current.reset();
-    }
+    if (!cropperRef.current) return;
+    cropperRef.current.reset();
   };
 
   const onFlip = (horizontal: boolean, vertical: boolean) => {
-    if (cropperRef.current) {
-      cropperRef.current.flipImage(horizontal, vertical);
-    }
+    if (!cropperRef.current) return;
+    cropperRef.current.flipImage(horizontal, vertical);
   };
 
   const onRotate = (angle: number) => {
-    if (cropperRef.current) {
-      cropperRef.current.rotateImage(angle);
-    }
+    if (!cropperRef.current) return;
+    cropperRef.current.rotateImage(angle);
   };
 
   const onDownload = () => {
-    if (cropperRef.current) {
-      const newTab = window.open();
-      if (newTab) {
-        newTab.document.body.innerHTML = `<img src="${cropperRef.current.getCanvas()?.toDataURL()}"/>`;
-      }
+    if (!cropperRef.current) return;
+
+    const newTab = window.open();
+    if (newTab) {
+      newTab.document.body.innerHTML = `<img src="${cropperRef.current.getCanvas()?.toDataURL()}"/>`;
     }
   };
 
@@ -45,7 +42,7 @@ export default function ImageEditPage() {
         <Button onClick={() => onRotate(-90)}>Rotate -90°</Button>
         <Button onClick={onDownload}>Download</Button>
       </div>
-      <div className="size-100">
+      <div className="grid grid-cols-2 gap-2">
         <Cropper
           ref={cropperRef}
           src="/images/cat.jpg"

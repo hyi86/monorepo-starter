@@ -5,6 +5,7 @@ import { i18n, type Locale } from '~/shared/config/i18n';
 
 /**
  * next-intl 의 translator 만 별도로 가져와서 사용
+ * @see {@link https://next-intl.dev/docs/usage/messages}
  */
 function createI18n(locale: Locale = i18n.defaultLocale) {
   const translator = createTranslator({ locale, messages: dictionaries[locale] });

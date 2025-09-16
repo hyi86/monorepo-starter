@@ -1663,11 +1663,11 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
-    href: '/example/image-edit',
-    linkTypes: '/example/image-edit',
+    href: '/example/image-edit/01-simple',
+    linkTypes: '/example/image-edit/01-simple',
     isParallelRoute: false,
     isDynamicRoute: false,
-    files: ['src/app/example/image-edit/page.tsx'],
+    files: ['src/app/example/image-edit/01-simple/page.tsx'],
     structures: [
       {
         path: 'src/app/layout.tsx',
@@ -1676,7 +1676,7 @@ export const appPathRoutes: AppPathRoutes[] = [
             path: 'src/app/example/layout.tsx',
             children: [
               {
-                path: 'src/app/example/image-edit/page.tsx',
+                path: 'src/app/example/image-edit/01-simple/page.tsx',
                 children: [],
               },
             ],
