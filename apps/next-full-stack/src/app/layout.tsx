@@ -28,12 +28,15 @@ export const metadata: Metadata = {
   description: 'Next Full Stack',
   appleWebApp: {
     title: 'Next Full Stack',
-    statusBarStyle: 'black-translucent',
+    statusBarStyle: 'default', // 'default' | 'black' | 'black-translucent'
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#000',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#3b82f6' },
+    { media: '(prefers-color-scheme: dark)', color: '#1e40af' },
+  ],
 };
 
 export default async function RootLayout(props: LayoutProps<'/'>) {

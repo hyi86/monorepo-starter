@@ -13,7 +13,7 @@ import { copyToClipboard } from '@monorepo-starter/ui/lib/clipboard';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import { appPathRoutes } from '~/app-path-types';
+import { appPathRoutes } from '~/route-types';
 import { getCodeFromFile, openInEditor, saveCodeToFile } from '~/widgets/component-info-panel/api/cli.action';
 import { ComponentHierarchy } from './component-hierarchy';
 

@@ -23,7 +23,7 @@ import {
   SearchIcon,
   TrashIcon,
 } from 'lucide-react';
-import { appPathRoutes } from '~/app-path-types';
+import { appPathRoutes } from '~/route-types';
 import { useTreeMenu } from '~/shared/model/use-tree-menu';
 
 const routes = appPathRoutes

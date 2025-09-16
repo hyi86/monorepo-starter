@@ -1,5 +1,5 @@
 import { buildTree } from '@monorepo-starter/utils/tree';
-import { appPathRoutes } from '~/app-path-types';
+import { appPathRoutes } from '~/route-types';
 
 export function getAllRouteTree() {
   const exampleRoutes = appPathRoutes

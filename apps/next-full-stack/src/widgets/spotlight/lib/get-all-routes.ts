@@ -1,5 +1,5 @@
 import { kebabCase } from 'change-case';
-import { appPathRoutes } from '~/app-path-types';
+import { appPathRoutes } from '~/route-types';
 
 export function getAllRoutes() {
   const allRoutes = appPathRoutes

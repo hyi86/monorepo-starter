@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from '@monorepo-starter/ui/components/dropdown-menu';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { type Structure } from '~/app-path-types';
+import { type Structure } from '~/route-types';
 
 const classNames = {
   row: cn(`leading-4.5`),
