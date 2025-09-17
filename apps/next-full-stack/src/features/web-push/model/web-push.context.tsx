@@ -1,6 +1,5 @@
 'use client';
 
-import { webLog } from '@monorepo-starter/utils/console-web';
 import { createContext, ReactNode, useContext, useEffect, useState, useTransition } from 'react';
 import type { PushSubscription } from 'web-push';
 import { sendPushNotificationAction, subscribeAction, unsubscribeAction } from '~/features/web-push/api/webpush.action';
@@ -62,7 +61,7 @@ export function WebPushProvider({ children }: { children: ReactNode }) {
           throw new Error('Service worker is not registered');
         }
 
-        webLog('info', `Subscribing to push notifications...`);
+        console.log(`Subscribing to push notifications...`);
         const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
 
         const subscription = await registration.pushManager.subscribe({
@@ -71,12 +70,12 @@ export function WebPushProvider({ children }: { children: ReactNode }) {
         });
 
         if (subscription) {
-          webLog('info', `Push subscription created:`, subscription);
+          console.log(`Push subscription created:`, subscription);
           await subscribeAction(subscription.toJSON() as PushSubscription);
           setSubscription(subscription.toJSON() as PushSubscription);
         }
       } catch (error) {
-        webLog('error', `${fileName}`, `Error occurred while subscribing:`, error);
+        console.error(`${fileName}`, `Error occurred while subscribing:`, error);
         throw error;
       }
     });
@@ -91,7 +90,7 @@ export function WebPushProvider({ children }: { children: ReactNode }) {
           setSubscription(null);
         }
       } catch (error) {
-        webLog('error', `${fileName}`, `Error occurred while unsubscribing:`, error);
+        console.error(`${fileName}`, `Error occurred while unsubscribing:`, error);
         throw error;
       }
     });
@@ -107,7 +106,7 @@ export function WebPushProvider({ children }: { children: ReactNode }) {
 
         await sendPushNotificationAction(subscription, JSON.stringify(options));
       } catch (error) {
-        webLog('error', `${fileName}`, `Error occurred while sending push notification:`, error);
+        console.error(`${fileName}`, `Error occurred while sending push notification:`, error);
         console.log(error);
       }
     });
@@ -125,28 +124,28 @@ export function WebPushProvider({ children }: { children: ReactNode }) {
           throw new Error('This browser does not support push notifications');
         }
 
-        webLog('process', `Initializing service worker`);
+        console.log(`Initializing service worker`);
 
         const registration = await navigator.serviceWorker.register(serviceWorkerPath, {
           scope: '/',
           updateViaCache: 'none',
         });
 
-        webLog('success', `Service Worker registered`);
+        console.log(`Service Worker registered`);
 
         // Wait for the service worker to be ready
         await navigator.serviceWorker.ready;
-        webLog('success', `Service Worker is ready`);
+        console.log(`Service Worker is ready`);
         setRegistration(registration);
 
         // Check existing subscription
         const existingSub = await registration.pushManager.getSubscription();
         if (existingSub) {
-          webLog('success', `Existing subscription`);
+          console.log(`Existing subscription`);
           setSubscription(existingSub.toJSON() as PushSubscription);
         }
       } catch (error) {
-        webLog('error', `Service Worker registration failed:`, error);
+        console.error(`Service Worker registration failed:`, error);
       }
     }
 
