@@ -20,7 +20,7 @@ export async function Pre({ metastring, className, code }: { metastring: string;
   });
 
   return (
-    <div className="mb-4 overflow-hidden rounded-md border shadow-sm">
+    <div className="mb-4 overflow-auto rounded-md border shadow-sm">
       <CodeHeader fileName={metaDataCustom.fileName} lang={lang} code={code} />
       <div className="not-prose" dangerouslySetInnerHTML={{ __html: html }} />
     </div>
