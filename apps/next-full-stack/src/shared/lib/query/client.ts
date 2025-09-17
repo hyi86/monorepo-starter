@@ -1,8 +1,9 @@
 /**
- * TanStack Query 클라이언트 설정
+ * TanStack Query 클라이언트 설정 (@tanstack/react-query 공식문서 참조)
  *
  * Next.js App Router에서 서버와 클라이언트 환경을 구분하여
  * 각각에 최적화된 QueryClient 인스턴스를 제공하는 패턴
+ * @see {@link https://tanstack.com/query/latest/docs/framework/react/guides/ssr}
  */
 import { QueryClient, defaultShouldDehydrateQuery, isServer } from '@tanstack/react-query';
 

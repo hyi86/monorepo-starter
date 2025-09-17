@@ -1,11 +1,9 @@
 {
   "name": "@monorepo-starter/utils",
   "version": "0.1.9",
-  "private": false,
-  "description": "Common utils for monorepo projects",
-  "license": "MIT",
-  "author": "henry hong <hyi8656@gmail.com>",
+  "private": true,
   "type": "module",
+  "description": "Common utils for monorepo projects",
   "exports": {
     "./*": {
       "types": "./dist/*.d.ts",
@@ -16,14 +14,13 @@
     "dist/**"
   ],
   "scripts": {
+    "prepare": "pnpm build",
     "check-types": "tsc --noEmit",
     "lint": "eslint . --max-warnings 0",
     "test": "vitest",
-    "build": "tsup",
-    "prepare": "pnpm build"
+    "build": "tsup"
   },
   "dependencies": {
-    "@clack/prompts": "^0.11.0",
     "date-fns": "^4.1.0",
     "fast-glob": "^3.3.3",
     "jose": "^6.1.0",

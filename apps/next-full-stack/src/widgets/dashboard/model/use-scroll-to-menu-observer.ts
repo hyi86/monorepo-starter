@@ -1,6 +1,9 @@
 import { useIsMobile } from '@monorepo-starter/ui/hooks/use-mobile';
 import { useEffect } from 'react';
 
+/**
+ * 현재 페이지가 폴더 경로에 있는 경우, 해당 폴더를 스크롤 하여 보여줌
+ */
 export function useScrollToMenuObserver(pathname: string) {
   const isMobile = useIsMobile();
 

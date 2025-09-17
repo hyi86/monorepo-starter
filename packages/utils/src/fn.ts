@@ -27,6 +27,9 @@ export function once<T extends (...args: any[]) => any>(func: T) {
 
 /**
  * 비동기 함수를 디바운스 처리
+ * @example
+ * const debouncedFn = debounceAsync(async (a, b) => a + b, 1000);
+ * debouncedFn(1, 2); // 3
  */
 export function debounceAsync<T extends (...args: any[]) => Promise<any>>(
   fn: T,

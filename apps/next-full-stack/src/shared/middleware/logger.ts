@@ -5,6 +5,7 @@ import { type NextRequest } from 'next/server';
  * 요청 로그 기록
  *
  * @example
+ * // in middleware.ts
  * await loggerMiddleware(request);
  */
 export function loggerMiddleware(request: NextRequest) {

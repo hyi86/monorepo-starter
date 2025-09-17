@@ -1,5 +1,5 @@
 /**
- * 환경변수 문자열을 JSON 객체로 변환
+ * `.env`의 환경변수 문자열을 JSON 객체로 변환
  */
 export function parseEnvToJson(raw: string) {
   const lines = raw.split('\n');
@@ -18,7 +18,7 @@ export function parseEnvToJson(raw: string) {
 }
 
 /**
- * JSON 객체를 환경변수 문자열로 변환
+ * JSON 객체를 `.env`의 환경변수 문자열로 변환
  */
 export function convertJsonToEnv(json: Record<string, string>) {
   const lines = Object.entries(json).map(([key, value]) => `${key}=${String(value)}`);

@@ -1,9 +1,9 @@
 'use client';
 
 /**
- * 이미지를 base64 형태로 생성
+ * 이미지를 Base64 형태로 생성
  * @example
- * const url = await createBase64Image(file);
+ * const url = await createBase64Image(file); // data:image/jpeg;base64,/9j/4AAQSkZJRgABAgEASAB...
  */
 export function createBase64Image<T extends File>(file: T) {
   return new Promise((resolve, reject) => {

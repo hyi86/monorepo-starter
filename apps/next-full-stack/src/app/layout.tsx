@@ -52,7 +52,7 @@ export default async function RootLayout(props: LayoutProps<'/'>) {
                 <WebPushProvider>
                   {props.children}
                   <Spotlight />
-                  <ComponentInfoPanel />
+                  {process.env.NODE_ENV === 'development' && <ComponentInfoPanel />}
                 </WebPushProvider>
               </UploaderStoreProvider>
             </TanstackQueryProvider>

@@ -3,6 +3,7 @@ import { type UnknownRecord } from 'type-fest';
 
 /**
  * 두 객체의 차이를 반환
+ * microdiff 는 객체의 차이를 반환하는 라이브러리로, 속도가 빠르고 가벼움(대량의 데이터 비교 시 유용)
  * @param from 기존 객체
  * @param to 비교 대상 객체
  * @example

@@ -6,21 +6,53 @@ export type TreeRoute = {
 };
 
 /**
- * Build tree structure from routes.
+ * 경로 배열을 세그먼트로 분리하여 트리 구조로 변환
+ * @example
+ * const routes = ['/example/auth/login', '/example/auth/protect'];
+ * const tree = buildTree(routes);
+ * // {
+ * //   path: '/example',
+ * //   name: 'example',
+ * //   hasPath: false,
+ * //   children: [
+ * //     {
+ * //       path: '/example/auth',
+ * //       name: 'auth',
+ * //       hasPath: true,
+ * //       children: [
+ * //         {
+ * //           path: '/example/auth/login',
+ * //           name: 'login',
+ * //           hasPath: true,
+ * //           children: []
+ * //         },
+ * //         {
+ * //           path: '/example/auth/protect',
+ * //           name: 'protect',
+ * //           hasPath: true,
+ * //           children: []
+ * //         }
+ * //       ]
+ * //     }
+ * //   ]
+ * // }
  */
 export function buildTree(routes: string[]): TreeRoute[] {
   const routesTree: TreeRoute[] = [];
 
   routes.forEach((route) => {
+    // 세그먼트로 분리
     const segments = route.split('/').filter(Boolean);
     let currentLevel = routesTree;
     let currentPath = '';
 
     segments.forEach((segment) => {
+      // 경로 생성(현재 경로 + 세그먼트)
       currentPath = currentPath ? `${currentPath}/${segment}` : `/${segment}`;
 
       let existingNode = currentLevel.find((node) => node.path === currentPath);
 
+      // 경로가 존재하지 않으면 추가
       if (!existingNode) {
         existingNode = {
           path: currentPath,
@@ -31,6 +63,7 @@ export function buildTree(routes: string[]): TreeRoute[] {
         currentLevel.push(existingNode);
       }
 
+      // 자식 노드로 이동
       currentLevel = existingNode.children;
     });
   });
@@ -66,7 +99,10 @@ export type FlattenedRoute = {
 };
 
 /**
- * Get all folder paths from routes.
+ * 트리 구조를 Flat 하게 변환
+ * @example
+ * const tree = buildTree(routes);
+ * const flattenedTree = flattenTree(tree);
  */
 export function flattenTree(tree: FlattenedRoute[]): FlattenedRoute[] {
   const result: FlattenedRoute[] = [];
@@ -86,7 +122,10 @@ export function flattenTree(tree: FlattenedRoute[]): FlattenedRoute[] {
 }
 
 /**
- * Get all folder paths from tree structure.
+ * 트리 구조에서 모든 폴더 경로를 반환(Leaf를 제외한 모든 경로)
+ * @example
+ * const tree = buildTree(routes);
+ * const paths = getAllFolderPaths(tree);
  */
 export function getAllFolderPaths(items: TreeRoute[]): string[] {
   return items.reduce((acc: string[], item) => {

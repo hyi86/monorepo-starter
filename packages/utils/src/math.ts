@@ -1,7 +1,7 @@
 /**
  * 올림
  * @param value
- * @param precision - 자릿수
+ * @param precision - 자릿수(음수일 경우 정수도 올림 처리)
  * @example
  * const value1 = ceil(1_555_555.12345)     // 1,555,556
  * const value2 = ceil(1_555_555.12345, 2)  // 1,555,555.13
@@ -15,7 +15,7 @@ export function ceil(value: number, precision: number = 0) {
 /**
  * 절삭
  * @param value
- * @param precision - 자릿수
+ * @param precision - 자릿수(음수일 경우 정수도 절삭 처리)
  * @example
  * const value1 = floor(1_999_999.12345)      // 1,999,999
  * const value2 = floor(1_999_999.12345, 2)   // 1,999,999.12
@@ -27,7 +27,7 @@ export function floor(value: number, precision: number = 0) {
 }
 
 /**
- * 최대값
+ * 최대값 찾기
  * @param nums
  * @example
  * const value1 = max([1, 2, 3, 4, 5]); // 5
@@ -37,7 +37,7 @@ export function max(nums: number[]) {
 }
 
 /**
- * 평균값
+ * 평균값 찾기
  * @param arr
  * @example
  * const value1 = mean([1, 2, 3, 4, 5]); // 3
@@ -47,7 +47,7 @@ export function mean(arr: number[]) {
 }
 
 /**
- * 최소값
+ * 최소값 찾기
  * @param nums
  * @example
  * const value1 = min([1, 2, 3, 4, 5]); // 1
@@ -59,7 +59,7 @@ export function min(nums: number[]) {
 /**
  * 반올림
  * @param value
- * @param precision - 자릿수
+ * @param precision - 자릿수(음수일 경우 정수도 반올림 처리)
  * @example
  * const value1 = round(1_555_555.12345)     // 1,555,555
  * const value2 = round(1_555_555.12345, 2)  // 1,555,555.12
@@ -73,6 +73,8 @@ export function round(value: number, precision: number = 0) {
 
 /**
  * 합계
+ * @example
+ * const value1 = sum([1, 2, 3, 4, 5]); // 15
  */
 export function sum(arr: number[]) {
   return arr.reduce((acc, num) => acc + num, 0);

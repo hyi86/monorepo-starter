@@ -118,9 +118,12 @@ export async function main() {
     // 트리구조 생성
     const tree = buildTree(recursiveResults);
     // 트리구조 출력 String 추가
-    result.push({ filePath: file, graph: renderTreeInTerminal(tree, false) });
+    result.push({ filePath: file, graph: renderTreeInTerminal(tree, true) });
   }
 
-  devLog('info', JSON.stringify(result, null, 2));
+  result.forEach((r) => {
+    devLog('info', r.filePath + '\n' + r.graph);
+  });
+
   // fs.writeFileSync('result.json', JSON.stringify(result, null, 2));
 }

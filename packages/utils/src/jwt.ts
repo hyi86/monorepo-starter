@@ -1,7 +1,7 @@
-import { SignJWT, jwtVerify } from 'jose';
+import { SignJWT, jwtVerify } from 'jose'; // Edge runtime OK
 
 /**
- * 인코드 시크릿
+ * 코드를 인코딩해서 반환
  */
 function encodeSecret(secret: string) {
   return new TextEncoder().encode(secret);
@@ -9,6 +9,8 @@ function encodeSecret(secret: string) {
 
 /**
  * jose JWT 기반의 토큰 생성
+ * @example
+ * const token = await generateToken({ userId: '123', expiresIn: '1h', secret: 'secret' });
  */
 export async function generateToken({
   userId,
@@ -30,6 +32,8 @@ export async function generateToken({
 
 /**
  * jose JWT 기반의 토큰 검증
+ * @example
+ * const payload = await verifyToken({ token: 'token', secret: 'secret' });
  */
 export async function verifyToken({ token, secret }: { token: string; secret: string }) {
   const { payload } = await jwtVerify(token, encodeSecret(secret));

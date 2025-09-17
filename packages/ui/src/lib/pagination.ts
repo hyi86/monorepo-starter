@@ -2,8 +2,16 @@ export const DOTS = 'dots';
 
 /**
  * 페이지네이션 범위를 계산하는 유틸리티 함수
- * - 서버 & 클라이언트 컴포넌트에서 사용가능
- * - 결과 형태는 `[1, 2, 3, 'dots', 8, 9, 10]` 와 같은 형태로 반환
+ * (서버 & 클라이언트 컴포넌트에서 사용 가능)
+ *
+ * @example
+ * const paginationRange = calculatePaginationRange({
+ *   total: 100,
+ *   siblings: 1,
+ *   boundaries: 1,
+ *   activePage: 1,
+ * });
+ * console.log(paginationRange); // [1, 2, 3, 'dots', 8, 9, 10]
  */
 export function calculatePaginationRange({
   total,

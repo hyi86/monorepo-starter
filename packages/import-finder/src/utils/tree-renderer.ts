@@ -84,15 +84,15 @@ export function buildTree(results: RecursiveImportResult[]): TreeNode {
 }
 
 /**
- * 트리를 콘솔에 출력
+ * 파일 트리를 콘솔에 출력(Recursive)
  */
-export function renderTreeInTerminal(node: TreeNode, color: boolean = true) {
+export function renderTreeInTerminal(node: TreeNode, useTerminalColor: boolean = true) {
   let result = '';
 
   const renderTreeString = (node: TreeNode, prefix: string = '', isLast: boolean = true) => {
     const connector = isLast ? ' └─ ' : ' ├─ ';
 
-    if (color) {
+    if (useTerminalColor) {
       result += `${prefix}${connector}${getFilePathText(node.filePath)} ${getCountText(node.count)}\n`;
     } else {
       result += `${prefix}${connector}${node.filePath}\n`;

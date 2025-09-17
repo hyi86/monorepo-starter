@@ -4,7 +4,10 @@
   --font-pretendard: var(--font-pretendard);
 }
 
-/* shiki */
+/* 
+ * shiki global styles
+ * @see {@link https://shiki.matsu.io/}
+ */
 .dark .shiki,
 .dark .shiki span {
   color: var(--shiki-dark) !important;
@@ -15,7 +18,10 @@
   text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 
-/* tiptap */
+/* 
+ * tiptap global styles
+ * @see {@link https://tiptap.dev/docs}
+ */
 .tiptap {
   table {
     margin: 0;

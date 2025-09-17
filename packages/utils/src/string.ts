@@ -1,10 +1,16 @@
 /**
  * 코드에서 주석을 제거
+ * @example
+ * const code = '// This is a comment\nconsole.log("Hello, world!");';
+ * const codeWithoutComments = removeComments(code); // 'console.log("Hello, world!");'
  */
 export const removeComments = (code: string) => code.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
 
 /**
- * 한글 성 로마자 변환 테이블
+ * 한글 성(family name)의 로마자 변환용 테이블
+ * @example
+ * const name = '김';
+ * const romanizedName = romanizedSurnames[name as keyof typeof romanizedSurnames]; // 'Kim'
  */
 export const romanizedSurnames = {
   가: 'Ka',

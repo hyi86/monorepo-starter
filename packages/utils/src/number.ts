@@ -9,6 +9,7 @@ export function clamp(value: number, min: number, max: number) {
 }
 
 /**
+ * 랜덤 숫자 생성
  * @example
  * random(0, 5);      // 0 < x <= 5
  * random(5);         // 0 < x <= 5
@@ -35,6 +36,7 @@ export function random(lower = 0, upper: number, floating: boolean = false) {
 }
 
 /**
+ * 숫자를 0으로 채우기(자릿수)
  * @example
  * zerofill(35, 2)  // 35
  * zerofill(7, 3)   // 007
@@ -52,9 +54,9 @@ export function zerofill(num: number, precision: number = 2) {
 }
 
 /**
- * Number Format
+ * 숫자 포맷팅
  * @param value
- * @param precision - 자릿수
+ * @param precision - 자릿수(음수일 경우 정수도 포맷팅 처리)
  * @example
  * format(999_999.999)     // 999,999.999
  * format(999_999, -3)     // 999,000

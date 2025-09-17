@@ -24,7 +24,7 @@ import {
   TrashIcon,
 } from 'lucide-react';
 import { appPathRoutes } from '~/route-types';
-import { useTreeMenu } from '~/shared/model/use-tree-menu';
+import { useTreeMenu } from './use-tree-menu';
 
 const routes = appPathRoutes
   .filter((route) => !route.isParallelRoute && !route.isDynamicRoute)

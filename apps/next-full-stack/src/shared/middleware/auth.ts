@@ -7,6 +7,9 @@ import { env } from '~/shared/config/env';
 
 /**
  * 인증관련 설정 - 접근 제한 페이지
+ * @example
+ * // in middleware.ts
+ * await authMiddleware(request, response);
  */
 export async function authMiddleware(request: NextRequest, response: NextResponse) {
   const { pathname, search } = request.nextUrl;

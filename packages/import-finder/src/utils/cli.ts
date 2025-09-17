@@ -2,7 +2,7 @@ import { intro, isCancel, outro, select, text } from '@clack/prompts';
 import FastGlob from 'fast-glob';
 
 /**
- * 모노레포에서 워크스페이스와 tsconfig.json 경로를 찾는 기능
+ * 모노레포에서 워크스페이스와 `tsconfig.json` 경로를 찾는 터미널 UI
  */
 export async function findWorkspaceAndTsConfigPath() {
   intro('Workspace Selectbox');

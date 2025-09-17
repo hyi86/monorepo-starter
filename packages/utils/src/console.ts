@@ -3,6 +3,13 @@ import { clamp } from '~/number';
 
 const RESET = '\x1b[0m';
 
+/**
+ * 콘솔 로그 색상 변경 함수
+ * 반드시 트루컬러 지원 터미널에서 사용해야 함(iTerm2, VSCode, etc.)
+ * @example
+ * const log = console.log;
+ * log(green('Hello, world!'));
+ */
 const rgb = (value: string) => (text: string) => {
   const [red, green, blue] = value.split(' ').map(Number);
   if (!red || !green || !blue) {
@@ -35,8 +42,16 @@ export const whiteSpace = ' '.repeat(13);
 type LogType = LiteralUnion<'process' | 'success' | 'info' | 'warn' | 'error', string>;
 
 /**
- * `Edge runtime` 과 `Node.js`, `web` 에서 동일한 콘솔 로그 스타일을 유지하기 위한 유틸리티 Logger
+ * `Edge runtime` 과 `Node.js` 에서 동일한 콘솔 로그 스타일을 유지하기 위한 유틸리티 Logger
+ * `web browser`은 지원 안함(throw error)
  * @see {@link https://ui.shadcn.com/colors Tailwind CSS Colors}
+ * @example
+ * devLog('process', 'Hello, world!');
+ * devLog('success', 'Hello, world!');
+ * devLog('info', 'Hello, world!');
+ * devLog('warn', 'Hello, world!');
+ * devLog('error', 'Hello, world!');
+ * devLog('Hello, world!');
  */
 export function devLog(type: LogType, ...args: any[]) {
   if (process.env.NODE_ENV === 'production') {

@@ -40,8 +40,9 @@ export function findRecursiveImports(
       }
 
       const imports: string[] = [];
-      const importDeclarations = sourceFile.getImportDeclarations();
 
+      // import 구문 처리
+      const importDeclarations = sourceFile.getImportDeclarations();
       importDeclarations.forEach((importDeclaration) => {
         const importFullPath = importDeclaration.getModuleSpecifierSourceFile()?.getFilePath();
         if (!importFullPath) {
@@ -61,6 +62,32 @@ export function findRecursiveImports(
 
         // 재귀적으로 다음 파일 탐색
         traverseFile(importFullPath, depth + 1);
+      });
+
+      // export * from 구문 처리
+      const exportDeclarations = sourceFile.getExportDeclarations();
+      exportDeclarations.forEach((exportDeclaration) => {
+        // export * from 구문인지 확인
+        if (exportDeclaration.getModuleSpecifier()) {
+          const exportFullPath = exportDeclaration.getModuleSpecifierSourceFile()?.getFilePath();
+          if (!exportFullPath) {
+            return;
+          }
+
+          // pwd 기준으로 상대 경로 변환
+          const relativeExportPath = path.relative(pwd, exportFullPath);
+
+          // node_modules 제외
+          if (relativeExportPath.includes('node_modules')) {
+            return;
+          }
+
+          // 로컬 파일만 추가 (워크스페이스 패키지 포함)
+          imports.push(relativeExportPath);
+
+          // 재귀적으로 다음 파일 탐색
+          traverseFile(exportFullPath, depth + 1);
+        }
       });
 
       results.push({

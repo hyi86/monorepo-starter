@@ -10,6 +10,7 @@ import tar from 'tar-stream';
 import { env } from '~/shared/config/env';
 
 /**
+ * TODO: ⚠️ development only 로 변경
  * 코드 가져오기 Action
  * development: local file
  * production: in tar.gz file
@@ -83,6 +84,7 @@ export async function openInEditor(filePath: string) {
 
 /**
  * tar.gz 압축 파일내에서 파일 읽기 Action
+ * TODO: 공통 라이브러리로 분리
  */
 function readFileFromTarGz(tarGzPath: string, targetFilePath: string) {
   return new Promise<string>((resolve, reject) => {
