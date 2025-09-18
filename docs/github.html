@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GitHub Repo Metrics</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 2rem;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 1rem;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 6px 10px;
+        text-align: left;
+        font-size: 14px;
+        font-family: monospace;
+      }
+      th {
+        background: #f6f7f9;
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+      }
+      th:hover {
+        background: #e1e4e8;
+      }
+      th.sortable::after {
+        content: ' ↕';
+        opacity: 0.5;
+      }
+      th.sort-asc::after {
+        content: ' ↑';
+        opacity: 1;
+        color: #0366d6;
+      }
+      th.sort-desc::after {
+        content: ' ↓';
+        opacity: 1;
+        color: #0366d6;
+      }
+      tr:nth-child(even) {
+        background: #fafbfc;
+      }
+      .old-release {
+        color: #d73a49;
+        font-weight: bold;
+      }
+      .stars-very-low {
+        color: #d73a49;
+        font-weight: bold;
+      }
+      .stars-low {
+        color: #f66a0a;
+        font-weight: bold;
+      }
+      .stars-medium {
+        color: #f1c40f;
+        font-weight: bold;
+      }
+      .stars-high {
+        color: #27ae60;
+        font-weight: bold;
+      }
+      .stars-very-high {
+        color: #1e7e34;
+        font-weight: bold;
+      }
+      .stars-legendary {
+        color: #6f42c1;
+        font-weight: bold;
+      }
+      input {
+        width: 350px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>GitHub Repo Metrics</h1>
+    <div style="margin-bottom: 1rem">
+      <button
+        onclick="clearCache(); location.reload();"
+        style="padding: 8px 16px; background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 6px; cursor: pointer"
+      >
+        캐시 초기화
+      </button>
+      <span style="margin-left: 1rem; color: #656d76; font-size: 14px"> 데이터는 30분간 캐시됩니다 </span>
+    </div>
+    <table id="tbl">
+      <thead>
+        <tr>
+          <th>Repo</th>
+          <th>Stars</th>
+          <th>Forks</th>
+          <th>Created</th>
+          <th>Latest Release</th>
+          <th>Open Issues</th>
+          <th>Size</th>
+          <th>Last Push</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <script>
+      /**
+       * 보안을 위해서 값을 별도로 저장함
+       * @see https://www.notion.so/henryhong/github-API-API-Token-272eab84463080fb8440eeaab387d35e
+       */
+      const TOKEN = '...'; // 깃허브 API 토큰
+      const CACHE_KEY = 'github_repos_cache'; // 캐시 키
+      const CACHE_EXPIRY = 30 * 60 * 1000; // 캐시 만료 시간 30분
+
+      window.addEventListener('DOMContentLoaded', () => {
+        run();
+      });
+
+      async function gqlQuery(token, query) {
+        const r = await fetch('https://api.github.com/graphql', {
+          method: 'POST',
+          headers: { Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query }),
+        });
+        if (!r.ok) throw new Error('GraphQL error ' + r.status);
+        return r.json();
+      }
+
+      // 숫자 포맷팅 함수 (천 단위 콤마)
+      function formatNumber(num) {
+        if (num === null || num === undefined || num === '-') return '-';
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
+
+      // 파일 사이즈 포맷팅 함수 (KB, MB, GB)
+      function formatFileSize(kb) {
+        if (kb === null || kb === undefined || kb === '-') return '-';
+        if (kb < 1024) return `${kb} KB`;
+        if (kb < 1024 * 1024) return `${(kb / 1024).toFixed(1)} MB`;
+        return `${(kb / (1024 * 1024)).toFixed(1)} GB`;
+      }
+
+      // 6개월 이상된 릴리즈 체크 함수
+      function isOldRelease(releaseDate) {
+        if (!releaseDate || releaseDate === '-') return false;
+        const release = new Date(releaseDate);
+        const sixMonthsAgo = new Date();
+        sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+        return release < sixMonthsAgo;
+      }
+
+      // 별표 수에 따른 색상 클래스 반환 함수
+      function getStarColorClass(starCount) {
+        if (starCount < 1000) return 'stars-very-low'; // 빨간색
+        if (starCount < 5000) return 'stars-low'; // 주황색
+        if (starCount < 10000) return 'stars-medium'; // 노란색
+        if (starCount < 30000) return 'stars-high'; // 초록색
+        if (starCount < 50000) return 'stars-very-high'; // 진한 초록색
+        return 'stars-legendary'; // 5만 이상은 보라색
+      }
+
+      function getCachedData() {
+        try {
+          const cached = localStorage.getItem(CACHE_KEY);
+          if (!cached) return null;
+
+          const { data, timestamp } = JSON.parse(cached);
+          const now = Date.now();
+
+          // 캐시가 만료되었는지 확인
+          if (now - timestamp > CACHE_EXPIRY) {
+            localStorage.removeItem(CACHE_KEY);
+            return null;
+          }
+
+          return data;
+        } catch (e) {
+          console.warn('캐시 데이터 읽기 실패:', e);
+          return null;
+        }
+      }
+
+      function setCachedData(data) {
+        try {
+          const cacheData = {
+            data: data,
+            timestamp: Date.now(),
+          };
+          localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+        } catch (e) {
+          console.warn('캐시 데이터 저장 실패:', e);
+        }
+      }
+
+      function clearCache() {
+        localStorage.removeItem(CACHE_KEY);
+      }
+
+      // 테이블 렌더링 함수
+      function renderTable(data, list) {
+        const body = document.querySelector('#tbl tbody');
+        const rows = [];
+
+        // 결과를 원래 순서대로 처리
+        list.forEach((repo, index) => {
+          const r = data[`repo${index}`];
+          if (r) {
+            const releaseDate = r.latestRelease?.publishedAt?.slice(0, 10) ?? '-';
+            const isOld = isOldRelease(releaseDate);
+            const releaseClass = isOld ? ' class="old-release"' : '';
+
+            const starClass = getStarColorClass(r.stargazerCount);
+            const starClassAttr = starClass ? ` class="${starClass}"` : '';
+
+            rows.push(/* html */ `<tr>
+              <td>
+                <img src="${r.owner.avatarUrl}" alt="${r.owner.login}" style="width: 20px; height: 20px; border-radius: 50%; margin-right: 8px; vertical-align: middle;">
+                <a href="${r.url}" target="_blank">${r.nameWithOwner}</a>
+              </td>
+              <td style="text-align: right;"${starClassAttr}>${formatNumber(r.stargazerCount)}</td>
+              <td style="text-align: right;">${formatNumber(r.forkCount)}</td>
+              <td>${r.createdAt.slice(0, 10)}</td>
+              <td${releaseClass}>${releaseDate}</td>
+              <td style="text-align: right;">${formatNumber(r.issues.totalCount)}</td>
+              <td style="text-align: right;">${formatFileSize(r.diskUsage)}</td>
+              <td>${r.pushedAt.slice(0, 10)}</td>
+            </tr>`);
+          } else {
+            rows.push(`<tr><td colspan="8">${repo}: Repository not found</td></tr>`);
+          }
+        });
+
+        body.innerHTML = rows.join('');
+      }
+
+      // 정렬 핸들러 설정 함수
+      function setupSortHandlers() {
+        const headers = document.querySelectorAll('#tbl th');
+        headers.forEach((header, index) => {
+          // 기존 이벤트 리스너 제거
+          header.replaceWith(header.cloneNode(true));
+        });
+
+        // 새로운 이벤트 리스너 추가
+        const newHeaders = document.querySelectorAll('#tbl th');
+        newHeaders.forEach((header, index) => {
+          header.classList.add('sortable');
+          header.addEventListener('click', () => handleHeaderClick(index));
+        });
+      }
+
+      // 전역 변수: 정렬 상태 관리
+      let currentSort = { column: null, direction: 'asc' };
+      let tableData = [];
+
+      // 숫자 추출 함수 (포맷된 숫자에서 원본 숫자 추출)
+      function extractNumber(text) {
+        if (text === '-' || text === null || text === undefined || text === '') return 0;
+        const cleaned = text.replace(/,/g, '').replace(/[^\d]/g, '');
+        const num = parseInt(cleaned) || 0;
+        return num;
+      }
+
+      // 파일 사이즈를 KB로 변환하는 함수
+      function parseFileSize(text) {
+        if (text === '-' || text === null || text === undefined) return 0;
+        if (text.includes('GB')) return parseFloat(text) * 1024 * 1024;
+        if (text.includes('MB')) return parseFloat(text) * 1024;
+        if (text.includes('KB')) return parseFloat(text);
+        return 0;
+      }
+
+      // 정렬 함수
+      function sortTable(column, direction) {
+        const tbody = document.querySelector('#tbl tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+
+        rows.sort((a, b) => {
+          const aText = a.cells[column].textContent.trim();
+          const bText = b.cells[column].textContent.trim();
+
+          let aValue, bValue;
+
+          // 컬럼별 정렬 로직
+          switch (column) {
+            case 0: // Repo (문자열)
+              aValue = aText;
+              bValue = bText;
+              break;
+            case 1: // Stars (숫자)
+            case 2: // Forks (숫자)
+            case 5: // Open Issues (숫자)
+              aValue = extractNumber(aText);
+              bValue = extractNumber(bText);
+              break;
+            case 3: // Created (날짜)
+            case 4: // Latest Release (날짜)
+            case 7: // Last Push (날짜)
+              aValue = new Date(aText === '-' ? '1900-01-01' : aText);
+              bValue = new Date(bText === '-' ? '1900-01-01' : bText);
+              break;
+            case 6: // Size (파일 사이즈)
+              aValue = parseFileSize(aText);
+              bValue = parseFileSize(bText);
+              break;
+            default:
+              aValue = aText;
+              bValue = bText;
+          }
+
+          const result =
+            aValue < bValue ? (direction === 'asc' ? -1 : 1) : aValue > bValue ? (direction === 'asc' ? 1 : -1) : 0;
+
+          return result;
+        });
+
+        // 정렬된 행들을 다시 테이블에 추가
+        rows.forEach((row) => tbody.appendChild(row));
+      }
+
+      // 헤더 클릭 이벤트 핸들러
+      function handleHeaderClick(column) {
+        const th = document.querySelector(`#tbl th:nth-child(${column + 1})`);
+
+        // 정렬 방향 결정
+        if (currentSort.column === column) {
+          currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+        } else {
+          currentSort.direction = 'asc';
+        }
+        currentSort.column = column;
+
+        // 모든 헤더에서 정렬 클래스 제거
+        document.querySelectorAll('#tbl th').forEach((header) => {
+          header.classList.remove('sort-asc', 'sort-desc');
+          header.classList.add('sortable');
+        });
+
+        // 현재 헤더에 정렬 클래스 추가
+        th.classList.remove('sortable');
+        th.classList.add(`sort-${currentSort.direction}`);
+
+        // 테이블 정렬 실행
+        sortTable(column, currentSort.direction);
+      }
+
+      async function run() {
+        const list = [
+          'vercel/next.js',
+          'facebook/react',
+          'remix-run/react-router',
+          'eslint/eslint',
+          'prettier/prettier',
+          'biomejs/biome',
+          'oxc-project/oxc',
+          'tanstack/router',
+          'withastro/astro',
+          'vuejs/vue',
+          'vuejs/core',
+          'sveltejs/svelte',
+          'angular/angular',
+          'solidjs/solid',
+          'riot/riot',
+          'alpinejs/alpine',
+          'lit/lit',
+          'bigskysoftware/htmx',
+          'qwikdev/qwik',
+          'denoland/fresh',
+          'nuxt/nuxt',
+
+          // State Management & Test
+          'pmndrs/zustand',
+          'pmndrs/jotai',
+          '47ng/nuqs',
+          'reduxjs/redux',
+          'facebookexperimental/Recoil',
+          'statelyai/xstate',
+          'vitest-dev/vitest',
+          'microsoft/playwright',
+          'puppeteer/puppeteer',
+          'cypress-io/cypress',
+          'react-hook-form/react-hook-form',
+          'tanstack/react-query',
+          'tanstack/react-table',
+          'tanstack/react-virtual',
+
+          // UI / CSS
+          'emotion-js/emotion',
+          'tailwindlabs/tailwindcss',
+          'shadcn-ui/ui',
+          'ant-design/ant-design',
+          'mui/material-ui',
+          'motiondivision/motion',
+          'heroui-inc/heroui',
+          'chakra-ui/chakra-ui',
+          'mantinedev/mantine',
+          'styled-components/styled-components',
+          'facebook/stylex',
+          'vanilla-extract-css/vanilla-extract',
+          'chakra-ui/panda',
+          'radix-ui/primitives',
+
+          // Headless Lib & Etc
+          'lukasbach/headless-tree',
+          'floating-ui/floating-ui',
+          'clauderic/dnd-kit',
+          'faker-js/faker',
+          'shikijs/shiki',
+          't3-oss/t3-env',
+          'krisk/Fuse',
+          'pinojs/pino',
+          'colinhacks/zod',
+          'emilkowalski/vaul',
+          'emilkowalski/sonner',
+          'guilhermerodz/input-otp',
+          'gpbl/react-day-picker',
+          'pacocoursey/cmdk',
+          'davidjerleke/embla-carousel',
+          'bvaughn/react-resizable-panels',
+          'pacocoursey/next-themes',
+          'ueberdosis/tiptap',
+          'steven-tey/novel',
+        ];
+        const body = document.querySelector('#tbl tbody');
+        body.innerHTML = "<tr><td colspan='8'>Loading...</td></tr>";
+
+        // 캐시된 데이터 확인
+        const cachedData = getCachedData();
+        if (cachedData) {
+          console.log('캐시된 데이터 사용');
+          renderTable(cachedData, list);
+          setupSortHandlers();
+          return;
+        }
+
+        try {
+          console.log('API에서 데이터 가져오는 중...');
+          // 모든 저장소를 한번에 조회하는 GraphQL 쿼리
+          const repositories = list.map((repo, index) => {
+            const [owner, name] = repo.split('/');
+            return `
+              repo${index}: repository(owner:"${owner}", name:"${name}") {
+                nameWithOwner
+                stargazerCount
+                forkCount
+                createdAt
+                pushedAt
+                diskUsage
+                latestRelease { publishedAt }
+                issues(states:OPEN) { totalCount }
+                url
+                owner {
+                  avatarUrl
+                  login
+                }
+              }`;
+          });
+
+          const repositoriesQuery = repositories.join('\n');
+          const query = `query {
+            ${repositoriesQuery}
+          }`;
+
+          const { data } = await gqlQuery(TOKEN, query);
+
+          // 데이터를 캐시에 저장
+          setCachedData(data);
+          renderTable(data, list);
+        } catch (e) {
+          body.innerHTML = `<tr><td colspan="8">Error: ${e.message}</td></tr>`;
+        }
+
+        // 헤더에 정렬 기능 추가
+        setupSortHandlers();
+      }
+    </script>
+  </body>
+</html>
