@@ -1,8 +1,5 @@
 'use client';
 
-import { Check, ChevronsUpDown, GalleryVerticalEnd } from 'lucide-react';
-import * as React from 'react';
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,6 +7,8 @@ import {
   DropdownMenuTrigger,
 } from '@monorepo-starter/ui/components/dropdown-menu';
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@monorepo-starter/ui/components/sidebar';
+import { Check, ChevronsUpDown, GalleryVerticalEnd } from 'lucide-react';
+import * as React from 'react';
 
 export function VersionSwitcher({ versions, defaultVersion }: { versions: string[]; defaultVersion: string }) {
   const [selectedVersion, setSelectedVersion] = React.useState(defaultVersion);

@@ -1,3 +1,4 @@
+import { AppRoutes } from '.next/types/routes';
 import { AppSidebar } from '@monorepo-starter/ui/blocks/sidebar-collapses-icons/app-sidebar';
 import {
   Breadcrumb,
@@ -9,11 +10,13 @@ import {
 } from '@monorepo-starter/ui/components/breadcrumb';
 import { Separator } from '@monorepo-starter/ui/components/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@monorepo-starter/ui/components/sidebar';
+import Link from 'next/link';
+import { data } from '../data-with-icon';
 
 export default function Page() {
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar data={data} useCollapsibleIcon />
       <SidebarInset>
         <header className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear">
           <div className="flex items-center gap-2 px-4">
@@ -22,11 +25,13 @@ export default function Page() {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">Building Your Application</BreadcrumbLink>
+                  <BreadcrumbLink asChild>
+                    <Link href={'/blocks' as AppRoutes}>App Sidebar Example</Link>
+                  </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  <BreadcrumbPage>07 Collapses Icons</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

@@ -1,7 +1,6 @@
-import { Search } from 'lucide-react';
-
 import { Label } from '@monorepo-starter/ui/components/label';
 import { SidebarGroup, SidebarGroupContent, SidebarInput } from '@monorepo-starter/ui/components/sidebar';
+import { Search } from 'lucide-react';
 
 export function SearchForm({ ...props }: React.ComponentProps<'form'>) {
   return (

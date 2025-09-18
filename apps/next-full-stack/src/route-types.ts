@@ -124,24 +124,6 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
-    href: '/blocks/sidebar-06',
-    linkTypes: '/blocks/sidebar-06',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/blocks/sidebar-06/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/blocks/sidebar-06/page.tsx',
-            children: [],
-          },
-        ],
-      },
-    ],
-  },
-  {
     href: '/blocks/sidebar-07',
     linkTypes: '/blocks/sidebar-07',
     isParallelRoute: false,
@@ -153,24 +135,6 @@ export const appPathRoutes: AppPathRoutes[] = [
         children: [
           {
             path: 'src/app/blocks/sidebar-07/page.tsx',
-            children: [],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    href: '/blocks/sidebar-08',
-    linkTypes: '/blocks/sidebar-08',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/blocks/sidebar-08/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/blocks/sidebar-08/page.tsx',
             children: [],
           },
         ],
