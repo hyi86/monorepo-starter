@@ -36,7 +36,8 @@ pnpm dev
 
 ### Start local tunnel (cloudflared)
 
-`cloudflared`는 Cloudflare에서 제공하는 Tunnel Client 서비스입니다.
+`cloudflared`는 Cloudflare에서 제공하는 경량 Tunnel Client 서비스입니다.  
+서비스를 외부에 임시로 공개할 때 사용합니다.
 
 
 ```bash
@@ -57,7 +58,8 @@ cloudflared tunnel --url http://localhost:3001
 # 2025-08-29T08:13:22Z INF +--------------------------------------------------------------------------------------------+
 # 2025-08-29T08:13:22Z INF ....
 ```
-여기서, 랜덤으로 생성된 https://aaaa-aaaa.trycloudflare.com 이 접속가능한 도메인입니다.
+여기서, 랜덤으로 생성된  
+https://aaaa-aaaa.trycloudflare.com 이 접속가능한 도메인입니다.
 
 
 ## Folder Structure & Rules
@@ -67,5 +69,5 @@ cloudflared tunnel --url http://localhost:3001
 
 - `pages`, `app` 레이어는 `app` 레이어로 통합해서 하나로 사용
 - 기본적인 흐름은, `app` > `widgets` > `features` > `entities` > `common` 순으로 이동
-자세한 내용은 별도의 [문서를](./GUIDES.md) 참조하세요.
+자세한 내용은 별도의 [문서를](../../docs/Custom-FSD-Guide.md) 참조하세요.
 
