@@ -25,8 +25,7 @@
     "fast-glob": "^3.3.3",
     "jose": "^6.1.0",
     "microdiff": "^1.5.0",
-    "ts-morph": "^27.0.0",
-    "type-fest": "catalog:"
+    "ts-morph": "^27.0.0"
   },
   "devDependencies": {
     "@monorepo-starter/eslint-config": "workspace:*",
@@ -34,6 +33,7 @@
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "tsup": "^8.5.0",
+    "type-fest": "catalog:",
     "typescript": "catalog:",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4"
