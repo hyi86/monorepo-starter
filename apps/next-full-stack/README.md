@@ -62,10 +62,9 @@ cloudflared tunnel --url http://localhost:3001
 
 ## Folder Structure & Rules
 
-변형된 [FSD](https://feature-sliced.design/kr/docs/get-started/overview) 구조를 사용하고 있습니다.  
+[기본 FSD](https://feature-sliced.design/kr/docs/get-started/overview) 구조를 변형해서 사용하고 있습니다.  
 기본 FSD 구조에서 다음의 규칙을 추가하였습니다.
 
-- `shared` 레이어는 `common` 레이어로 **이름만 변경** 해서 사용
 - `pages`, `app` 레이어는 `app` 레이어로 통합해서 하나로 사용
 - 기본적인 흐름은, `app` > `widgets` > `features` > `entities` > `common` 순으로 이동
 자세한 내용은 별도의 [문서를](./GUIDES.md) 참조하세요.
