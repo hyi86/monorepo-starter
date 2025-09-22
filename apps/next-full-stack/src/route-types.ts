@@ -1650,6 +1650,29 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
+    href: '/example/interactive-ui/01-liquid-glass',
+    linkTypes: '/example/interactive-ui/01-liquid-glass',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/interactive-ui/01-liquid-glass/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/interactive-ui/01-liquid-glass/page.tsx',
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
     href: '/example/modern-web',
     linkTypes: '/example/modern-web',
     isParallelRoute: false,
