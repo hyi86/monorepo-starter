@@ -9,18 +9,10 @@
 
 FSD는 **Feature-Sliced Design**의 줄임말로, 대규모 프론트엔드 프로젝트를 체계적으로 구성하는 아키텍처 방법론입니다.
 
-### 🏢 건물로 비유하면...
-FSD는 **아파트 단지**와 같습니다:
-- **shared**: 모든 세대가 공용으로 사용하는 **엘리베이터, 경비실, 주차장**
-- **entities**: 각 세대의 **기본 구조** (방, 화장실, 주방)
-- **features**: 세대 내 **기능들** (에어컨, 난방, 인터넷)
-- **widgets**: **가구 조합** (거실 세트, 침실 세트)
-- **app**: **실제 거주하는 집** (모든 것을 조합한 완성된 공간)
-
 ### 🎯 FSD의 핵심 원칙
-1. **단방향 의존성**: 위층은 아래층만 사용 가능 (아래층은 위층을 모름)
+1. **단방향 의존성**: 상위 계층(app → pages → widgets → features → entities → shared)에서 하위로만 의존하도록 설계
 2. **기능별 분리**: 각 기능은 독립적으로 관리
-3. **재사용성**: 공통 요소는 shared에서 관리
+3. **재사용성**: 공통 요소는 `shared`에서 관리
 4. **확장성**: 새로운 기능 추가가 용이
 
 <br/>
@@ -36,14 +28,12 @@ shared → entities → features → widgets → pages(x) → app
 
 > **💡 기존 FSD와의 차이점**: `pages` 레이어를 제거하고 `next.js`의 `app router`를 활용합니다.
 
-### 1. 🏢 `shared` - 공용 시설
+### 1. 🏢 `shared`
 
-**비유**: 아파트 단지의 **엘리베이터, 경비실, 주차장** 같은 공용 시설
-
-- 공통 유틸리티 함수, 훅, 컴포넌트
-- 모든 레이어에서 사용 가능 (가장 기본적인 인프라)
-- 다른 레이어와 다르게, `Slice` 없이 `Segment`로만 구성
-- 비즈니스 도메인이 없으므로 `shared` 안의 파일끼리는 자유롭게 `import` 가능
+- 공통 유틸리티 함수, 훅, 컴포넌트.
+- 모든 레이어에서 사용 가능 (가장 기본적인 인프라).
+- 다른 레이어와 다르게, `Slice` 없이 `Segment`로만 구성.
+- 비즈니스 도메인이 없으므로 `shared` 안의 파일끼리는 자유롭게 `import` 가능.
 
 ```
 shared/
@@ -57,13 +47,11 @@ shared/
 └── ui/(feat)         # 공통 UI 컴포넌트들
 ```
 
-### 2. 🏠 `entities` - 기본 구조
-
-**비유**: 각 세대의 **방, 화장실, 주방** 같은 기본 구조
+### 2. 🏠 `entities`
 
 - 비즈니스 도메인의 핵심 데이터 모델
 - User, Product, Order 같은 **엔티티**들을 정의
-- 데이터의 구조와 기본적인 CRUD 작업을 담당
+- 데이터의 구조와 기본적인 `CRUD` 작업을 담당
 - 다른 레이어에서 재사용되는 **순수한 데이터 레이어**
 
 ```
@@ -82,9 +70,7 @@ entities/
     └── ui/           # 주문 기본 UI (OrderItem, OrderStatus)
 ```
 
-### 3. ⚡ `features` - 기능들
-
-**비유**: 세대 내 **에어컨, 난방, 인터넷** 같은 기능들
+### 3. ⚡ `features`
 
 - 사용자가 수행하는 **구체적인 액션**들을 담당
 - 로그인, 좋아요, 장바구니 추가 등 **비즈니스 로직**
@@ -107,9 +93,7 @@ features/
     └── ui/           # 장바구니 버튼, 수량 조절
 ```
 
-### 4. 🛋️ `widgets` - 가구 조합
-
-**비유**: **거실 세트, 침실 세트** 같은 가구 조합
+### 4. 🛋️ `widgets`
 
 - 여러 entities와 features를 조합한 **복합 UI 컴포넌트**
 - 페이지의 특정 영역을 담당하는 **독립적인 블록**
@@ -131,9 +115,7 @@ widgets/
     └── ui/           # 푸터 컴포넌트 (링크, 연락처)
 ```
 
-### 5. 🏡 `app` - 실제 거주 공간
-
-**비유**: **실제 거주하는 집** (모든 것을 조합한 완성된 공간)
+### 5. 🏡 `app`
 
 - `next.js`의 `app router`를 활용한 **페이지 레이어**
 - 모든 레이어를 조합하여 **완성된 페이지**를 구성
@@ -154,8 +136,6 @@ app/
 
 ### 🔄 레이어 의존성 규칙
 
-**비유**: 아파트에서 **아래층은 위층을 모르지만, 위층은 아래층을 사용할 수 있다**
-
 | Layers        | shared | entities | features | widgets | app  |
 |---------------|:------:|:--------:|:--------:|:-------:|:----:|
 | **shared**    | ✅     | ❌       | ❌       | ❌      | ❌   |
@@ -166,7 +146,7 @@ app/
 
 **핵심 원칙:**
 - 🔽 **단방향 의존성**: 아래층은 위층을 모름 (순환 의존성 방지)
-- 🔼 **상향 참조만 허용**: 위층은 아래층만 사용 가능
+- 🔼 **상향 참조만 허용**: 위층은 아래층만 사용 가능(`import` 금지)
 - 🏢 **shared는 특별**: 모든 레이어에서 사용 가능하지만 다른 레이어에 의존하지 않음
 
 **예시:**
@@ -188,56 +168,20 @@ import { useAuth } from '@/features/auth' // 에러!
 
 ## 🧩 슬라이스 (Slices)
 
-**비유**: 각 층(레이어) 안의 **개별 방들** (거실, 침실, 주방 등)
-
 각 레이어 내에서 기능별로 분리된 독립적인 모듈입니다.  
 레이어 내에서 공통적으로 사용되는 기능들을 모아두는 공간입니다.  
-`shared`, `app` 레이어에는 슬라이스가 없습니다.
+**특수하게 `shared`, `app` 레이어에는 슬라이스가 없습니다.**
 
 ### 슬라이스 구조 예시
 
 ```
 entities/
 ├── user/           # 사용자 슬라이스
-│   ├── api/        # 사용자 API
-│   ├── model/      # 사용자 타입, 스키마
-│   └── ui/         # 사용자 기본 UI
+│   └── ...
 ├── product/        # 상품 슬라이스
-│   ├── api/        # 상품 API
-│   ├── model/      # 상품 타입, 스키마
-│   └── ui/         # 상품 기본 UI
+│   └── ...
 └── order/          # 주문 슬라이스
-    ├── api/        # 주문 API
-    ├── model/      # 주문 타입, 스키마
-    └── ui/         # 주문 기본 UI
-
-features/
-├── auth/           # 인증 슬라이스
-│   ├── api/        # 로그인/로그아웃 API
-│   ├── model/      # 인증 상태 관리
-│   └── ui/         # 로그인 폼, 버튼
-├── product-search/ # 상품 검색 슬라이스
-│   ├── api/        # 검색 API
-│   ├── model/      # 검색 상태, 필터
-│   └── ui/         # 검색바, 필터 UI
-└── cart/           # 장바구니 슬라이스
-    ├── api/        # 장바구니 API
-    ├── model/      # 장바구니 상태
-    └── ui/         # 장바구니 버튼, 수량 조절
-
-widgets/
-├── header/         # 헤더 슬라이스
-│   ├── api/        # 헤더 관련 API
-│   ├── model/      # 헤더 상태
-│   └── ui/         # 헤더 컴포넌트
-├── product-list/   # 상품 목록 슬라이스
-│   ├── api/        # 목록 API
-│   ├── model/      # 목록 상태, 페이지네이션
-│   └── ui/         # 상품 그리드, 필터
-└── footer/         # 푸터 슬라이스
-    ├── api/        # 푸터 관련 API
-    ├── model/      # 푸터 상태
-    └── ui/         # 푸터 컴포넌트
+│   └── ...
 ```
 
 ### 📝 슬라이스 네이밍 규칙
@@ -247,24 +191,31 @@ widgets/
 - **기능 중심** 네이밍: `product-filter`, `search-suggestions`
 - **명확하고 간결하게**: `user` (O), `user-management-system` (X)
 
+### ☑️ 추가적인 룰
+
+- 각 슬라이스는 `index.tsx` 파일을 가지며, 여기서 파일의 노출을 제어 합니다.
+- 슬라이스 간(가로) 규칙: features ↔ features 금지 (기능끼리 직접 붙지 말 것) -> 조립은 `widgets`에서 합니다.
+
 <br />
 
 ## 📁 세그먼트 (Segments)
 
-**비유**: 각 방(슬라이스) 안의 **가구 배치** (책상, 침대, 옷장 등)
-
 각 슬라이스 내에서 역할별로 분리된 폴더입니다.  
-`shared`, `app` 레이어에는 별도의 세그먼트 규칙이 없습니다.
+`shared`, `app` 레이어에는 별도의 세그먼트 규칙이 없습니다.  
+세그먼트는 명확성을 위해서, 파일명 외에 확장자를 추가적으로 가집니다.  
+수정 및 추가 가능합니다.
 
 ### 세그먼트 종류
 
-| 세그먼트 | 역할 | 비유 |
-|---------|------|------|
-| `api` | API 함수들 | **전화기** (외부와 소통) |
-| `config` | 환경변수 및 상수 | **설정판** (온도, 밝기 조절) |
-| `lib` | 라이브러리 함수들 | **도구상자** (다양한 도구들) |
-| `model` | 모델 함수들 | **설계도** (구조와 규칙) |
-| `ui` | UI 컴포넌트들 | **가구** (보이는 것들) |
+현재 지정된 세그먼트 외에 필요에 따라 다른 세그먼트도 추가 가능합니다. (ex: `assets`)
+
+| 세그먼트  | 역할                                  |
+|-----------|---------------------------------------|
+| `api`     | API 요청 함수들                       |
+| `config`  | 환경변수 및 상수 함수들               |
+| `lib`     | 라이브러리 함수들                     |
+| `model`   | 모델 함수들                           |
+| `ui`      | UI 컴포넌트들                         |
 
 ### 세그먼트 구조 예시
 
@@ -286,13 +237,13 @@ features/auth/
 │   ├── auth.store.ts
 │   ├── auth.schema.ts
 │   └── use-auth.ts
-└── ui/               # 가구 (보이는 것들)
-    ├── LoginForm.tsx
-    ├── LogoutButton.tsx
-    └── AuthGuard.tsx
+└── ui/
+    ├── login-form.tsx
+    ├── logout-button.tsx
+    └── auth-guard.tsx
 ```
 
-### 📞 `api` 세그먼트 - 전화기 (외부와 소통)
+### 📞 `api` 세그먼트
 
 - `xxx.action.ts`: **서버 액션** API 함수들 (Next.js Server Actions)
 - `xxx.api.ts`: **클라이언트** API 요청 함수들 (fetch, axios)
@@ -309,7 +260,7 @@ export const loginApi = async (credentials: LoginCredentials) => {
 }
 ```
 
-### ⚙️ `config` 세그먼트 - 설정판 (온도, 밝기 조절)
+### ⚙️ `config` 세그먼트
 
 - `xxx.config.ts`: 환경변수 설정 함수들
 - `xxx.constants.ts`: 상수 함수들
@@ -329,7 +280,7 @@ export const AUTH_ROUTES = {
 } as const
 ```
 
-### 🔧 `lib` 세그먼트 - 도구상자 (다양한 도구들)
+### 🔧 `lib` 세그먼트
 
 각종 라이브러리 함수들 (네이밍은 자유롭게)
 
@@ -344,10 +295,10 @@ export const isTokenExpired = (token: string) => {
 }
 ```
 
-### 📋 `model` 세그먼트 - 설계도 (구조와 규칙)
+### 📋 `model` 세그먼트
 
-- `types.ts`: 타입 정의 함수들
 - `use-xxx.ts`: 훅 함수들
+- `types.ts`: 타입 정의 함수들
 - `xxx.store.ts`: Zustand 스토어 함수
 - `xxx.schema.ts`: Zod 스키마
 - `xxx.selector.ts`: 각종 선택자 함수들
@@ -376,7 +327,7 @@ export const useAuth = () => {
 }
 ```
 
-### 🪑 `ui` 세그먼트 - 가구 (보이는 것들)
+### 🪑 `ui` 세그먼트
 
 각종 UI 컴포넌트들 (네이밍은 자유롭게)
 
@@ -395,26 +346,45 @@ export const LoginForm = () => {
 }
 ```
 
+### 세그먼트 파일명 요약
+- `SEGMENT` 
+  - `api`
+    - `xxx.action.ts`: **서버 액션** API 함수들 (Next.js Server Actions)
+    - `xxx.api.ts`: **클라이언트** API 요청 함수들 (fetch, axios)
+    - `xxx.query.ts`: **TanStack Query** 클라이언트 쿼리 API 요청 함수들
+  - `config`
+    - `xxx.config.ts`: 환경변수 설정 함수들
+    - `xxx.constants.ts`: 상수 함수들
+  - `lib`
+    - `xxx.utils.ts`: 라이브러리 함수들
+  - `model`
+    - `xxx.types.ts`: 타입 정의 함수들
+    - `xxx.store.ts`: **Zustand** 스토어 함수
+    - `xxx.schema.ts`: **Zod** 스키마
+    - `xxx.selector.ts`: 각종 선택자 함수들
+    - `xxx.entity.ts`: **데이터베이스** 모델링 엔티티 정의
+    - `xxx.context.ts`: **Context API** 정의
+  - `ui`
+    - `xxx.tsx`: UI 컴포넌트들
+
 ## 🚀 점진적 도입 방법
+
+개념적으로 너무 복잡하다면, 다음과 같이 접근 할 수 있습니다.
 
 ### 🏗️ 마이그레이션 (기존 프로젝트 개선)
 
-**비유**: 기존 집을 **리모델링**하는 과정
-
-1. **기반 다지기**: `app`, `shared` 레이어를 먼저 정리 (비즈니스 로직 제외)
-2. **기능 파악**: 정의된 기능(비즈니스 로직)을 분석하여 대략적인 `features` 설계
-3. **구조 최적화**: `features`를 쪼개거나 합치며 최적의 구조 찾기
-4. **세그먼트 정리**: 애매한 기능을 `lib`로 모아두고, 적절히 분배
+1. **기반 다지기**: `app`, `shared` 레이어를 먼저 정리 합니다. (비즈니스 로직과 공통 부분을 분리)
+2. **기능 파악**: 정의된 기능(비즈니스 로직)을 분석하여 대략적인 `features` 설계를 진행합니다.
+3. **구조 최적화**: `features`를 쪼개거나 합치며 최적의 구조를 찾습니다.
+4. **세그먼트 정리**: 애매한 기능을 `lib`로 모아두고, 적절히 분배합니다.
 
 ### 🆕 신규 기능 생성
 
-**비유**: **새 집을 짓는** 과정
-
-1. **임시 배치**: 모든 기능을 `app` 레이어에 임시로 생성
-2. **데이터 설계**: `entities` 정의 (User, Product, Order 등 핵심 타입/저장소)
-3. **기능 구현**: `features` 작성 (로그인, 좋아요, 장바구니 추가 등)
-4. **UI 조합**: `widgets` 생성 (로그인 폼, 댓글 리스트 등)
-5. **페이지 완성**: `app`에서 모든 것을 조립
+1. **임시 배치**: 모든 기능을 `app` 레이어에 임시로 생성하여, 완성된 페이지를 구성 합니다.
+2. **데이터 설계**: `entities` 정의 (User, Product, Order 등 핵심 타입/저장소) 합니다.
+3. **기능 구현**: `features` 작성 (로그인, 좋아요, 장바구니 추가 등) 합니다.
+4. **UI 조합**: `widgets` 생성 (로그인 폼, 댓글 리스트 등) 합니다.
+5. **페이지 완성**: `app`에서 모든 것을 조립 합니다.
 
 **📋 개발 순서**: `데이터(entities)` → `기능(features)` → `UI 조합(widgets)` → `페이지(app)`
 
@@ -428,6 +398,7 @@ export const LoginForm = () => {
 - 입고관리 페이지(app)의 입고처리 폼(widgets)의 입고(entities)의 입고처리(features) 기능
 
 #### ✅ 좋은 예시
+
 ```typescript
 // 1. entities/user 먼저 정의
 export interface User {
@@ -447,6 +418,7 @@ import { Header } from '@/widgets/header'
 ```
 
 #### ❌ 피해야 할 예시
+
 ```typescript
 // 순환 의존성 - 절대 금지!
 // entities/user에서 features/auth 사용
@@ -457,8 +429,6 @@ import { User } from '@/entities/user' // 권장하지 않음
 ```
 
 ## 🏡 `app router` 가이드
-
-**비유**: **실제 거주하는 집**의 방 배치와 구조
 
 `next.js`의 `app router`와 관련된 [next.js 공식 파일 컨벤션](https://nextjs.org/docs/app/getting-started/project-structure)을 그대로 따릅니다.
 
@@ -480,12 +450,11 @@ app/
 
 ### 🎯 비공식 파일 컨벤션
 
-기본 라우트 이외에 다음의 파일을 비공식 파일 컨벤션으로 사용합니다.
+기본 라우트 이외에 다음의 파일을 추가적으로 파일 컨벤션으로 사용합니다.
 
 | 파일명 | 설명 | 라이브러리 |
 |--------|------|-----------|
 | `search-params.tsx` | 검색 파라미터 정의 | [Nuqs](https://nuqs.dev) |
-| `columns.tsx` | 테이블 컬럼 정의 | [TanStack Table](https://tanstack.com/table/latest/docs/introduction) |
 
 ### 💡 실제 사용 예시
 
@@ -521,15 +490,7 @@ export const useProductSearchParams = () => {
 ### 📚 핵심 요약
 - **5개 레이어**: `shared` → `entities` → `features` → `widgets` → `app`
 - **단방향 의존성**: 아래층은 위층을 모름
-- **점진적 도입**: 기존 프로젝트도 단계적으로 개선 가능
+- **점진적 도입**: 기본 `app router` 구조를 생성 후, 단계적으로 개선
 - **Next.js 최적화**: `app router`와 완벽 호환
 
-### 🚀 다음 단계
-1. 기존 프로젝트에 `shared` 레이어부터 적용
-2. 핵심 `entities` 정의 (User, Product 등)
-3. 주요 `features` 구현 (auth, search 등)
-4. `widgets`로 UI 조합
-5. `app`에서 최종 조립
-
 **Happy Coding! 🎉**
-
