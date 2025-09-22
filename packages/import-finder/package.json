@@ -23,7 +23,7 @@
     "console-table-printer": "^2.14.6",
     "eslint": "catalog:",
     "fast-glob": "^3.3.3",
-    "nanoid": "^5.1.5",
+    "nanoid": "^5.1.6",
     "prettier": "^3.6.2",
     "ts-morph": "^27.0.0",
     "tsup": "^8.5.0",
