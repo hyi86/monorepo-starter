@@ -18,7 +18,7 @@ export default async function DbPage() {
 
   return (
     <div>
-      <h1>Simple CRUD Example</h1>
+      <h1>Simple Server CRUD Example</h1>
       <p>
         <code>Server Component</code> + <code>Server Action</code> Only.
       </p>

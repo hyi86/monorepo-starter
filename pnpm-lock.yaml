@@ -288,6 +288,12 @@ importers:
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
+      dexie:
+        specifier: ^4.2.0
+        version: 4.2.0
+      dexie-react-hooks:
+        specifier: ^4.2.0
+        version: 4.2.0(@types/react@19.1.13)(dexie@4.2.0)(react@19.1.1)
       dotenv:
         specifier: ^17.2.2
         version: 17.2.2
@@ -4112,6 +4118,16 @@ packages:
 
   devlop@1.1.0:
     resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
+
+  dexie-react-hooks@4.2.0:
+    resolution: {integrity: sha512-u7KqTX9JpBQK8+tEyA9X0yMGXlSCsbm5AU64N6gjvGk/IutYDpLBInMYEAEC83s3qhIvryFS+W+sqLZUBEvePQ==}
+    peerDependencies:
+      '@types/react': '>=16'
+      dexie: '>=4.2.0-alpha.1 <5.0.0'
+      react: '>=16'
+
+  dexie@4.2.0:
+    resolution: {integrity: sha512-OSeyyWOUetDy9oFWeddJgi83OnRA3hSFh3RrbltmPgqHszE9f24eUCVLI4mPg0ifsWk0lQTdnS+jyGNrPMvhDA==}
 
   doctrine@2.1.0:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
@@ -10229,6 +10245,14 @@ snapshots:
   devlop@1.1.0:
     dependencies:
       dequal: 2.0.3
+
+  dexie-react-hooks@4.2.0(@types/react@19.1.13)(dexie@4.2.0)(react@19.1.1):
+    dependencies:
+      '@types/react': 19.1.13
+      dexie: 4.2.0
+      react: 19.1.1
+
+  dexie@4.2.0: {}
 
   doctrine@2.1.0:
     dependencies:

@@ -899,6 +899,34 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
+    href: '/example/db/browser',
+    linkTypes: '/example/db/browser',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/db/browser/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/db/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/db/browser/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
     href: '/example/db/crud',
     linkTypes: '/example/db/crud',
     isParallelRoute: false,
