@@ -1375,6 +1375,144 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
+    href: '/example/floating/01-basic',
+    linkTypes: '/example/floating/01-basic',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/floating/01-basic/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/floating/01-basic/page.tsx',
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/floating/02-tooltip',
+    linkTypes: '/example/floating/02-tooltip',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/floating/02-tooltip/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/floating/02-tooltip/page.tsx',
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/floating/03-dropdown',
+    linkTypes: '/example/floating/03-dropdown',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/floating/03-dropdown/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/floating/03-dropdown/page.tsx',
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/floating/04-modal',
+    linkTypes: '/example/floating/04-modal',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/floating/04-modal/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/floating/04-modal/page.tsx',
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/floating/05-context-menu',
+    linkTypes: '/example/floating/05-context-menu',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/floating/05-context-menu/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/floating/05-context-menu/page.tsx',
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/floating/06-popover',
+    linkTypes: '/example/floating/06-popover',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/floating/06-popover/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/floating/06-popover/page.tsx',
+                children: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
     href: '/example/form',
     linkTypes: '/example/form',
     isParallelRoute: false,
