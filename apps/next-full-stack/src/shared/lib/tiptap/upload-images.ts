@@ -44,7 +44,8 @@ export async function uploadImages(files: File[]) {
   const uploadedFiles: { name: string; url: string }[] = [];
 
   if (files.some((file) => file.size > MAX_FILE_SIZE)) {
-    throw new Error('File size exceeds maximum allowed');
+    console.error('File size exceeds maximum allowed');
+    return [];
   }
 
   const totalSize = files.reduce((sum, file) => sum + file.size, 0);
@@ -77,7 +78,8 @@ export async function uploadImages(files: File[]) {
   }
 
   if (uploaded !== totalSize) {
-    throw new Error('Failed to upload images');
+    console.error('Failed to upload images');
+    return [];
   }
 
   return uploadedFiles;

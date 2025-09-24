@@ -1,3 +1,5 @@
+'use client';
+
 import Fuse from 'fuse.js';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';

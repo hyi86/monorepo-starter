@@ -1,3 +1,5 @@
+'use client';
+
 import { Virtualizer } from '@tanstack/react-virtual';
 import { useCallback, useState } from 'react';
 import type { Cell } from '../types';

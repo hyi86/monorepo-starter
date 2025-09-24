@@ -1,3 +1,5 @@
+'use client';
+
 import { useIsMobile } from '@monorepo-starter/ui/hooks/use-mobile';
 import { useEffect } from 'react';
 

@@ -1,3 +1,5 @@
+'use client';
+
 import { Avatar, AvatarFallback } from '@monorepo-starter/ui/components/avatar';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Checkbox } from '@monorepo-starter/ui/components/checkbox';

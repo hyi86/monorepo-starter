@@ -1,3 +1,5 @@
+'use client';
+
 import { Virtualizer } from '@tanstack/react-virtual';
 import { useEffect } from 'react';
 

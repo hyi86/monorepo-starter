@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useState } from 'react';
 import type { Cell, Data, SelectionMode } from '../types';
 
