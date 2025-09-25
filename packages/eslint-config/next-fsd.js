@@ -1,5 +1,5 @@
 import boundaries from 'eslint-plugin-boundaries';
-import { nextJsConfig } from './next.js';
+import { config as nextJsConfig } from './next.js';
 import requireUseClient from './rules/require-use-client.js';
 
 /**
