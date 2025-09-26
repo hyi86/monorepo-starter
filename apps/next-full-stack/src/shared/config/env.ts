@@ -14,7 +14,7 @@ export const env = createEnv({
     DB_FILE_NAME: z.string().default('database/local.db'),
     SIGNIN_PATH: z.string().default('/signin'),
     // Code editor
-    CODE_EDITOR: z.enum(['cursor', 'vscode', 'windsurf', 'webstorm', 'intellij', 'neovim', 'sublimetext', 'emacs']),
+    CODE_EDITOR: z.enum(['cursor', 'vscode', 'webstorm', 'intellij', 'neovim', 'sublimetext']),
     // Tokens
     ACCESS_TOKEN_SECRET: z.string(),
     ACCESS_TOKEN_SECRET_TIME: z

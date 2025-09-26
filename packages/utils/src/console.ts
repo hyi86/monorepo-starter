@@ -4,7 +4,7 @@ import { clamp } from '~/number';
 const RESET = '\x1b[0m';
 
 /**
- * 콘솔 로그 색상 변경 함수
+ * 콘솔 로그 색상 변경
  * 반드시 트루컬러 지원 터미널에서 사용해야 함(iTerm2, VSCode, etc.)
  * @example
  * const log = console.log;

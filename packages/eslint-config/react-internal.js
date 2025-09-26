@@ -36,4 +36,9 @@ export const config = [
       'react/react-in-jsx-scope': 'off',
     },
   },
+  {
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
 ];
