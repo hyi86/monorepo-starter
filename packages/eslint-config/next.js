@@ -13,9 +13,6 @@ import { config as baseConfig } from './base.js';
  * @type {import("eslint").Linter.Config[]}
  * */
 export const config = [
-  {
-    ignores: ['**/.next/**', '**/.turbo/**', 'next-env.d.ts'],
-  },
   ...baseConfig,
   js.configs.recommended,
   eslintConfigPrettier,
@@ -36,6 +33,7 @@ export const config = [
     rules: {
       ...pluginNext.configs.recommended.rules,
       ...pluginNext.configs['core-web-vitals'].rules,
+      '@next/next/no-img-element': 'off',
     },
   },
   {
@@ -47,13 +45,7 @@ export const config = [
       ...pluginReactHooks.configs.recommended.rules,
       // React scope no longer necessary with new JSX transform.
       'react/react-in-jsx-scope': 'off',
-      'turbo/no-undeclared-env-vars': 'off',
       'react-hooks/exhaustive-deps': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': 'warn',
-      '@next/next/no-img-element': 'off',
-      '@next/next/no-html-link-for-pages': 'error',
-      quotes: 'off',
     },
   },
 ];

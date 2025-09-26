@@ -13,8 +13,12 @@ import requireUseClient from './rules/require-use-client.js';
  * @type {import("eslint").Linter.Config[]}
  */
 export const config = [
-  // 기본 Next.js 설정을 상속
   ...nextJsConfig,
+  {
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
   {
     /**
      * 현재 프로젝트 기준으로
