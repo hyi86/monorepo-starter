@@ -1,5 +1,5 @@
 import { type Metadata } from 'next';
-import { DashboardProvider } from '~/widgets/dashboard/ui/dashboard-provider';
+import { DashboardMain, DashboardSidebar, SidebarInset, SidebarProvider } from '~/widgets/dashboard';
 
 export const metadata: Metadata = {
   title: 'Examples',
@@ -7,7 +7,14 @@ export const metadata: Metadata = {
 };
 
 async function ExampleLayout({ children }: LayoutProps<'/example'>) {
-  return <DashboardProvider>{children}</DashboardProvider>;
+  return (
+    <SidebarProvider>
+      <DashboardSidebar variant="sidebar" />
+      <SidebarInset>
+        <DashboardMain>{children}</DashboardMain>
+      </SidebarInset>
+    </SidebarProvider>
+  );
 }
 
 export default ExampleLayout;

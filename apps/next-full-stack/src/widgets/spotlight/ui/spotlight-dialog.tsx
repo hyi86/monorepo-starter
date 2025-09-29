@@ -13,7 +13,7 @@ import {
 import { InfoIcon, MoonIcon, Sidebar, SunIcon } from 'lucide-react';
 import { useSpotlight } from '../model/use-spotlight';
 
-export function Spotlight() {
+export function SpotlightDialog() {
   const {
     theme,
     openCommandDialog,

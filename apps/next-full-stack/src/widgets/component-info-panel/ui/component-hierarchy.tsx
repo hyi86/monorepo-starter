@@ -186,6 +186,9 @@ export function ComponentHierarchy({
   );
 }
 
+/**
+ * 열림 태그 텍스트 생성 <Component ...>
+ */
 function OpenTag({
   component,
   selfClosing = false,
@@ -205,6 +208,9 @@ function OpenTag({
   );
 }
 
+/**
+ * 닫힘 태그 텍스트 생성 </Component>
+ */
 function CloseTag({ component }: { component: string }) {
   return (
     <div className="inline-flex whitespace-nowrap">
@@ -215,6 +221,9 @@ function CloseTag({ component }: { component: string }) {
   );
 }
 
+/**
+ * 속성 텍스트 생성 {name} = {value}
+ */
 function Attribute({
   name,
   value,

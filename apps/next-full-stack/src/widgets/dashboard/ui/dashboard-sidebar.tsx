@@ -12,12 +12,12 @@ import Link from 'next/link';
 import { checkAuthorization } from '~/entities/user/lib/check-auth';
 import { getAllRouteTree } from '~/widgets/dashboard/lib/all-routes';
 import { DashboardSidebarSearchInput } from './dashboard-sidebar-search-input';
-import FileTreeMenuGroup from './file-tree-menu-group';
+import { FileTreeMenuGroup } from './file-tree-menu-group';
 import { NavUser } from './nav-user';
 
 type Props = React.ComponentProps<typeof Sidebar>;
 
-export default async function DashboardSidebar({ ...props }: Props) {
+export async function DashboardSidebar({ ...props }: Props) {
   const { payload } = await checkAuthorization();
   const routeTree = getAllRouteTree();
   const folderPaths = getAllFolderPaths(routeTree);

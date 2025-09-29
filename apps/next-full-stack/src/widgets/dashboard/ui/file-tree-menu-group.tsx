@@ -14,7 +14,7 @@ import { useState } from 'react';
 import { useScrollToMenuObserver } from '../model/use-scroll-to-menu-observer';
 import { FileTreeMenuItem } from './file-tree-menu-item';
 
-export default function FileTreeMenuGroup({ routes, folderPaths }: { routes: TreeRoute[]; folderPaths: string[] }) {
+export function FileTreeMenuGroup({ routes, folderPaths }: { routes: TreeRoute[]; folderPaths: string[] }) {
   const [openPaths, setOpenPaths] = useState<string[]>([...folderPaths]);
   const pathname = usePathname();
 

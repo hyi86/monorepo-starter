@@ -5,7 +5,7 @@ import { SidebarTrigger } from '@monorepo-starter/ui/components/sidebar';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { DashboardBreadcrumb } from './dashboard-breadcrumb';
 
-export default function DashboardMain({ children }: { children: React.ReactNode }) {
+export function DashboardMain({ children }: { children: React.ReactNode }) {
   return (
     <div style={{ '--sidebar-header-height': '3.5rem' } as React.CSSProperties} className="flex size-full flex-col">
       <header

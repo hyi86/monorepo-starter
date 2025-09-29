@@ -871,6 +871,34 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
+    href: '/example/code-block/05-preview',
+    linkTypes: '/example/code-block/05-preview',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/code-block/05-preview/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/code-block/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/code-block/05-preview/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
     href: '/example/db',
     linkTypes: '/example/db',
     isParallelRoute: false,

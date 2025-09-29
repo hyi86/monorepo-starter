@@ -9,7 +9,7 @@ import { cn } from '@monorepo-starter/ui/lib/utils';
 import { TreeRoute } from '@monorepo-starter/utils/tree';
 import { ChevronRight, FileIcon, FolderIcon, FolderOpenIcon, SquareChevronDown } from 'lucide-react';
 import Link from 'next/link';
-import LinkIndicator from './link-indicator';
+import { LinkIndicator } from './link-indicator';
 
 export function FileTreeMenuItem({
   pathname,
