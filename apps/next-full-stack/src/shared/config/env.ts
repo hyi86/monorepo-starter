@@ -1,11 +1,15 @@
-// NOTE: 환경변수 관리 파일 및 유틸리티 함수 - Edge Runtime, Node.js 환경에서 같이 사용(node 전용 함수 사용 불가)
+/**
+ * NOTE: 환경변수 관리 파일 및 유틸리티 함수 - Edge Runtime, Node.js 환경에서 같이 사용(node 전용 함수 사용 불가)
+ */
 import { createEnv } from '@t3-oss/env-nextjs';
 import parseDuration from 'parse-duration'; // edge ok
 import { z } from 'zod'; // edge ok
 
+const isProductionStandalone = process.env.NODE_ENV === 'production' && process.env.STANDALONE === '1';
+const isTest = process.env.NODE_ENV === 'test';
+
 export const env = createEnv({
-  skipValidation:
-    (process.env.NODE_ENV === 'production' && process.env.STANDALONE === '1') || process.env.NODE_ENV === 'test',
+  skipValidation: isProductionStandalone || isTest,
   server: {
     // File & Path & Url
     LOG_FILE_PATH: z.string().default('logs'),
