@@ -18,7 +18,7 @@ import {
 } from '@monorepo-starter/ui/components/form';
 import { Input } from '@monorepo-starter/ui/components/input';
 import { Label } from '@monorepo-starter/ui/components/label';
-import MultipleSelector from '@monorepo-starter/ui/components/multiselect';
+import { MultipleSelector } from '@monorepo-starter/ui/components/multiple-selector';
 import { RadioGroup, RadioGroupItem } from '@monorepo-starter/ui/components/radio-group';
 import { Slider } from '@monorepo-starter/ui/components/slider';
 import { Switch } from '@monorepo-starter/ui/components/switch';
@@ -347,9 +347,9 @@ export default function FormDatePickerPage() {
                     ]}
                     onChange={field.onChange}
                     value={field.value}
-                    hideClearAllButton
+                    creatable
                     hidePlaceholderWhenSelected
-                    emptyIndicator={<p className="text-center text-sm">No results found</p>}
+                    emptyIndicator={<p className="text-muted-foreground text-center text-sm">No results found</p>}
                   />
                 </FormControl>
               </FormItem>
