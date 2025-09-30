@@ -52,6 +52,24 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
+    href: '/blocks/dashboard',
+    linkTypes: '/blocks/dashboard',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/dashboard/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/dashboard/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
     href: '/blocks/sidebar-01',
     linkTypes: '/blocks/sidebar-01',
     isParallelRoute: false,

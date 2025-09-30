@@ -99,6 +99,11 @@ export const config = [
              * `app`은 모든 하위 계층 import 가능
              */
             { from: 'app', allow: ['shared', 'entities', 'features', 'widgets'] },
+
+            /**
+             * `app/../page.tsx`는 모든 하위 계층 import 가능
+             */
+            { from: 'next-page', allow: ['shared', 'entities', 'features', 'widgets', 'app'] },
           ],
         },
       ],
@@ -116,7 +121,12 @@ export const config = [
         'error',
         {
           default: 'allow',
-          rules: [],
+          rules: [
+            {
+              from: ['next-page'],
+              allow: ['*.json'],
+            },
+          ],
         },
       ],
 
