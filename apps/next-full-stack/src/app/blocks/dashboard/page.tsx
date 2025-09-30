@@ -1,9 +1,11 @@
+import {
+  AppSidebar,
+  ChartAreaInteractive,
+  DataTable,
+  SectionCards,
+  SiteHeader,
+} from '@monorepo-starter/ui/blocks/dashboard-main';
 import { SidebarInset, SidebarProvider } from '@monorepo-starter/ui/components/sidebar';
-import { AppSidebar } from './_components/app-sidebar';
-import { ChartAreaInteractive } from './_components/chart-area-interactive';
-import { DataTable } from './_components/data-table';
-import { SectionCards } from './_components/section-cards';
-import { SiteHeader } from './_components/site-header';
 import data from './data.json';
 
 export default function Page() {

@@ -1,4 +1,4 @@
-import { PaginationBlock } from '@monorepo-starter/ui/blocks/pagination/pagenation-block';
+import { PaginationBlock } from '@monorepo-starter/ui/blocks/pagination';
 import { TableBody, TableCell, TableHeader, TableRow } from '@monorepo-starter/ui/components/table';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { formatDate } from '@monorepo-starter/utils/date';

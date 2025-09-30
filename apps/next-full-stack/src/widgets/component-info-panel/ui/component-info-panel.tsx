@@ -1,6 +1,6 @@
 'use client';
 
-import { CodeEditorWithoutState } from '@monorepo-starter/ui/blocks/code-editor/editor-without-state';
+import { CodeEditorWithoutState } from '@monorepo-starter/ui/blocks/code-editor';
 import {
   Dialog,
   DialogContent,

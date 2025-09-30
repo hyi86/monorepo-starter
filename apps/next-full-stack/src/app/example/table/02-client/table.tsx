@@ -15,7 +15,7 @@ import {
   SortableContext,
   sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable';
-import { PaginationBlock } from '@monorepo-starter/ui/blocks/pagination/pagenation-block';
+import { PaginationBlock } from '@monorepo-starter/ui/blocks/pagination';
 import {
   TableBody,
   TableCell,

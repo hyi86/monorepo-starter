@@ -1,8 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { DatePickerInput } from '@monorepo-starter/ui/blocks/date-picker/date-picker-input';
-import { RangePickerInput } from '@monorepo-starter/ui/blocks/date-picker/range-picker-input';
+import { DatePickerInput, RangePickerInput } from '@monorepo-starter/ui/blocks/date-picker';
 import { Button } from '@monorepo-starter/ui/components/button';
 import {
   Drawer,

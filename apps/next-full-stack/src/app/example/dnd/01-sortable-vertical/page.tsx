@@ -1,8 +1,7 @@
 'use client';
 
 import { faker } from '@faker-js/faker/locale/ko';
-import { Sortable } from '@monorepo-starter/ui/blocks/dnd/sortable';
-import { SortableItem } from '@monorepo-starter/ui/blocks/dnd/sortable-item';
+import { Sortable, SortableItem } from '@monorepo-starter/ui/blocks/dnd';
 import { ScrollArea } from '@monorepo-starter/ui/components/scroll-area';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { useEffect, useState } from 'react';
