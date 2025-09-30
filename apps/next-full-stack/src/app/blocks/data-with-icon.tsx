@@ -19,7 +19,7 @@ export const data = {
   user: {
     name: 'shadcn',
     email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
+    avatar: 'https://i.pravatar.cc/300',
   },
   teams: [
     {
