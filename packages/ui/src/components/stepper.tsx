@@ -1,11 +1,10 @@
 'use client';
 
+import { cn } from '@monorepo-starter/ui/lib/utils';
 import { Slot } from '@radix-ui/react-slot';
 import { CheckIcon, LoaderCircleIcon } from 'lucide-react';
 import * as React from 'react';
 import { createContext, useContext } from 'react';
-
-import { cn } from '@monorepo-starter/ui/lib/utils';
 
 // Types
 type StepperContextValue = {

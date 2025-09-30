@@ -2,16 +2,16 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-interface ScrollState {
+type ScrollState = {
   isAtBottom: boolean;
   autoScrollEnabled: boolean;
-}
+};
 
-interface UseAutoScrollOptions {
+type UseAutoScrollOptions = {
   offset?: number;
   smooth?: boolean;
   content?: React.ReactNode;
-}
+};
 
 /**
  * 자동 스크롤 기능을 제공하는 Custom Hook.
