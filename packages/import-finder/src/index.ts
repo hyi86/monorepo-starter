@@ -74,7 +74,7 @@ export async function main() {
 
   /**
    * --------------------------------
-   * Start File Path
+   * Set Start File Path
    * --------------------------------
    */
 
