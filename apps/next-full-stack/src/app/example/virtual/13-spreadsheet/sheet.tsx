@@ -1,7 +1,8 @@
 'use client';
 
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
+import { useImmer } from 'use-immer';
 import { useColumnResize } from './hooks/use-column-resize';
 import { useCopyPaste } from './hooks/use-copy-paste';
 import { useEditing } from './hooks/use-editing';
@@ -33,7 +34,7 @@ import { indexToColumnLabel } from './utils';
 
 export function Sheet({ rows: initialRows, columns }: { rows: Data[]; columns: Column[] }) {
   // 내부 상태로 데이터 관리
-  const [rows, setRows] = useState<Data[]>(initialRows);
+  const [rows, setRows] = useImmer<Data[]>(initialRows);
 
   // 컬럼 리사이징 훅
   const { isResizing, columnsState, handleResizeStart } = useColumnResize(columns);
@@ -61,6 +62,24 @@ export function Sheet({ rows: initialRows, columns }: { rows: Data[]; columns: C
     handleClickCell,
   } = useSelection({ rowCount, columnCount: columnsState.length, isResizing });
 
+  // 배치 업데이트 함수
+  const handleBatchCellEdit = useCallback(
+    (updates: Array<{ rowIndex: number; colIndex: number; newValue: string }>) => {
+      setRows((draft) => {
+        updates.forEach(({ rowIndex, colIndex, newValue }) => {
+          const index = rowIndex * columnsState.length + colIndex;
+          if (index < rows.length) {
+            const currentItem = draft[index];
+            if (currentItem && currentItem.value !== newValue) {
+              draft[index] = { ...currentItem, value: newValue };
+            }
+          }
+        });
+      });
+    },
+    [columnsState.length, rows.length],
+  );
+
   // 편집 훅
   const {
     editingCell,
@@ -80,13 +99,11 @@ export function Sheet({ rows: initialRows, columns }: { rows: Data[]; columns: C
     onCellEdit: (rowIndex: number, colIndex: number, newValue: string) => {
       const index = rowIndex * columnsState.length + colIndex;
       if (index < rows.length) {
-        setRows((prevRows) => {
-          const newRows = [...prevRows];
-          const currentItem = newRows[index];
+        setRows((draft) => {
+          const currentItem = draft[index];
           if (currentItem && currentItem.value !== newValue) {
-            newRows[index] = { ...currentItem, value: newValue };
+            draft[index] = { ...currentItem, value: newValue };
           }
-          return newRows;
         });
       }
     },
@@ -105,16 +122,15 @@ export function Sheet({ rows: initialRows, columns }: { rows: Data[]; columns: C
     onCellEdit: (rowIndex: number, colIndex: number, newValue: string) => {
       const index = rowIndex * columnsState.length + colIndex;
       if (index < rows.length) {
-        setRows((prevRows) => {
-          const newRows = [...prevRows];
-          const currentItem = newRows[index];
+        setRows((draft) => {
+          const currentItem = draft[index];
           if (currentItem && currentItem.value !== newValue) {
-            newRows[index] = { ...currentItem, value: newValue };
+            draft[index] = { ...currentItem, value: newValue };
           }
-          return newRows;
         });
       }
     },
+    onBatchCellEdit: handleBatchCellEdit,
   });
 
   // 셀 클릭 핸들러 (더블클릭 감지)

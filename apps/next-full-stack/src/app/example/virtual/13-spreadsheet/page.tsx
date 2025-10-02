@@ -7,7 +7,7 @@ export default function FixedGridPage() {
     width: faker.number.int({ min: 90, max: 160 }),
   }));
 
-  const data = Array.from({ length: 500_000 }).map((_, index) => ({
+  const data = Array.from({ length: 100_000 }).map((_, index) => ({
     id: `${index + 1}`,
     value: `${faker.color.human()} ${faker.animal.type()}`,
   }));

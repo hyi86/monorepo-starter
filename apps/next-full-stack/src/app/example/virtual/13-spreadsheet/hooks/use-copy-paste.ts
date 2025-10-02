@@ -13,6 +13,7 @@ type UseCopyPasteParams = {
   selectedRow: number | null;
   lastSelectedCell: Cell | null;
   onCellEdit?: (rowIndex: number, colIndex: number, newValue: string) => void;
+  onBatchCellEdit?: (updates: Array<{ rowIndex: number; colIndex: number; newValue: string }>) => void;
 };
 
 export function useCopyPaste({
@@ -25,6 +26,7 @@ export function useCopyPaste({
   selectedRow,
   lastSelectedCell,
   onCellEdit,
+  onBatchCellEdit,
 }: UseCopyPasteParams) {
   // 임시 클립보드 (클립보드 API가 작동하지 않을 때 사용)
   const [tempClipboard, setTempClipboard] = useState<string>('');
@@ -188,6 +190,9 @@ export function useCopyPaste({
         return cols;
       });
 
+      // 배치 업데이트를 위한 배열 생성
+      const batchUpdates: Array<{ rowIndex: number; colIndex: number; newValue: string }> = [];
+
       // 데이터 붙여넣기
       const startRow = lastSelectedCell.row;
       const startCol = lastSelectedCell.col;
@@ -206,17 +211,15 @@ export function useCopyPaste({
               if (rowStr && colStr) {
                 const row = parseInt(rowStr);
                 const col = parseInt(colStr);
-                if (!isNaN(row) && !isNaN(col) && onCellEdit) {
-                  onCellEdit(row, col, singleValue);
+                if (!isNaN(row) && !isNaN(col)) {
+                  batchUpdates.push({ rowIndex: row, colIndex: col, newValue: singleValue });
                 }
               }
             }
           }
         } else if (singleValue !== undefined) {
           // 선택된 셀이 없으면 마지막 선택된 셀에만 붙여넣기
-          if (onCellEdit) {
-            onCellEdit(startRow, startCol, singleValue);
-          }
+          batchUpdates.push({ rowIndex: startRow, colIndex: startCol, newValue: singleValue });
         }
       } else {
         // 여러 값인 경우 (기존 로직)
@@ -228,17 +231,29 @@ export function useCopyPaste({
               const targetCol = startCol + colOffset;
               const cellValue = rowData[colOffset];
 
-              if (targetRow < rowCount && targetCol < columnCount && onCellEdit && cellValue !== undefined) {
-                onCellEdit(targetRow, targetCol, cellValue);
+              if (targetRow < rowCount && targetCol < columnCount && cellValue !== undefined) {
+                batchUpdates.push({ rowIndex: targetRow, colIndex: targetCol, newValue: cellValue });
               }
             }
           }
         }
       }
+
+      // 배치 업데이트 실행
+      if (batchUpdates.length > 0) {
+        if (onBatchCellEdit) {
+          onBatchCellEdit(batchUpdates);
+        } else if (onCellEdit) {
+          // fallback: 개별 업데이트
+          batchUpdates.forEach(({ rowIndex, colIndex, newValue }) => {
+            onCellEdit(rowIndex, colIndex, newValue);
+          });
+        }
+      }
     } catch (error) {
       console.error(error);
     }
-  }, [lastSelectedCell, rowCount, columnCount, onCellEdit, tempClipboard]);
+  }, [lastSelectedCell, rowCount, columnCount, onCellEdit, onBatchCellEdit, tempClipboard, selectedCells]);
 
   return {
     copySelectedCells,
