@@ -135,7 +135,7 @@ export function WebPushProvider({ children }: { children: ReactNode }) {
 
         // Wait for the service worker to be ready
         await navigator.serviceWorker.ready;
-        console.log(`Service Worker is ready`);
+        console.log('Service Worker is ready');
         setRegistration(registration);
 
         // Check existing subscription
@@ -172,44 +172,6 @@ export function WebPushProvider({ children }: { children: ReactNode }) {
 
 /**
  * 푸시 알림 Hooks
- * @example
- * ```tsx
- * const {
- *   subscription,
- *   registration,
- *   subscribeToNotifications,
- *   unsubscribeFromNotifications,
- *   sendPush,
- *   subscribeLoading,
- *   unsubscribeLoading,
- *   sendPushLoading,
- * } = useWebPush();
- *
- * if (!registration) {
- *   return null;
- * }
- *
- * return (
- *   <Button
- *     onClick={async () => { await subscribeToNotifications(); }}
- *     disabled={subscribeLoading || !!subscription}
- *   >
- *     {subscribeLoading ? 'Subscribing...' : 'Subscribe'}
- *   </Button>
- *   <Button
- *     onClick={async () => { await unsubscribeFromNotifications(); }}
- *     disabled={unsubscribeLoading || !subscription}
- *   >
- *     {unsubscribeLoading ? 'Unsubscribing...' : 'Unsubscribe'}
- *   </Button>
- *   <Button
- *     onClick={async () => { await sendPush({ title: 'Test Notification', body: 'Test Notification Body...' }); }}
- *     disabled={sendPushLoading}
- *   >
- *     {sendPushLoading ? 'Sending...' : 'Send Push'}
- *   </Button>
- * )
- * ```
  */
 export function useWebPush() {
   const context = useContext(WebPushContext);
@@ -220,7 +182,9 @@ export function useWebPush() {
   return context;
 }
 
-// Base64 문자열을 Uint8Array로 변환
+/**
+ * Base64 문자열을 Uint8Array로 변환
+ */
 function urlBase64ToUint8Array(base64String: string) {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');

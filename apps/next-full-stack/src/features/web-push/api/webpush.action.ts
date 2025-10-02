@@ -5,7 +5,7 @@ import webPush from 'web-push';
 import { env } from '~/shared/config/env';
 
 /**
- * 푸시 알림 전송
+ * 푸시 알림 전송 액션
  *
  * @param subscription - 푸시 알림 구독 정보
  * @param payload - 푸시 알림 페이로드
@@ -35,7 +35,7 @@ export async function sendPushNotificationAction(subscription: webPush.PushSubsc
 }
 
 /**
- * 구독
+ * 구독 액션
  */
 export async function subscribeAction(subscription: webPush.PushSubscription) {
   try {
@@ -52,7 +52,7 @@ export async function subscribeAction(subscription: webPush.PushSubscription) {
 }
 
 /**
- * 구독 취소
+ * 구독 취소 액션
  */
 export async function unsubscribeAction(subscription: webPush.PushSubscription) {
   try {

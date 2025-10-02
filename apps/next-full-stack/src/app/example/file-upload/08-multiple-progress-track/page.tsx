@@ -1,7 +1,8 @@
 'use client';
 
 import { Button } from '@monorepo-starter/ui/components/button';
-import { formatBytes, useFileUpload, type FileWithPreview } from '@monorepo-starter/ui/hooks/use-file-upload';
+import { useFileUpload, type FileWithPreview } from '@monorepo-starter/ui/hooks/use-file-upload';
+import { formatBytes } from '@monorepo-starter/ui/lib/format';
 import {
   AlertCircleIcon,
   FileArchiveIcon,

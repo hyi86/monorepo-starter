@@ -2,7 +2,8 @@
 
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@monorepo-starter/ui/components/table';
-import { formatBytes, useFileUpload } from '@monorepo-starter/ui/hooks/use-file-upload';
+import { useFileUpload } from '@monorepo-starter/ui/hooks/use-file-upload';
+import { formatBytes } from '@monorepo-starter/ui/lib/format';
 import {
   AlertCircleIcon,
   DownloadIcon,

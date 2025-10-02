@@ -2168,34 +2168,6 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
-    href: '/example/push/02-controls',
-    linkTypes: '/example/push/02-controls',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/push/02-controls/page.tsx'],
-    structures: [
-      {
-        path: 'src/app/layout.tsx',
-        children: [
-          {
-            path: 'src/app/example/layout.tsx',
-            children: [
-              {
-                path: 'src/app/example/push/layout.tsx',
-                children: [
-                  {
-                    path: 'src/app/example/push/02-controls/page.tsx',
-                    children: [],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
     href: '/example/query',
     linkTypes: '/example/query',
     isParallelRoute: false,
