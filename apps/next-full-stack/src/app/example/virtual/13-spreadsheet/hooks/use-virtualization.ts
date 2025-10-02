@@ -17,6 +17,7 @@ export function useVirtualization({ rows, columns }: UseVirtualizationParams) {
   // 스크롤 위치 상태
   const [scrollTop, setScrollTop] = useState(0);
 
+  // 행 개수(전체 데이터 개수 / 열 개수)
   const rowCount = Math.floor(rows.length / columns.length);
 
   // 행 가상화

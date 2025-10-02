@@ -19,6 +19,8 @@ type UseKeyboardNavigationParams = {
   isEditing: boolean;
   copySelectedCells?: () => void;
   pasteToSelectedCell?: () => void;
+  undo?: () => void;
+  redo?: () => void;
 };
 
 export function useKeyboardNavigation({
@@ -37,6 +39,8 @@ export function useKeyboardNavigation({
   finishEditing,
   rowVirtualizer,
   columnVirtualizer,
+  undo,
+  redo,
 }: UseKeyboardNavigationParams) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -77,6 +81,7 @@ export function useKeyboardNavigation({
             startEditing(row, col);
           }
           return;
+
         // 위로 이동
         case 'ArrowUp':
           e.preventDefault();
@@ -87,6 +92,7 @@ export function useKeyboardNavigation({
             return;
           }
           break;
+
         // 아래로 이동
         case 'ArrowDown':
           e.preventDefault();
@@ -97,6 +103,7 @@ export function useKeyboardNavigation({
             return;
           }
           break;
+
         // 왼쪽으로 이동
         case 'ArrowLeft':
           e.preventDefault();
@@ -131,6 +138,22 @@ export function useKeyboardNavigation({
             return;
           }
           break;
+
+        // Undo / Redo
+        case 'z':
+          if (e.shiftKey && (e.ctrlKey || e.metaKey)) {
+            e.preventDefault();
+            redo?.();
+            return;
+          }
+
+          if (e.ctrlKey || e.metaKey) {
+            e.preventDefault();
+            undo?.();
+            return;
+          }
+          break;
+
         default:
           return;
       }

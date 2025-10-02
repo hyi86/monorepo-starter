@@ -7,6 +7,7 @@ export const metadata = {
 
 export default function BlocksPage() {
   const links: { href: AppRoutes; label: string }[] = [
+    { href: '/blocks/dashboard', label: 'Dashboard' },
     { href: '/blocks/sidebar-01', label: 'Sidebar 01' },
     { href: '/blocks/sidebar-02', label: 'Sidebar 02' },
     { href: '/blocks/sidebar-03', label: 'Sidebar 03' },

@@ -1,9 +1,15 @@
 import { Button } from '@monorepo-starter/ui/components/button';
 import { ArrowDownToLineIcon, ArrowUpToLineIcon } from 'lucide-react';
+import type { Difference } from 'microdiff';
 import type { Cell, SelectionMode } from './types';
 import { indexToColumnLabel } from './utils';
 
 type Props = {
+  history: Difference[][];
+  undo: () => void;
+  redo: () => void;
+  canUndo: boolean;
+  canRedo: boolean;
   width: React.CSSProperties['width'];
   selectionMode: SelectionMode;
   selectedColumn: number | null;
@@ -17,6 +23,10 @@ type Props = {
 };
 
 export function SheetStatus({
+  undo,
+  redo,
+  canUndo,
+  canRedo,
   width,
   selectionMode,
   selectedColumn,
@@ -55,6 +65,12 @@ export function SheetStatus({
       </div>
 
       <div className="flex items-center gap-2">
+        <Button variant="outline" size="sm" disabled={!canUndo} onClick={undo}>
+          Undo
+        </Button>
+        <Button variant="outline" size="sm" disabled={!canRedo} onClick={redo}>
+          Redo
+        </Button>
         <Button variant="outline" size="sm" className="size-7" onClick={() => onScrollMove('top')}>
           <ArrowUpToLineIcon className="size-4" />
         </Button>

@@ -6,6 +6,7 @@ import { useImmer } from 'use-immer';
 import { useColumnResize } from './hooks/use-column-resize';
 import { useCopyPaste } from './hooks/use-copy-paste';
 import { useEditing } from './hooks/use-editing';
+import { useHistory } from './hooks/use-history';
 import { useKeyboardNavigation } from './hooks/use-keyboard-navigation';
 import { useSelection } from './hooks/use-selection';
 import { useVirtualization } from './hooks/use-virtualization';
@@ -35,6 +36,9 @@ import { indexToColumnLabel } from './utils';
 export function Sheet({ rows: initialRows, columns }: { rows: Data[]; columns: Column[] }) {
   // 내부 상태로 데이터 관리
   const [rows, setRows] = useImmer<Data[]>(initialRows);
+
+  // 히스토리 훅
+  const { history, undo, redo, canUndo, canRedo } = useHistory({ rows, setRows });
 
   // 컬럼 리사이징 훅
   const { isResizing, columnsState, handleResizeStart } = useColumnResize(columns);
@@ -168,6 +172,8 @@ export function Sheet({ rows: initialRows, columns }: { rows: Data[]; columns: C
     isEditing: !!editingCell,
     copySelectedCells,
     pasteToSelectedCell,
+    undo,
+    redo,
   });
 
   return (
@@ -288,6 +294,11 @@ export function Sheet({ rows: initialRows, columns }: { rows: Data[]; columns: C
         </div>
       </div>
       <SheetStatus
+        undo={undo}
+        redo={redo}
+        canUndo={canUndo}
+        canRedo={canRedo}
+        history={history}
         width={Number(defaultColumnWidth) + Number(contentWidth)}
         selectionMode={selectionMode}
         selectedColumn={selectedColumn}
