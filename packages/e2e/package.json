@@ -14,7 +14,7 @@
     "@monorepo-starter/eslint-config": "workspace:*",
     "@monorepo-starter/typescript-config": "workspace:*",
     "@monorepo-starter/utils": "workspace:*",
-    "@playwright/test": "^1.55.1",
+    "@playwright/test": "^1.56.0",
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "type-fest": "catalog:",
