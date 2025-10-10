@@ -53,10 +53,10 @@ const CalendarDndContext = createContext<CalendarDndContextType>({
 export const useCalendarDnd = () => useContext(CalendarDndContext);
 
 // Props for the provider
-interface CalendarDndProviderProps {
+type CalendarDndProviderProps = {
   children: ReactNode;
   onEventUpdate: (event: CalendarEvent) => void;
-}
+};
 
 export function CalendarDndProvider({ children, onEventUpdate }: CalendarDndProviderProps) {
   const [activeEvent, setActiveEvent] = useState<CalendarEvent | null>(null);

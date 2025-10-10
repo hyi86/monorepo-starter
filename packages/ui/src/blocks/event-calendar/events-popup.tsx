@@ -6,13 +6,13 @@ import { useEffect, useMemo, useRef } from 'react';
 import { EventItem } from './event-item';
 import type { CalendarEvent } from './types';
 
-interface EventsPopupProps {
+type EventsPopupProps = {
   date: Date;
   events: CalendarEvent[];
   position: { top: number; left: number };
   onClose: () => void;
   onEventSelect: (event: CalendarEvent) => void;
-}
+};
 
 export function EventsPopup({ date, events, position, onClose, onEventSelect }: EventsPopupProps) {
   const popupRef = useRef<HTMLDivElement>(null);

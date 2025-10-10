@@ -8,11 +8,11 @@ import { EventItem } from './event-item';
 import { CalendarEvent } from './types';
 import { getAgendaEventsForDay } from './utils';
 
-interface AgendaViewProps {
+type AgendaViewProps = {
   currentDate: Date;
   events: CalendarEvent[];
   onEventSelect: (event: CalendarEvent) => void;
-}
+};
 
 export function AgendaView({ currentDate, events, onEventSelect }: AgendaViewProps) {
   // Show events for the next days based on constant

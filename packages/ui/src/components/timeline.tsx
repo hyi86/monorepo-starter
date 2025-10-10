@@ -22,12 +22,12 @@ const useTimeline = () => {
 };
 
 // Components
-interface TimelineProps extends React.HTMLAttributes<HTMLDivElement> {
+type TimelineProps = React.ComponentProps<'div'> & {
   defaultValue?: number;
   value?: number;
   onValueChange?: (value: number) => void;
   orientation?: 'horizontal' | 'vertical';
-}
+};
 
 function Timeline({
   defaultValue = 1,
@@ -72,9 +72,9 @@ function TimelineContent({ className, ...props }: React.HTMLAttributes<HTMLDivEl
 }
 
 // TimelineDate
-interface TimelineDateProps extends React.HTMLAttributes<HTMLTimeElement> {
+type TimelineDateProps = React.HTMLAttributes<HTMLTimeElement> & {
   asChild?: boolean;
-}
+};
 
 function TimelineDate({ asChild = false, className, ...props }: TimelineDateProps) {
   const Comp = asChild ? Slot : 'time';
@@ -97,9 +97,9 @@ function TimelineHeader({ className, ...props }: React.HTMLAttributes<HTMLDivEle
 }
 
 // TimelineIndicator
-interface TimelineIndicatorProps extends React.HTMLAttributes<HTMLDivElement> {
+type TimelineIndicatorProps = React.HTMLAttributes<HTMLDivElement> & {
   asChild?: boolean;
-}
+};
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function TimelineIndicator({ asChild = false, className, children, ...props }: TimelineIndicatorProps) {
@@ -119,9 +119,9 @@ function TimelineIndicator({ asChild = false, className, children, ...props }: T
 }
 
 // TimelineItem
-interface TimelineItemProps extends React.HTMLAttributes<HTMLDivElement> {
+type TimelineItemProps = React.HTMLAttributes<HTMLDivElement> & {
   step: number;
-}
+};
 
 function TimelineItem({ step, className, ...props }: TimelineItemProps) {
   const { activeStep } = useTimeline();

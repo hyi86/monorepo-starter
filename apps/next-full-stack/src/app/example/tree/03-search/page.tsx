@@ -15,10 +15,10 @@ import { Tree, TreeItem, TreeItemLabel } from '@monorepo-starter/ui/components/t
 import { FolderIcon, FolderOpenIcon, ListCollapseIcon, ListTreeIcon, SearchIcon } from 'lucide-react';
 import React, { useState } from 'react';
 
-interface Item {
+type Item = {
   name: string;
   children?: string[];
-}
+};
 
 const items: Record<string, Item> = {
   company: {

@@ -26,21 +26,21 @@ import { useCurrentTimeIndicator } from './hooks/use-current-time-indicator';
 import type { CalendarEvent } from './types';
 import { isMultiDayEvent } from './utils';
 
-interface WeekViewProps {
+type WeekViewProps = {
   currentDate: Date;
   events: CalendarEvent[];
   onEventSelect: (event: CalendarEvent) => void;
   onEventCreate: (startTime: Date) => void;
-}
+};
 
-interface PositionedEvent {
+type PositionedEvent = {
   event: CalendarEvent;
   top: number;
   height: number;
   left: number;
   width: number;
   zIndex: number;
-}
+};
 
 export function WeekView({ currentDate, events, onEventSelect, onEventCreate }: WeekViewProps) {
   const days = useMemo(() => {

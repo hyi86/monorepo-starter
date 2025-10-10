@@ -7,10 +7,10 @@ import { Tree, TreeItem, TreeItemLabel } from '@monorepo-starter/ui/components/t
 import { FileIcon, FolderIcon, FolderOpenIcon } from 'lucide-react';
 import React from 'react';
 
-interface Item {
+type Item = {
   name: string;
   children?: string[];
-}
+};
 
 const items: Record<string, Item> = {
   company: {

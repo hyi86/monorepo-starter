@@ -18,7 +18,7 @@ import { format } from '@monorepo-starter/utils/number';
 import { Table } from '@tanstack/react-table';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 
-interface PaginationBlockProps {
+type PaginationBlockProps = {
   // 공통 props
   totalPages: number;
   currentPage: number;
@@ -35,7 +35,7 @@ interface PaginationBlockProps {
 
   // Client-side pagination props
   table?: Table<any>;
-}
+};
 
 export function PaginationBlock({
   totalPages,

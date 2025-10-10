@@ -307,7 +307,7 @@ export const isTokenExpired = (token: string) => {
 
 ```typescript
 // auth.types.ts
-export interface User {
+export type User = {
   id: string
   email: string
   name: string
@@ -401,7 +401,7 @@ export const LoginForm = () => {
 
 ```typescript
 // 1. entities/user 먼저 정의
-export interface User {
+export type User = {
   id: string
   email: string
   name: string

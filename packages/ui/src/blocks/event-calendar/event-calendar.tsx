@@ -35,14 +35,14 @@ import type { CalendarEvent, CalendarView } from './types';
 import { addHoursToDate } from './utils';
 import { WeekView } from './week-view';
 
-export interface EventCalendarProps {
+export type EventCalendarProps = {
   events?: CalendarEvent[];
   onEventAdd?: (event: CalendarEvent) => void;
   onEventUpdate?: (event: CalendarEvent) => void;
   onEventDelete?: (eventId: string) => void;
   className?: string;
   initialView?: CalendarView;
-}
+};
 
 export function EventCalendar({
   events = [],

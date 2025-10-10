@@ -5,18 +5,18 @@ import { MoreVerticalIcon } from 'lucide-react';
 import { memo } from 'react';
 import { initialEdges } from './schema-data';
 
-export interface TableField {
+export type TableField = {
   name: string;
   type: string;
   isPrimary?: boolean;
   isForeign?: boolean;
-}
+};
 
-interface TableNodeData extends Record<string, unknown> {
+type TableNodeData = Record<string, unknown> & {
   label: string;
   fields: TableField[];
   selected?: boolean;
-}
+};
 
 type TableNodeType = Node<TableNodeData, 'tableNode'>;
 

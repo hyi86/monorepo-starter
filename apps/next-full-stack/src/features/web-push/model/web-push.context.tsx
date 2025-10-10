@@ -5,13 +5,13 @@ import type { PushSubscription } from 'web-push';
 import { sendPushNotificationAction, subscribeAction, unsubscribeAction } from '~/features/web-push/api/webpush.action';
 import { env } from '~/shared/config/env';
 
-interface SendPushNotificationOptions {
+type SendPushNotificationOptions = {
   title: string;
   body: string;
   icon?: string;
-}
+};
 
-interface WebPushContextType {
+type WebPushContextType = {
   subscription: PushSubscription | null;
   registration: ServiceWorkerRegistration | null;
   subscribeToNotifications: () => Promise<void>;
@@ -20,7 +20,7 @@ interface WebPushContextType {
   subscribeLoading: boolean;
   unsubscribeLoading: boolean;
   sendPushLoading: boolean;
-}
+};
 
 const fileName = 'lib/push/web-push-context.tsx';
 const serviceWorkerPath = '/service-worker.js';

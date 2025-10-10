@@ -4,14 +4,14 @@ import { useDroppable } from '@dnd-kit/core';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { useCalendarDnd } from './calendar-dnd-context';
 
-interface DroppableCellProps {
+type DroppableCellProps = {
   id: string;
   date: Date;
   time?: number; // For week/day views, represents hours (e.g., 9.25 for 9:15)
   children?: React.ReactNode;
   className?: string;
   onClick?: () => void;
-}
+};
 
 export function DroppableCell({ id, date, time, children, className, onClick }: DroppableCellProps) {
   const { activeEvent } = useCalendarDnd();

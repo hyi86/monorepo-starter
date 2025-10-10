@@ -8,7 +8,7 @@ import { useCalendarDnd } from './calendar-dnd-context';
 import { EventItem } from './event-item';
 import type { CalendarEvent } from './types';
 
-interface DraggableEventProps {
+type DraggableEventProps = {
   event: CalendarEvent;
   view: 'month' | 'week' | 'day';
   showTime?: boolean;
@@ -19,7 +19,7 @@ interface DraggableEventProps {
   isFirstDay?: boolean;
   isLastDay?: boolean;
   'aria-hidden'?: boolean | 'true' | 'false';
-}
+};
 
 export function DraggableEvent({
   event,

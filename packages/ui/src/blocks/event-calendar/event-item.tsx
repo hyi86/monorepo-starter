@@ -16,7 +16,7 @@ const formatTimeWithOptionalMinutes = (date: Date) => {
   return format(date, getMinutes(date) === 0 ? 'ha' : 'h:mma').toLowerCase();
 };
 
-interface EventWrapperProps {
+type EventWrapperProps = {
   event: CalendarEvent;
   isFirstDay?: boolean;
   isLastDay?: boolean;
@@ -29,7 +29,7 @@ interface EventWrapperProps {
   dndAttributes?: DraggableAttributes;
   onMouseDown?: (e: React.MouseEvent) => void;
   onTouchStart?: (e: React.TouchEvent) => void;
-}
+};
 
 // Shared wrapper component for event styling
 function EventWrapper({
@@ -74,7 +74,7 @@ function EventWrapper({
   );
 }
 
-interface EventItemProps {
+type EventItemProps = {
   event: CalendarEvent;
   view: 'month' | 'week' | 'day' | 'agenda';
   isDragging?: boolean;
@@ -89,7 +89,7 @@ interface EventItemProps {
   dndAttributes?: DraggableAttributes;
   onMouseDown?: (e: React.MouseEvent) => void;
   onTouchStart?: (e: React.TouchEvent) => void;
-}
+};
 
 export function EventItem({
   event,

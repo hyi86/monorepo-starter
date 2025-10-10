@@ -22,12 +22,12 @@ import { useEventVisibility } from './hooks/use-event-visibility';
 import type { CalendarEvent } from './types';
 import { getAllEventsForDay, getEventsForDay, getSpanningEventsForDay, sortEvents } from './utils';
 
-interface MonthViewProps {
+type MonthViewProps = {
   currentDate: Date;
   events: CalendarEvent[];
   onEventSelect: (event: CalendarEvent) => void;
   onEventCreate: (startTime: Date) => void;
-}
+};
 
 export function MonthView({ currentDate, events, onEventSelect, onEventCreate }: MonthViewProps) {
   const days = useMemo(() => {

@@ -1,6 +1,6 @@
 export type CalendarView = 'month' | 'week' | 'day' | 'agenda';
 
-export interface CalendarEvent {
+export type CalendarEvent = {
   id: string;
   title: string;
   description?: string;
@@ -10,6 +10,6 @@ export interface CalendarEvent {
   color?: EventColor;
   label?: string;
   location?: string;
-}
+};
 
 export type EventColor = 'blue' | 'orange' | 'violet' | 'rose' | 'emerald';

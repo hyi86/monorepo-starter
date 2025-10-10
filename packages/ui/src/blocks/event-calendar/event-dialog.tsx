@@ -24,13 +24,13 @@ import { useEffect, useMemo, useState } from 'react';
 import { DefaultEndHour, DefaultStartHour, EndHour, StartHour } from './constants';
 import type { CalendarEvent, EventColor } from './types';
 
-interface EventDialogProps {
+type EventDialogProps = {
   event: CalendarEvent | null;
   isOpen: boolean;
   onClose: () => void;
   onSave: (event: CalendarEvent) => void;
   onDelete: (eventId: string) => void;
-}
+};
 
 export function EventDialog({ event, isOpen, onClose, onSave, onDelete }: EventDialogProps) {
   const [title, setTitle] = useState('');

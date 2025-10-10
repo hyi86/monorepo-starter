@@ -36,7 +36,7 @@ export const etiquettes = [
   },
 ];
 
-interface CalendarContextType {
+type CalendarContextType = {
   // Date management
   currentDate: Date;
   setCurrentDate: (date: Date) => void;
@@ -45,7 +45,7 @@ interface CalendarContextType {
   visibleColors: string[];
   toggleColorVisibility: (color: string) => void;
   isColorVisible: (color: string | undefined) => boolean;
-}
+};
 
 const CalendarContext = createContext<CalendarContextType | undefined>(undefined);
 
@@ -57,9 +57,9 @@ export function useCalendarContext() {
   return context;
 }
 
-interface CalendarProviderProps {
+type CalendarProviderProps = {
   children: ReactNode;
-}
+};
 
 export function CalendarProvider({ children }: CalendarProviderProps) {
   const [currentDate, setCurrentDate] = useState<Date>(new Date());

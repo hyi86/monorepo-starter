@@ -13,7 +13,7 @@ import React, { useState, useEffect } from 'react';
  */
 type ID = number | string;
 
-interface User {
+type User = {
   id: ID;
   name: string;
   isAdmin: boolean;

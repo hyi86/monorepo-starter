@@ -102,12 +102,12 @@ Hook은 다음 속성들을 가진 객체를 반환합니다:
 ### Types
 
 ```typescript
-interface ScrollState {
+type ScrollState = {
   isAtBottom: boolean;
   autoScrollEnabled: boolean;
 }
 
-interface UseAutoScrollOptions {
+type UseAutoScrollOptions = {
   offset?: number;
   smooth?: boolean;
   content?: React.ReactNode;
@@ -122,7 +122,7 @@ interface UseAutoScrollOptions {
 import React, { useState, useEffect } from 'react';
 import { useAutoScroll } from '@monorepo-starter/ui/hooks/use-auto-scroll';
 
-interface LogEntry {
+type LogEntry = {
   id: string;
   level: 'info' | 'warn' | 'error';
   message: string;
@@ -207,7 +207,7 @@ export function LogViewer() {
 import React, { useState, useEffect } from 'react';
 import { useAutoScroll } from '@monorepo-starter/ui/hooks/use-auto-scroll';
 
-interface DataPoint {
+type DataPoint = {
   id: string;
   value: number;
   timestamp: Date;

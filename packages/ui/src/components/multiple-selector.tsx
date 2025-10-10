@@ -8,7 +8,7 @@ import { X } from 'lucide-react';
 import * as React from 'react';
 import { forwardRef, useEffect } from 'react';
 
-export interface Option {
+export type Option = {
   value: string;
   label: string;
   disable?: boolean;
@@ -16,12 +16,12 @@ export interface Option {
   fixed?: boolean;
   /** Group the options by providing key. */
   [key: string]: string | boolean | undefined;
-}
-interface GroupOption {
+};
+type GroupOption = {
   [key: string]: Option[];
-}
+};
 
-interface MultipleSelectorProps {
+type MultipleSelectorProps = {
   value?: Option[];
   defaultOptions?: Option[];
   /** manually controlled options */
@@ -76,14 +76,14 @@ interface MultipleSelectorProps {
   >;
   /** hide the clear all button. */
   hideClearAllButton?: boolean;
-}
+};
 
-export interface MultipleSelectorRef {
+export type MultipleSelectorRef = {
   selectedValue: Option[];
   input: HTMLInputElement;
   focus: () => void;
   reset: () => void;
-}
+};
 
 export function useDebounce<T>(value: T, delay?: number): T {
   const [debouncedValue, setDebouncedValue] = React.useState<T>(value);

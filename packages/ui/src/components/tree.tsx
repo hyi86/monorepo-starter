@@ -6,11 +6,11 @@ import { Slot } from '@radix-ui/react-slot';
 import { ChevronDownIcon } from 'lucide-react';
 import * as React from 'react';
 
-interface TreeContextValue<T = any> {
+type TreeContextValue<T = any> = {
   indent: number;
   currentItem?: ItemInstance<T>;
   tree?: any;
-}
+};
 
 const TreeContext = React.createContext<TreeContextValue>({
   indent: 20,
@@ -22,10 +22,10 @@ function useTreeContext<T = any>() {
   return React.useContext(TreeContext) as TreeContextValue<T>;
 }
 
-interface TreeProps extends React.HTMLAttributes<HTMLDivElement> {
+type TreeProps = React.HTMLAttributes<HTMLDivElement> & {
   indent?: number;
   tree?: any;
-}
+};
 
 function Tree({ indent = 20, tree, className, ...props }: TreeProps) {
   const containerProps = tree && typeof tree.getContainerProps === 'function' ? tree.getContainerProps() : {};
@@ -47,11 +47,11 @@ function Tree({ indent = 20, tree, className, ...props }: TreeProps) {
   );
 }
 
-interface TreeItemProps<T = any> extends React.HTMLAttributes<HTMLButtonElement> {
+type TreeItemProps<T = any> = React.HTMLAttributes<HTMLButtonElement> & {
   item: ItemInstance<T>;
   indent?: number;
   asChild?: boolean;
-}
+};
 
 function TreeItem<T = any>({ item, className, asChild, children, ...props }: Omit<TreeItemProps<T>, 'indent'>) {
   const { indent } = useTreeContext<T>();
@@ -93,10 +93,10 @@ function TreeItem<T = any>({ item, className, asChild, children, ...props }: Omi
   );
 }
 
-interface TreeItemLabelProps<T = any> extends React.HTMLAttributes<HTMLSpanElement> {
+type TreeItemLabelProps<T = any> = React.HTMLAttributes<HTMLSpanElement> & {
   item?: ItemInstance<T>;
   disableChevron?: boolean;
-}
+};
 
 function TreeItemLabel<T = any>({
   item: propItem,

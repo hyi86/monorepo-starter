@@ -43,12 +43,12 @@ const useStepItem = () => {
 };
 
 // Components
-interface StepperProps extends React.HTMLAttributes<HTMLDivElement> {
+type StepperProps = React.HTMLAttributes<HTMLDivElement> & {
   defaultValue?: number;
   value?: number;
   onValueChange?: (value: number) => void;
   orientation?: 'horizontal' | 'vertical';
-}
+};
 
 function Stepper({
   defaultValue = 0,
@@ -94,12 +94,12 @@ function Stepper({
 }
 
 // StepperItem
-interface StepperItemProps extends React.HTMLAttributes<HTMLDivElement> {
+type StepperItemProps = React.HTMLAttributes<HTMLDivElement> & {
   step: number;
   completed?: boolean;
   disabled?: boolean;
   loading?: boolean;
-}
+};
 
 function StepperItem({
   step,
@@ -135,9 +135,10 @@ function StepperItem({
 }
 
 // StepperTrigger
-interface StepperTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+type StepperTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  className?: string;
   asChild?: boolean;
-}
+};
 
 function StepperTrigger({ asChild = false, className, children, ...props }: StepperTriggerProps) {
   const { setActiveStep } = useStepper();
@@ -169,9 +170,9 @@ function StepperTrigger({ asChild = false, className, children, ...props }: Step
 }
 
 // StepperIndicator
-interface StepperIndicatorProps extends React.HTMLAttributes<HTMLDivElement> {
+type StepperIndicatorProps = React.HTMLAttributes<HTMLDivElement> & {
   asChild?: boolean;
-}
+};
 
 function StepperIndicator({ asChild = false, className, children, ...props }: StepperIndicatorProps) {
   const { state, step, isLoading } = useStepItem();

@@ -2,16 +2,16 @@
 
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-interface EventVisibilityOptions {
+type EventVisibilityOptions = {
   eventHeight: number;
   eventGap: number;
-}
+};
 
-interface EventVisibilityResult {
+type EventVisibilityResult = {
   contentRef: React.RefObject<HTMLDivElement>;
   contentHeight: number | null;
   getVisibleEventCount: (totalEvents: number) => number;
-}
+};
 
 /**
  * Hook for calculating event visibility based on container height
