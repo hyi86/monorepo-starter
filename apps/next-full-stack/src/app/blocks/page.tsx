@@ -7,6 +7,10 @@ export const metadata = {
 
 export default function BlocksPage() {
   const links: { href: AppRoutes; label: string }[] = [
+    { href: '/blocks/admin-menu-management', label: 'Admin Menu Management' },
+    { href: '/blocks/feature-management', label: 'Feature Management' },
+    { href: '/blocks/permission-management', label: 'Permission Management' },
+    { href: '/blocks/user-management', label: 'User Management' },
     { href: '/blocks/dashboard', label: 'Dashboard' },
     { href: '/blocks/sidebar-01', label: 'Sidebar 01' },
     { href: '/blocks/sidebar-02', label: 'Sidebar 02' },
