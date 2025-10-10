@@ -7,6 +7,9 @@ import {
   type UrlKeys,
 } from 'nuqs/server';
 
+/**
+ * 1) 컬럼 키
+ */
 const keys = [
   'id',
   'loginId',
@@ -42,7 +45,6 @@ export const parsers = {
 };
 
 export const urlKeys: UrlKeys<typeof parsers> = {
-  sortDirection: 'orderDir',
   pageIndex: 'page',
   pageSize: 'size',
 };

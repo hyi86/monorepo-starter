@@ -3,7 +3,7 @@ import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
 import Link from 'next/link';
 import { type OrderByKey, parsers, searchParamsCache, serialize } from './search-params';
 
-export default function SortHeader({
+export function SortHeader({
   name,
   currentUrl,
   children,

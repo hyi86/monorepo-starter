@@ -7,13 +7,12 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 import { searchParamsCache, serialize } from './search-params';
 
-export default function FuzzySearch({
-  currentUrl,
-  allParams,
-}: {
+type FuzzySearchProps = {
   currentUrl: string;
   allParams: ReturnType<typeof searchParamsCache.all>;
-}) {
+};
+
+export function FuzzySearch({ currentUrl, allParams }: FuzzySearchProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [search, setSearch] = useState('');

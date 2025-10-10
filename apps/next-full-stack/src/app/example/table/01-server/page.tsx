@@ -8,10 +8,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { SearchParams } from 'nuqs/server';
 import { cachedGetUsers } from '~/entities/user/model/user.selector';
-import TableFilters from './filters';
-import FuzzySearch from './fuzzy-search';
+import { FuzzySearch } from './fuzzy-search';
 import { pageSizes, searchParamsCache, serialize } from './search-params';
-import SortHeader from './sort-header';
+import { TableFilters } from './server-filters';
+import { SortHeader } from './sort-header';
 
 export default async function TableServerControlsPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const cookieStore = await cookies();
@@ -40,7 +40,10 @@ export default async function TableServerControlsPage({ searchParams }: { search
       <div className="space-y-3">
         <FuzzySearch currentUrl={currentUrl} allParams={searchParamsCache.all()} />
         <TableFilters currentUrl={currentUrl} />
-        <div data-slot="table-container" className="relative w-[calc(95vw-var(--sidebar-width))] overflow-x-auto">
+        <div
+          data-slot="table-container"
+          className="relative max-h-[65dvh] w-[calc(95vw-var(--sidebar-width))] overflow-auto"
+        >
           <table data-slot="table" className={cn('w-full caption-bottom text-sm')}>
             <TableHeader>
               <TableRow>
