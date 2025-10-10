@@ -26,7 +26,7 @@ function TextInput() {
         value={value}
         onChange={handleChange}
         placeholder="텍스트를 입력하세요..."
-        className="w-full p-3 border rounded-lg"
+        className="w-full rounded-lg border p-3"
       />
       <div className="text-sm text-gray-600">
         {characterCount}/{maxLength}
@@ -40,19 +40,19 @@ function TextInput() {
 
 ### Hook Parameters
 
-| Option         | Type     | Default | Description                    |
-| -------------- | -------- | ------- | ------------------------------ |
-| `maxLength`    | `number` | -       | 최대 글자 수 (필수)            |
-| `initialValue` | `string` | `''`    | 초기값                        |
+| Option         | Type     | Default | Description         |
+| -------------- | -------- | ------- | ------------------- |
+| `maxLength`    | `number` | -       | 최대 글자 수 (필수) |
+| `initialValue` | `string` | `''`    | 초기값              |
 
 ### Return Value
 
-| Property        | Type     | Description                |
-| --------------- | -------- | -------------------------- |
-| `value`         | `string` | 현재 입력된 값             |
-| `characterCount`| `number` | 현재 글자 수               |
-| `handleChange`  | `function` | 입력 변경 핸들러          |
-| `maxLength`     | `number` | 설정된 최대 글자 수        |
+| Property         | Type       | Description         |
+| ---------------- | ---------- | ------------------- |
+| `value`          | `string`   | 현재 입력된 값      |
+| `characterCount` | `number`   | 현재 글자 수        |
+| `handleChange`   | `function` | 입력 변경 핸들러    |
+| `maxLength`      | `number`   | 설정된 최대 글자 수 |
 
 ## Examples
 
@@ -73,7 +73,7 @@ function TwitterInput() {
         value={value}
         onChange={handleChange}
         placeholder="무슨 일이 일어나고 있나요?"
-        className="w-full p-3 border rounded-lg resize-none"
+        className="w-full resize-none rounded-lg border p-3"
         rows={4}
       />
       <div className="flex justify-end">
@@ -99,30 +99,26 @@ function FormWithValidation() {
   return (
     <form className="space-y-4">
       <div>
-        <label className="block text-sm font-medium mb-2">
-          설명 (최대 {maxLength}자)
-        </label>
+        <label className="mb-2 block text-sm font-medium">설명 (최대 {maxLength}자)</label>
         <textarea
           value={value}
           onChange={handleChange}
           placeholder="설명을 입력하세요..."
-          className="w-full p-3 border rounded-lg"
+          className="w-full rounded-lg border p-3"
           rows={5}
         />
         <div className="mt-1 flex justify-between text-sm">
           <span className={characterCount > maxLength ? 'text-red-500' : 'text-gray-500'}>
             {characterCount}/{maxLength}
           </span>
-          {characterCount > maxLength && (
-            <span className="text-red-500">글자 수를 초과했습니다</span>
-          )}
+          {characterCount > maxLength && <span className="text-red-500">글자 수를 초과했습니다</span>}
         </div>
       </div>
-      
+
       <button
         type="submit"
         disabled={!isValid}
-        className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300"
+        className="rounded bg-blue-500 px-4 py-2 text-white disabled:bg-gray-300"
       >
         제출
       </button>

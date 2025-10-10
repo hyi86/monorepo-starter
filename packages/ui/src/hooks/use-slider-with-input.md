@@ -22,12 +22,12 @@ function SliderComponent() {
     handleInputChange,
     validateAndUpdateValue,
     resetToDefault,
-    showReset
+    showReset,
   } = useSliderWithInput({
     minValue: 0,
     maxValue: 100,
     initialValue: [50],
-    defaultValue: [50]
+    defaultValue: [50],
   });
 
   return (
@@ -45,10 +45,10 @@ function SliderComponent() {
         value={inputValues[0]}
         onChange={(e) => handleInputChange(e, 0)}
         onBlur={(e) => validateAndUpdateValue(e.target.value, 0)}
-        className="w-20 px-2 py-1 border rounded"
+        className="w-20 rounded border px-2 py-1"
       />
       {showReset && (
-        <button onClick={resetToDefault} className="px-3 py-1 bg-gray-200 rounded">
+        <button onClick={resetToDefault} className="rounded bg-gray-200 px-3 py-1">
           리셋
         </button>
       )}
@@ -61,24 +61,24 @@ function SliderComponent() {
 
 ### Hook Parameters
 
-| Option         | Type       | Default     | Description        |
-| -------------- | ---------- | ----------- | ------------------ |
-| `minValue`     | `number`   | `0`         | 최소값             |
-| `maxValue`     | `number`   | `100`       | 최대값             |
-| `initialValue` | `number[]` | `[minValue]`| 초기값 배열        |
-| `defaultValue` | `number[]` | `[minValue]`| 기본값 배열        |
+| Option         | Type       | Default      | Description |
+| -------------- | ---------- | ------------ | ----------- |
+| `minValue`     | `number`   | `0`          | 최소값      |
+| `maxValue`     | `number`   | `100`        | 최대값      |
+| `initialValue` | `number[]` | `[minValue]` | 초기값 배열 |
+| `defaultValue` | `number[]` | `[minValue]` | 기본값 배열 |
 
 ### Return Value
 
-| Property                | Type                                    | Description                    |
-| ----------------------- | --------------------------------------- | ------------------------------ |
-| `sliderValue`           | `number[]`                              | 슬라이더 값 배열               |
-| `inputValues`           | `string[]`                              | 인풋 값 배열 (문자열)           |
-| `handleSliderChange`    | `(newValue: number[]) => void`           | 슬라이더 변경 핸들러           |
-| `handleInputChange`     | `(e: ChangeEvent, index: number) => void` | 인풋 변경 핸들러               |
-| `validateAndUpdateValue` | `(rawValue: string, index: number) => void` | 값 검증 및 업데이트        |
-| `resetToDefault`        | `() => void`                            | 기본값으로 리셋                |
-| `showReset`             | `boolean`                               | 리셋 버튼 표시 여부            |
+| Property                 | Type                                        | Description           |
+| ------------------------ | ------------------------------------------- | --------------------- |
+| `sliderValue`            | `number[]`                                  | 슬라이더 값 배열      |
+| `inputValues`            | `string[]`                                  | 인풋 값 배열 (문자열) |
+| `handleSliderChange`     | `(newValue: number[]) => void`              | 슬라이더 변경 핸들러  |
+| `handleInputChange`      | `(e: ChangeEvent, index: number) => void`   | 인풋 변경 핸들러      |
+| `validateAndUpdateValue` | `(rawValue: string, index: number) => void` | 값 검증 및 업데이트   |
+| `resetToDefault`         | `() => void`                                | 기본값으로 리셋       |
+| `showReset`              | `boolean`                                   | 리셋 버튼 표시 여부   |
 
 ## Examples
 
@@ -93,12 +93,12 @@ function RangeSlider() {
     handleInputChange,
     validateAndUpdateValue,
     resetToDefault,
-    showReset
+    showReset,
   } = useSliderWithInput({
     minValue: 0,
     maxValue: 1000,
     initialValue: [200, 800],
-    defaultValue: [200, 800]
+    defaultValue: [200, 800],
   });
 
   return (
@@ -109,17 +109,17 @@ function RangeSlider() {
           value={inputValues[0]}
           onChange={(e) => handleInputChange(e, 0)}
           onBlur={(e) => validateAndUpdateValue(e.target.value, 0)}
-          className="w-20 px-2 py-1 border rounded"
+          className="w-20 rounded border px-2 py-1"
         />
         <input
           type="number"
           value={inputValues[1]}
           onChange={(e) => handleInputChange(e, 1)}
           onBlur={(e) => validateAndUpdateValue(e.target.value, 1)}
-          className="w-20 px-2 py-1 border rounded"
+          className="w-20 rounded border px-2 py-1"
         />
       </div>
-      
+
       <input
         type="range"
         min={0}
@@ -128,9 +128,9 @@ function RangeSlider() {
         onChange={(e) => handleSliderChange([Number(e.target.value), sliderValue[1]])}
         className="w-full"
       />
-      
+
       {showReset && (
-        <button onClick={resetToDefault} className="px-3 py-1 bg-blue-500 text-white rounded">
+        <button onClick={resetToDefault} className="rounded bg-blue-500 px-3 py-1 text-white">
           기본값으로 리셋
         </button>
       )}
@@ -143,18 +143,13 @@ function RangeSlider() {
 
 ```tsx
 function PriceRangeFilter() {
-  const {
-    sliderValue,
-    inputValues,
-    handleSliderChange,
-    handleInputChange,
-    validateAndUpdateValue
-  } = useSliderWithInput({
-    minValue: 0,
-    maxValue: 100000,
-    initialValue: [10000, 50000],
-    defaultValue: [10000, 50000]
-  });
+  const { sliderValue, inputValues, handleSliderChange, handleInputChange, validateAndUpdateValue } =
+    useSliderWithInput({
+      minValue: 0,
+      maxValue: 100000,
+      initialValue: [10000, 50000],
+      defaultValue: [10000, 50000],
+    });
 
   return (
     <div className="space-y-4">
@@ -166,7 +161,7 @@ function PriceRangeFilter() {
           value={inputValues[0]}
           onChange={(e) => handleInputChange(e, 0)}
           onBlur={(e) => validateAndUpdateValue(e.target.value, 0)}
-          className="w-24 px-2 py-1 border rounded"
+          className="w-24 rounded border px-2 py-1"
         />
         <span>~</span>
         <input
@@ -174,7 +169,7 @@ function PriceRangeFilter() {
           value={inputValues[1]}
           onChange={(e) => handleInputChange(e, 1)}
           onBlur={(e) => validateAndUpdateValue(e.target.value, 1)}
-          className="w-24 px-2 py-1 border rounded"
+          className="w-24 rounded border px-2 py-1"
         />
       </div>
     </div>

@@ -40,7 +40,6 @@ function PaginationLink({ className, isActive, asChild = false, size = 'icon', .
       data-slot="pagination-link"
       data-active={isActive}
       className={cn(
-        'aria-disabled:pointer-events-none aria-disabled:opacity-50',
         buttonVariants({
           variant: isActive ? 'outline' : 'ghost',
           size,
