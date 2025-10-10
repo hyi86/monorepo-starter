@@ -88,7 +88,7 @@ export default function TableHeaderCell<TData, TValue>({
       className={cn(className)}
       ref={canSort ? setNodeRef : undefined}
     >
-      <div {...(canSort ? { ...attributes, ...listeners } : {})}>
+      <div {...attributes} {...listeners}>
         {flexRender(header.column.columnDef.header, header.getContext())}
       </div>
       {canSort && (

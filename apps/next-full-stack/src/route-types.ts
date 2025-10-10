@@ -52,6 +52,24 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
+    href: '/blocks/admin-menu-management',
+    linkTypes: '/blocks/admin-menu-management',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/admin-menu-management/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/admin-menu-management/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
     href: '/blocks/dashboard',
     linkTypes: '/blocks/dashboard',
     isParallelRoute: false,
@@ -63,6 +81,42 @@ export const appPathRoutes: AppPathRoutes[] = [
         children: [
           {
             path: 'src/app/blocks/dashboard/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/blocks/feature-management',
+    linkTypes: '/blocks/feature-management',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/feature-management/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/feature-management/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/blocks/permission-management',
+    linkTypes: '/blocks/permission-management',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/permission-management/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/permission-management/page.tsx',
             children: [],
           },
         ],
@@ -243,6 +297,24 @@ export const appPathRoutes: AppPathRoutes[] = [
         children: [
           {
             path: 'src/app/blocks/sidebar-16/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/blocks/user-management',
+    linkTypes: '/blocks/user-management',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/user-management/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/user-management/page.tsx',
             children: [],
           },
         ],

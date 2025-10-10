@@ -17,7 +17,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@monorepo-starter/ui/components/input';
 import { RadioGroup, RadioGroupItem } from '@monorepo-starter/ui/components/radio-group';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { devLog } from '@monorepo-starter/utils/console';
 import { Table } from '@tanstack/react-table';
 import { FilterIcon, Mars, Venus, X } from 'lucide-react';
 import { SubmitErrorHandler, type SubmitHandler, useForm } from 'react-hook-form';
@@ -68,7 +67,7 @@ export default function TableFilters({ table }: { table: Table<Data> }) {
 
   const onSubmit: SubmitHandler<Schema> = async (data) => {
     if (data.createdAt) {
-      devLog('info', `[FILTER]`, data.createdAt);
+      console.log(data.createdAt);
     }
 
     const filters = [];
@@ -111,7 +110,7 @@ export default function TableFilters({ table }: { table: Table<Data> }) {
   };
 
   const onError: SubmitErrorHandler<Schema> = (errors) => {
-    devLog('error', `[FILTER]`, errors);
+    console.error(errors);
   };
 
   const onReset = () => {
@@ -121,7 +120,6 @@ export default function TableFilters({ table }: { table: Table<Data> }) {
 
   const onOpenChange = (open: boolean) => {
     if (open) {
-      devLog('info', `[FILTER]`, 'open');
       setTimeout(() => {
         form.setFocus('loginId');
       }, 300);
