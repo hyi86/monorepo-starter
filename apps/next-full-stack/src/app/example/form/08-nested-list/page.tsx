@@ -14,7 +14,7 @@ export default function FormNestedListPage() {
 
   const data: Schema = {
     textInput1: 'test',
-    items: generateRandomList(120),
+    items: generateRandomList(500),
   };
 
   return (
@@ -22,6 +22,7 @@ export default function FormNestedListPage() {
       <h1>Next Server Action with Hook Form List</h1>
       <p>React Hook Form, Zod, Shadcn/UI, Next Server Action with Dnd Sortable, Tanstack Virtual</p>
 
+      <div>Count: {data.items.length}</div>
       <NestedListForm data={data} />
     </div>
   );

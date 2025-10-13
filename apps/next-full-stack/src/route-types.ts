@@ -1911,6 +1911,62 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
+    href: '/example/form/10-checkboxes',
+    linkTypes: '/example/form/10-checkboxes',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/form/10-checkboxes/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/form/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/form/10-checkboxes/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/example/form/11-grid-checkboxes',
+    linkTypes: '/example/form/11-grid-checkboxes',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/form/11-grid-checkboxes/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/example/layout.tsx',
+            children: [
+              {
+                path: 'src/app/example/form/layout.tsx',
+                children: [
+                  {
+                    path: 'src/app/example/form/11-grid-checkboxes/page.tsx',
+                    children: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
     href: '/example/image-edit/01-simple',
     linkTypes: '/example/image-edit/01-simple',
     isParallelRoute: false,
