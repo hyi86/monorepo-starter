@@ -105,13 +105,13 @@ Hook은 다음 속성들을 가진 객체를 반환합니다:
 type ScrollState = {
   isAtBottom: boolean;
   autoScrollEnabled: boolean;
-}
+};
 
 type UseAutoScrollOptions = {
   offset?: number;
   smooth?: boolean;
   content?: React.ReactNode;
-}
+};
 ```
 
 ## Advanced Usage
@@ -127,7 +127,7 @@ type LogEntry = {
   level: 'info' | 'warn' | 'error';
   message: string;
   timestamp: Date;
-}
+};
 
 export function LogViewer() {
   const [logs, setLogs] = useState<LogEntry[]>([]);
@@ -211,7 +211,7 @@ type DataPoint = {
   id: string;
   value: number;
   timestamp: Date;
-}
+};
 
 export function DataStreamMonitor() {
   const [dataPoints, setDataPoints] = useState<DataPoint[]>([]);
