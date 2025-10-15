@@ -1,10 +1,11 @@
 # Git Commit Convention
 
-참조: [https://www.conventionalcommits.org/ko/v1.0.0/](https://www.conventionalcommits.org/ko/v1.0.0/)
+참조: [https://www.conventionalcommits.org/ko/v1.0.0](https://www.conventionalcommits.org/ko/v1.0.0)
 
 ## 개요
 
-이 문서는 프로젝트에서 사용하는 Git 커밋 메시지 컨벤션을 정의합니다. 일관된 커밋 메시지 형식을 통해 프로젝트 히스토리를 명확하고 이해하기 쉽게 유지합니다.
+이 문서는 프로젝트에서 사용하는 Git 커밋 메시지 컨벤션을 정의합니다.  
+일관된 커밋 메시지 형식을 통해 프로젝트 히스토리를 명확하고 이해하기 쉽게 유지합니다.
 
 ## 커밋 메시지 구조
 
@@ -59,197 +60,308 @@
 #### 🚀 feat: 새로운 기능 추가
 
 ```bash
-# 사용자 인증 관련
-git commit -m "feat(auth): 이메일 인증 코드 발송 기능 구현"
-git commit -m "feat(auth): 소셜 로그인 (Google, GitHub) 연동"
-git commit -m "feat(auth): 2단계 인증(2FA) 지원 추가"
-git commit -m "feat(auth): 비밀번호 강도 검증 규칙 적용"
+# 창고 관리 관련
+git commit -m "feat(warehouse): 창고 재고 실시간 추적 시스템 구현"
+git commit -m "feat(warehouse): 창고별 구역 관리 기능 추가"
+git commit -m "feat(warehouse): 재고 부족 알림 시스템 구축"
+git commit -m "feat(warehouse): 창고 온도/습도 모니터링 기능"
+
+# 배송 관리 관련
+git commit -m "feat(delivery): 배송 경로 최적화 알고리즘 구현"
+git commit -m "feat(delivery): 실시간 배송 추적 시스템 추가"
+git commit -m "feat(delivery): 배송 상태 자동 업데이트 기능"
+git commit -m "feat(delivery): 배송 기사 앱 연동 API 개발"
+
+# 주문 관리 관련
+git commit -m "feat(order): 주문 처리 자동화 워크플로우 구현"
+git commit -m "feat(order): 주문 취소/변경 관리 시스템 추가"
+git commit -m "feat(order): 주문 이력 추적 및 분석 기능"
+git commit -m "feat(order): 대량 주문 일괄 처리 기능"
+
+# 재고 관리 관련
+git commit -m "feat(inventory): 재고 수준 자동 재주문 시스템"
+git commit -m "feat(inventory): 재고 이동 이력 추적 기능"
+git commit -m "feat(inventory): 재고 손실 감지 및 알림 시스템"
+git commit -m "feat(inventory): 재고 회전율 분석 대시보드"
+
+# 고객 관리 관련
+git commit -m "feat(customer): 고객 등급별 배송 정책 관리"
+git commit -m "feat(customer): 고객 주문 패턴 분석 기능"
+git commit -m "feat(customer): 고객 문의 자동 분류 시스템"
+git commit -m "feat(customer): VIP 고객 우선 처리 기능"
+
+# 공급업체 관리 관련
+git commit -m "feat(supplier): 공급업체 성과 평가 시스템"
+git commit -m "feat(supplier): 공급업체 주문 자동 발주 기능"
+git commit -m "feat(supplier): 공급업체 계약 관리 시스템"
+git commit -m "feat(supplier): 공급업체 품질 검수 관리"
 
 # UI/UX 관련
-git commit -m "feat(ui): 반응형 네비게이션 메뉴 구현"
-git commit -m "feat(ui): 다크/라이트 모드 테마 전환 기능"
-git commit -m "feat(ui): 무한 스크롤 데이터 로딩 구현"
-git commit -m "feat(ui): 드래그 앤 드롭 파일 업로드 지원"
-git commit -m "feat(ui): 실시간 알림 토스트 시스템 추가"
+git commit -m "feat(ui): 물류 대시보드 실시간 모니터링 화면"
+git commit -m "feat(ui): 창고 레이아웃 3D 시각화 기능"
+git commit -m "feat(ui): 배송 경로 지도 표시 기능"
+git commit -m "feat(ui): 재고 현황 차트 및 그래프 표시"
+git commit -m "feat(ui): 모바일 창고 관리 앱 인터페이스"
 
 # API 관련
-git commit -m "feat(api): 사용자 프로필 CRUD API 엔드포인트"
-git commit -m "feat(api): 파일 업로드 멀티파트 처리 지원"
-git commit -m "feat(api): 실시간 채팅 WebSocket 연결"
-git commit -m "feat(api): 데이터 내보내기 Excel/CSV 다운로드"
+git commit -m "feat(api): 물류 데이터 통합 API 엔드포인트"
+git commit -m "feat(api): 외부 배송업체 API 연동 기능"
+git commit -m "feat(api): 재고 데이터 실시간 동기화 API"
+git commit -m "feat(api): 물류 리포트 생성 및 내보내기 API"
 
 # 데이터베이스 관련
-git commit -m "feat(db): 사용자 활동 로그 테이블 스키마 추가"
-git commit -m "feat(db): 데이터베이스 인덱스 최적화 적용"
-git commit -m "feat(db): 데이터 백업 자동화 스크립트"
+git commit -m "feat(db): 물류 트랜잭션 로그 테이블 스키마"
+git commit -m "feat(db): 창고별 재고 수준 인덱스 최적화"
+git commit -m "feat(db): 배송 이력 데이터 파티셔닝 적용"
 
 # 유틸리티/도구 관련
-git commit -m "feat(utils): 날짜 포맷팅 유틸리티 함수 추가"
-git commit -m "feat(utils): 이메일 템플릿 엔진 통합"
-git commit -m "feat(utils): 이미지 리사이징 및 압축 기능"
+git commit -m "feat(utils): 물류 계산 유틸리티 함수 (배송비, 세금 등)"
+git commit -m "feat(utils): 바코드/QR코드 생성 및 스캔 기능"
+git commit -m "feat(utils): 물류 데이터 검증 및 정제 도구"
 ```
 
 #### 🐛 fix: 버그 수정
 
 ```bash
-# API 관련 버그
-git commit -m "fix(api): 페이지네이션에서 마지막 페이지 누락 오류 수정"
-git commit -m "fix(api): 파일 업로드 시 메모리 누수 문제 해결"
-git commit -m "fix(api): CORS 설정으로 인한 프리플라이트 요청 실패 수정"
-git commit -m "fix(api): JWT 토큰 만료 시 무한 리다이렉트 루프 해결"
+# 창고 관리 관련 버그
+git commit -m "fix(warehouse): 재고 수량 동기화 지연 문제 해결"
+git commit -m "fix(warehouse): 창고 구역별 권한 설정 오류 수정"
+git commit -m "fix(warehouse): 재고 부족 알림 중복 발송 문제 해결"
+git commit -m "fix(warehouse): 창고 온도 센서 데이터 누락 오류 수정"
 
-# 인증 관련 버그
-git commit -m "fix(auth): 로그아웃 후 세션 쿠키 미삭제 문제 수정"
-git commit -m "fix(auth): 비밀번호 재설정 링크 중복 사용 가능한 보안 취약점"
-git commit -m "fix(auth): 소셜 로그인 콜백 URL 불일치 오류 해결"
+# 배송 관리 관련 버그
+git commit -m "fix(delivery): 배송 경로 계산 알고리즘 오류 수정"
+git commit -m "fix(delivery): 배송 상태 업데이트 지연 문제 해결"
+git commit -m "fix(delivery): 배송 기사 앱 GPS 위치 동기화 오류 수정"
+git commit -m "fix(delivery): 배송 완료 처리 시 재고 차감 누락 문제"
+
+# 주문 관리 관련 버그
+git commit -m "fix(order): 주문 취소 시 재고 복구 로직 오류 수정"
+git commit -m "fix(order): 대량 주문 처리 시 타임아웃 오류 해결"
+git commit -m "fix(order): 주문 상태 변경 권한 검증 누락 문제 수정"
+git commit -m "fix(order): 주문 이력 조회 성능 저하 문제 해결"
+
+# 재고 관리 관련 버그
+git commit -m "fix(inventory): 재고 이동 이력 중복 기록 문제 해결"
+git commit -m "fix(inventory): 재고 손실 감지 알고리즘 오류 수정"
+git commit -m "fix(inventory): 재고 회전율 계산 공식 오류 수정"
+git commit -m "fix(inventory): 재고 수준 임계값 알림 미발송 문제 해결"
+
+# 고객 관리 관련 버그
+git commit -m "fix(customer): 고객 등급별 배송 정책 적용 오류 수정"
+git commit -m "fix(customer): VIP 고객 우선 처리 로직 오류 해결"
+git commit -m "fix(customer): 고객 문의 자동 분류 정확도 문제 수정"
+git commit -m "fix(customer): 고객 주문 패턴 분석 데이터 누락 문제"
+
+# 공급업체 관리 관련 버그
+git commit -m "fix(supplier): 공급업체 성과 평가 점수 계산 오류 수정"
+git commit -m "fix(supplier): 자동 발주 시스템 중복 주문 문제 해결"
+git commit -m "fix(supplier): 공급업체 계약 만료 알림 미발송 문제"
+git commit -m "fix(supplier): 품질 검수 결과 저장 오류 수정"
 
 # UI 관련 버그
-git commit -m "fix(ui): 모바일에서 모달 배경 스크롤 방지 기능 추가"
-git commit -m "fix(ui): 테이블 정렬 시 헤더 클릭 영역 오류 수정"
-git commit -m "fix(ui): 다국어 지원에서 RTL 언어 레이아웃 깨짐 현상"
-git commit -m "fix(ui): 이미지 로딩 실패 시 플레이스홀더 표시 누락"
+git commit -m "fix(ui): 물류 대시보드 실시간 데이터 업데이트 지연 문제"
+git commit -m "fix(ui): 창고 레이아웃 3D 시각화 렌더링 오류 수정"
+git commit -m "fix(ui): 배송 경로 지도 마커 표시 오류 해결"
+git commit -m "fix(ui): 재고 현황 차트 데이터 동기화 문제 수정"
+git commit -m "fix(ui): 모바일 창고 관리 앱 터치 이벤트 오류 수정"
+
+# API 관련 버그
+git commit -m "fix(api): 물류 데이터 통합 API 응답 지연 문제 해결"
+git commit -m "fix(api): 외부 배송업체 API 연동 타임아웃 오류 수정"
+git commit -m "fix(api): 재고 데이터 동기화 중복 처리 문제 해결"
+git commit -m "fix(api): 물류 리포트 생성 시 메모리 누수 문제 수정"
 
 # 데이터베이스 관련 버그
-git commit -m "fix(db): 외래키 제약조건으로 인한 삭제 실패 오류 수정"
-git commit -m "fix(db): 트랜잭션 롤백 시 연결 풀 고갈 문제 해결"
-git commit -m "fix(db): 대용량 데이터 조회 시 타임아웃 오류 수정"
+git commit -m "fix(db): 물류 트랜잭션 로그 테이블 인덱스 오류 수정"
+git commit -m "fix(db): 창고별 재고 수준 조회 성능 저하 문제 해결"
+git commit -m "fix(db): 배송 이력 데이터 파티셔닝 오류 수정"
+git commit -m "fix(db): 재고 이동 이력 외래키 제약조건 오류 해결"
 
 # 성능 관련 버그
-git commit -m "fix(perf): 메모리 누수로 인한 서버 크래시 문제 해결"
-git commit -m "fix(perf): 이미지 최적화 없이 원본 파일 서빙 문제 수정"
+git commit -m "fix(perf): 대용량 재고 데이터 조회 시 메모리 누수 문제 해결"
+git commit -m "fix(perf): 배송 경로 계산 알고리즘 성능 최적화"
+git commit -m "fix(perf): 물류 대시보드 실시간 업데이트 성능 개선"
 ```
 
 #### 📚 docs: 문서 변경
 
 ```bash
 # 프로젝트 문서
-git commit -m "docs: README 설치 및 실행 가이드 업데이트"
-git commit -m "docs: API 엔드포인트 사용법 예시 추가"
-git commit -m "docs: 환경 변수 설정 방법 상세 설명"
-git commit -m "docs: 배포 프로세스 단계별 가이드 작성"
+git commit -m "docs: 물류 시스템 설치 및 실행 가이드 업데이트"
+git commit -m "docs: 창고 관리 API 엔드포인트 사용법 예시 추가"
+git commit -m "docs: 배송 추적 시스템 환경 변수 설정 방법 상세 설명"
+git commit -m "docs: 물류 시스템 배포 프로세스 단계별 가이드 작성"
+
+# 물류 도메인 문서화
+git commit -m "docs(warehouse): 창고 관리 시스템 사용자 매뉴얼 작성"
+git commit -m "docs(delivery): 배송 추적 API 사용법 가이드 추가"
+git commit -m "docs(inventory): 재고 관리 워크플로우 문서화"
+git commit -m "docs(order): 주문 처리 프로세스 플로우차트 작성"
 
 # 코드 문서화
-git commit -m "docs(api): JSDoc 주석으로 함수 설명 추가"
-git commit -m "docs(utils): 유틸리티 함수 사용 예시 문서화"
-git commit -m "docs(db): 데이터베이스 스키마 ERD 다이어그램 추가"
-git commit -m "docs(ui): 컴포넌트 Props 인터페이스 문서화"
+git commit -m "docs(api): 물류 API JSDoc 주석으로 함수 설명 추가"
+git commit -m "docs(utils): 물류 계산 유틸리티 함수 사용 예시 문서화"
+git commit -m "docs(db): 물류 데이터베이스 스키마 ERD 다이어그램 추가"
+git commit -m "docs(ui): 물류 대시보드 컴포넌트 Props 인터페이스 문서화"
+
+# 운영 문서화
+git commit -m "docs(ops): 창고 운영 매뉴얼 및 절차서 작성"
+git commit -m "docs(ops): 배송 기사 앱 사용 가이드 추가"
+git commit -m "docs(ops): 재고 관리 표준 운영 절차(SOP) 문서화"
+git commit -m "docs(ops): 물류 시스템 장애 대응 매뉴얼 작성"
 ```
 
 #### 🎨 style: 코드 스타일 변경
 
 ```bash
 # 코드 포맷팅
-git commit -m "style: Prettier 설정에 따른 전체 코드 포맷팅"
-git commit -m "style(ui): 컴포넌트 import 순서 ESLint 규칙 적용"
-git commit -m "style(api): 함수 매개변수 줄바꿈 정리"
-git commit -m "style(utils): 변수명 camelCase 규칙 통일"
+git commit -m "style: 물류 시스템 전체 코드 Prettier 포맷팅 적용"
+git commit -m "style(warehouse): 창고 관리 컴포넌트 import 순서 ESLint 규칙 적용"
+git commit -m "style(delivery): 배송 API 함수 매개변수 줄바꿈 정리"
+git commit -m "style(inventory): 재고 관리 유틸리티 변수명 camelCase 규칙 통일"
 
-# 코드 정리
-git commit -m "style: 사용하지 않는 import 문 제거"
-git commit -m "style(ui): CSS 클래스명 BEM 방법론 적용"
-git commit -m "style(api): 주석 스타일 통일 (JSDoc 형식)"
+# 물류 도메인 코드 정리
+git commit -m "style: 물류 시스템 사용하지 않는 import 문 제거"
+git commit -m "style(ui): 물류 대시보드 CSS 클래스명 BEM 방법론 적용"
+git commit -m "style(api): 물류 API 주석 스타일 통일 (JSDoc 형식)"
+git commit -m "style(warehouse): 창고 관리 함수명 물류 도메인 용어로 통일"
+git commit -m "style(delivery): 배송 관련 상수명 대문자 스네이크 케이스 적용"
+git commit -m "style(inventory): 재고 관리 타입 정의 인터페이스 정리"
 ```
 
 #### 🔧 refactor: 리팩토링
 
 ```bash
-# 코드 구조 개선
-git commit -m "refactor(auth): JWT 토큰 검증 로직을 미들웨어로 분리"
-git commit -m "refactor(ui): 공통 모달 컴포넌트 추상화"
-git commit -m "refactor(api): RESTful API 설계 원칙에 따른 엔드포인트 재구성"
-git commit -m "refactor(utils): 날짜 처리 함수들을 별도 모듈로 분리"
+# 물류 도메인 코드 구조 개선
+git commit -m "refactor(warehouse): 창고 재고 검증 로직을 서비스 레이어로 분리"
+git commit -m "refactor(delivery): 배송 추적 공통 컴포넌트 추상화"
+git commit -m "refactor(order): 주문 처리 API를 도메인별 엔드포인트로 재구성"
+git commit -m "refactor(inventory): 재고 계산 함수들을 별도 유틸리티 모듈로 분리"
 
-# 성능 개선을 위한 리팩토링
-git commit -m "refactor(db): N+1 쿼리 문제 해결을 위한 조인 쿼리 최적화"
-git commit -m "refactor(ui): React.memo를 활용한 불필요한 리렌더링 방지"
-git commit -m "refactor(api): 비동기 처리 로직을 async/await 패턴으로 통일"
+# 물류 시스템 성능 개선을 위한 리팩토링
+git commit -m "refactor(db): 물류 트랜잭션 N+1 쿼리 문제 해결을 위한 조인 쿼리 최적화"
+git commit -m "refactor(ui): 물류 대시보드 React.memo를 활용한 불필요한 리렌더링 방지"
+git commit -m "refactor(api): 배송 경로 계산 비동기 처리 로직을 async/await 패턴으로 통일"
+
+# 물류 도메인 아키텍처 개선
+git commit -m "refactor(warehouse): 창고 관리 도메인 모델 DDD 패턴 적용"
+git commit -m "refactor(delivery): 배송 추적 이벤트 기반 아키텍처로 전환"
+git commit -m "refactor(inventory): 재고 관리 CQRS 패턴 적용으로 읽기/쓰기 분리"
+git commit -m "refactor(order): 주문 처리 상태 머신 패턴으로 리팩토링"
 ```
 
 #### 🧪 test: 테스트 관련
 
 ```bash
-# 단위 테스트
-git commit -m "test(auth): 로그인 성공/실패 시나리오 단위 테스트 추가"
-git commit -m "test(api): 사용자 CRUD API 엔드포인트 테스트 케이스"
-git commit -m "test(utils): 날짜 포맷팅 함수 엣지 케이스 테스트"
-git commit -m "test(ui): 컴포넌트 렌더링 및 사용자 상호작용 테스트"
+# 물류 도메인 단위 테스트
+git commit -m "test(warehouse): 창고 재고 검증 성공/실패 시나리오 단위 테스트 추가"
+git commit -m "test(delivery): 배송 경로 계산 API 엔드포인트 테스트 케이스"
+git commit -m "test(inventory): 재고 계산 유틸리티 함수 엣지 케이스 테스트"
+git commit -m "test(order): 주문 처리 컴포넌트 렌더링 및 사용자 상호작용 테스트"
 
-# 통합 테스트
-git commit -m "test: 데이터베이스 연결 및 트랜잭션 테스트"
-git commit -m "test: 외부 API 연동 모킹 테스트 추가"
-git commit -m "test: 인증 플로우 전체 E2E 테스트 시나리오"
+# 물류 시스템 통합 테스트
+git commit -m "test: 물류 데이터베이스 연결 및 트랜잭션 테스트"
+git commit -m "test: 외부 배송업체 API 연동 모킹 테스트 추가"
+git commit -m "test: 창고 관리 플로우 전체 E2E 테스트 시나리오"
+git commit -m "test: 배송 추적 시스템 전체 워크플로우 테스트"
 
-# 테스트 설정
-git commit -m "test: Jest 설정 파일 환경별 분리"
-git commit -m "test: 테스트 데이터베이스 마이그레이션 스크립트"
+# 물류 도메인 테스트 설정
+git commit -m "test: 물류 시스템 Jest 설정 파일 환경별 분리"
+git commit -m "test: 물류 테스트 데이터베이스 마이그레이션 스크립트"
+git commit -m "test: 창고 관리 테스트 데이터 시드 스크립트 추가"
+git commit -m "test: 배송 추적 모의 데이터 생성 도구 구현"
+
+# 성능 테스트
+git commit -m "test(perf): 대용량 재고 데이터 조회 성능 테스트 추가"
+git commit -m "test(perf): 배송 경로 계산 알고리즘 성능 벤치마크 테스트"
+git commit -m "test(perf): 물류 대시보드 실시간 업데이트 부하 테스트"
 ```
 
 #### 🔨 chore: 기타 작업
 
 ```bash
-# 의존성 관리
-git commit -m "chore: React 18.2.0으로 업그레이드"
-git commit -m "chore: TypeScript 5.0 버전 업데이트"
-git commit -m "chore: ESLint 규칙 업데이트 및 설정 조정"
-git commit -m "chore: 개발 의존성 정리 및 불필요한 패키지 제거"
+# 물류 시스템 의존성 관리
+git commit -m "chore: 물류 대시보드 React 18.2.0으로 업그레이드"
+git commit -m "chore: 물류 API TypeScript 5.0 버전 업데이트"
+git commit -m "chore: 물류 시스템 ESLint 규칙 업데이트 및 설정 조정"
+git commit -m "chore: 물류 관련 개발 의존성 정리 및 불필요한 패키지 제거"
 
-# CI/CD 관련
-git commit -m "chore(ci): GitHub Actions 워크플로우 최적화"
-git commit -m "chore(ci): Docker 이미지 빌드 캐시 전략 개선"
-git commit -m "chore(ci): 자동 배포 파이프라인 설정 수정"
+# 물류 시스템 CI/CD 관련
+git commit -m "chore(ci): 물류 시스템 GitHub Actions 워크플로우 최적화"
+git commit -m "chore(ci): 물류 시스템 Docker 이미지 빌드 캐시 전략 개선"
+git commit -m "chore(ci): 물류 시스템 자동 배포 파이프라인 설정 수정"
+git commit -m "chore(ci): 창고 관리 시스템 스테이징 환경 배포 자동화"
 
-# 개발 환경
-git commit -m "chore: VSCode 워크스페이스 설정 파일 추가"
-git commit -m "chore: Git hooks 설정 (pre-commit, pre-push)"
-git commit -m "chore: 환경 변수 템플릿 파일(.env.example) 생성"
+# 물류 시스템 개발 환경
+git commit -m "chore: 물류 시스템 VSCode 워크스페이스 설정 파일 추가"
+git commit -m "chore: 물류 시스템 Git hooks 설정 (pre-commit, pre-push)"
+git commit -m "chore: 물류 시스템 환경 변수 템플릿 파일(.env.example) 생성"
+git commit -m "chore: 창고 관리 시스템 개발 환경 Docker Compose 설정"
+
+# 물류 도메인 도구 및 설정
+git commit -m "chore: 물류 데이터베이스 마이그레이션 스크립트 정리"
+git commit -m "chore: 배송 추적 시스템 로깅 설정 개선"
+git commit -m "chore: 재고 관리 시스템 모니터링 도구 설정"
+git commit -m "chore: 물류 시스템 백업 및 복구 스크립트 추가"
 ```
 
 #### ⚡ perf: 성능 개선
 
 ```bash
-# API 성능
-git commit -m "perf(api): 데이터베이스 쿼리 인덱스 최적화로 응답 속도 50% 개선"
-git commit -m "perf(api): Redis 캐싱으로 반복 조회 성능 향상"
-git commit -m "perf(api): API 응답 압축(gzip) 적용으로 전송 크기 70% 감소"
+# 물류 시스템 API 성능
+git commit -m "perf(api): 물류 데이터베이스 쿼리 인덱스 최적화로 응답 속도 50% 개선"
+git commit -m "perf(api): 재고 조회 Redis 캐싱으로 반복 조회 성능 향상"
+git commit -m "perf(api): 물류 API 응답 압축(gzip) 적용으로 전송 크기 70% 감소"
+git commit -m "perf(api): 배송 경로 계산 API 응답 시간 60% 단축"
 
-# 프론트엔드 성능
-git commit -m "perf(ui): 이미지 lazy loading으로 초기 로딩 시간 단축"
-git commit -m "perf(ui): 코드 스플리팅으로 번들 크기 30% 감소"
-git commit -m "perf(ui): 가상 스크롤링으로 대용량 리스트 렌더링 최적화"
-git commit -m "perf(ui): 메모이제이션으로 불필요한 컴포넌트 리렌더링 방지"
+# 물류 대시보드 프론트엔드 성능
+git commit -m "perf(ui): 물류 차트 이미지 lazy loading으로 초기 로딩 시간 단축"
+git commit -m "perf(ui): 물류 시스템 코드 스플리팅으로 번들 크기 30% 감소"
+git commit -m "perf(ui): 대용량 재고 리스트 가상 스크롤링으로 렌더링 최적화"
+git commit -m "perf(ui): 물류 대시보드 메모이제이션으로 불필요한 리렌더링 방지"
 
-# 빌드 성능
-git commit -m "perf(build): Webpack 설정 최적화로 빌드 시간 40% 단축"
-git commit -m "perf(build): 병렬 빌드 설정으로 개발 서버 시작 속도 개선"
+# 물류 시스템 빌드 성능
+git commit -m "perf(build): 물류 시스템 Webpack 설정 최적화로 빌드 시간 40% 단축"
+git commit -m "perf(build): 물류 시스템 병렬 빌드 설정으로 개발 서버 시작 속도 개선"
+
+# 물류 도메인 특화 성능 개선
+git commit -m "perf(warehouse): 창고 재고 조회 쿼리 최적화로 응답 시간 80% 단축"
+git commit -m "perf(delivery): 배송 경로 계산 알고리즘 개선으로 처리 속도 3배 향상"
+git commit -m "perf(inventory): 재고 이동 이력 조회 페이지네이션 최적화"
+git commit -m "perf(order): 대량 주문 처리 배치 최적화로 처리량 5배 증가"
 ```
 
 #### 🏗️ build: 빌드 관련
 
 ```bash
-# 빌드 시스템
-git commit -m "build: Webpack 5 마이그레이션 및 설정 최적화"
-git commit -m "build: TypeScript 컴파일 옵션 strict 모드 적용"
-git commit -m "build: 소스맵 생성 설정으로 디버깅 환경 개선"
+# 물류 시스템 빌드 시스템
+git commit -m "build: 물류 시스템 Webpack 5 마이그레이션 및 설정 최적화"
+git commit -m "build: 물류 API TypeScript 컴파일 옵션 strict 모드 적용"
+git commit -m "build: 물류 대시보드 소스맵 생성 설정으로 디버깅 환경 개선"
 
-# Docker 관련
-git commit -m "build: 멀티스테이지 Docker 빌드로 이미지 크기 60% 감소"
-git commit -m "build: Docker Compose 개발 환경 설정 최적화"
-git commit -m "build: 프로덕션 Docker 이미지 보안 스캔 설정"
+# 물류 시스템 Docker 관련
+git commit -m "build: 물류 시스템 멀티스테이지 Docker 빌드로 이미지 크기 60% 감소"
+git commit -m "build: 물류 시스템 Docker Compose 개발 환경 설정 최적화"
+git commit -m "build: 물류 시스템 프로덕션 Docker 이미지 보안 스캔 설정"
+git commit -m "build: 창고 관리 시스템 컨테이너 리소스 최적화"
 
-# 배포 관련
-git commit -m "build: 환경별 빌드 설정 분리 (dev, staging, prod)"
-git commit -m "build: 정적 자산 CDN 배포 설정 추가"
-git commit -m "build: 빌드 아티팩트 캐싱 전략 구현"
+# 물류 시스템 배포 관련
+git commit -m "build: 물류 시스템 환경별 빌드 설정 분리 (dev, staging, prod)"
+git commit -m "build: 물류 대시보드 정적 자산 CDN 배포 설정 추가"
+git commit -m "build: 물류 시스템 빌드 아티팩트 캐싱 전략 구현"
+git commit -m "build: 배송 추적 시스템 마이크로서비스 빌드 파이프라인 구축"
 ```
 
 ### 상세한 커밋 메시지 (Body 포함)
 
 ```bash
-git commit -m "feat(auth): OAuth 소셜 로그인 지원
+git commit -m "feat(warehouse): 창고 재고 실시간 추적 시스템 구현
 
-- Google, GitHub, Kakao 소셜 로그인 구현
-- JWT 토큰 기반 인증 시스템 구축
-- 사용자 프로필 정보 자동 동기화
+- RFID/바코드 스캔을 통한 재고 자동 등록
+- 재고 수준 임계값 기반 자동 알림 시스템
+- 창고별 구역별 재고 현황 실시간 모니터링
+- 재고 이동 이력 자동 추적 및 로깅
 
 Closes #123"
 ```
@@ -257,10 +369,10 @@ Closes #123"
 ### Breaking Changes 표시
 
 ```bash
-git commit -m "feat(api)!: 사용자 인증 방식 변경
+git commit -m "feat(warehouse)!: 창고 재고 관리 API 구조 변경
 
-BREAKING CHANGE: JWT 토큰 만료 시간이 1시간에서 30분으로 단축됨
-기존 토큰은 무효화되며 재로그인이 필요합니다."
+BREAKING CHANGE: 재고 조회 API 엔드포인트가 /api/inventory에서 /api/warehouse/inventory로 변경됨
+기존 클라이언트 코드는 새로운 엔드포인트로 업데이트가 필요합니다."
 ```
 
 ## 모범 사례
@@ -268,10 +380,10 @@ BREAKING CHANGE: JWT 토큰 만료 시간이 1시간에서 30분으로 단축됨
 ### ✅ 좋은 예시
 
 ```bash
-git commit -m "feat(ui): 반응형 네비게이션 메뉴 구현"
-git commit -m "fix(auth): 토큰 갱신 로직 오류 수정"
-git commit -m "docs: API 사용법 예시 추가"
-git commit -m "refactor(utils): 날짜 포맷팅 함수 개선"
+git commit -m "feat(warehouse): 창고 재고 실시간 추적 시스템 구현"
+git commit -m "fix(delivery): 배송 경로 계산 알고리즘 오류 수정"
+git commit -m "docs: 물류 API 사용법 예시 추가"
+git commit -m "refactor(inventory): 재고 계산 함수 개선"
 ```
 
 ### ❌ 피해야 할 예시
@@ -283,10 +395,10 @@ git commit -m "업데이트"
 git commit -m "버그 수정"
 
 # 과도한 정보
-git commit -m "feat: 새로운 기능을 추가했고, 버그도 수정하고, 성능도 개선했음"
+git commit -m "feat: 창고 시스템을 개선하고, 배송도 최적화하고, 재고도 자동화했음"
 
 # 영어와 한국어 혼용
-git commit -m "feat: add new feature"
+git commit -m "feat: add warehouse feature"
 ```
 
 ## Jira 연동
@@ -305,28 +417,29 @@ Jira 티켓 번호를 커밋 메시지에 포함하여 이슈 추적과 자동 �
 
 ```bash
 # Jira 티켓 번호 포함
-git commit -m "feat(auth): [PROJ-123] 소셜 로그인 연동"
-git commit -m "fix(ui): [PROJ-456] 모달 스크롤 이슈 해결"
-git commit -m "perf(api): [PROJ-789] 데이터베이스 쿼리 최적화"
+git commit -m "feat(warehouse): [LOG-123] 창고 재고 실시간 추적 시스템 구현"
+git commit -m "fix(delivery): [LOG-456] 배송 경로 계산 알고리즘 오류 수정"
+git commit -m "perf(inventory): [LOG-789] 재고 조회 쿼리 최적화"
 
 # 여러 티켓 연관
-git commit -m "feat(ui): [PROJ-123, PROJ-124] 사용자 대시보드 구현"
+git commit -m "feat(ui): [LOG-123, LOG-124] 물류 대시보드 및 모니터링 화면 구현"
 
 # 티켓 해결 표시
-git commit -m "fix(auth): [PROJ-234] JWT 토큰 만료 처리"
-git commit -m "feat(api): [PROJ-345] 파일 업로드 API 구현"
+git commit -m "fix(order): [LOG-234] 주문 처리 로직 오류 수정"
+git commit -m "feat(api): [LOG-345] 배송 추적 API 구현"
 ```
 
 #### 상세한 커밋 메시지 (Jira 포함)
 
 ```bash
-git commit -m "feat(auth): [PROJ-123] OAuth 소셜 로그인 지원
+git commit -m "feat(warehouse): [LOG-123] 창고 재고 실시간 추적 시스템 구현
 
-- Google, GitHub, Kakao 소셜 로그인 구현
-- JWT 토큰 기반 인증 시스템 구축
-- 사용자 프로필 정보 자동 동기화
+- RFID/바코드 스캔을 통한 재고 자동 등록
+- 재고 수준 임계값 기반 자동 알림 시스템
+- 창고별 구역별 재고 현황 실시간 모니터링
+- 재고 이동 이력 자동 추적 및 로깅
 
-Resolves: PROJ-123"
+Resolves: LOG-123"
 ```
 
 #### GitHub 이슈 자동 닫기
