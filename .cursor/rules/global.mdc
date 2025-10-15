@@ -72,7 +72,6 @@ alwaysApply: true
 ## 문서화
 - README.md 파일은 각 패키지/앱별로 상세히 작성
 - 코드 주석은 한글로 작성하되, API 문서는 영어도 병행
-- 변경사항은 CHANGELOG.md에 기록
 
 ## 접근성 (A11y)
 - WCAG 2.1 AA 수준 준수
