@@ -345,11 +345,11 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
-    href: '/example/[lang]',
+    href: '/example/[...slug]',
     linkTypes: '/example/${string}',
     isParallelRoute: false,
     isDynamicRoute: true,
-    files: ['src/app/example/[lang]/page.tsx'],
+    files: ['src/app/example/[...slug]/page.tsx', 'src/app/example/[lang]/page.tsx'],
     structures: [
       {
         path: 'src/app/layout.tsx',
@@ -357,6 +357,10 @@ export const appPathRoutes: AppPathRoutes[] = [
           {
             path: 'src/app/example/layout.tsx',
             children: [
+              {
+                path: 'src/app/example/[...slug]/page.tsx',
+                children: [],
+              },
               {
                 path: 'src/app/example/[lang]/layout.tsx',
                 children: [
