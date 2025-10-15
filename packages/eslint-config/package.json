@@ -14,7 +14,7 @@
     "@next/eslint-plugin-next": "catalog:",
     "eslint": "catalog:",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-boundaries": "^5.0.2",
+    "eslint-plugin-boundaries": "^5.1.0",
     "eslint-plugin-only-warn": "^1.1.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^6.1.1",
