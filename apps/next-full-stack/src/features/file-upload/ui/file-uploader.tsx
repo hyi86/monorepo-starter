@@ -63,7 +63,7 @@ export function FileUploader() {
       </div>
       {/* upload info */}
       {uploader.status !== 'ready' && (
-        <div className="flex items-center gap-3 whitespace-nowrap text-sm">
+        <div className="flex items-center gap-3 text-sm whitespace-nowrap">
           <Progress value={uploader.overallPercent} />
           <span>{round(uploader.totalUploaded / 1024 / 1024, 2)} MB</span>
           <span> / </span>

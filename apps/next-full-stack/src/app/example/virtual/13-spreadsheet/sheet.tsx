@@ -225,7 +225,7 @@ export function Sheet({ rows: initialRows, columns }: { rows: Data[]; columns: C
                   style={getColumnHeaderItemStyle(defaultColumnHeight, virtualColumn.size, virtualColumn.start)}
                   onClick={handleClickHeaderCell(virtualColumn.index)}
                   className={cn(
-                    'text-muted-foreground bg-muted border-accent-foreground/15 select-none border border-l-0 p-2 text-sm',
+                    'text-muted-foreground bg-muted border-accent-foreground/15 border border-l-0 p-2 text-sm select-none',
                     selectionMode === 'column' && selectedColumn === virtualColumn.index && 'bg-blue-200',
                     scrollTop > 0 && 'shadow',
                   )}
@@ -266,7 +266,7 @@ export function Sheet({ rows: initialRows, columns }: { rows: Data[]; columns: C
                       onClick={handleCellClick(virtualRow.index, virtualColumn.index)}
                       onDoubleClick={handleCellDoubleClick(virtualRow.index, virtualColumn.index)}
                       className={cn(
-                        'relative select-none border-b border-r p-2 text-sm',
+                        'relative border-r border-b p-2 text-sm select-none',
                         selectedCells.has(`${virtualRow.index}-${virtualColumn.index}`) &&
                           'bg-blue-100 ring-1 ring-blue-300',
                         isEditing && 'bg-white ring-2 ring-blue-500',
@@ -314,7 +314,7 @@ export function Sheet({ rows: initialRows, columns }: { rows: Data[]; columns: C
       {/* 리사이징 중 오버레이 */}
       {isResizing && (
         <div className="pointer-events-none fixed inset-0 z-50">
-          <div className="absolute left-0 right-0 top-0 h-1 bg-blue-500 opacity-50" />
+          <div className="absolute top-0 right-0 left-0 h-1 bg-blue-500 opacity-50" />
         </div>
       )}
     </div>

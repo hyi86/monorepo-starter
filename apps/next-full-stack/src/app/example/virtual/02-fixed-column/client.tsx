@@ -61,7 +61,7 @@ export default function FixedColumnPage({ columns }: { columns: number[] }) {
           {columnVirtualizer.getVirtualItems().map((virtualColumn) => (
             <div
               key={virtualColumn.index}
-              className="absolute left-0 top-0 flex h-full items-center justify-center border-r"
+              className="absolute top-0 left-0 flex h-full items-center justify-center border-r"
               style={{
                 width: `${virtualColumn.size}px`,
                 transform: `translateX(${virtualColumn.start}px)`,

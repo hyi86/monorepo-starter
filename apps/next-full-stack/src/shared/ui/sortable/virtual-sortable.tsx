@@ -80,7 +80,7 @@ export function VirtualSortable({
               return (
                 <div
                   key={virtualRow.index}
-                  className="absolute left-0 top-0 w-full"
+                  className="absolute top-0 left-0 w-full"
                   style={{
                     height: `${virtualRow.size}px`,
                     transform: `translateY(${virtualRow.start}px)`,

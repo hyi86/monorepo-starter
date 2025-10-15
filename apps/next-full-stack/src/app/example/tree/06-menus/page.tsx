@@ -64,14 +64,14 @@ export default function TreeFull() {
         <ContextMenu>
           <ContextMenuTrigger>
             <Tree
-              className="before:ms-4.5 relative before:absolute before:inset-0 before:bg-[repeating-linear-gradient(to_right,transparent_0,transparent_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)))]"
+              className="relative before:absolute before:inset-0 before:ms-4.5 before:bg-[repeating-linear-gradient(to_right,transparent_0,transparent_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)))]"
               indent={tree.getConfig().indent}
               tree={tree}
             >
               <AssistiveTreeDescription tree={tree} />
               {tree.getItems().map((item) => {
                 return (
-                  <div key={item.getId()} className="not-last:pb-0.5 flex items-center gap-1.5">
+                  <div key={item.getId()} className="flex items-center gap-1.5 not-last:pb-0.5">
                     <Checkbox
                       checked={
                         item.getCheckedState() === 'indeterminate'
@@ -83,9 +83,9 @@ export default function TreeFull() {
                         checkboxProps.onChange?.({ target: { checked } });
                       }}
                     />
-                    <TreeItem item={item} className="not-last:pb-0 relative flex-1">
+                    <TreeItem item={item} className="relative flex-1 not-last:pb-0">
                       <TreeItemLabel
-                        className="before:bg-background relative before:absolute before:-inset-y-0.5 before:inset-x-0 before:-z-10"
+                        className="before:bg-background relative before:absolute before:inset-x-0 before:-inset-y-0.5 before:-z-10"
                         onDoubleClick={() => {
                           item.startRenaming();
                         }}

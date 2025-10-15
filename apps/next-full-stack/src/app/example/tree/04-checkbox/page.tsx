@@ -66,13 +66,13 @@ export default function Component() {
     <div className="flex h-full flex-col gap-2 *:first:grow">
       <div>
         <Tree
-          className="before:ms-4.5 relative before:absolute before:inset-0 before:bg-[repeating-linear-gradient(to_right,transparent_0,transparent_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)))]"
+          className="relative before:absolute before:inset-0 before:ms-4.5 before:bg-[repeating-linear-gradient(to_right,transparent_0,transparent_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)))]"
           indent={indent}
           tree={tree}
         >
           {tree.getItems().map((item) => {
             return (
-              <div key={item.getId()} className="not-last:pb-0.5 flex items-center gap-1.5">
+              <div key={item.getId()} className="flex items-center gap-1.5 not-last:pb-0.5">
                 <Checkbox
                   checked={
                     {
@@ -86,8 +86,8 @@ export default function Component() {
                     checkboxProps.onChange?.({ target: { checked } });
                   }}
                 />
-                <TreeItem item={item} className="not-last:pb-0 flex-1">
-                  <TreeItemLabel className="before:bg-background relative before:absolute before:-inset-y-0.5 before:inset-x-0 before:-z-10">
+                <TreeItem item={item} className="flex-1 not-last:pb-0">
+                  <TreeItemLabel className="before:bg-background relative before:absolute before:inset-x-0 before:-inset-y-0.5 before:-z-10">
                     <span className="flex items-center gap-2">
                       {item.isFolder() ? (
                         item.isExpanded() ? (

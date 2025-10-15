@@ -13,7 +13,7 @@ export function DashboardSidebarSearchInput() {
       }}
     >
       <Input className="bg-background disabled:opacity-100" placeholder="Search documentation..." readOnly disabled />
-      <CommandShortcut className="bg-muted absolute right-2 top-1/2 -translate-y-1/2 rounded border px-1 text-xs">
+      <CommandShortcut className="bg-muted absolute top-1/2 right-2 -translate-y-1/2 rounded border px-1 text-xs">
         ⌘K
       </CommandShortcut>
     </div>

@@ -340,7 +340,7 @@ export default function TreeFull() {
   };
 
   return (
-    <div className="max-w-140 flex h-full w-full flex-col gap-4 p-4">
+    <div className="flex h-full w-full max-w-140 flex-col gap-4 p-4">
       {/* 검색 및 컨트롤 섹션 */}
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
@@ -393,14 +393,14 @@ export default function TreeFull() {
       {/* 트리 섹션 */}
       <div className="flex-1 overflow-auto p-2">
         <Tree
-          className="before:ms-4.5 relative before:absolute before:inset-0 before:bg-[repeating-linear-gradient(to_right,transparent_0,transparent_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)))]"
+          className="relative before:absolute before:inset-0 before:ms-4.5 before:bg-[repeating-linear-gradient(to_right,transparent_0,transparent_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)))]"
           indent={indent}
           tree={tree}
         >
           <AssistiveTreeDescription tree={tree} />
           {tree.getItems().map((item) => {
             return (
-              <div key={item.getId()} className="not-last:pb-0.5 flex items-center gap-1.5">
+              <div key={item.getId()} className="flex items-center gap-1.5 not-last:pb-0.5">
                 <Checkbox
                   checked={
                     item.getCheckedState() === 'indeterminate' ? 'indeterminate' : item.getCheckedState() === 'checked'
@@ -410,9 +410,9 @@ export default function TreeFull() {
                     checkboxProps.onChange?.({ target: { checked } });
                   }}
                 />
-                <TreeItem item={item} className="not-last:pb-0 relative flex-1">
+                <TreeItem item={item} className="relative flex-1 not-last:pb-0">
                   <TreeItemLabel
-                    className="before:bg-background relative before:absolute before:-inset-y-0.5 before:inset-x-0 before:-z-10"
+                    className="before:bg-background relative before:absolute before:inset-x-0 before:-inset-y-0.5 before:-z-10"
                     onDoubleClick={() => {
                       item.startRenaming();
                     }}
@@ -436,7 +436,7 @@ export default function TreeFull() {
                   </TreeItemLabel>
                   <ExternalLinkIcon
                     className={cn(
-                      'text-muted-foreground absolute right-1 top-1.5 size-4 cursor-pointer',
+                      'text-muted-foreground absolute top-1.5 right-1 size-4 cursor-pointer',
                       !item.getItemData().url && 'opacity-20',
                     )}
                     onClick={(e) => {

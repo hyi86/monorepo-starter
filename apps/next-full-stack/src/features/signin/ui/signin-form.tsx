@@ -27,7 +27,7 @@ export function SigninForm({ callbackUrl }: { callbackUrl: string }) {
   };
 
   return (
-    <div className="flex min-w-96 max-w-md flex-col gap-6">
+    <div className="flex max-w-md min-w-96 flex-col gap-6">
       <Card>
         <CardHeader>
           <CardTitle>Login to your account</CardTitle>

@@ -18,7 +18,7 @@ export function WysiwygToolbar({ editor }: { editor: Editor }) {
   if (!editor) return null;
 
   return (
-    <div className="bg-background top-15 sticky z-10 flex flex-wrap items-center justify-start gap-x-0.5 gap-y-2 border p-2">
+    <div className="bg-background sticky top-15 z-10 flex flex-wrap items-center justify-start gap-x-0.5 gap-y-2 border p-2">
       <DocumentBlock editor={editor} />
       <Separator className="mx-1 data-[orientation=vertical]:h-6" orientation="vertical" />
       <UndoRedoBlock editor={editor} />

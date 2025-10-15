@@ -93,7 +93,7 @@ export default function FormDatePickerPage() {
                       className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
                     />
                     <div className="grid gap-1.5 font-normal">
-                      <p className="text-sm font-medium leading-none">Enable notifications</p>
+                      <p className="text-sm leading-none font-medium">Enable notifications</p>
                       <p className="text-muted-foreground text-sm">
                         You can enable or disable notifications at any time.
                       </p>
@@ -123,7 +123,7 @@ export default function FormDatePickerPage() {
                       className="data-[state=checked]:border-green-600 data-[state=checked]:bg-green-600 data-[state=checked]:text-white dark:data-[state=checked]:border-green-700 dark:data-[state=checked]:bg-green-700"
                     />
                     <div className="grid gap-1.5 font-normal">
-                      <p className="text-sm font-medium leading-none">알림 활성화</p>
+                      <p className="text-sm leading-none font-medium">알림 활성화</p>
                       <p className="text-muted-foreground text-sm">
                         You can enable or disable notifications at any time.
                       </p>
@@ -146,7 +146,7 @@ export default function FormDatePickerPage() {
                 <FormControl>
                   <RadioGroup className="gap-2" defaultValue={field.value} onValueChange={field.onChange}>
                     {/* Radio card #1 */}
-                    <div className="border-input has-data-[state=checked]:border-primary/50 shadow-xs relative flex w-full items-start gap-2 rounded-md border p-4 outline-none">
+                    <div className="border-input has-data-[state=checked]:border-primary/50 relative flex w-full items-start gap-2 rounded-md border p-4 shadow-xs outline-none">
                       <RadioGroupItem
                         value="r1"
                         id={`radio-1`}
@@ -158,7 +158,7 @@ export default function FormDatePickerPage() {
                         <div className="grid grow gap-2">
                           <Label htmlFor={`radio-1`}>
                             Label{' '}
-                            <span className="text-muted-foreground text-xs font-normal leading-[inherit]">
+                            <span className="text-muted-foreground text-xs leading-[inherit] font-normal">
                               (Sublabel)
                             </span>
                           </Label>
@@ -169,7 +169,7 @@ export default function FormDatePickerPage() {
                       </div>
                     </div>
 
-                    <div className="border-input has-data-[state=checked]:border-primary/50 shadow-xs relative flex items-center gap-2 rounded-md border p-4 outline-none">
+                    <div className="border-input has-data-[state=checked]:border-primary/50 relative flex items-center gap-2 rounded-md border p-4 shadow-xs outline-none">
                       <RadioGroupItem
                         value="r2"
                         id={`radio-2`}
@@ -181,7 +181,7 @@ export default function FormDatePickerPage() {
                         <div className="grid grow gap-2">
                           <Label htmlFor={`radio-2`}>
                             Label{' '}
-                            <span className="text-muted-foreground text-xs font-normal leading-[inherit]">
+                            <span className="text-muted-foreground text-xs leading-[inherit] font-normal">
                               (Sublabel)
                             </span>
                           </Label>
@@ -191,7 +191,7 @@ export default function FormDatePickerPage() {
                         </div>
                       </div>
                     </div>
-                    <div className="border-input has-data-[state=checked]:border-primary/50 shadow-xs relative flex items-center gap-2 rounded-md border p-4 outline-none">
+                    <div className="border-input has-data-[state=checked]:border-primary/50 relative flex items-center gap-2 rounded-md border p-4 shadow-xs outline-none">
                       <RadioGroupItem
                         value="r3"
                         id={`radio-2`}
@@ -203,7 +203,7 @@ export default function FormDatePickerPage() {
                         <div className="grid grow gap-2">
                           <Label htmlFor={`radio-2`}>
                             Label{' '}
-                            <span className="text-muted-foreground text-xs font-normal leading-[inherit]">
+                            <span className="text-muted-foreground text-xs leading-[inherit] font-normal">
                               (Sublabel)
                             </span>
                           </Label>
@@ -226,10 +226,10 @@ export default function FormDatePickerPage() {
             control={form.control}
             name="switchBox1"
             render={({ field }) => (
-              <FormItem className="max-w-100 in-[.dark]:[--primary:var(--color-indigo-500)] in-[.dark]:[--ring:var(--color-indigo-900)] [--primary:var(--color-indigo-500)] [--ring:var(--color-indigo-300)]">
+              <FormItem className="max-w-100 [--primary:var(--color-indigo-500)] [--ring:var(--color-indigo-300)] in-[.dark]:[--primary:var(--color-indigo-500)] in-[.dark]:[--ring:var(--color-indigo-900)]">
                 <FormLabel>Switch Box 1</FormLabel>
                 <FormControl>
-                  <div className="border-input has-data-[state=checked]:border-primary/50 shadow-xs relative flex w-full items-start gap-2 rounded-md border p-4 outline-none">
+                  <div className="border-input has-data-[state=checked]:border-primary/50 relative flex w-full items-start gap-2 rounded-md border p-4 shadow-xs outline-none">
                     <Switch
                       id={field.name}
                       className="order-1 after:absolute after:inset-0"
@@ -240,7 +240,7 @@ export default function FormDatePickerPage() {
                       <div className="grid grow gap-2">
                         <Label htmlFor={field.name}>
                           Label{' '}
-                          <span className="text-muted-foreground text-xs font-normal leading-[inherit]">
+                          <span className="text-muted-foreground text-xs leading-[inherit] font-normal">
                             (Sublabel)
                           </span>
                         </Label>

@@ -99,7 +99,7 @@ export default function Component() {
   });
 
   return (
-    <div className="size-120 flex flex-col gap-2">
+    <div className="flex size-120 flex-col gap-2">
       {/* Drop area */}
       <div
         onDragEnter={handleDragEnter}
@@ -108,7 +108,7 @@ export default function Component() {
         onDrop={handleDrop}
         data-dragging={isDragging || undefined}
         data-files={files.length > 0 || undefined}
-        className="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 not-data-[files]:justify-center flex min-h-56 flex-col items-center rounded-xl border border-dashed p-4 transition-colors has-[input:focus]:ring-[3px] data-[files]:hidden"
+        className="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 flex min-h-56 flex-col items-center rounded-xl border border-dashed p-4 transition-colors not-data-[files]:justify-center has-[input:focus]:ring-[3px] data-[files]:hidden"
       >
         <input {...getInputProps()} className="sr-only" aria-label="Upload files" />
         <div className="flex flex-col items-center justify-center text-center">
@@ -167,7 +167,7 @@ export default function Component() {
                       {file.file.type.split('/')[1]?.toUpperCase() || 'UNKNOWN'}
                     </TableCell>
                     <TableCell className="text-muted-foreground py-2">{formatBytes(file.file.size)}</TableCell>
-                    <TableCell className="whitespace-nowrap py-2 text-right">
+                    <TableCell className="py-2 text-right whitespace-nowrap">
                       <Button
                         size="icon"
                         variant="ghost"

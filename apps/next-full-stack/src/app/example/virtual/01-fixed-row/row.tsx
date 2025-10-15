@@ -78,7 +78,7 @@ export default function FixedRowPage({ rows }: { rows: Row[] }) {
             return (
               <div
                 key={virtualRow.key}
-                className="absolute left-0 top-0 w-full border-b px-2"
+                className="absolute top-0 left-0 w-full border-b px-2"
                 style={{
                   height: virtualRow.size,
                   transform: `translateY(${virtualRow.start}px)`,

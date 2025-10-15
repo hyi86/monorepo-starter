@@ -410,7 +410,7 @@ function UserPermissionDialog({ isOpen, onClose, user }: { isOpen: boolean; onCl
               <Label className="text-base font-medium">할당된 권한</Label>
               <span className="text-muted-foreground text-sm">{assignedPermissions.length}개</span>
             </div>
-            <div className="max-h-100 h-full overflow-y-auto rounded-md border p-3">
+            <div className="h-full max-h-100 overflow-y-auto rounded-md border p-3">
               {assignedPermissions.map((permissionId) => {
                 const permission = allPermissions.find((p) => p.id === permissionId);
                 if (!permission) return null;
@@ -697,7 +697,7 @@ export default function UserManagementPage() {
       {/* 검색 및 필터 */}
       <div className="flex items-center gap-4">
         <div className="relative max-w-sm flex-1">
-          <Search className="text-muted-foreground absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" />
+          <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
           <Input
             placeholder="사용자명으로 검색..."
             value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}

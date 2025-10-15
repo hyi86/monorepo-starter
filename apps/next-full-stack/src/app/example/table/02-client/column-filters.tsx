@@ -194,32 +194,32 @@ export default function TableFilters({ table }: { table: Table<Data> }) {
                       <FormLabel>성별</FormLabel>
                       <FormControl>
                         <RadioGroup className="grid-cols-3" defaultValue={field.value} onValueChange={field.onChange}>
-                          <div className="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 shadow-xs has-focus-visible:ring-[3px] relative flex cursor-pointer flex-col items-center gap-3 rounded-md border px-2 py-3 text-center outline-none transition-[color,box-shadow]">
+                          <div className="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex cursor-pointer flex-col items-center gap-3 rounded-md border px-2 py-3 text-center shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px]">
                             <RadioGroupItem id="gender-male" value="male" className="sr-only" />
                             <Mars className="opacity-60" size={20} aria-hidden="true" />
                             <label
                               htmlFor="gender-male"
-                              className="text-foreground cursor-pointer text-xs font-medium leading-none after:absolute after:inset-0"
+                              className="text-foreground cursor-pointer text-xs leading-none font-medium after:absolute after:inset-0"
                             >
                               남자
                             </label>
                           </div>
-                          <div className="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 shadow-xs has-focus-visible:ring-[3px] relative flex cursor-pointer flex-col items-center gap-3 rounded-md border px-2 py-3 text-center outline-none transition-[color,box-shadow]">
+                          <div className="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex cursor-pointer flex-col items-center gap-3 rounded-md border px-2 py-3 text-center shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px]">
                             <RadioGroupItem id="gender-female" value="female" className="sr-only" />
                             <Venus className="opacity-60" size={20} aria-hidden="true" />
                             <label
                               htmlFor="gender-female"
-                              className="text-foreground cursor-pointer text-xs font-medium leading-none after:absolute after:inset-0"
+                              className="text-foreground cursor-pointer text-xs leading-none font-medium after:absolute after:inset-0"
                             >
                               여자
                             </label>
                           </div>
-                          <div className="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 shadow-xs has-focus-visible:ring-[3px] relative flex cursor-pointer flex-col items-center gap-3 rounded-md border px-2 py-3 text-center outline-none transition-[color,box-shadow]">
+                          <div className="border-input has-data-[state=checked]:border-primary/50 has-focus-visible:border-ring has-focus-visible:ring-ring/50 relative flex cursor-pointer flex-col items-center gap-3 rounded-md border px-2 py-3 text-center shadow-xs transition-[color,box-shadow] outline-none has-focus-visible:ring-[3px]">
                             <RadioGroupItem id="gender-all" value="all" className="sr-only" />
                             <X className="opacity-60" size={20} aria-hidden="true" />
                             <label
                               htmlFor="gender-all"
-                              className="text-foreground cursor-pointer text-xs font-medium leading-none after:absolute after:inset-0"
+                              className="text-foreground cursor-pointer text-xs leading-none font-medium after:absolute after:inset-0"
                             >
                               전체
                             </label>

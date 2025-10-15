@@ -53,7 +53,7 @@ export default function Component() {
   });
 
   return (
-    <div className="size-130 flex flex-col gap-2">
+    <div className="flex size-130 flex-col gap-2">
       {/* Drop area */}
       <div
         onDragEnter={handleDragEnter}
@@ -62,7 +62,7 @@ export default function Component() {
         onDrop={handleDrop}
         data-dragging={isDragging || undefined}
         data-files={files.length > 0 || undefined}
-        className="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 not-data-[files]:justify-center relative flex min-h-52 flex-col items-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors has-[input:focus]:ring-[3px]"
+        className="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 relative flex min-h-52 flex-col items-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors not-data-[files]:justify-center has-[input:focus]:ring-[3px]"
       >
         <input {...getInputProps()} className="sr-only" aria-label="Upload image file" />
         {files.length > 0 ? (
@@ -82,7 +82,7 @@ export default function Component() {
                   <Button
                     onClick={() => removeFile(file.id)}
                     size="icon"
-                    className="border-background focus-visible:border-background absolute -right-2 -top-2 size-6 rounded-full border-2 shadow-none"
+                    className="border-background focus-visible:border-background absolute -top-2 -right-2 size-6 rounded-full border-2 shadow-none"
                     aria-label="Remove image"
                   >
                     <XIcon className="size-3.5" />

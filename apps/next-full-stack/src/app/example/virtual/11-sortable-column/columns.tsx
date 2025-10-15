@@ -78,7 +78,7 @@ export default function FixedRowPage({ rows: initialRows }: { rows: Data[] }) {
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
       >
-        <div ref={parentRef} className="w-250 h-40 overflow-auto border shadow-lg">
+        <div ref={parentRef} className="h-40 w-250 overflow-auto border shadow-lg">
           <div
             className="relative flex h-full items-center justify-start"
             style={{
@@ -90,7 +90,7 @@ export default function FixedRowPage({ rows: initialRows }: { rows: Data[] }) {
                 return (
                   <div
                     key={virtualRow.index}
-                    className="absolute left-0 top-0 h-full border-b border-r"
+                    className="absolute top-0 left-0 h-full border-r border-b"
                     style={{
                       width: `${virtualRow.size}px`,
                       transform: `translateX(${virtualRow.start}px)`,

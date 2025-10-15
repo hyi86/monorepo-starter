@@ -54,7 +54,7 @@ export default function VirtualDynamicRow({ sentences }: { sentences: string[] }
           turn {enabled ? 'off' : 'on'} virtualizer
         </Button>
       </div>
-      <div ref={parentRef} className="w-140 h-100 overflow-y-auto border shadow-lg contain-strict">
+      <div ref={parentRef} className="h-100 w-140 overflow-y-auto border shadow-lg contain-strict">
         <div
           style={{
             height: virtualizer.getTotalSize(),
@@ -63,7 +63,7 @@ export default function VirtualDynamicRow({ sentences }: { sentences: string[] }
           }}
         >
           <div
-            className="absolute left-0 top-0 w-full"
+            className="absolute top-0 left-0 w-full"
             style={{
               transform: `translateY(${items[0]?.start ?? 0}px)`,
             }}

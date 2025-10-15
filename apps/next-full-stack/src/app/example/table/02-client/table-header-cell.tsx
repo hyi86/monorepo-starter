@@ -213,8 +213,8 @@ export default function TableHeaderCell<TData, TValue>({
           onMouseDown={header.getResizeHandler()}
           onTouchStart={header.getResizeHandler()}
           className={cn(
-            'absolute -right-0.5 top-0 z-10 h-full w-1 cursor-col-resize touch-none select-none bg-gray-300',
-            'group-hover:opacity-200 opacity-0 transition-opacity duration-100',
+            'absolute top-0 -right-0.5 z-10 h-full w-1 cursor-col-resize touch-none bg-gray-300 select-none',
+            'opacity-0 transition-opacity duration-100 group-hover:opacity-200',
             header.column.getIsResizing() && 'h-[70vh] bg-blue-400 opacity-100',
           )}
           style={{

@@ -242,7 +242,7 @@ export default function TableClientBasic({ data: initialData }: { data: Data[] }
                     key={row.id}
                     data-index={virtualRow.index}
                     ref={(node) => rowVirtualizer.measureElement(node)}
-                    className="absolute left-0 top-0 flex w-full items-center justify-center"
+                    className="absolute top-0 left-0 flex w-full items-center justify-center"
                     style={{
                       height: `${virtualRow.size}px`,
                       transform: `translateY(${virtualRow.start}px)`,

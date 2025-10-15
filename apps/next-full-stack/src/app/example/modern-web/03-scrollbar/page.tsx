@@ -3,7 +3,7 @@ import { Badge } from '@monorepo-starter/ui/components/badge';
 export default function ScrollbarDemo() {
   return (
     <div
-      className="ml-4 mt-4 size-80 overflow-auto rounded border shadow"
+      className="mt-4 ml-4 size-80 overflow-auto rounded border shadow"
       style={{
         scrollbarGutter: 'stable both-edges',
         scrollbarColor: '#44d #ccc',

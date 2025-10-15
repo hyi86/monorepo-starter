@@ -23,7 +23,7 @@ export default async function DbPage() {
         <code>Server Component</code> + <code>Server Action</code> Only.
       </p>
 
-      <form action={createRandomUserAction} className="shadow-xs relative mb-4 flex max-w-xs items-center rounded-md">
+      <form action={createRandomUserAction} className="relative mb-4 flex max-w-xs items-center rounded-md shadow-xs">
         <Input
           type="number"
           name="count"

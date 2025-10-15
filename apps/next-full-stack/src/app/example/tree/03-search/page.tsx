@@ -75,7 +75,7 @@ export default function TreeSearch() {
   });
 
   return (
-    <div className="*:nth-2:grow flex h-full flex-col gap-2">
+    <div className="flex h-full flex-col gap-2 *:nth-2:grow">
       <div className="relative">
         <Input
           className="peer ps-9"

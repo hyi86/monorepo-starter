@@ -207,7 +207,7 @@ function TiptapImage({ node, editor, selected, deleteNode, updateAttributes }: N
               onMouseDown={handleResizingPosition('left')}
               onTouchStart={handleTouchStart('left')}
             >
-              <div className="h-18 bg-background z-20 w-1 rounded-xl border opacity-0 transition-all group-hover:opacity-100" />
+              <div className="bg-background z-20 h-18 w-1 rounded-xl border opacity-0 transition-all group-hover:opacity-100" />
             </div>
             <div
               aria-label="Resize right grip"
@@ -216,12 +216,12 @@ function TiptapImage({ node, editor, selected, deleteNode, updateAttributes }: N
               onMouseDown={handleResizingPosition('right')}
               onTouchStart={handleTouchStart('right')}
             >
-              <div className="h-18 bg-background z-20 w-1 rounded-xl border opacity-0 transition-all group-hover:opacity-100" />
+              <div className="bg-background z-20 h-18 w-1 rounded-xl border opacity-0 transition-all group-hover:opacity-100" />
             </div>
 
             <div
               className={cn(
-                'bg-background absolute right-4 top-4 flex items-center gap-1 rounded-md border p-1 opacity-0 transition-opacity',
+                'bg-background absolute top-4 right-4 flex items-center gap-1 rounded-md border p-1 opacity-0 transition-opacity',
                 !resizing && 'group-hover:opacity-100',
                 openedMore && 'opacity-100',
               )}

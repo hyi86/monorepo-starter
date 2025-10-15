@@ -151,19 +151,19 @@ export default function NextServerActionClientWithHookFormPage() {
                     defaultValue={field.value}
                     className="flex flex-col space-y-1"
                   >
-                    <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormItem className="flex items-center space-y-0 space-x-3">
                       <FormControl>
                         <RadioGroupItem value="all" />
                       </FormControl>
                       <FormLabel className="font-normal">All new messages</FormLabel>
                     </FormItem>
-                    <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormItem className="flex items-center space-y-0 space-x-3">
                       <FormControl>
                         <RadioGroupItem value="mentions" />
                       </FormControl>
                       <FormLabel className="font-normal">Direct messages and mentions</FormLabel>
                     </FormItem>
-                    <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormItem className="flex items-center space-y-0 space-x-3">
                       <FormControl>
                         <RadioGroupItem value="none" />
                       </FormControl>

@@ -50,7 +50,7 @@ export default function Floating04Modal() {
       {isOpen && (
         <>
           <FloatingOverlay
-            className="z-10 flex items-center justify-center bg-black/50 bg-opacity-50"
+            className="bg-opacity-50 z-10 flex items-center justify-center bg-black/50"
             onClick={() => setIsOpen(false)}
           />
           <div

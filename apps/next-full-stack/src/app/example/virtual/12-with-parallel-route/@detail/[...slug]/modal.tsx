@@ -45,7 +45,7 @@ export default function DetailModal({ children, className }: { children: React.R
         showCloseButton={false}
       >
         <DialogHeader>
-          <XIcon className="absolute right-4 top-4 size-5 cursor-pointer opacity-85" onClick={handleGoBack} />
+          <XIcon className="absolute top-4 right-4 size-5 cursor-pointer opacity-85" onClick={handleGoBack} />
           <DialogTitle>Detail Modal</DialogTitle>
           <DialogDescription>Detail Modal with Parallel Route</DialogDescription>
         </DialogHeader>

@@ -102,7 +102,7 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
               {Array.from({ length: rowCount }, (_, index) => (
                 <div
                   key={`index-${index}`}
-                  className="border-b border-r bg-gray-50 p-1 text-center text-sm font-medium"
+                  className="border-r border-b bg-gray-50 p-1 text-center text-sm font-medium"
                   style={{
                     width: `${indexColumnWidth}px`,
                     height: `${rows[index]?.height || defaultColumnHeight}px`,
@@ -128,7 +128,7 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
               {columnVirtualizer.getVirtualItems().map((virtualColumn) => (
                 <div
                   key={`header-${virtualColumn.key}`}
-                  className="absolute left-0 top-0 z-0 border-b border-r bg-gray-100 p-1 text-center text-sm font-semibold"
+                  className="absolute top-0 left-0 z-0 border-r border-b bg-gray-100 p-1 text-center text-sm font-semibold"
                   style={{
                     height: `${defaultColumnHeight}px`,
                     width: `${virtualColumn.size}px`,
@@ -158,7 +158,7 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
                   return (
                     <div
                       key={virtualColumn.key}
-                      className={cn('truncate whitespace-nowrap border-b border-r bg-white p-1 text-sm')}
+                      className={cn('truncate border-r border-b bg-white p-1 text-sm whitespace-nowrap')}
                       style={{
                         position: 'absolute',
                         top: 0,

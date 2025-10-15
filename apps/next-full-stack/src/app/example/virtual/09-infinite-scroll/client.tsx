@@ -68,7 +68,7 @@ export default function InfiniteScroll() {
                 return (
                   <div
                     key={virtualRow.index}
-                    className={cn('absolute left-0 top-0 w-full', virtualRow.index % 2 && 'bg-blue-100')}
+                    className={cn('absolute top-0 left-0 w-full', virtualRow.index % 2 && 'bg-blue-100')}
                     style={{
                       height: `${virtualRow.size}px`,
                       transform: `translateY(${virtualRow.start}px)`,

@@ -34,7 +34,7 @@ export function Client() {
       {/* 로딩 상태 표시 */}
       {isPending}
 
-      <div className="max-w-120 flex flex-col gap-2">
+      <div className="flex max-w-120 flex-col gap-2">
         {/* 문자열 입력 필드 */}
         <Input type="text" value={str} onChange={(e) => setParams({ str: e.target.value })} />
 
@@ -51,7 +51,7 @@ export function Client() {
               className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
             />
             <div className="grid gap-1.5 font-normal">
-              <p className="text-sm font-medium leading-none">Enable Checkbox</p>
+              <p className="text-sm leading-none font-medium">Enable Checkbox</p>
               <p className="text-muted-foreground text-sm">You can enable or disable checkbox at any time.</p>
             </div>
           </Label>

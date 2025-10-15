@@ -63,7 +63,7 @@ const GlassEffect: React.FC<GlassEffectProps> = ({ children, className = '', sty
 
 // Dock Component
 const GlassDock: React.FC<{ icons: DockIcon[]; href?: string }> = ({ icons, href }) => (
-  <GlassEffect href={href} className="hover:rounded-4xl rounded-3xl p-3 hover:p-4">
+  <GlassEffect href={href} className="rounded-3xl p-3 hover:rounded-4xl hover:p-4">
     <div className="flex items-center justify-center gap-2 overflow-hidden rounded-3xl p-3 px-0.5 py-0">
       {icons.map((icon, index) => (
         <img
@@ -84,7 +84,7 @@ const GlassDock: React.FC<{ icons: DockIcon[]; href?: string }> = ({ icons, href
 
 // Button Component
 const GlassButton: React.FC<{ children: React.ReactNode; href?: string }> = ({ children, href }) => (
-  <GlassEffect href={href} className="hover:rounded-4xl overflow-hidden rounded-3xl px-10 py-6 hover:px-11 hover:py-7">
+  <GlassEffect href={href} className="overflow-hidden rounded-3xl px-10 py-6 hover:rounded-4xl hover:px-11 hover:py-7">
     <div
       className="transition-all duration-700 hover:scale-95"
       style={{
