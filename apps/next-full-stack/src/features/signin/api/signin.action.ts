@@ -4,7 +4,7 @@ import { generateToken } from '@monorepo-starter/utils/jwt';
 import { cookies } from 'next/headers';
 import parseDuration from 'parse-duration';
 import { z } from 'zod';
-import { env } from '~/shared/config/env';
+import { env } from '~/env';
 
 const signinSchema = z.object({
   loginId: z.email(),

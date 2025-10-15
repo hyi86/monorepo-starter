@@ -8,7 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { promisify } from 'node:util';
 import { gunzip, gzipSync } from 'node:zlib';
-import { env } from '~/shared/config/env';
+import { env } from '~/env';
 import { db } from '~/shared/lib/database/client';
 import { cacheTable } from '~/shared/model/entities';
 

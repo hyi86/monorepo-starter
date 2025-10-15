@@ -89,17 +89,42 @@ const nextConfig: NextConfig = {
   // 서비스 워커 헤더 추가
   headers: async () => {
     return [
+      // 모든 요청에 공통 적용되는 헤더
+      {
+        source: '/(.*)',
+        headers: [
+          // 스니핑은 악성 스크립트 삽입(XSS) 위험이 있으므로 막는 것이 안전
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          // 페이지가 <iframe> 안에 로드되는 것을 완전히 금지
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY',
+          },
+          // 링크를 클릭하거나 리다이렉트할 때 Referer 헤더에 출처(origin)까지만 전송
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+        ],
+      },
+      // 서비스 워커(service-worker.js) 전용 헤더
       {
         source: '/service-worker.js',
         headers: [
+          // 서비스워커 파일을 자바스크립트로 명시적 선언
           {
             key: 'Content-Type',
             value: 'application/javascript; charset=utf-8',
           },
+          // 브라우저나 프록시 캐시에 저장하지 않도록 지시 (서비스워커는 변경 시 즉시 갱신되어야 하므로 캐시 금지 필수)
           {
             key: 'Cache-Control',
             value: 'no-cache, no-store, must-revalidate',
           },
+          // 모든 리소스(default-src)와 스크립트(script-src)는 `동일 출처(‘self’)`에서만 로드 가능
           {
             key: 'Content-Security-Policy',
             value: "default-src 'self'; script-src 'self'",

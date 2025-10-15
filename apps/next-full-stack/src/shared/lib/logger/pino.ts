@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import pino from 'pino';
-import { env } from '~/shared/config/env';
+import { env } from '~/env';
 
 const development = process.env.NODE_ENV !== 'production';
 const rootPath = process.cwd();

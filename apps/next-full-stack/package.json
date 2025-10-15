@@ -106,7 +106,7 @@
   "devDependencies": {
     "@monorepo-starter/eslint-config": "workspace:*",
     "@monorepo-starter/typescript-config": "workspace:*",
-    "@next/bundle-analyzer": "^15.5.5",
+    "@next/bundle-analyzer": "catalog:",
     "@playwright/test": "^1.56.0",
     "@tailwindcss/postcss": "catalog:",
     "@testing-library/dom": "^10.4.1",

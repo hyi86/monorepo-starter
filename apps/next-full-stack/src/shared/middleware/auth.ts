@@ -2,8 +2,8 @@ import { devLog } from '@monorepo-starter/utils/console';
 import { generateToken, verifyToken } from '@monorepo-starter/utils/jwt';
 import { type NextRequest, NextResponse } from 'next/server';
 import parseDuration from 'parse-duration';
+import { env } from '~/env';
 import { isProtectedPath } from '~/shared/config/auth';
-import { env } from '~/shared/config/env';
 
 /**
  * 인증관련 설정 - 접근 제한 페이지

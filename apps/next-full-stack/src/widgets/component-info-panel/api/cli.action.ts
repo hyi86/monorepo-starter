@@ -7,7 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
 import tar from 'tar-stream';
-import { env } from '~/shared/config/env';
+import { env } from '~/env';
 
 /**
  * TODO: ⚠️ development only 로 변경

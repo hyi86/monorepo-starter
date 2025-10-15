@@ -6,6 +6,9 @@ settings:
 
 catalogs:
   default:
+    '@next/bundle-analyzer':
+      specifier: 15.5.5
+      version: 15.5.5
     '@next/eslint-plugin-next':
       specifier: 15.5.5
       version: 15.5.5
@@ -270,7 +273,7 @@ importers:
         version: 8.3.5(react@19.2.0)
       '@mdx-js/loader':
         specifier: ^3.1.1
-        version: 3.1.1(webpack@5.102.1)
+        version: 3.1.1(webpack@5.102.1(esbuild@0.25.10))
       '@mdx-js/react':
         specifier: ^3.1.1
         version: 3.1.1(@types/react@19.2.2)(react@19.2.0)
@@ -282,7 +285,7 @@ importers:
         version: link:../../packages/utils
       '@next/mdx':
         specifier: 'catalog:'
-        version: 15.5.5(@mdx-js/loader@3.1.1(webpack@5.102.1))(@mdx-js/react@3.1.1(@types/react@19.2.2)(react@19.2.0))
+        version: 15.5.5(@mdx-js/loader@3.1.1(webpack@5.102.1(esbuild@0.25.10)))(@mdx-js/react@3.1.1(@types/react@19.2.2)(react@19.2.0))
       '@shikijs/transformers':
         specifier: ^3.13.0
         version: 3.13.0
@@ -483,7 +486,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/typescript-config
       '@next/bundle-analyzer':
-        specifier: ^15.5.5
+        specifier: 'catalog:'
         version: 15.5.5
       '@playwright/test':
         specifier: ^1.56.0
@@ -8467,12 +8470,12 @@ snapshots:
     dependencies:
       react: 19.2.0
 
-  '@mdx-js/loader@3.1.1(webpack@5.102.1)':
+  '@mdx-js/loader@3.1.1(webpack@5.102.1(esbuild@0.25.10))':
     dependencies:
       '@mdx-js/mdx': 3.1.1
       source-map: 0.7.6
     optionalDependencies:
-      webpack: 5.102.1
+      webpack: 5.102.1(esbuild@0.25.10)
     transitivePeerDependencies:
       - supports-color
 
@@ -8538,11 +8541,11 @@ snapshots:
     dependencies:
       fast-glob: 3.3.1
 
-  '@next/mdx@15.5.5(@mdx-js/loader@3.1.1(webpack@5.102.1))(@mdx-js/react@3.1.1(@types/react@19.2.2)(react@19.2.0))':
+  '@next/mdx@15.5.5(@mdx-js/loader@3.1.1(webpack@5.102.1(esbuild@0.25.10)))(@mdx-js/react@3.1.1(@types/react@19.2.2)(react@19.2.0))':
     dependencies:
       source-map: 0.7.6
     optionalDependencies:
-      '@mdx-js/loader': 3.1.1(webpack@5.102.1)
+      '@mdx-js/loader': 3.1.1(webpack@5.102.1(esbuild@0.25.10))
       '@mdx-js/react': 3.1.1(@types/react@19.2.2)(react@19.2.0)
 
   '@next/swc-darwin-arm64@15.5.5':
@@ -14383,14 +14386,16 @@ snapshots:
       minizlib: 3.1.0
       yallist: 5.0.0
 
-  terser-webpack-plugin@5.3.14(webpack@5.102.1):
+  terser-webpack-plugin@5.3.14(esbuild@0.25.10)(webpack@5.102.1(esbuild@0.25.10)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
       schema-utils: 4.3.3
       serialize-javascript: 6.0.2
       terser: 5.44.0
-      webpack: 5.102.1
+      webpack: 5.102.1(esbuild@0.25.10)
+    optionalDependencies:
+      esbuild: 0.25.10
     optional: true
 
   terser@5.44.0:
@@ -15019,7 +15024,7 @@ snapshots:
 
   webpack-virtual-modules@0.6.2: {}
 
-  webpack@5.102.1:
+  webpack@5.102.1(esbuild@0.25.10):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.8
@@ -15043,7 +15048,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.0
-      terser-webpack-plugin: 5.3.14(webpack@5.102.1)
+      terser-webpack-plugin: 5.3.14(esbuild@0.25.10)(webpack@5.102.1(esbuild@0.25.10))
       watchpack: 2.4.4
       webpack-sources: 3.3.3
     transitivePeerDependencies:

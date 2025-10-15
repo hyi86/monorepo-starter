@@ -7,7 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { promisify } from 'node:util';
 import { gunzip, gzipSync } from 'node:zlib';
-import { env } from '~/shared/config/env';
+import { env } from '~/env';
 
 const asyncGunzip = promisify(gunzip);
 const rootPath = process.cwd();

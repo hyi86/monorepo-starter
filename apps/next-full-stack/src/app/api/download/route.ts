@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 import fs from 'node:fs';
 import path from 'node:path';
-import { env } from '~/shared/config/env';
+import { env } from '~/env';
 
 /**
  * 공통 파일 다운로드 API

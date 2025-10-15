@@ -2,7 +2,7 @@
 
 import { devLog } from '@monorepo-starter/utils/console';
 import webPush from 'web-push';
-import { env } from '~/shared/config/env';
+import { env } from '~/env';
 
 /**
  * 푸시 알림 전송 액션

@@ -40,7 +40,6 @@ pnpm pkg set devDependencies.@types/node="catalog:"
 pnpm pkg set devDependencies.@types/react="catalog:"
 pnpm pkg set devDependencies.@types/react-dom="catalog:"
 pnpm pkg set devDependencies.eslint="catalog:"
-pnpm pkg set devDependencies.eslint-config-next="catalog:"
 pnpm pkg set devDependencies.tailwindcss="catalog:"
 pnpm pkg set devDependencies.typescript="catalog:"
 

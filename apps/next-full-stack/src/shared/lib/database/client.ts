@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { type BetterSQLite3Database, drizzle } from 'drizzle-orm/better-sqlite3';
 import path from 'node:path';
-import { env } from '~/shared/config/env';
+import { env } from '~/env';
 
 const rootPath = process.cwd();
 const dbFilePath = path.join(rootPath, env.DB_FILE_NAME);

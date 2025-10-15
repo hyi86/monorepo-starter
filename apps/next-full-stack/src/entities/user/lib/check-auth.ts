@@ -1,7 +1,7 @@
 import { devLog } from '@monorepo-starter/utils/console';
 import { verifyToken } from '@monorepo-starter/utils/jwt';
 import { cookies } from 'next/headers';
-import { env } from '~/shared/config/env';
+import { env } from '~/env';
 
 /**
  * 서버 컴포넌트에서 인증 확인

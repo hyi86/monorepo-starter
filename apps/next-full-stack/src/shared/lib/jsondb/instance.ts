@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import readline from 'node:readline';
-import { env } from '~/shared/config/env';
+import { env } from '~/env';
 
 export class JsonFileDB<T extends Record<string, any>> {
   public filePath: string;
