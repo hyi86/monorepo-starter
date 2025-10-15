@@ -1,0 +1,17 @@
+{
+  "extends": "@monorepo-starter/typescript-config/react-library.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "outDir": "dist",
+    "baseUrl": ".",
+    "rootDir": "stories",
+    "skipLibCheck": true,
+    "paths": {
+      "~/*": ["./stories/*"],
+      "@monorepo-starter/ui/*": ["../../src/*"],
+    }
+  },
+  "include": ["stories"],
+  "exclude": ["node_modules", "dist"]
+}

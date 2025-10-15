@@ -40,18 +40,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Playwright
-node_modules/
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-
 # etc
 /logs/*.log
 /database/*.db
 /public/upload/*
-!.env.example
 .cache/
 .env*.local
-/users-data.json
+
+*storybook.log
+storybook-static
