@@ -226,7 +226,7 @@ export function EventCalendar({
           <span className="min-sm:hidden" aria-hidden="true">
             {format(currentDate, 'MMM d, yyyy')}
           </span>
-          <span className="min-md:hidden max-sm:hidden" aria-hidden="true">
+          <span className="max-sm:hidden min-md:hidden" aria-hidden="true">
             {format(currentDate, 'MMMM d, yyyy')}
           </span>
           <span className="max-md:hidden">{format(currentDate, 'EEE MMMM d, yyyy')}</span>
@@ -249,7 +249,7 @@ export function EventCalendar({
 
   return (
     <div
-      className="has-data-[slot=month-view]:flex-1 flex flex-col rounded-lg"
+      className="flex flex-col rounded-lg has-data-[slot=month-view]:flex-1"
       style={
         {
           '--event-height': `${EventHeight}px`,
@@ -264,9 +264,9 @@ export function EventCalendar({
             <div className="flex items-center gap-1.5">
               <SidebarTrigger
                 data-state={open ? 'invisible' : 'visible'}
-                className="text-muted-foreground/80 hover:text-foreground/80 hover:bg-transparent! peer size-7 transition-opacity duration-200 ease-in-out sm:-ms-1.5 lg:data-[state=invisible]:pointer-events-none lg:data-[state=invisible]:opacity-0"
+                className="text-muted-foreground/80 hover:text-foreground/80 peer size-7 transition-opacity duration-200 ease-in-out hover:bg-transparent! sm:-ms-1.5 lg:data-[state=invisible]:pointer-events-none lg:data-[state=invisible]:opacity-0"
               />
-              <h2 className="lg:peer-data-[state=invisible]:-translate-x-7.5 text-xl font-semibold transition-transform duration-300 ease-in-out">
+              <h2 className="text-xl font-semibold transition-transform duration-300 ease-in-out lg:peer-data-[state=invisible]:-translate-x-7.5">
                 {viewTitle}
               </h2>
             </div>
@@ -287,14 +287,14 @@ export function EventCalendar({
                   <ChevronRightIcon size={16} aria-hidden="true" />
                 </Button>
               </div>
-              <Button className="max-sm:px-2.5! max-sm:h-8" onClick={handleToday}>
+              <Button className="max-sm:h-8 max-sm:px-2.5!" onClick={handleToday}>
                 Today
               </Button>
             </div>
             <div className="flex items-center justify-between gap-2">
               <Button
                 variant="outline"
-                className="max-sm:px-2.5! max-sm:h-8"
+                className="max-sm:h-8 max-sm:px-2.5!"
                 onClick={() => {
                   setSelectedEvent(null); // Ensure we're creating a new event
                   setIsEventDialogOpen(true);
@@ -304,7 +304,7 @@ export function EventCalendar({
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="max-sm:px-2! gap-1.5 max-sm:h-8 max-sm:gap-1">
+                  <Button variant="outline" className="gap-1.5 max-sm:h-8 max-sm:gap-1 max-sm:px-2!">
                     <span className="capitalize">{view}</span>
                     <ChevronDownIcon className="-me-1 opacity-60" size={16} aria-hidden="true" />
                   </Button>

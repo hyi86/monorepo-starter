@@ -250,7 +250,7 @@ export function DayView({ currentDate, events, onEventSelect, onEventCreate }: D
           {/* Current time indicator */}
           {currentTimeVisible && (
             <div
-              className="pointer-events-none absolute left-0 right-0 z-20"
+              className="pointer-events-none absolute right-0 left-0 z-20"
               style={{ top: `${currentTimePosition}%` }}
             >
               <div className="relative flex items-center">

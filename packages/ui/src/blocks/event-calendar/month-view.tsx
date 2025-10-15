@@ -106,7 +106,7 @@ export function MonthView({ currentDate, events, onEventSelect, onEventCreate }:
               return (
                 <div
                   key={day.toString()}
-                  className="border-border/70 data-outside-cell:bg-muted/25 data-outside-cell:text-muted-foreground/70 group border-b border-r last:border-r-0"
+                  className="border-border/70 data-outside-cell:bg-muted/25 data-outside-cell:text-muted-foreground/70 group border-r border-b last:border-r-0"
                   data-today={isToday(day) || undefined}
                   data-outside-cell={!isCurrentMonth || undefined}
                 >
@@ -180,7 +180,7 @@ export function MonthView({ currentDate, events, onEventSelect, onEventCreate }:
                         <Popover modal>
                           <PopoverTrigger asChild>
                             <button
-                              className="focus-visible:border-ring focus-visible:ring-ring/50 text-muted-foreground hover:text-foreground hover:bg-muted/50 mt-[var(--event-gap)] flex h-[var(--event-height)] w-full select-none items-center overflow-hidden px-1 text-left text-[10px] outline-none backdrop-blur-md transition focus-visible:ring-[3px] sm:px-2 sm:text-xs"
+                              className="focus-visible:border-ring focus-visible:ring-ring/50 text-muted-foreground hover:text-foreground hover:bg-muted/50 mt-[var(--event-gap)] flex h-[var(--event-height)] w-full items-center overflow-hidden px-1 text-left text-[10px] backdrop-blur-md transition outline-none select-none focus-visible:ring-[3px] sm:px-2 sm:text-xs"
                               onClick={(e) => e.stopPropagation()}
                             >
                               <span>

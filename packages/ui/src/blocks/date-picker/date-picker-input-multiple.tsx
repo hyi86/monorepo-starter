@@ -37,7 +37,7 @@ export function DatePickerInputMultiple({
   }, [dates]);
 
   return (
-    <div className="max-w-120 relative inline-flex items-center">
+    <div className="relative inline-flex max-w-120 items-center">
       <Button variant="ghost" className="text-muted-foreground/80 absolute right-8" onClick={() => setDates([])}>
         <XIcon size={16} aria-hidden="true" />
       </Button>
@@ -47,7 +47,7 @@ export function DatePickerInputMultiple({
             id={id}
             variant={'outline'}
             className={cn(
-              'bg-background hover:bg-background border-input group w-full justify-between px-3 font-normal outline-none outline-offset-0 focus-visible:outline-[3px]',
+              'bg-background hover:bg-background border-input group w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]',
               !dates && 'text-muted-foreground',
             )}
           >

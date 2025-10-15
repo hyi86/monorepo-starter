@@ -191,7 +191,7 @@ function StepperIndicator({ asChild = false, className, children, ...props }: St
         children
       ) : (
         <>
-          <span className="group-data-loading/step:scale-0 group-data-loading/step:opacity-0 group-data-loading/step:transition-none transition-all group-data-[state=completed]/step:scale-0 group-data-[state=completed]/step:opacity-0">
+          <span className="transition-all group-data-loading/step:scale-0 group-data-loading/step:opacity-0 group-data-loading/step:transition-none group-data-[state=completed]/step:scale-0 group-data-[state=completed]/step:opacity-0">
             {step}
           </span>
           <CheckIcon
@@ -226,7 +226,7 @@ function StepperSeparator({ className, ...props }: React.HTMLAttributes<HTMLDivE
     <div
       data-slot="stepper-separator"
       className={cn(
-        'bg-muted group-data-[state=completed]/step:bg-primary m-0.5 group-data-[orientation=horizontal]/stepper:h-0.5 group-data-[orientation=vertical]/stepper:h-12 group-data-[orientation=horizontal]/stepper:w-full group-data-[orientation=vertical]/stepper:w-0.5 group-data-[orientation=horizontal]/stepper:flex-1',
+        'bg-muted group-data-[state=completed]/step:bg-primary m-0.5 group-data-[orientation=horizontal]/stepper:h-0.5 group-data-[orientation=horizontal]/stepper:w-full group-data-[orientation=horizontal]/stepper:flex-1 group-data-[orientation=vertical]/stepper:h-12 group-data-[orientation=vertical]/stepper:w-0.5',
         className,
       )}
       {...props}

@@ -42,7 +42,7 @@ export function Calendars({
                         <SidebarMenuButton>
                           <div
                             data-active={index < 2}
-                            className="group/calendar-item border-sidebar-border text-sidebar-primary-foreground data-[active=true]:border-sidebar-primary data-[active=true]:bg-sidebar-primary rounded-xs flex aspect-square size-4 shrink-0 items-center justify-center border"
+                            className="group/calendar-item border-sidebar-border text-sidebar-primary-foreground data-[active=true]:border-sidebar-primary data-[active=true]:bg-sidebar-primary flex aspect-square size-4 shrink-0 items-center justify-center rounded-xs border"
                           >
                             <Check className="hidden size-3 group-data-[active=true]/calendar-item:block" />
                           </div>

@@ -216,7 +216,7 @@ export function EventDialog({ event, isOpen, onClose, onSave, onDelete }: EventD
           </div>
 
           <div className="flex gap-4">
-            <div className="*:not-first:mt-1.5 flex-1">
+            <div className="flex-1 *:not-first:mt-1.5">
               <Label htmlFor="start-date">Start Date</Label>
               <Popover open={startDateOpen} onOpenChange={setStartDateOpen}>
                 <PopoverTrigger asChild>
@@ -224,7 +224,7 @@ export function EventDialog({ event, isOpen, onClose, onSave, onDelete }: EventD
                     id="start-date"
                     variant={'outline'}
                     className={cn(
-                      'bg-background hover:bg-background border-input group w-full justify-between px-3 font-normal outline-none outline-offset-0 focus-visible:outline-[3px]',
+                      'bg-background hover:bg-background border-input group w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]',
                       !startDate && 'text-muted-foreground',
                     )}
                   >
@@ -256,7 +256,7 @@ export function EventDialog({ event, isOpen, onClose, onSave, onDelete }: EventD
             </div>
 
             {!allDay && (
-              <div className="*:not-first:mt-1.5 min-w-28">
+              <div className="min-w-28 *:not-first:mt-1.5">
                 <Label htmlFor="start-time">Start Time</Label>
                 <Select value={startTime} onValueChange={setStartTime}>
                   <SelectTrigger id="start-time">
@@ -275,7 +275,7 @@ export function EventDialog({ event, isOpen, onClose, onSave, onDelete }: EventD
           </div>
 
           <div className="flex gap-4">
-            <div className="*:not-first:mt-1.5 flex-1">
+            <div className="flex-1 *:not-first:mt-1.5">
               <Label htmlFor="end-date">End Date</Label>
               <Popover open={endDateOpen} onOpenChange={setEndDateOpen}>
                 <PopoverTrigger asChild>
@@ -283,7 +283,7 @@ export function EventDialog({ event, isOpen, onClose, onSave, onDelete }: EventD
                     id="end-date"
                     variant={'outline'}
                     className={cn(
-                      'bg-background hover:bg-background border-input group w-full justify-between px-3 font-normal outline-none outline-offset-0 focus-visible:outline-[3px]',
+                      'bg-background hover:bg-background border-input group w-full justify-between px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]',
                       !endDate && 'text-muted-foreground',
                     )}
                   >
@@ -312,7 +312,7 @@ export function EventDialog({ event, isOpen, onClose, onSave, onDelete }: EventD
             </div>
 
             {!allDay && (
-              <div className="*:not-first:mt-1.5 min-w-28">
+              <div className="min-w-28 *:not-first:mt-1.5">
                 <Label htmlFor="end-time">End Time</Label>
                 <Select value={endTime} onValueChange={setEndTime}>
                   <SelectTrigger id="end-time">
@@ -340,7 +340,7 @@ export function EventDialog({ event, isOpen, onClose, onSave, onDelete }: EventD
             <Input id="location" value={location} onChange={(e) => setLocation(e.target.value)} />
           </div>
           <fieldset className="space-y-4">
-            <legend className="text-foreground text-sm font-medium leading-none">Etiquette</legend>
+            <legend className="text-foreground text-sm leading-none font-medium">Etiquette</legend>
             <RadioGroup
               className="flex gap-1.5"
               defaultValue={colorOptions[0]?.value}

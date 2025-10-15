@@ -199,7 +199,7 @@ export function WeekView({ currentDate, events, onEventSelect, onEventCreate }: 
         {days.map((day) => (
           <div
             key={day.toString()}
-            className="data-today:text-foreground text-muted-foreground/70 data-today:font-medium py-2 text-center text-xs"
+            className="data-today:text-foreground text-muted-foreground/70 py-2 text-center text-xs data-today:font-medium"
             data-today={isToday(day) || undefined}
           >
             <span className="sm:hidden" aria-hidden="true">
@@ -315,7 +315,7 @@ export function WeekView({ currentDate, events, onEventSelect, onEventCreate }: 
             {/* Current time indicator - only show for today's column */}
             {currentTimeVisible && isToday(day) && (
               <div
-                className="pointer-events-none absolute left-0 right-0 z-20"
+                className="pointer-events-none absolute right-0 left-0 z-20"
                 style={{ top: `${currentTimePosition}%` }}
               >
                 <div className="relative flex items-center">

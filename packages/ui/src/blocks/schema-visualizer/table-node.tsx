@@ -50,7 +50,7 @@ function TableNode({ data, id }: NodeProps<TableNodeType>) {
       <div className="py-2 text-xs">
         {data.fields.map((field: TableField) => (
           <div key={field.name} className="group relative px-4">
-            <div className="group-not-last:border-b flex items-center justify-between gap-2 border-dashed py-2">
+            <div className="flex items-center justify-between gap-2 border-dashed py-2 group-not-last:border-b">
               <span className="truncate font-medium">{field.name}</span>
               <span className="text-muted-foreground/60">{field.type}</span>
 

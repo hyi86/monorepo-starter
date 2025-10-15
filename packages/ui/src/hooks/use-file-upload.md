@@ -281,7 +281,7 @@ function FileUploader() {
         onDrop={handleDrop}
         data-dragging={isDragging || undefined}
         data-files={files.length > 0 || undefined}
-        className="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 not-data-[files]:justify-center relative flex min-h-52 flex-col items-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors has-[input:focus]:ring-[3px]"
+        className="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 relative flex min-h-52 flex-col items-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors not-data-[files]:justify-center has-[input:focus]:ring-[3px]"
       >
         <input {...getInputProps()} className="sr-only" aria-label="이미지 파일 업로드" />
         {files.length > 0 ? (
@@ -320,7 +320,7 @@ function FileUploader() {
                     className="bg-background flex flex-col gap-1 rounded-lg border p-2 pe-3 transition-opacity duration-300"
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <div className="in-data-[uploading=true]:opacity-50 flex items-center gap-3 overflow-hidden">
+                      <div className="flex items-center gap-3 overflow-hidden in-data-[uploading=true]:opacity-50">
                         <div className="flex aspect-square size-10 shrink-0 items-center justify-center rounded border">
                           {getFileIcon(file)}
                         </div>

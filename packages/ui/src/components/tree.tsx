@@ -76,7 +76,7 @@ function TreeItem<T = any>({ item, className, asChild, children, ...props }: Omi
         data-slot="tree-item"
         style={mergedStyle}
         className={cn(
-          'ps-(--tree-padding) outline-hidden not-last:pb-0.5 z-10 select-none focus:z-20 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+          'z-10 ps-(--tree-padding) outline-hidden select-none not-last:pb-0.5 focus:z-20 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
           className,
         )}
         data-focus={typeof item.isFocused === 'function' ? item.isFocused() || false : undefined}
@@ -117,13 +117,13 @@ function TreeItemLabel<T = any>({
     <span
       data-slot="tree-item-label"
       className={cn(
-        'in-focus-visible:ring-ring/50 bg-background hover:bg-accent in-data-[selected=true]:bg-accent in-data-[selected=true]:text-accent-foreground in-data-[drag-target=true]:bg-accent not-in-data-[folder=true]:ps-7 in-focus-visible:ring-[3px] in-data-[search-match=true]:bg-blue-400/20! flex items-center gap-1 rounded-sm px-2 py-1.5 text-sm transition-colors [&_svg]:pointer-events-none [&_svg]:shrink-0',
+        'in-focus-visible:ring-ring/50 bg-background hover:bg-accent in-data-[selected=true]:bg-accent in-data-[selected=true]:text-accent-foreground in-data-[drag-target=true]:bg-accent flex items-center gap-1 rounded-sm px-2 py-1.5 text-sm transition-colors not-in-data-[folder=true]:ps-7 in-focus-visible:ring-[3px] in-data-[search-match=true]:bg-blue-400/20! [&_svg]:pointer-events-none [&_svg]:shrink-0',
         className,
       )}
       {...props}
     >
       {item.isFolder() && !disableChevron && (
-        <ChevronDownIcon className="text-muted-foreground in-aria-[expanded=false]:-rotate-90 size-4" />
+        <ChevronDownIcon className="text-muted-foreground size-4 in-aria-[expanded=false]:-rotate-90" />
       )}
       {children || (typeof item.getItemName === 'function' ? item.getItemName() : null)}
     </span>

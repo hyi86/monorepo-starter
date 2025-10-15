@@ -93,7 +93,7 @@ export function RangePickerInput({
         />
         {(inputValue[0].length > 0 || inputValue[1].length > 0) && (
           <button
-            className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-8 flex h-full w-8 items-center justify-center outline-none transition-[color,box-shadow] focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+            className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-8 flex h-full w-8 items-center justify-center transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
             aria-label="Clear input"
             onClick={() => {
               setInputValue(['', '']);
@@ -110,7 +110,7 @@ export function RangePickerInput({
             id={id}
             variant={'ghost'}
             className={cn(
-              'border-input group justify-between px-3 font-normal outline-none outline-offset-0 hover:bg-transparent focus-visible:outline-[3px]',
+              'border-input group justify-between px-3 font-normal outline-offset-0 outline-none hover:bg-transparent focus-visible:outline-[3px]',
               'absolute right-0',
               !date && 'text-muted-foreground',
             )}

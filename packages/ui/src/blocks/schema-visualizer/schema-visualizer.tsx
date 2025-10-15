@@ -67,7 +67,7 @@ function SchemaVisualizerInner() {
         >
           <Background variant={BackgroundVariant.Dots} gap={20} size={2} />
 
-          <Panel position="bottom-right" className="shadow-xs inline-flex -space-x-px rounded-md rtl:space-x-reverse">
+          <Panel position="bottom-right" className="inline-flex -space-x-px rounded-md shadow-xs rtl:space-x-reverse">
             <Button
               variant="outline"
               size="icon"

@@ -81,7 +81,7 @@ export function PaginationBlock({
 
   return (
     <div className={`flex items-center justify-between gap-3 max-sm:flex-col ${className}`}>
-      <p className="text-muted-foreground flex-1 space-x-1 whitespace-nowrap text-sm" aria-live="polite">
+      <p className="text-muted-foreground flex-1 space-x-1 text-sm whitespace-nowrap" aria-live="polite">
         <span>Page</span>
         <span className="text-foreground">{currentPage}</span>
         <span>of</span>
@@ -193,7 +193,7 @@ export function PaginationBlock({
             <DropdownMenuTrigger asChild>
               <Button variant="outline">
                 {pageSize}
-                <ChevronDown className="-me-1 ms-2 opacity-60" size={16} strokeWidth={2} aria-hidden="true" />
+                <ChevronDown className="ms-2 -me-1 opacity-60" size={16} strokeWidth={2} aria-hidden="true" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
