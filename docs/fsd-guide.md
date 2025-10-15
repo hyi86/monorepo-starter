@@ -1,4 +1,4 @@
-![](./fsd-arch.jpg)
+![FSD Architecture](./fsd-arch.jpg)
 
 # Custom FSD (Feature-Sliced Design) 가이드
 
