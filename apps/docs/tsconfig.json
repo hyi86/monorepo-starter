@@ -12,6 +12,6 @@
       "@monorepo-starter/ui/*": ["../../src/*"],
     }
   },
-  "include": ["stories"],
+  "include": [".storybook", "stories"],
   "exclude": ["node_modules", "dist"]
 }
