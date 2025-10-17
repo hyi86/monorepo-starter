@@ -1,7 +1,9 @@
 import { Button } from '@monorepo-starter/ui/components/button';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { ActivityIcon, CheckIcon, MinusIcon, PlusIcon, XIcon } from 'lucide-react';
 import { expect, within } from 'storybook/test';
+import { IconCalendar } from './assets/icon-calendar';
+import { IconTimes } from './assets/icon-times';
+import { IconUser } from './assets/icon-user';
 
 const meta = {
   title: 'Components/Buttons',
@@ -81,21 +83,19 @@ export const Icon: Story = {
     },
     children: {
       control: { type: 'select' },
-      options: ['ActivityIcon', 'PlusIcon', 'MinusIcon', 'XIcon', 'CheckIcon'],
+      options: ['Calendar', 'Times', 'User'],
       mapping: {
-        ActivityIcon: <ActivityIcon />,
-        PlusIcon: <PlusIcon />,
-        MinusIcon: <MinusIcon />,
-        XIcon: <XIcon />,
-        CheckIcon: <CheckIcon />,
+        IconCalendar: <IconCalendar />,
+        IconTimes: <IconTimes />,
+        IconUser: <IconUser />,
       },
-      defaultValue: 'ActivityIcon',
+      defaultValue: 'Calendar',
     },
   },
   args: {
     variant: 'default',
     size: 'icon',
     'aria-label': 'Icon Button',
-    children: <ActivityIcon />,
+    children: <IconCalendar />,
   },
 };
