@@ -4,13 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "storybook build --docs",
     "check-types": "tsc --noEmit",
     "lint": "eslint .",
     "dev": "storybook dev -p 6006",
     "preview": "serve storybook-static",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build": "storybook build --docs"
   },
   "dependencies": {
     "@monorepo-starter/ui": "workspace:*",

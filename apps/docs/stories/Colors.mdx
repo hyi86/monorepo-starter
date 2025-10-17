@@ -1,4 +1,5 @@
-import { Meta, ColorPalette, ColorItem, Subtitle } from '@storybook/addon-docs/blocks';
+import { Meta, ColorPalette, ColorItem, Subtitle, Source } from '@storybook/addon-docs/blocks';
+import { colors, extendedColors } from './colors';
 
 <Meta title="Foundation/Colors" />
 
@@ -7,29 +8,27 @@ import { Meta, ColorPalette, ColorItem, Subtitle } from '@storybook/addon-docs/b
 <Subtitle>컬러는 Colosseum 브랜드를 대표하고 제품전반에 걸쳐 일관된 경험을 만드는데 도움이 됩니다.</Subtitle>
 
 <ColorPalette>
-  <ColorItem
-    title="theme.color.greyscale"
-    subtitle="Some of the greys"
-    colors={{ White: '#FFFFFF', Alabaster: '#F8F8F8', Concrete: '#F3F3F3' }}
-  />
-  <ColorItem title="theme.color.primary" subtitle="Coral" colors={{ WildWatermelon: '#FF4785' }} />
-  <ColorItem title="theme.color.secondary" subtitle="Ocean" colors={{ DodgerBlue: '#1EA7FD' }} />
-  <ColorItem
-    title="theme.color.positive"
-    subtitle="Green"
-    colors={{
-      Apple: 'rgba(102,191,60,1)',
-      Apple80: 'rgba(102,191,60,.8)',
-      Apple60: 'rgba(102,191,60,.6)',
-      Apple30: 'rgba(102,191,60,.3)',
-    }}
-  />
-  <ColorItem
-    title="gradient"
-    subtitle="Grayscale"
-    colors={{
-      Gradient: 'linear-gradient(to right,white,black)',
-    }}
-  />
-  <ColorItem title="gradient" subtitle="Grayscale" colors={['linear-gradient(65deg,white,black)']} />
+  <ColorItem title="primary" subtitle="Primary" colors={colors.primary} />
+  <ColorItem title="clblue" subtitle="COLOSSEUM Light blue" colors={colors.clblue} />
+  <ColorItem title="gray" subtitle="Gray" colors={colors.gray} />
+  <ColorItem title="natural" subtitle="Natural" colors={colors.natural} />
+  <ColorItem title="red" subtitle="Red" colors={colors.red} />
+  <ColorItem title="orange" subtitle="Orange" colors={colors.orange} />
+  <ColorItem title="yellow" subtitle="Yellow" colors={colors.yellow} />
+  <ColorItem title="green" subtitle="Green" colors={colors.green} />
+  <ColorItem title="sky" subtitle="Sky" colors={colors.sky} />
+  <ColorItem title="purple" subtitle="Purple" colors={colors.purple} />
+  <ColorItem title="pink" subtitle="Pink" colors={colors.pink} />
 </ColorPalette>
+
+<ColorPalette>
+  <ColorItem title="accent" subtitle="Accent" colors={extendedColors.accent} />
+</ColorPalette>
+
+<Source
+  language="tsx"
+  code={`const thisIsCustomSource = true;
+if (isSyntaxHighlighted) {
+  console.log('syntax highlighting is working');
+}`}
+/>

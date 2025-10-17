@@ -45,6 +45,9 @@ export default meta;
 
 type Story = StoryObj<typeof Input>;
 
+/**
+ * [Story] Default input
+ */
 export const Default: Story = {
   args: {
     type: 'text',

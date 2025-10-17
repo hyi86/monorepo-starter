@@ -39,6 +39,9 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+/**
+ * [Story] Default button
+ */
 export const Default: Story = {
   argTypes: {
     size: {
@@ -75,6 +78,9 @@ export const Default: Story = {
   },
 };
 
+/**
+ * [Story] Icon button
+ */
 export const Icon: Story = {
   argTypes: {
     size: {
