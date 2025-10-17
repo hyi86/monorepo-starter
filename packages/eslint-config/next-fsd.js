@@ -1,6 +1,5 @@
 import boundaries from 'eslint-plugin-boundaries';
 import { config as nextJsConfig } from './next.js';
-import requireUseClient from './rules/require-use-client.js';
 
 /**
  * FSD(Feature-Sliced Design) 아키텍처를 위한 Next.js ESLint 설정
@@ -33,7 +32,6 @@ export const config = [
      */
     plugins: {
       boundaries,
-      local: { rules: { 'require-use-client': requireUseClient } },
     },
 
     /**
@@ -130,12 +128,6 @@ export const config = [
           ],
         },
       ],
-
-      /**
-       * 커스텀 규칙: 'use client' 지시어 체크
-       * React hooks 사용 시 클라이언트 컴포넌트임을 명시하도록 강제
-       */
-      'local/require-use-client': 'error',
     },
   },
 ];
