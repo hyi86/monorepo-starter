@@ -87,7 +87,7 @@
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "^5.0.4",
     "eslint": "catalog:",
-    "jsdom": "^27.0.0",
+    "jsdom": "^27.0.1",
     "postcss": "^8.5.6",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "catalog:",
