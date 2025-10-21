@@ -15,7 +15,6 @@ import {
   SortableContext,
   sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable';
-import { PaginationBlock } from '@monorepo-starter/ui/blocks/pagination';
 import {
   TableBody,
   TableCell,
@@ -49,6 +48,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useEffect, useRef, useState, type ComponentProps } from 'react';
 import TableFilters from './column-filters';
 import { columns, type Data } from './columns';
+import { PaginationBlock } from './pagination-block';
 import { getCellStyle } from './styles';
 import TableHeaderCell from './table-header-cell';
 
@@ -296,12 +296,8 @@ export default function TableClientBasic({ data: initialData }: { data: Data[] }
           ) : null}
         </DragOverlay>
       </DndContext>
-      <PaginationBlock
-        totalPages={table.getPageCount()}
-        currentPage={table.getState().pagination.pageIndex + 1}
-        pageSize={table.getState().pagination.pageSize}
-        table={table}
-      />
+
+      <PaginationBlock table={table} />
     </div>
   );
 }

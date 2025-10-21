@@ -1,15 +1,13 @@
-import { PaginationBlock } from '@monorepo-starter/ui/blocks/pagination';
 import { TableBody, TableCell, TableHeader, TableRow } from '@monorepo-starter/ui/components/table';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { formatDate } from '@monorepo-starter/utils/date';
-import { floor } from '@monorepo-starter/utils/math';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
-import Link from 'next/link';
 import { SearchParams } from 'nuqs/server';
 import { cachedGetUsers } from '~/entities/user/model/user.selector';
 import { FuzzySearch } from './fuzzy-search';
-import { pageSizes, searchParamsCache, serialize } from './search-params';
+import { PaginationBlock } from './pagination-block';
+import { searchParamsCache } from './search-params';
 import { TableFilters } from './server-filters';
 import { SortHeader } from './sort-header';
 
@@ -31,8 +29,6 @@ export default async function TableServerControlsPage({ searchParams }: { search
     birthFrom: birthFrom || undefined,
     search: search || undefined,
   });
-
-  const totalPages = floor(data.totalCount / Number(pageSize));
 
   return (
     <div className="size-full">
@@ -112,16 +108,7 @@ export default async function TableServerControlsPage({ searchParams }: { search
             </TableBody>
           </table>
         </div>
-        <PaginationBlock
-          totalPages={totalPages}
-          currentPage={pageIndex}
-          pageSize={Number(pageSize)}
-          pageSizes={pageSizes.map(Number)}
-          currentUrl={currentUrl}
-          serializeParams={serialize}
-          allParams={searchParamsCache.all()}
-          LinkComponent={Link}
-        />
+        <PaginationBlock totalCount={data.totalCount} pageSize={Number(pageSize)} />
       </div>
     </div>
   );
