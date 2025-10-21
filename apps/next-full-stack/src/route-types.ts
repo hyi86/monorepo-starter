@@ -70,6 +70,60 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
+    href: '/blocks/ag-grid',
+    linkTypes: '/blocks/ag-grid',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/ag-grid/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/ag-grid/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/blocks/ag-grid/01-default',
+    linkTypes: '/blocks/ag-grid/01-default',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/ag-grid/01-default/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/ag-grid/01-default/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    href: '/blocks/ag-grid/02-theme',
+    linkTypes: '/blocks/ag-grid/02-theme',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/ag-grid/02-theme/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/ag-grid/02-theme/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
     href: '/blocks/dashboard',
     linkTypes: '/blocks/dashboard',
     isParallelRoute: false,

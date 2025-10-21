@@ -38,6 +38,7 @@ export const env = createEnv({
     NEXT_PUBLIC_VAPID_PUBLIC_KEY: z.string(),
     NEXT_PUBLIC_VAPID_PRIVATE_KEY: z.string(),
     NEXT_PUBLIC_WEB_PUSH_EMAIL: z.string().default('example@example.com'),
+    NEXT_PUBLIC_AG_GRID_KEY: z.string(),
   },
   // For Next.js >= 13.4.4,
   experimental__runtimeEnv: {
@@ -45,5 +46,6 @@ export const env = createEnv({
     NEXT_PUBLIC_VAPID_PUBLIC_KEY: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
     NEXT_PUBLIC_VAPID_PRIVATE_KEY: process.env.NEXT_PUBLIC_VAPID_PRIVATE_KEY,
     NEXT_PUBLIC_WEB_PUSH_EMAIL: process.env.NEXT_PUBLIC_WEB_PUSH_EMAIL,
+    NEXT_PUBLIC_AG_GRID_KEY: process.env.NEXT_PUBLIC_AG_GRID_KEY,
   },
 });
