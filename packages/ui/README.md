@@ -84,7 +84,6 @@ cd packages/ui
 pnpm dlx shadcn@canary add -a -o -y
 # 직접 수정한 컴포넌트는 복구
 git restore src/components/checkbox.tsx
-git restore src/components/pagination.tsx
 # 코드 포맷팅
 pnpm -w run format "packages/ui/src/**/*.*"
 ```
