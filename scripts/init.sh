@@ -46,6 +46,7 @@ if [ -d "apps/next-full-stack" ]; then
   mkdir -p database drizzle
 
   pnpm db:generate
+  mkdir -p database
   pnpm db:migrate
 
   cd ../..
