@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Calendar } from '@monorepo-starter/ui/components/calendar';
 import { Label } from '@monorepo-starter/ui/components/label';
@@ -17,6 +18,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const BasicCalendar: Story = {
+  storyName: '기본 캘린더',
   parameters: {
     layout: 'centered',
   },
@@ -50,6 +52,7 @@ export const BasicCalendar: Story = {
 };
 
 export const DatepickerDefault: Story = {
+  storyName: '기본 Datepicker',
   parameters: {
     layout: 'centered',
   },
@@ -71,9 +74,7 @@ export const DatepickerDefault: Story = {
           <PopoverContent className="w-auto overflow-hidden p-0" align="start">
             <Calendar
               mode="single"
-              // @ts-ignore
               selected={date}
-              // @ts-ignore
               onSelect={(date) => {
                 setDate(date);
                 setOpen(false);

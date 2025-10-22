@@ -22,10 +22,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/**
- * [Story] Basic AlertDialog
- */
 export const BasicAlertDialog: Story = {
+  storyName: '기본 알림 다이얼로그',
   args: {},
   render: function Render() {
     return (
@@ -51,10 +49,8 @@ export const BasicAlertDialog: Story = {
   },
 };
 
-/**
- * [Story] Full AlertDialog
- */
 export const FullAlertDialog: Story = {
+  storyName: '전체 알림 다이얼로그',
   args: {},
   render: function Render() {
     return (

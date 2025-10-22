@@ -1,9 +1,7 @@
 import { Button } from '@monorepo-starter/ui/components/button';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { CalendarIcon, TimerIcon, UserIcon } from 'lucide-react';
 import { expect, within } from 'storybook/test';
-import { IconCalendar } from './assets/icon-calendar';
-import { IconTimes } from './assets/icon-times';
-import { IconUser } from './assets/icon-user';
 
 const meta = {
   title: 'Components/Button',
@@ -35,7 +33,8 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const DefaultButton: Story = {
+  storyName: '기본 버튼',
   argTypes: {
     size: {
       control: { type: 'inline-radio' },
@@ -71,7 +70,8 @@ export const Default: Story = {
   },
 };
 
-export const Icon: Story = {
+export const IconButton: Story = {
+  storyName: '아이콘 버튼',
   argTypes: {
     size: {
       control: { type: 'inline-radio' },
@@ -81,9 +81,9 @@ export const Icon: Story = {
       control: { type: 'select' },
       options: ['Calendar', 'Times', 'User'],
       mapping: {
-        IconCalendar: <IconCalendar />,
-        IconTimes: <IconTimes />,
-        IconUser: <IconUser />,
+        Calendar: <CalendarIcon />,
+        Times: <TimerIcon />,
+        User: <UserIcon />,
       },
       defaultValue: 'Calendar',
     },
@@ -92,6 +92,6 @@ export const Icon: Story = {
     variant: 'default',
     size: 'icon',
     'aria-label': 'Icon Button',
-    children: <IconCalendar />,
+    children: <CalendarIcon />,
   },
 };

@@ -17,6 +17,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const DefaultBadge: Story = {
+  storyName: '기본 뱃지',
   args: {},
   render: function Render() {
     return (
@@ -46,6 +47,7 @@ export const DefaultBadge: Story = {
 };
 
 export const BadgeWithLink: Story = {
+  storyName: '링크 포함된 뱃지',
   args: {
     variant: 'secondary',
     className: 'bg-blue-500 text-white dark:bg-blue-600',
