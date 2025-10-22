@@ -7,7 +7,6 @@ const meta: Meta<typeof Input> = {
   argTypes: {
     // HTML input props
     type: {
-      description: 'input의 타입',
       control: { type: 'select' },
       options: [
         'text',
@@ -52,5 +51,8 @@ export const Default: Story = {
   args: {
     type: 'text',
     placeholder: 'Input...',
+  },
+  render: function Render(args) {
+    return <Input {...args} />;
   },
 };

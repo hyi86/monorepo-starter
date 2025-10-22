@@ -6,27 +6,23 @@ import { IconTimes } from './assets/icon-times';
 import { IconUser } from './assets/icon-user';
 
 const meta = {
-  title: 'Components/Buttons',
+  title: 'Components/Button',
   component: Button,
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      description: 'button의 형태',
       control: { type: 'inline-radio' },
       options: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
     },
     size: {
-      description: 'button의 크기',
       control: { type: 'inline-radio' },
       options: ['default', 'sm', 'lg', 'icon', 'icon-sm', 'icon-lg'],
       defaultValue: 'default',
     },
     disabled: {
-      description: 'button을 비활성화',
       control: { type: 'boolean' },
     },
     asChild: {
-      description: 'button을 자식 요소로 사용',
       control: { type: 'boolean' },
     },
   },
@@ -39,9 +35,6 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-/**
- * [Story] Default button
- */
 export const Default: Story = {
   argTypes: {
     size: {
@@ -78,9 +71,6 @@ export const Default: Story = {
   },
 };
 
-/**
- * [Story] Icon button
- */
 export const Icon: Story = {
   argTypes: {
     size: {

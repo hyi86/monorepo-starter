@@ -9,7 +9,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 const meta = {
   title: 'Components/Accordion',
   component: Accordion,
-  tags: ['autodocs'],
+  // tags: ['autodocs'],
+  tags: [],
   argTypes: {
     type: {
       description: 'accordion의 타입(single, multiple)',
@@ -31,6 +32,9 @@ type Story = StoryObj<typeof meta>;
  * 기본 아코디언 컴포넌트
  */
 export const BasicAccordion: Story = {
+  parameters: {
+    layout: 'centered',
+  },
   args: {
     type: 'single' as 'single' | 'multiple',
     collapsible: true as boolean,
@@ -90,6 +94,9 @@ export const BasicAccordion: Story = {
  * [Story] Data Loaded Accordion
  */
 export const DataLoadedAccordion: Story = {
+  parameters: {
+    layout: 'centered',
+  },
   args: {
     type: 'single' as 'single' | 'multiple',
     collapsible: true as boolean,
