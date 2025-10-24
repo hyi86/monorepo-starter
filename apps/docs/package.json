@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@monorepo-starter/ui": "workspace:*",
+    "date-fns": "^4.1.0",
     "lucide-react": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
@@ -38,6 +39,7 @@
     "eslint-plugin-storybook": "^9.1.13",
     "playwright": "^1.56.1",
     "postcss": "^8.5.6",
+    "react-day-picker": "^9.11.1",
     "remark-gfm": "^4.0.1",
     "serve": "^14.2.5",
     "storybook": "^9.1.13",
