@@ -28,7 +28,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const BasicAccordion: Story = {
-  storyName: '기본 아코디언',
+  name: '기본 아코디언',
   parameters: {
     layout: 'centered',
     controls: {
@@ -92,7 +92,7 @@ export const BasicAccordion: Story = {
 };
 
 export const DataLoadedAccordion: Story = {
-  storyName: '데이터 로딩 아코디언',
+  name: '데이터 로딩 아코디언',
   parameters: {
     layout: 'centered',
   },

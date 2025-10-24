@@ -1,4 +1,8 @@
-![FSD Architecture](./fsd-arch.jpg)
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/FSD Guide" />
+
+![FSD Architecture](/fsd-arch.jpg)
 
 # Custom FSD (Feature-Sliced Design) 가이드
 
@@ -10,14 +14,16 @@
 FSD는 **Feature-Sliced Design**의 줄임말로, 대규모 프론트엔드 프로젝트를 체계적으로 구성하는 아키텍처 방법론입니다.
 
 ### 🎯 FSD의 핵심 원칙
+
 1. **단방향 의존성**: 상위 계층(app → pages → widgets → features → entities → shared)에서 하위로만 의존하도록 설계
 2. **기능별 분리**: 각 기능은 독립적으로 관리
 3. **재사용성**: 공통 요소는 `shared`에서 관리
 4. **확장성**: 새로운 기능 추가가 용이
 
-<br/>
+<br />
 
 ## 📚 레이어 (Layers)
+
 레이어는 프로젝트를 구성하는 가장 큰 단위로, 프로젝트의 구조를 결정합니다.  
 구조는 고정이며, 수정이 불가능합니다.
 
@@ -136,32 +142,34 @@ app/
 
 ### 🔄 레이어 의존성 규칙
 
-| Layers        | shared | entities | features | widgets | app  |
-|---------------|:------:|:--------:|:--------:|:-------:|:----:|
-| **shared**    | ✅     | ❌       | ❌       | ❌      | ❌   |
-| **entities**  | ✅     | ✅       | ❌       | ❌      | ❌   |
-| **features**  | ✅     | ✅       | ✅       | ❌      | ❌   |
-| **widgets**   | ✅     | ✅       | ✅       | ✅      | ❌   |
-| **app**       | ✅     | ✅       | ✅       | ✅      | ✅   |
+| Layers       | shared | entities | features | widgets | app |
+| ------------ | :----: | :------: | :------: | :-----: | :-: |
+| **shared**   |   ✅   |    ❌    |    ❌    |   ❌    | ❌  |
+| **entities** |   ✅   |    ✅    |    ❌    |   ❌    | ❌  |
+| **features** |   ✅   |    ✅    |    ✅    |   ❌    | ❌  |
+| **widgets**  |   ✅   |    ✅    |    ✅    |   ✅    | ❌  |
+| **app**      |   ✅   |    ✅    |    ✅    |   ✅    | ✅  |
 
 **핵심 원칙:**
+
 - 🔽 **단방향 의존성**: 아래층은 위층을 모름 (순환 의존성 방지)
 - 🔼 **상향 참조만 허용**: 위층은 아래층만 사용 가능(`import` 금지)
 - 🏢 **shared는 특별**: 모든 레이어에서 사용 가능하지만 다른 레이어에 의존하지 않음
 
 **예시:**
+
 ```typescript
 // ✅ 올바른 import
 // features/auth에서 entities/user 사용
-import { User } from '@/entities/user'
+import { User } from '@/entities/user';
 
-// ✅ 올바른 import  
+// ✅ 올바른 import
 // widgets/header에서 features/auth 사용
-import { AuthButton } from '@/features/auth'
+import { AuthButton } from '@/features/auth';
 
 // ❌ 잘못된 import (순환 의존성)
 // entities/user에서 features/auth 사용 불가
-import { useAuth } from '@/features/auth' // 에러!
+import { useAuth } from '@/features/auth'; // 에러!
 ```
 
 <br />
@@ -209,13 +217,13 @@ entities/
 
 현재 지정된 세그먼트 외에 필요에 따라 다른 세그먼트도 추가 가능합니다. (ex: `assets`)
 
-| 세그먼트  | 역할                                  |
-|-----------|---------------------------------------|
-| `api`     | API 요청 함수들                       |
-| `config`  | 환경변수 및 상수 함수들               |
-| `lib`     | 라이브러리 함수들                     |
-| `model`   | 모델 함수들                           |
-| `ui`      | UI 컴포넌트들                         |
+| 세그먼트 | 역할                    |
+| -------- | ----------------------- |
+| `api`    | API 요청 함수들         |
+| `config` | 환경변수 및 상수 함수들 |
+| `lib`    | 라이브러리 함수들       |
+| `model`  | 모델 함수들             |
+| `ui`     | UI 컴포넌트들           |
 
 ### 세그먼트 구조 예시
 
@@ -254,10 +262,10 @@ features/auth/
 export const loginApi = async (credentials: LoginCredentials) => {
   const response = await fetch('/api/auth/login', {
     method: 'POST',
-    body: JSON.stringify(credentials)
-  })
-  return response.json()
-}
+    body: JSON.stringify(credentials),
+  });
+  return response.json();
+};
 ```
 
 ### ⚙️ `config` 세그먼트
@@ -269,15 +277,15 @@ export const loginApi = async (credentials: LoginCredentials) => {
 // auth.config.ts
 export const authConfig = {
   tokenExpiry: process.env.TOKEN_EXPIRY || '24h',
-  refreshTokenExpiry: process.env.REFRESH_TOKEN_EXPIRY || '7d'
-}
+  refreshTokenExpiry: process.env.REFRESH_TOKEN_EXPIRY || '7d',
+};
 
 // auth.constants.ts
 export const AUTH_ROUTES = {
   LOGIN: '/login',
   LOGOUT: '/logout',
-  REGISTER: '/register'
-} as const
+  REGISTER: '/register',
+} as const;
 ```
 
 ### 🔧 `lib` 세그먼트
@@ -288,11 +296,11 @@ export const AUTH_ROUTES = {
 // token.utils.ts
 export const parseJWT = (token: string) => {
   // JWT 파싱 로직
-}
+};
 
 export const isTokenExpired = (token: string) => {
   // 토큰 만료 확인 로직
-}
+};
 ```
 
 ### 📋 `model` 세그먼트
@@ -308,23 +316,23 @@ export const isTokenExpired = (token: string) => {
 ```typescript
 // auth.types.ts
 export type User = {
-  id: string
-  email: string
-  name: string
-}
+  id: string;
+  email: string;
+  name: string;
+};
 
 // auth.store.ts
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isAuthenticated: false,
-  login: (user) => set({ user, isAuthenticated: true })
-}))
+  login: (user) => set({ user, isAuthenticated: true }),
+}));
 
 // use-auth.ts
 export const useAuth = () => {
-  const { user, isAuthenticated, login, logout } = useAuthStore()
-  return { user, isAuthenticated, login, logout }
-}
+  const { user, isAuthenticated, login, logout } = useAuthStore();
+  return { user, isAuthenticated, login, logout };
+};
 ```
 
 ### 🪑 `ui` 세그먼트
@@ -335,7 +343,7 @@ export const useAuth = () => {
 // login-form.tsx
 export const LoginForm = () => {
   const { login } = useAuth()
-  
+
   return (
     <form onSubmit={handleSubmit}>
       <input type="email" placeholder="이메일" />
@@ -347,7 +355,8 @@ export const LoginForm = () => {
 ```
 
 ### 세그먼트 파일명 요약
-- `SEGMENT` 
+
+- `SEGMENT`
   - `api`
     - `xxx.action.ts`: **서버 액션** API 함수들 (Next.js Server Actions)
     - `xxx.api.ts`: **클라이언트** API 요청 함수들 (fetch, axios)
@@ -402,19 +411,19 @@ export const LoginForm = () => {
 ```typescript
 // 1. entities/user 먼저 정의
 export type User = {
-  id: string
-  email: string
-  name: string
-}
+  id: string;
+  email: string;
+  name: string;
+};
 
 // 2. features/auth에서 entities/user 사용
-import { User } from '@/entities/user'
+import { User } from '@/entities/user';
 
 // 3. widgets/header에서 features/auth 사용
-import { AuthButton } from '@/features/auth'
+import { AuthButton } from '@/features/auth';
 
 // 4. app/page.tsx에서 widgets/header 사용
-import { Header } from '@/widgets/header'
+import { Header } from '@/widgets/header';
 ```
 
 #### ❌ 피해야 할 예시
@@ -422,10 +431,10 @@ import { Header } from '@/widgets/header'
 ```typescript
 // 순환 의존성 - 절대 금지!
 // entities/user에서 features/auth 사용
-import { useAuth } from '@/features/auth' // 에러!
+import { useAuth } from '@/features/auth'; // 에러!
 
 // widgets에서 entities 직접 사용 (features를 거쳐야 함)
-import { User } from '@/entities/user' // 권장하지 않음
+import { User } from '@/entities/user'; // 권장하지 않음
 ```
 
 ## 🏡 `app router` 가이드
@@ -452,8 +461,8 @@ app/
 
 기본 라우트 이외에 다음의 파일을 추가적으로 파일 컨벤션으로 사용합니다.
 
-| 파일명 | 설명 | 라이브러리 |
-|--------|------|-----------|
+| 파일명              | 설명               | 라이브러리               |
+| ------------------- | ------------------ | ------------------------ |
 | `search-params.tsx` | 검색 파라미터 정의 | [Nuqs](https://nuqs.dev) |
 
 ### 💡 실제 사용 예시
@@ -478,7 +487,7 @@ import { parseAsString, useQueryState } from 'nuqs'
 export const useProductSearchParams = () => {
   const [search, setSearch] = useQueryState('search', parseAsString)
   const [category, setCategory] = useQueryState('category', parseAsString)
-  
+
   return { search, setSearch, category, setCategory }
 }
 ```
@@ -488,6 +497,7 @@ export const useProductSearchParams = () => {
 ## 🎯 마무리
 
 ### 📚 핵심 요약
+
 - **5개 레이어**: `shared` → `entities` → `features` → `widgets` → `app`
 - **단방향 의존성**: 아래층은 위층을 모름
 - **점진적 도입**: 기본 `app router` 구조를 생성 후, 단계적으로 개선

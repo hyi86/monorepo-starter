@@ -17,13 +17,13 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const DefaultBadge: Story = {
-  storyName: '기본 뱃지',
+  name: '기본 뱃지',
   args: {},
   render: function Render() {
     return (
       <div className="flex flex-col items-center gap-2">
         <div className="flex w-full flex-wrap gap-2">
-          <Badge>Badge</Badge>
+          <Badge>Badge Basic</Badge>
           <Badge variant="secondary">Secondary</Badge>
           <Badge variant="destructive">Destructive</Badge>
           <Badge variant="outline">Outline</Badge>
@@ -47,7 +47,7 @@ export const DefaultBadge: Story = {
 };
 
 export const BadgeWithLink: Story = {
-  storyName: '링크 포함된 뱃지',
+  name: '링크 포함된 뱃지',
   args: {
     variant: 'secondary',
     className: 'bg-blue-500 text-white dark:bg-blue-600',

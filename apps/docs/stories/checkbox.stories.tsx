@@ -16,7 +16,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const DefaultCheckbox: Story = {
-  storyName: '기본 체크박스',
+  name: '기본 체크박스',
   args: {
     checked: false,
   },

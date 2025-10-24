@@ -1,7 +1,7 @@
 import { Button } from '@monorepo-starter/ui/components/button';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, within } from '@storybook/test';
 import { CalendarIcon, TimerIcon, UserIcon } from 'lucide-react';
-import { expect, within } from 'storybook/test';
 
 const meta = {
   title: 'Components/Button',
@@ -34,7 +34,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const DefaultButton: Story = {
-  storyName: '기본 버튼',
+  name: '기본 버튼',
   argTypes: {
     size: {
       control: { type: 'inline-radio' },
@@ -71,7 +71,7 @@ export const DefaultButton: Story = {
 };
 
 export const IconButton: Story = {
-  storyName: '아이콘 버튼',
+  name: '아이콘 버튼',
   argTypes: {
     size: {
       control: { type: 'inline-radio' },

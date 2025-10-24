@@ -18,7 +18,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const BasicAlert: Story = {
-  storyName: '기본 알림',
+  name: '기본 알림',
   args: {
     variant: 'default',
   },
