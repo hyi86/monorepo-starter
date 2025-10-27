@@ -78,7 +78,7 @@ cat <<EOF > package.json
     "tsx": "^4.20.3",
     "typescript": "catalog:",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.2.3"
+    "vitest": "catalog:"
   }
 }
 EOF

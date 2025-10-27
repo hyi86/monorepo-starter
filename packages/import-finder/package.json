@@ -31,7 +31,7 @@
     "type-fest": "catalog:",
     "typescript": "catalog:",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.2.4",
+    "vitest": "catalog:",
     "yaml": "^2.8.1"
   }
 }
