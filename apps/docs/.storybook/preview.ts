@@ -13,6 +13,10 @@ const preview: Preview = {
     docs: {
       codePanel: true,
     },
+    layout: 'centered',
+    controls: {
+      expanded: true,
+    },
   },
   decorators: [
     withThemeByClassName<ReactRenderer>({

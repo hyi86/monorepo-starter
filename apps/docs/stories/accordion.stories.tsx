@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker/locale/ko';
 import {
   Accordion,
   AccordionContent,
@@ -6,166 +7,57 @@ import {
 } from '@monorepo-starter/ui/components/accordion';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
+type AccordionProps = React.ComponentProps<typeof Accordion> & { itemCount?: number };
+
 const meta = {
   title: 'Components/Accordion',
   component: Accordion,
+  subcomponents: { AccordionItem, AccordionTrigger, AccordionContent },
   tags: ['autodocs'],
   argTypes: {
     type: {
-      description: 'accordion의 타입(single, multiple)',
-      control: { type: 'inline-radio' },
+      control: 'inline-radio',
       options: ['single', 'multiple'],
     },
     collapsible: {
-      description: 'accordion이 전체 Collapse 가능 여부(single type only)',
-      control: { type: 'boolean' },
+      control: 'boolean',
+    },
+    itemCount: {
+      control: 'number',
+      description: '(Test only)',
+      defaultValue: 3,
     },
   },
-} satisfies Meta<typeof Accordion>;
+} satisfies Meta<AccordionProps>;
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta> & {
+  args?: AccordionProps;
+};
 
-export const BasicAccordion: Story = {
-  name: '기본 아코디언',
-  parameters: {
-    layout: 'centered',
-    controls: {
-      expanded: true,
-    },
-    docs: {},
-  },
+export const BasicAccordion = {
   args: {
-    type: 'single' as 'single' | 'multiple',
-    collapsible: true as boolean,
+    type: 'single',
+    collapsible: true,
+    itemCount: 3,
   },
-  render: function Render(args) {
+  render: function Render({ itemCount, ...args }: AccordionProps) {
+    const items = Array.from({ length: itemCount ?? 3 }).map((_, index) => ({
+      value: `item-${index + 1}`,
+      label: faker.lorem.sentence(),
+      content: faker.lorem.paragraphs({ min: 1, max: 5 }),
+    }));
+
     return (
-      <Accordion
-        {...(args.type === 'single'
-          ? { type: 'single' as const, collapsible: args.collapsible, defaultValue: 'item-1' }
-          : { type: 'multiple' as const, defaultValue: ['item-1'] })}
-      >
-        <AccordionItem value="item-1">
-          <AccordionTrigger>Product Information</AccordionTrigger>
-          <AccordionContent className="flex flex-col gap-4 text-balance">
-            <p>
-              Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it
-              offers unparalleled performance and reliability.
-            </p>
-            <p>
-              Key features include advanced processing capabilities, and an intuitive user interface designed for both
-              beginners and experts.
-            </p>
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-2">
-          <AccordionTrigger>Shipping Details</AccordionTrigger>
-          <AccordionContent className="flex flex-col gap-4 text-balance">
-            <p>
-              We offer worldwide shipping through trusted courier partners. Standard delivery takes 3-5 business days,
-              while express shipping ensures delivery within 1-2 business days.
-            </p>
-            <p>
-              All orders are carefully packaged and fully insured. Track your shipment in real-time through our
-              dedicated tracking portal.
-            </p>
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-3">
-          <AccordionTrigger>Return Policy</AccordionTrigger>
-          <AccordionContent className="flex flex-col gap-4 text-balance">
-            <p>
-              We stand behind our products with a comprehensive 30-day return policy. If you&apos;re not completely
-              satisfied, simply return the item in its original condition.
-            </p>
-            <p>
-              Our hassle-free return process includes free return shipping and full refunds processed within 48 hours of
-              receiving the returned item.
-            </p>
-          </AccordionContent>
-        </AccordionItem>
+      <Accordion className="w-md" {...args}>
+        {items.map((item) => (
+          <AccordionItem key={item.value} value={item.value}>
+            <AccordionTrigger className="word-break-keep-all">{item.label}</AccordionTrigger>
+            <AccordionContent className="flex flex-col gap-4 text-balance">{item.content}</AccordionContent>
+          </AccordionItem>
+        ))}
       </Accordion>
     );
   },
-};
-
-export const DataLoadedAccordion: Story = {
-  name: '데이터 로딩 아코디언',
-  parameters: {
-    layout: 'centered',
-  },
-  args: {
-    type: 'single' as 'single' | 'multiple',
-    collapsible: true as boolean,
-  },
-  loaders: [
-    async () => ({
-      items: [
-        {
-          value: 'item-1',
-          label: 'Product Information',
-          content:
-            'Our flagship product combines cutting-edge technology with sleek design. Built with premium materials, it offers unparalleled performance and reliability.',
-        },
-        {
-          value: 'item-2',
-          label: 'Shipping Details',
-          content:
-            'We offer worldwide shipping through trusted courier partners. Standard delivery takes 3-5 business days, while express shipping ensures delivery within 1-2 business days.',
-        },
-        {
-          value: 'item-3',
-          label: 'Return Policy',
-          content:
-            "We stand behind our products with a comprehensive 30-day return policy. If you're not completely satisfied, simply return the item in its original condition.",
-        },
-        {
-          value: 'item-4',
-          label: 'Additional Information',
-          content: 'This is additional information that is not related to the product or shipping details.',
-        },
-        {
-          value: 'item-5',
-          label: 'Final Information',
-          content: 'This is final information that is not related to the product, shipping details, or return policy.',
-        },
-        {
-          value: 'item-6',
-          label: 'Really Final Information',
-          content:
-            'This is really final information that is not related to the product, shipping details, or return policy.',
-        },
-        {
-          value: 'item-7',
-          label: 'Really Really Final Information',
-          content:
-            'This is really really final information that is not related to the product, shipping details, or return policy.',
-        },
-      ],
-    }),
-  ],
-  render: function Render(args, { loaded }) {
-    const items = loaded?.items as { value: string; label: string; content: string }[];
-
-    return (
-      <Accordion
-        {...(args.type === 'single'
-          ? { type: 'single' as const, collapsible: args.collapsible, defaultValue: 'item-1' }
-          : { type: 'multiple' as const, defaultValue: ['item-1'] })}
-      >
-        {items &&
-          items.length > 0 &&
-          items.map((item) => (
-            <AccordionItem value={item.value} key={item.value}>
-              <AccordionTrigger>{item.label}</AccordionTrigger>
-              <AccordionContent className="flex flex-col gap-4 text-balance">
-                <p>{item.content}</p>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-      </Accordion>
-    );
-  },
-};
+} satisfies Story;

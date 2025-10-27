@@ -14,10 +14,10 @@ import { Label } from '@monorepo-starter/ui/components/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@monorepo-starter/ui/components/select';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { addDays } from 'date-fns';
-import { Clock2Icon } from 'lucide-react';
 import { useState } from 'react';
 import type { DateRange, Locale } from 'react-day-picker';
 import { enUS, es, ja, ko } from 'react-day-picker/locale';
+import { MdAlarm } from 'react-icons/md';
 import { action } from 'storybook/actions';
 import { expect, userEvent } from 'storybook/test';
 
@@ -340,7 +340,7 @@ export const WithTimePicker: Story = {
           <div className="flex w-full flex-col gap-3">
             <Label htmlFor="time-from">Start Time</Label>
             <div className="relative flex w-full items-center gap-2">
-              <Clock2Icon className="text-muted-foreground pointer-events-none absolute left-2.5 size-4 select-none" />
+              <MdAlarm className="text-muted-foreground pointer-events-none absolute left-2.5 size-4 select-none" />
               <Input
                 id="time-from"
                 type="time"
@@ -353,7 +353,7 @@ export const WithTimePicker: Story = {
           <div className="flex w-full flex-col gap-3">
             <Label htmlFor="time-to">End Time</Label>
             <div className="relative flex w-full items-center gap-2">
-              <Clock2Icon className="text-muted-foreground pointer-events-none absolute left-2.5 size-4 select-none" />
+              <MdAlarm className="text-muted-foreground pointer-events-none absolute left-2.5 size-4 select-none" />
               <Input
                 id="time-to"
                 type="time"

@@ -1,7 +1,7 @@
 import { Button } from '@monorepo-starter/ui/components/button';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, within } from '@storybook/test';
-import { CalendarIcon, TimerIcon, UserIcon } from 'lucide-react';
+import { MdCalendarMonth, MdPerson, MdTimer } from 'react-icons/md';
 
 const meta = {
   title: 'Components/Button',
@@ -81,9 +81,9 @@ export const IconButton: Story = {
       control: { type: 'select' },
       options: ['Calendar', 'Times', 'User'],
       mapping: {
-        Calendar: <CalendarIcon />,
-        Times: <TimerIcon />,
-        User: <UserIcon />,
+        Calendar: <MdCalendarMonth />,
+        Times: <MdTimer />,
+        User: <MdPerson />,
       },
       defaultValue: 'Calendar',
     },
@@ -92,6 +92,6 @@ export const IconButton: Story = {
     variant: 'default',
     size: 'icon',
     'aria-label': 'Icon Button',
-    children: <CalendarIcon />,
+    children: <MdCalendarMonth />,
   },
 };

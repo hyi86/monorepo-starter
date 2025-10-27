@@ -1,6 +1,6 @@
 import { Toggle } from '@monorepo-starter/ui/components/toggle';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { BookmarkIcon } from 'lucide-react';
+import { MdBookmark } from 'react-icons/md';
 
 const meta = {
   title: 'Components/Toggle',
@@ -31,7 +31,7 @@ export const DefaultToggle: Story = {
           variant="outline"
           className="data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-blue-500 data-[state=on]:*:[svg]:stroke-blue-500"
         >
-          <BookmarkIcon />
+          <MdBookmark />
           Bookmark
         </Toggle>
       </div>
