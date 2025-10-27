@@ -24,34 +24,6 @@ type Story = StoryObj<typeof meta>;
 
 export const BasicAlertDialog: Story = {
   name: '기본 알림 다이얼로그',
-  args: {},
-  render: function Render() {
-    return (
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button variant="outline">Show Dialog</Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your account and remove your data from our
-              servers.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Continue</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    );
-  },
-};
-
-export const FullAlertDialog: Story = {
-  name: '전체 알림 다이얼로그',
-  args: {},
   render: function Render() {
     return (
       <AlertDialog>
