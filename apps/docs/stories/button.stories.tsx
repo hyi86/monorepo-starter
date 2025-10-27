@@ -9,23 +9,31 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: { type: 'inline-radio' },
+      control: 'select',
       options: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
     },
     size: {
-      control: { type: 'inline-radio' },
-      options: ['default', 'sm', 'lg', 'icon', 'icon-sm', 'icon-lg'],
-      defaultValue: 'default',
+      control: 'select',
+      options: ['default', 'sm', 'lg', 'icon'],
+      if: { arg: 'variant', neq: 'link' },
+    },
+    children: {
+      control: 'text',
     },
     disabled: {
-      control: { type: 'boolean' },
+      control: 'boolean',
     },
     asChild: {
-      control: { type: 'boolean' },
+      table: {
+        disable: true,
+      },
     },
   },
-  parameters: {
-    layout: 'centered',
+  args: {
+    variant: 'default',
+    size: 'default',
+    children: 'Button',
+    disabled: false,
   },
 } satisfies Meta<typeof Button>;
 

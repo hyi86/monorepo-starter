@@ -16,10 +16,14 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     type: {
-      control: 'inline-radio',
+      control: 'radio',
       options: ['single', 'multiple'],
     },
     collapsible: {
+      control: 'boolean',
+      if: { arg: 'type', eq: 'single' },
+    },
+    disabled: {
       control: 'boolean',
     },
     itemCount: {
@@ -42,16 +46,22 @@ export const BasicAccordion = {
     collapsible: true,
     itemCount: 3,
   },
-  render: function Render({ itemCount, ...args }: AccordionProps) {
-    const items = Array.from({ length: itemCount ?? 3 }).map((_, index) => ({
-      value: `item-${index + 1}`,
-      label: faker.lorem.sentence(),
-      content: faker.lorem.paragraphs({ min: 1, max: 5 }),
-    }));
-
+  loaders: [
+    async () => {
+      return {
+        items: Array.from({ length: 10 }).map((_, index) => ({
+          value: `item-${index + 1}`,
+          label: faker.lorem.sentence({ min: 3, max: 8 }),
+          content: faker.lorem.paragraphs({ min: 1, max: 5 }),
+        })),
+      };
+    },
+  ],
+  render: function Render(args: AccordionProps, { loaded }) {
+    const items = loaded.items as { value: string; label: string; content: string }[];
     return (
       <Accordion className="w-md" {...args}>
-        {items.map((item) => (
+        {items.slice(0, args.itemCount).map((item) => (
           <AccordionItem key={item.value} value={item.value}>
             <AccordionTrigger className="word-break-keep-all">{item.label}</AccordionTrigger>
             <AccordionContent className="flex flex-col gap-4 text-balance">{item.content}</AccordionContent>

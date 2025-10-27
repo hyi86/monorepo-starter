@@ -1,11 +1,13 @@
 import { Alert, AlertDescription, AlertTitle } from '@monorepo-starter/ui/components/alert';
+import { cn } from '@monorepo-starter/ui/lib/utils';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { MdBatteryChargingFull, MdConstruction, MdContactMail, MdContactPhone } from 'react-icons/md';
+import { MdCheckCircle, MdError, MdInfo, MdWarning } from 'react-icons/md';
 
 type AlertProps = React.ComponentProps<typeof Alert> & {
   title?: string;
   description?: string;
   icon?: React.ReactNode;
+  iconColor?: string;
 };
 
 const meta = {
@@ -32,12 +34,25 @@ const meta = {
     icon: {
       description: '(Test only)',
       control: 'select',
-      options: ['ContactPhone', 'ContactMail', 'Construction', 'BatteryChargingFull'],
+      options: ['none', 'CheckCircle', 'Warning', 'Error', 'Info'],
       mapping: {
-        ContactPhone: <MdContactPhone className="size-6" />,
-        ContactMail: <MdContactMail className="size-6" />,
-        Construction: <MdConstruction className="size-6" />,
-        BatteryChargingFull: <MdBatteryChargingFull className="size-6" />,
+        none: null,
+        CheckCircle: <MdCheckCircle />,
+        Warning: <MdWarning />,
+        Error: <MdError />,
+        Info: <MdInfo />,
+      },
+    },
+    iconColor: {
+      description: '(Test only)',
+      control: 'select',
+      options: ['green', 'yellow', 'red', 'blue'],
+      mapping: {
+        default: '[&>svg]:text-current',
+        green: '[&>svg]:text-green-500',
+        yellow: '[&>svg]:text-yellow-500',
+        red: '[&>svg]:text-red-500',
+        blue: '[&>svg]:text-blue-500',
       },
     },
   },
@@ -51,13 +66,13 @@ type Story = StoryObj<typeof meta> & {
 
 export const BasicAlert = {
   args: {
-    icon: <MdContactPhone />,
+    icon: 'CheckCircle',
     title: 'Success! Your changes have been saved',
     description: 'This is an alert with icon, title and description.',
   },
   render: function Render(args: AlertProps) {
     return (
-      <Alert variant={args.variant}>
+      <Alert variant={args.variant} className={cn('[&>svg]:size-4', args.iconColor)}>
         {args.icon}
         <AlertTitle>{args.title}</AlertTitle>
         <AlertDescription>{args.description}</AlertDescription>

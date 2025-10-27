@@ -1,9 +1,13 @@
 import { Badge } from '@monorepo-starter/ui/components/badge';
-import { Checkbox } from '@monorepo-starter/ui/components/checkbox';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { MdCheck, MdClose } from 'react-icons/md';
+import { MdCheckCircleOutline, MdClose, MdLink } from 'react-icons/md';
+
+type BadgeProps = React.ComponentProps<typeof Badge> & {
+  withIcon?: boolean;
+  useLink?: boolean;
+};
 
 const meta = {
   title: 'Components/Badge',
@@ -15,123 +19,98 @@ const meta = {
         disable: true,
       },
     },
+    variant: {
+      control: 'radio',
+      options: ['default', 'secondary', 'destructive', 'outline'],
+    },
+    withIcon: {
+      control: 'boolean',
+    },
   },
-} satisfies Meta<typeof Badge>;
+} satisfies Meta<BadgeProps>;
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
-
-export const DefaultBadge: Story = {
-  name: '기본 뱃지',
-  args: {},
-  render: function Render() {
-    return (
-      <>
-        <div className="flex flex-col items-center gap-2">
-          <div className="flex w-full flex-wrap gap-2">
-            <Badge>Badge Basic</Badge>
-            <Badge variant="secondary">Secondary</Badge>
-            <Badge variant="destructive">Destructive</Badge>
-            <Badge variant="outline">Outline</Badge>
-            <Badge variant="outline" className="gap-1">
-              <MdCheck className="text-emerald-500" size={12} aria-hidden="true" />
-              Badge
-            </Badge>
-          </div>
-          <div className="flex w-full flex-wrap gap-2">
-            <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">8</Badge>
-            <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums" variant="destructive">
-              99
-            </Badge>
-            <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums" variant="outline">
-              20+
-            </Badge>
-          </div>
-          <div className="flex w-full flex-wrap gap-2">
-            <Badge variant="secondary" className="bg-blue-500 text-white dark:bg-blue-600">
-              <MdCheck />
-              Verified
-            </Badge>
-            <Badge variant="outline" className="gap-1.5">
-              <span className="size-1.5 rounded-full bg-emerald-500" aria-hidden="true"></span>
-              Badge
-            </Badge>
-            <Badge variant="outline" className="gap-1.5">
-              <span className="size-1.5 rounded-full bg-amber-500" aria-hidden="true"></span>
-              Badge
-            </Badge>
-          </div>
-        </div>
-      </>
-    );
-  },
+type Story = StoryObj<typeof meta> & {
+  args?: BadgeProps;
 };
 
-export const BadgeWithLink: Story = {
-  name: '링크 뱃지',
-  args: {},
-  render: function Render() {
+export const BasicBadge = {
+  args: {
+    children: 'Badge',
+  },
+  render: function Render({ withIcon, ...args }: BadgeProps) {
+    if (withIcon) {
+      return (
+        <Badge {...args}>
+          <MdCheckCircleOutline />
+          {args.children}
+        </Badge>
+      );
+    }
+
+    return <Badge {...args} />;
+  },
+} satisfies Story;
+
+export const BadgeNumbers = {
+  argTypes: {
+    children: {
+      table: {
+        disable: true,
+      },
+    },
+    // @ts-ignore
+    withIcon: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+  args: {
+    variant: 'default',
+  },
+  render: function Render({ ...args }: BadgeProps) {
     return (
-      <div className="flex flex-col items-center gap-2">
-        <div className="flex w-full flex-wrap gap-2">
-          <Badge asChild>
-            <a href="/">Badge</a>
-          </Badge>
-          <Badge variant="secondary" asChild>
-            <a href="/">Secondary</a>
-          </Badge>
-          <Badge variant="destructive" asChild>
-            <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">
-              Destructive
-            </a>
-          </Badge>
-          <Badge variant="outline" asChild>
-            <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">
-              Outline
-            </a>
-          </Badge>
-        </div>
-        <div className="flex w-full flex-wrap gap-2">
-          <Badge variant="secondary" className="bg-blue-500 text-white dark:bg-blue-600">
-            <MdCheck />
-            Verified
-          </Badge>
-          <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">8</Badge>
-          <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums" variant="destructive">
-            99
-          </Badge>
-          <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums" variant="outline">
-            20+
-          </Badge>
-        </div>
+      <div className="flex gap-2 font-mono">
+        <Badge {...args}>0</Badge>
+        <Badge {...args}>10</Badge>
+        <Badge {...args}>100</Badge>
+        <Badge {...args}>999+</Badge>
       </div>
     );
   },
-};
+} satisfies Story;
 
-export const ExtendedBadge: Story = {
-  name: '확장',
-  args: {},
-  render: function Render() {
-    const [removed, setRemoved] = useState(false);
-
+export const BadgeLinks = {
+  args: {
+    children: 'Link Badge',
+    variant: 'default',
+  },
+  render: function Render({ ...args }: BadgeProps) {
     return (
-      <div className="flex flex-col items-center gap-2">
-        <div className="flex w-full flex-wrap gap-2">
-          <Badge className="has-focus-visible:border-ring has-focus-visible:ring-ring/50 has-data-[state=unchecked]:bg-muted has-data-[state=unchecked]:text-muted-foreground relative outline-none has-focus-visible:ring-[3px]">
-            <Checkbox id="extended-badge-01" className="peer sr-only after:absolute after:inset-0" defaultChecked />
-            <MdCheck size={12} className="hidden peer-data-[state=checked]:block" aria-hidden="true" />
-            <label htmlFor="extended-badge-01" className="cursor-pointer select-none after:absolute after:inset-0">
-              Selectable
-            </label>
-          </Badge>
-          <Badge className={cn('cursor-pointer', removed && 'hidden')} onClick={() => setRemoved(!removed)}>
-            Removable
-            <MdClose size={12} aria-hidden="true" />
-          </Badge>
-        </div>
-      </div>
+      <Badge {...args} asChild>
+        <a href="/">
+          {args.withIcon && <MdLink />}
+          {args.children}
+        </a>
+      </Badge>
     );
   },
-};
+} satisfies Story;
+
+export const BadgeRemovable = {
+  args: {
+    children: 'Removable Badge',
+    variant: 'default',
+  },
+  render: function Render({ ...args }: BadgeProps) {
+    const [isOpen, setIsOpen] = useState(false);
+    return (
+      <Badge className={cn('cursor-pointer', isOpen && 'hidden')} {...args} onClick={() => setIsOpen(!isOpen)}>
+        {args.children}
+        <MdClose aria-hidden="true" />
+      </Badge>
+    );
+  },
+} satisfies Story;

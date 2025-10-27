@@ -16,8 +16,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 type AlertDialogProps = React.ComponentProps<typeof AlertDialog> & {
   title?: string;
   description?: string;
-  hideHeader?: boolean;
-  hideFooter?: boolean;
+  hideTitle?: boolean;
+  hideCancel?: boolean;
 };
 
 const meta = {
@@ -44,12 +44,12 @@ const meta = {
       description: '(Test only)',
       control: 'text',
     },
-    hideHeader: {
+    hideTitle: {
       description: '(Test only)',
       control: 'boolean',
       defaultValue: false,
     },
-    hideFooter: {
+    hideCancel: {
       description: '(Test only)',
       control: 'boolean',
       defaultValue: false,
@@ -64,37 +64,26 @@ type Story = StoryObj<typeof meta> & {
 };
 
 export const BasicAlertDialog = {
-  parameters: {
-    docs: {
-      source: {
-        type: 'code', // 자동 생성 대신 정적 코드 사용
-      },
-    },
-  },
   args: {
     title: 'Are you absolutely sure?',
     description:
       'This action cannot be undone. This will permanently delete your account and remove your data from our servers.',
   },
-  render: function Render({ title, description, hideHeader, hideFooter }: AlertDialogProps) {
+  render: function Render({ title, description, hideTitle, hideCancel }: AlertDialogProps) {
     return (
       <AlertDialog>
         <AlertDialogTrigger asChild>
           <Button variant="outline">Show Dialog</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
-          {!hideHeader && (
-            <AlertDialogHeader>
-              <AlertDialogTitle>{title}</AlertDialogTitle>
-              <AlertDialogDescription>{description}</AlertDialogDescription>
-            </AlertDialogHeader>
-          )}
-          {!hideFooter && (
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Continue</AlertDialogAction>
-            </AlertDialogFooter>
-          )}
+          <AlertDialogHeader>
+            {!hideTitle && <AlertDialogTitle>{title}</AlertDialogTitle>}
+            <AlertDialogDescription>{description}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            {!hideCancel && <AlertDialogCancel>Cancel</AlertDialogCancel>}
+            <AlertDialogAction>Continue</AlertDialogAction>
+          </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
     );

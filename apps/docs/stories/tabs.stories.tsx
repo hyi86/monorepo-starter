@@ -15,7 +15,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const DefaultCheckbox: Story = {
+export const DefaultTabs: Story = {
   args: {
     defaultValue: '1',
   },

@@ -124,6 +124,24 @@ export const appPathRoutes: AppPathRoutes[] = [
     ],
   },
   {
+    href: '/blocks/ag-grid/03-performance',
+    linkTypes: '/blocks/ag-grid/03-performance',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/blocks/ag-grid/03-performance/page.tsx'],
+    structures: [
+      {
+        path: 'src/app/layout.tsx',
+        children: [
+          {
+            path: 'src/app/blocks/ag-grid/03-performance/page.tsx',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
     href: '/blocks/dashboard',
     linkTypes: '/blocks/dashboard',
     isParallelRoute: false,

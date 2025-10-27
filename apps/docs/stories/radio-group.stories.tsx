@@ -16,7 +16,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const DefaultCheckbox: Story = {
+export const DefaultRadioGroup: Story = {
   args: {
     defaultValue: 'comfortable',
   },
