@@ -13,7 +13,7 @@ import {
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@monorepo-starter/ui/components/sidebar';
 import { ChevronsUpDown, LogIn, LogOut, Search } from 'lucide-react';
 import { useState } from 'react';
-import { type AuthorizationPayload } from '~/entities/user/lib/check-auth';
+import type { AuthorizationPayload } from '~/entities/user/lib/check-auth';
 import { useSigninUrl } from '~/features/signin/model/use-signin';
 import { signoutAction } from '~/features/signout/api/signout.action';
 import { UserProfile } from './user-profile';

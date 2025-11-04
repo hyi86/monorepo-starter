@@ -1,7 +1,6 @@
 import { buildTree } from '@monorepo-starter/utils/tree';
 import { appPathRoutes } from '~/route-types';
 
-// TODO: useTree 사용하는 방식으로 변경
 export function getAllRouteTree() {
   const exampleRoutes = appPathRoutes
     .filter((route) => !route.isDynamicRoute)
