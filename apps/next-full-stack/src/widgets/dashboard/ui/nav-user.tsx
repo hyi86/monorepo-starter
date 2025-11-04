@@ -1,6 +1,5 @@
 'use client';
 
-import { Avatar, AvatarFallback } from '@monorepo-starter/ui/components/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,35 +11,17 @@ import {
   DropdownMenuTrigger,
 } from '@monorepo-starter/ui/components/dropdown-menu';
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@monorepo-starter/ui/components/sidebar';
-import { cn } from '@monorepo-starter/ui/lib/utils';
-import { ChevronsUpDown, LogIn, LogOut, Search, UserRoundIcon } from 'lucide-react';
+import { ChevronsUpDown, LogIn, LogOut, Search } from 'lucide-react';
 import { useState } from 'react';
 import { type AuthorizationPayload } from '~/entities/user/lib/check-auth';
 import { useSigninUrl } from '~/features/signin/model/use-signin';
 import { signoutAction } from '~/features/signout/api/signout.action';
+import { UserProfile } from './user-profile';
 
 export function NavUser({ payload }: { payload?: AuthorizationPayload }) {
   const { isMobile } = useSidebar();
   const { handleClickSignin } = useSigninUrl();
   const [isOpen, setIsOpen] = useState(false);
-
-  const Profile = () => (
-    <>
-      <Avatar className="h-8 w-8 rounded-lg">
-        <AvatarFallback className={cn(payload ? 'bg-blue-300 text-blue-900' : 'bg-gray-300')}>
-          {payload ? (
-            payload.sub?.charAt(0).toUpperCase()
-          ) : (
-            <UserRoundIcon size={16} className="opacity-60" aria-hidden="true" />
-          )}
-        </AvatarFallback>
-      </Avatar>
-      <div className="grid flex-1 text-left text-sm leading-tight">
-        <span className="text-foreground/70 truncate font-semibold">{payload ? payload.sub : 'Guest'}</span>
-        {payload && <span className="truncate text-xs">test@gmail.com</span>}
-      </div>
-    </>
-  );
 
   // 검색 키 이벤트 핸들러
   const handleClickOpenSearch = () => {
@@ -65,7 +46,7 @@ export function NavUser({ payload }: { payload?: AuthorizationPayload }) {
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Profile />
+              <UserProfile payload={payload} />
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
@@ -77,7 +58,7 @@ export function NavUser({ payload }: { payload?: AuthorizationPayload }) {
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <Profile />
+                <UserProfile payload={payload} />
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />

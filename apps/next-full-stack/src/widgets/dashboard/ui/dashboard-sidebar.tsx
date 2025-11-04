@@ -38,7 +38,7 @@ export async function DashboardSidebar({ ...props }: Props) {
         </SidebarMenuButton>
         <DashboardSidebarSearchInput />
       </SidebarHeader>
-      <SidebarContent className="[&_[data-active='true']]:bg-foreground/8">
+      <SidebarContent className="**:data-[active='true']:bg-foreground/8">
         <FileTreeMenuGroup routes={routeTree} folderPaths={folderPaths} />
       </SidebarContent>
       <SidebarFooter>
