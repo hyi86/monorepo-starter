@@ -1,50 +1,128 @@
-import { Meta, Typeset } from '@storybook/addon-docs/blocks';
+import { Meta, Typeset, Subtitle } from '@storybook/addon-docs/blocks';
 
 <Meta title="Foundation/Typography" />
 
 export const typography = {
   type: {
-    primary: '"Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif',
-    secondary: '"Pretendard", "Helvetica Neue", Helvetica, Arial, sans-serif',
+    primary: '"Pretendard", sans-serif',
+    secondary: '"Pretendard JP", sans-serif',
   },
   weight: {
-    regular: '400',
+    thin: '100',
+    extralight: '200',
+    light: '300',
+    normal: '400',
+    medium: '500',
+    semibold: '600',
     bold: '700',
     extrabold: '800',
     black: '900',
   },
   size: {
-    s1: 12,
-    s2: 14,
-    s3: 16,
-    m1: 20,
-    m2: 24,
-    m3: 28,
-    l1: 32,
-    l2: 40,
-    l3: 48,
+    xs: 12,
+    sm: 14,
+    base: 16,
+    lg: 18,
+    xl: 20,
+    '2xl': 24,
+    '3xl': 30,
+    '4xl': 36,
+  },
+  messages: {
+    korean: '모든 인류 구성원의 천부의 존엄성과 동등하고 양도할 수 없는 권리를 인정하는 것은 자명한 진리이다.',
+    japanese:
+      'すべての人間は、生まれながらにして自由であり、かつ、尊厳と権利とについて平等である。人間は、理性と良心とを授けられており、互いに同胞の精神をもって行動しなければならない。',
+    english: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   },
 };
 
 # Typography
 
-**Font:** Pretendard
+<Subtitle>국문/영문: Pretendard, 일본어: Pretendard JP</Subtitle>
 
-**Weights:** 400(regular), 700(bold), 800(extrabold), 900(black)
+## Pretendard(영문)
+
+light
 
 <Typeset
-  fontSizes={[
-    Number(typography.size.s1),
-    Number(typography.size.s2),
-    Number(typography.size.s3),
-    Number(typography.size.m1),
-    Number(typography.size.m2),
-    Number(typography.size.m3),
-    Number(typography.size.l1),
-    Number(typography.size.l2),
-    Number(typography.size.l3),
-  ]}
-  fontWeight={typography.weight.black}
-  sampleText="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+  fontSizes={Object.values(typography.size).map(Number)}
   fontFamily={typography.type.primary}
+  fontWeight={typography.weight.light}
+  sampleText={typography.messages.english}
+/>
+
+normal
+
+<Typeset
+  fontSizes={Object.values(typography.size).map(Number)}
+  fontFamily={typography.type.primary}
+  fontWeight={typography.weight.normal}
+  sampleText={typography.messages.english}
+/>
+
+bold
+
+<Typeset
+  fontSizes={Object.values(typography.size).map(Number)}
+  fontFamily={typography.type.primary}
+  fontWeight={typography.weight.bold}
+  sampleText={typography.messages.english}
+/>
+
+## Pretendard(국문)
+
+light
+
+<Typeset
+  fontSizes={Object.values(typography.size).map(Number)}
+  fontFamily={typography.type.primary}
+  fontWeight={typography.weight.light}
+  sampleText={typography.messages.korean}
+/>
+
+normal
+
+<Typeset
+  fontSizes={Object.values(typography.size).map(Number)}
+  fontFamily={typography.type.primary}
+  fontWeight={typography.weight.normal}
+  sampleText={typography.messages.korean}
+/>
+
+bold
+
+<Typeset
+  fontSizes={Object.values(typography.size).map(Number)}
+  fontFamily={typography.type.primary}
+  fontWeight={typography.weight.bold}
+  sampleText={typography.messages.korean}
+/>
+
+## Pretendard JP (일본어)
+
+light
+
+<Typeset
+  fontSizes={Object.values(typography.size).map(Number)}
+  fontFamily={typography.type.secondary}
+  fontWeight={typography.weight.light}
+  sampleText={typography.messages.japanese}
+/>
+
+normal
+
+<Typeset
+  fontSizes={Object.values(typography.size).map(Number)}
+  fontFamily={typography.type.secondary}
+  fontWeight={typography.weight.normal}
+  sampleText={typography.messages.japanese}
+/>
+
+bold
+
+<Typeset
+  fontSizes={Object.values(typography.size).map(Number)}
+  fontFamily={typography.type.secondary}
+  fontWeight={typography.weight.bold}
+  sampleText={typography.messages.japanese}
 />

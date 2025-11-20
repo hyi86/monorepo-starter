@@ -1,0 +1,462 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/React and Next Tips" />
+
+## 기본적으로 CSS는 아무설정 없이 nesting이 가능합니다.
+
+https://caniuse.com/css-nesting
+
+이전에는 CSS의 nesting 기능을 사용하려면 PostCSS 설정이나, Sass 같은 도구의 지원을 받아야 했었습니다.
+
+이제 주요 브라우저는 모두 CSS Nesting을 지원하며, 바로 사용이 가능합니다.
+
+```css
+article {
+  > header {
+    h3 {
+      /* 어떤 스타일 */
+    }
+  }
+  > footer {
+    button.btn.secondary {
+      /* 어떤 스타일 */
+    }
+  }
+}
+```
+
+## Next.js 15.3 버전 이후, 링크 이동 간 전처리가 가능합니다.
+
+클라이언트 컴포넌트에 한해서, `<Link />` 컴포넌트의 onNavigate 를 이용하면, 네비게이션 이동간에
+전처리가 가능합니다. 예를들면,
+
+- 페이지 전환 전에 사용자 확인 모달 띄우기
+- 페이지 이동 중 로딩 상태 표시 또는 사용자 행동 기록(analytics)
+- 특정 조건에서만 이동 허용하기(예: 폼 변경사항이 있는 경우 경고)
+- 내부 링크의 UX 개선을 위한 커스텀 전환 효과 실행
+
+```tsx
+'use client';
+
+import Link from 'next/link';
+
+export default function MyPage() {
+  return (
+    <Link
+      href="/dashboard"
+      onNavigate={(e) => {
+        console.log('네비게이션 시작됨');
+        if (!confirm('정말 이동하시겠습니까?')) {
+          e.preventDefault();
+        }
+      }}
+    >
+      대시보드로 이동
+    </Link>
+  );
+}
+```
+
+### `onClick` 과 차이
+
+`onClick` 이벤트와는 다르게 다음과 같은 차이가 있습니다.
+
+- 새 탭 열기(“Ctrl + Click” 등)나 외부 URL 클릭 등의 경우 onNavigate는 실행되지 않습니다.
+- same-origin 내에서 클라이언트 사이드 전환(Client Side Navigation)이 발생할 때만 작동합니다
+
+## next.js 15.3 이후부터, `<Link>`의 보류 상태를 추적할 수 있습니다.
+
+새 경로로의 이동이 완료되는 동안, 사용자에게 인라인 시각적 피드백(Spinner, 텍스트 글리머 등)을
+표시하는 데 사용할 수 있습니다.
+
+```tsx
+'use client';
+
+import { useLinkStatus } from 'next/link';
+
+export default function LoadingIndicator() {
+  const { pending } = useLinkStatus();
+
+  if (!pending) {
+    return null;
+  }
+
+  return <div role="status" aria-label="Loading" className="spinner" />;
+}
+```
+
+## next.js 15.5 이후부터, `type safe` 한 경로 설정이 가능합니다.
+
+next.js 15.5 의 `typedRoutes` 설정을 하면, 자동으로 `.next` 폴더 내에
+사용 가능한 모든 라우트의 타입을 자동 생성합니다. (개발 단계에서 자동완성 가능)
+
+```tsx
+// next.config.ts
+const nextConfig = {
+  typedRoutes: true, // Now stable!
+};
+
+export default nextConfig;
+```
+
+```json
+// tsconfig.json
+{
+  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
+```
+
+```tsx
+'use client';
+
+import type { Route } from 'next';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+export default function Example() {
+  const router = useRouter();
+  const slug = 'nextjs';
+
+  return (
+    <>
+      {/* Link: literal and dynamic */}
+      <Link href="/about" />
+      <Link href={`/blog/${slug}`} />
+      <Link href={('/blog/' + slug) as Route} />
+      <Link href="/aboot" />
+
+      {/* Router: literal and dynamic strings are validated */}
+      <button onClick={() => router.push('/about')}>Push About</button>
+      <button onClick={() => router.push('/about')}>Push About</button>
+      <button onClick={() => router.replace(`/blog/${slug}`)}>Replace Blog</button>
+      <button onClick={() => router.prefetch('/contact')}>Prefetch Contact</button>
+
+      {/* For non-literal strings, cast to Route */}
+      <button onClick={() => router.push(('/blog/' + slug) as Route)}>Push Non-literal Blog</button>
+    </>
+  );
+}
+```
+
+## React 19.2 버전에서 컴포넌트의 렌더링 분기처리
+
+React 19.2 버전 이후부터, 컴포넌트의 렌더링 분기 처리는 다음과 같이 `<Activity />` Component 로
+처리가 가능합니다.
+
+숨김 상태에서도 컴포넌트의 **리액트 상태(state)와 DOM 상태**는 유지되고,
+단지 “효과”와 “업데이트 우선순위”만 낮춰집니다.
+
+```tsx
+{
+  isVisible && <Page />;
+}
+```
+
+```tsx
+<Activity mode={isVisible ? 'visible' : 'hidden'}>
+  <Page />
+</Activity>
+```
+
+아래와 같은 사용에 적합합니다:
+
+- 사용자가 다음에 접근할 가능성이 있는 UI 미리 렌더링(프리로딩)
+- 뒤로가기 시 상태 유지하고 싶을 때 (입력폼 등)
+- 시각적으로 숨겨야 하지만 상태 유지하면서 리소스 사용을 최소화해야 할 때
+
+<aside>
+💡
+
+향후 더 많은 mode (예: “background”, “paused” 등)가 추가될 예정이므로, 현재 문서화된 기능만 신뢰해서 사용해야 합니다.
+
+</aside>
+
+## React 19.2의 의존성 디펜던시
+
+React 19.2 버전 이후부터, `useEffect` 사용시의 불필요한 의존성 디펜던시 강제를 다음과 같이 `useEffectEvent` Hook을 통해서 처리가 가능합니다.
+
+19.2 버전에서 Stable 하게 변경된 `useEffectEvent` 는 함수형 컴포넌트 내부에서 “최신 상태를 읽되, 의존성 배열을 복잡하게 관리하지 않아도 되는 안전한 방법”을 제공하는 Hook 입니다.
+
+```tsx
+// 기존 로직: 불필요한 nickname 변수를 Effect의 디펜던시로 설정 해야 함
+function ChatRoom({ roomId, nickname }) {
+  useEffect(() => {
+    const connection = createConnection(serverUrl, roomId);
+    connection.on('connected', () => {
+      showNotification('Connected!', nickname);
+    });
+    connection.connect();
+    return () => {
+      connection.disconnect()
+    };
+  }, [roomId, nickname]);
+  // ...
+```
+
+```tsx
+import { useEffect, useEffectEvent } from 'react';
+
+function ChatRoom({ roomId, nickname }) {
+  // 1. nickname의 변화에 반응하지 않는 함수를 만듭니다.
+  // 이 함수는 항상 최신 nickname 값을 참조합니다.
+  const sendWelcomeMessage = useEffectEvent(() => {
+    sendMessage(`Welcome to the room, ${nickname}!`);
+  });
+
+  useEffect(() => {
+    // 2. 이 Effect는 오직 `roomId`가 변경될 때만 재실행됩니다.
+    const connection = createConnection(serverUrl, roomId);
+
+    connection.on('connected', () => {
+      // 3. 연결 성공 시, 최신 nickname으로 환영 메시지를 보냅니다.
+      sendWelcomeMessage();
+    });
+
+    connection.connect();
+    return () => connection.disconnect();
+  }, [roomId]); // `nickname`은 의존성 배열에 포함되지 않습니다.
+
+  return <h1>Welcome to {roomId}</h1>;
+}
+```
+
+사용자가 페이지의 어느 곳에서든 단축키(예: Ctrl+S)를 눌렀을 때 현재 작업 내용을 저장하는 기능
+
+키보드 이벤트를 감지하는 useEffect는 페이지가 로드될 때 한 번만 등록하는 것이 가장 효율적
+
+하지만 저장할 내용(content)은 사용자가 입력함에 따라 계속 변하는 `state`.
+
+만약 content를 의존성 배열에 넣으면, 사용자가 타자를 칠 때마다 이벤트 리스너가 끊임없이 제거되고 다시 등록되는 비효율이 발생. 반대로 의존성 배열에서 제외하면, 저장 기능은 항상 맨 처음의 비어있는 내용만 기억.
+
+저장 로직을 useEffectEvent로 감싸 onSave와 같은 함수로 분리하면, 이 함수는 항상 최신 content를 바라보게 된다. 그리고 키보드 이벤트 리스너를 등록하는 useEffect는 의존성 배열을 비워둔 채([]) 안전하게 이 onSave 함수를 호출하기만 하면 된다.
+
+**이를 통해 이벤트 리스너의 등록은 최소화, 데이터의 정합성은 최상으로 유지**
+
+```tsx
+import { useState, useEffect, useEffectEvent } from 'react';
+
+function DocumentEditor() {
+  const [content, setContent] = useState('');
+
+  // 1. 저장 로직을 useEffectEvent로 분리합니다.
+  // 이 `onSave` 함수는 항상 최신 `content` 상태를 알고 있습니다.
+  const onSave = useEffectEvent(() => {
+    // 실제 애플리케이션에서는 이 부분에 API 호출이 들어갑니다.
+    console.log('Saving content:', content);
+    alert(`Saved: ${content.substring(0, 20)}...`);
+  });
+
+  // 2. 키보드 이벤트 리스너를 등록하는 Effect입니다.
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Ctrl+S 또는 Cmd+S를 감지합니다.
+      if (e.key === 's' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault(); // 브라우저의 기본 저장 동작을 막습니다.
+        onSave(); // 최신 내용을 저장하는 함수를 호출합니다.
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거합니다.
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []); // 3. 의존성 배열이 비어있어, 이 Effect는 단 한 번만 실행됩니다.
+
+  return (
+    <div>
+      <h2>Document Editor 📝</h2>
+      <p>
+        아래 칸에 내용을 입력하고 <b>Ctrl+S</b> (또는 Mac에서 <b>Cmd+S</b>)를 눌러 저장하세요.
+      </p>
+      <textarea
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        rows={10}
+        style={{ width: '100%', padding: '10px' }}
+        placeholder="여기에 입력하세요..."
+      />
+    </div>
+  );
+}
+```
+
+## React 19 이후, 대기 상태는 다음과 같이 다룹니다
+
+기존에 `useState` 대신, `useTransition` Hook 을 사용합니다.
+
+```tsx
+// React 19 이전
+function UpdateName({}) {
+  const [name, setName] = useState('');
+  const [error, setError] = useState(null);
+  const [isPending, setIsPending] = useState(false);
+
+  const handleSubmit = async () => {
+    setIsPending(true);
+    const error = await updateName(name);
+    setIsPending(false);
+    if (error) {
+      setError(error);
+      return;
+    }
+    redirect('/path');
+  };
+
+  return (
+    <div>
+      <input value={name} onChange={(event) => setName(event.target.value)} />
+      <button onClick={handleSubmit} disabled={isPending}>
+        Update
+      </button>
+      {error && <p>{error}</p>}
+    </div>
+  );
+}
+```
+
+```tsx
+// React 19 이후
+function UpdateName({}) {
+  const [name, setName] = useState('');
+  const [error, setError] = useState(null);
+  const [isPending, startTransition] = useTransition();
+
+  const handleSubmit = () => {
+    startTransition(async () => {
+      const error = await updateName(name);
+      if (error) {
+        setError(error);
+        return;
+      }
+      redirect('/path');
+    });
+  };
+
+  return (
+    <div>
+      <input value={name} onChange={(event) => setName(event.target.value)} />
+      <button onClick={handleSubmit} disabled={isPending}>
+        Update
+      </button>
+      {error && <p>{error}</p>}
+    </div>
+  );
+}
+```
+
+## React 19 이후, 액션을 다루기 위해 다음을 사용합니다.
+
+```tsx
+import { useActionState } from 'react';
+
+// `<form>` 액션과 `useActionState`의 사용
+function ChangeName({ name, setName }) {
+  // useActionState(action, initialState, permalink?)
+  const [error, submitAction, isPending] = useActionState(async (previousState, formData) => {
+    const error = await updateName(formData.get('name'));
+    if (error) {
+      return error;
+    }
+    redirect('/path');
+    return null;
+  }, null);
+
+  return (
+    <form action={submitAction}>
+      <input type="text" name="name" />
+      <button type="submit" disabled={isPending}>
+        Update
+      </button>
+      {error && <p>{error}</p>}
+    </form>
+  );
+}
+```
+
+또는 액션 간 간단한 대기 상태는 `useFormStatus` 를 사용합니다.
+
+```tsx
+import { useFormStatus } from 'react-dom';
+
+function DesignButton() {
+  const { pending } = useFormStatus();
+  return <button type="submit" disabled={pending} />;
+}
+```
+
+## React 19 이후, 낙관적 UI 처리는 다음과 같이 가능합니다.
+
+데이터가 업데이트 되기 전, 변경된 내용을 먼저 노출하고, 백그라운드에서 데이터의 변경 사항 적용을 진행
+
+```tsx
+function ChangeName({ currentName, onUpdateName }) {
+  // [optimisticState, addOptimistic] = useOptimistic(state, updateFn?);
+  const [optimisticName, setOptimisticName] = useOptimistic(currentName);
+
+  const submitAction = async (formData) => {
+    const newName = formData.get('name');
+    setOptimisticName(newName);
+    const updatedName = await updateName(newName);
+    onUpdateName(updatedName);
+  };
+
+  return (
+    <form action={submitAction}>
+      <p>Your name is: {optimisticName}</p>
+      <p>
+        <label>Change Name:</label>
+        <input type="text" name="name" disabled={currentName !== optimisticName} />
+      </p>
+    </form>
+  );
+}
+```
+
+## React 19 이후, ref 는 props 가 될 수 있습니다
+
+더이상 `ref`를 넘기기위한 `forwardRef`가 필요하지 않습니다.
+
+```tsx
+import { forwardRef } from 'react';
+
+const MyInput = forwardRef(function MyInput(props, ref) {
+  const { label, ...otherProps } = props;
+  return (
+    <label>
+      {label}
+      <input {...otherProps} />
+    </label>
+  );
+});
+```
+
+```tsx
+function MyInput({ placeholder, ref }) {
+  return <input placeholder={placeholder} ref={ref} />;
+}
+
+<MyInput ref={ref} />;
+```
+
+## React 19 이후, 메타 태그는 자동으로 호이스팅 됩니다.
+
+다음의 경우 `<title>`, `<meta>`, `<link>` 태그는 자동 호이스팅으로 인해
+`<head>` 태그 안에 들어갑니다.
+
+```tsx
+function BlogPost({ post }) {
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <title>{post.title}</title>
+      <meta name="author" content="Josh" />
+      <link rel="author" href="https://twitter.com/joshcstory/" />
+      <meta name="keywords" content={post.keywords} />
+      <p>Eee equals em-see-squared...</p>
+    </article>
+  );
+}
+```

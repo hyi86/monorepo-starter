@@ -16,5 +16,5 @@
     "lib": "~/lib",
     "hooks": "~/hooks"
   },
-  "iconLibrary": "react-icons"
+  "iconLibrary": "lucide"
 }

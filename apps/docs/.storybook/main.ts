@@ -1,21 +1,15 @@
 import type { StorybookConfig } from '@storybook/react-vite';
-import { dirname, join, resolve } from 'path';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'path';
 import remarkGfm from 'remark-gfm';
 
-/**
- * This function is used to resolve the absolute path of a package.
- * It is needed in projects that use Yarn PnP or are set up within a monorepo.
- */
-function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, 'package.json')));
-}
 const config: StorybookConfig = {
   framework: {
     name: getAbsolutePath('@storybook/react-vite'),
     options: {},
   },
   stories: [
-    '../stories/**/*.mdx',
+    '../stories/**/*.mdx', // mdx 파일 포함
     '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)', // 모든 스토리 파일 포함
   ],
   addons: [
@@ -23,7 +17,7 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-vitest'),
     getAbsolutePath('@storybook/addon-themes'),
     {
-      name: '@storybook/addon-docs',
+      name: getAbsolutePath('@storybook/addon-docs'),
       options: {
         mdxPluginOptions: {
           mdxCompileOptions: {
@@ -36,6 +30,7 @@ const config: StorybookConfig = {
   features: {
     backgrounds: false,
   },
+  staticDirs: ['../public'],
   async viteFinal(config) {
     return {
       ...config,
@@ -43,7 +38,7 @@ const config: StorybookConfig = {
         alias: [
           {
             find: 'ui',
-            replacement: resolve(__dirname, '../../../packages/ui/'),
+            replacement: resolve(process.cwd(), '../../../packages/ui/'),
           },
         ],
       },
@@ -51,3 +46,7 @@ const config: StorybookConfig = {
   },
 };
 export default config;
+
+function getAbsolutePath(value: string): any {
+  return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
+}

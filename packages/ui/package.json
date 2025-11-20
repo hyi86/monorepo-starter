@@ -6,10 +6,10 @@
   "exports": {
     "./globals.css": "./src/styles/globals.css",
     "./postcss.config": "./postcss.config.mjs",
-    "./components/*": "./src/components/*.tsx",
-    "./blocks/*": "./src/blocks/*.tsx",
-    "./hooks/*": "./src/hooks/*.ts",
-    "./lib/*": "./src/lib/*.ts"
+    "./components/*": "./src/components/*",
+    "./blocks/*": "./src/blocks/*",
+    "./hooks/*": "./src/hooks/*",
+    "./lib/*": "./src/lib/*"
   },
   "scripts": {
     "check-types": "tsc --noEmit",

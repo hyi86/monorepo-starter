@@ -5,13 +5,12 @@
     "moduleResolution": "bundler",
     "outDir": "dist",
     "baseUrl": ".",
-    "rootDir": "stories",
     "skipLibCheck": true,
     "paths": {
       "~/*": ["./stories/*"],
-      "@monorepo-starter/ui/*": ["../../src/*"],
+      "@monorepo-starter/ui/*": ["../../packages/ui/src/*"]
     }
   },
-  "include": [".storybook", "stories", "foundations"],
+  "include": [".storybook", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist"]
 }
