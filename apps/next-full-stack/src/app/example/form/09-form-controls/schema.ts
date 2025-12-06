@@ -14,12 +14,16 @@ export const schema = z.object({
   multiSelect: z.array(z.object({ value: z.string(), label: z.string() })),
 
   dateInput: z.string(),
-  datePickerSingleDefault: z.date().optional(),
-  datePickerSingle: z.string(),
-  datePickerMultiple: z.array(z.string()),
+  datePickerSingle: z.date().optional(),
+  datePickerSingleTime: z.date().optional(),
+  datePickerMultiple: z.array(z.date()),
   datePickerRange: z.object({
-    from: z.string(),
-    to: z.string(),
+    from: z.date(),
+    to: z.date().optional(),
+  }),
+  datePickerRangeTime: z.object({
+    from: z.date(),
+    to: z.date().optional(),
   }),
 });
 

@@ -26,7 +26,7 @@ export default async function DataCacheOnDemandPage() {
 
   async function handleRevalidateTag() {
     'use server';
-    revalidateTag(`todos/${id}`);
+    revalidateTag(`todos/${id}`, 'max');
   }
 
   async function handleRevalidatePath() {

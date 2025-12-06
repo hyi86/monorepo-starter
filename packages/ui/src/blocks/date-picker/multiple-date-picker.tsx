@@ -77,7 +77,7 @@ export function MultipleDatePicker({ value, onChange, maxDisplayCount = 3 }: Mul
             aria-label={`${dateString} 제거`}
             tabIndex={-1}
           >
-            <XIcon className="text-muted-foreground" />
+            <XIcon className="text-muted-foreground size-3" />
           </button>
         </Badge>
       ));
@@ -93,7 +93,7 @@ export function MultipleDatePicker({ value, onChange, maxDisplayCount = 3 }: Mul
           aria-label={`${dateString} 제거`}
           tabIndex={-1}
         >
-          <XIcon className="text-muted-foreground" />
+          <XIcon className="text-muted-foreground size-3" />
         </button>
       </Badge>
     ));
@@ -121,11 +121,10 @@ export function MultipleDatePicker({ value, onChange, maxDisplayCount = 3 }: Mul
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-2">
+        <PopoverContent className="w-auto p-2" align="start">
           <Calendar
             mode="multiple"
             captionLayout="dropdown"
-            endMonth={new Date(2026, 11)}
             classNames={{
               dropdowns: 'flex flex-row-reverse gap-2',
             }}

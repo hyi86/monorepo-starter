@@ -125,11 +125,65 @@ export function DateTimePicker({ className, presets = [], value, onChange, ...pr
   return (
     <div
       className={cn(
-        'focus-within:border-ring focus-within:ring-ring/50 flex w-fit items-center rounded-md border shadow-xs focus-within:ring-[3px]',
+        'focus-within:border-ring focus-within:ring-ring/50 flex w-fit items-center rounded-md border ps-2 shadow-xs focus-within:ring-[3px]',
         className,
       )}
     >
       <Popover>
+        <input
+          type="date"
+          className="w-20 text-sm tracking-tighter focus-visible:outline-0 [&::-webkit-calendar-picker-indicator]:hidden"
+          value={displayValue ? formatISO9075(displayValue, { representation: 'date' }) : ''}
+          onChange={handleChangeDate}
+          aria-label="날짜 선택"
+        />
+
+        <input
+          type="number"
+          className="w-5 text-center text-sm focus-visible:outline-0 [&::-webkit-inner-spin-button]:hidden [&::-webkit-outer-spin-button]:hidden"
+          min={0}
+          max={23}
+          placeholder="00"
+          aria-label="시간 선택"
+          value={displayValue?.getHours().toString().padStart(2, '0') ?? '00'}
+          onChange={handleChangeTime('hour')}
+          onBlur={(e) => {
+            const num = e.target.valueAsNumber;
+            if (!Number.isNaN(num) && num >= 0 && num <= 23) {
+              e.target.value = zerofill(num, 2);
+            }
+          }}
+        />
+        <span>:</span>
+        <input
+          type="number"
+          className="w-5 text-center text-sm focus-visible:outline-0 [&::-webkit-inner-spin-button]:hidden [&::-webkit-outer-spin-button]:hidden"
+          min={0}
+          max={59}
+          placeholder="00"
+          aria-label="분 선택"
+          value={displayValue?.getMinutes().toString().padStart(2, '0') ?? '00'}
+          onChange={handleChangeTime('minute')}
+          onBlur={(e) => {
+            const num = e.target.valueAsNumber;
+            if (!Number.isNaN(num) && num >= 0 && num <= 59) {
+              e.target.value = zerofill(num, 2);
+            }
+          }}
+        />
+
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          className={cn(
+            'focus-visible:text-foreground rounded-full focus-visible:ring-0',
+            isValid(displayValue) ? 'visible' : 'invisible',
+          )}
+          onClick={handleClear}
+          aria-label="날짜 및 시간 초기화"
+        >
+          <XIcon className="text-muted-foreground" />
+        </Button>
         <PopoverTrigger asChild>
           <Button variant="ghost" size="icon-sm" className="focus-visible:ring-0" aria-label="캘린더 열기">
             <CalendarIcon className="text-muted-foreground" />
@@ -165,7 +219,7 @@ export function DateTimePicker({ className, presets = [], value, onChange, ...pr
               <Label className="text-muted-foreground col-span-2 px-2 text-xs">시간 선택</Label>
               <ButtonGroup className="rounded-md border">
                 <ButtonGroupText className="bg-background text-muted-foreground border-none pr-1 pl-2 shadow-none">
-                  <ClockIcon className="size-4" />
+                  <ClockIcon className="text-muted-foreground/50 size-4" />
                 </ButtonGroupText>
                 <Select
                   value={displayValue?.getHours().toString().padStart(2, '0') ?? undefined}
@@ -177,7 +231,7 @@ export function DateTimePicker({ className, presets = [], value, onChange, ...pr
                   }}
                 >
                   <SelectTrigger
-                    className="w-6 justify-start border-none px-1 shadow-none"
+                    className="w-fit justify-start border-none px-1 shadow-none"
                     size="sm"
                     aria-label="시간 선택"
                   >
@@ -204,7 +258,7 @@ export function DateTimePicker({ className, presets = [], value, onChange, ...pr
                   }}
                 >
                   <SelectTrigger
-                    className="w-9 justify-start border-none px-1 shadow-none"
+                    className="w-fit justify-start border-none px-1 shadow-none"
                     size="sm"
                     aria-label="분 선택"
                   >
@@ -225,61 +279,6 @@ export function DateTimePicker({ className, presets = [], value, onChange, ...pr
           </div>
         </PopoverContent>
       </Popover>
-
-      <input
-        type="date"
-        className="w-20 text-sm tracking-tighter focus-visible:outline-0 [&::-webkit-calendar-picker-indicator]:hidden"
-        value={displayValue ? formatISO9075(displayValue, { representation: 'date' }) : ''}
-        onChange={handleChangeDate}
-        aria-label="날짜 선택"
-      />
-
-      <input
-        type="number"
-        className="w-5 text-center text-sm focus-visible:outline-0 [&::-webkit-inner-spin-button]:hidden [&::-webkit-outer-spin-button]:hidden"
-        min={0}
-        max={23}
-        placeholder="00"
-        aria-label="시간 선택"
-        value={displayValue?.getHours().toString().padStart(2, '0') ?? '00'}
-        onChange={handleChangeTime('hour')}
-        onBlur={(e) => {
-          const num = e.target.valueAsNumber;
-          if (!Number.isNaN(num) && num >= 0 && num <= 23) {
-            e.target.value = zerofill(num, 2);
-          }
-        }}
-      />
-      <span>:</span>
-      <input
-        type="number"
-        className="w-5 text-center text-sm focus-visible:outline-0 [&::-webkit-inner-spin-button]:hidden [&::-webkit-outer-spin-button]:hidden"
-        min={0}
-        max={59}
-        placeholder="00"
-        aria-label="분 선택"
-        value={displayValue?.getMinutes().toString().padStart(2, '0') ?? '00'}
-        onChange={handleChangeTime('minute')}
-        onBlur={(e) => {
-          const num = e.target.valueAsNumber;
-          if (!Number.isNaN(num) && num >= 0 && num <= 59) {
-            e.target.value = zerofill(num, 2);
-          }
-        }}
-      />
-
-      <Button
-        variant="ghost"
-        size="icon-sm"
-        className={cn(
-          'focus-visible:text-foreground rounded-full focus-visible:ring-0',
-          isValid(displayValue) ? 'visible' : 'invisible',
-        )}
-        onClick={handleClear}
-        aria-label="날짜 및 시간 초기화"
-      >
-        <XIcon className="text-muted-foreground" />
-      </Button>
     </div>
   );
 }

@@ -16,7 +16,7 @@ export const createRandomUserAction = async (formData: FormData) => {
   }
 
   await createRandomUsers(countNumber);
-  revalidateTag('/example/db/crud');
+  revalidateTag('/example/db/crud', 'max');
 };
 
 /**
@@ -24,7 +24,7 @@ export const createRandomUserAction = async (formData: FormData) => {
  */
 export const deleteUserAction = async (id: number) => {
   await deleteUser(id);
-  revalidateTag('/example/db/crud');
+  revalidateTag('/example/db/crud', 'max');
 };
 
 /**
@@ -33,7 +33,7 @@ export const deleteUserAction = async (id: number) => {
 export const updateUserAction = async (id: number) => {
   const randomInfo = createRandomUser();
   await updateUser(id, { bio: randomInfo.bio });
-  revalidateTag('/example/db/crud');
+  revalidateTag('/example/db/crud', 'max');
 };
 
 /**
@@ -46,5 +46,5 @@ export const toggleUserStatusAction = async (id: number) => {
   }
 
   await updateUser(id, { status: user.status === 'active' ? 'inactive' : 'active' });
-  revalidateTag('/example/db/crud');
+  revalidateTag('/example/db/crud', 'max');
 };

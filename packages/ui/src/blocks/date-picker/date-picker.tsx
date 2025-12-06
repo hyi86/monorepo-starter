@@ -26,9 +26,9 @@ export function DatePicker({ className, presets = [], value, onChange, ...props 
   const [month, setMonth] = useState<Date | undefined>(value || undefined);
 
   // 값 초기화
-  const handleClear = useCallback(() => {
+  const handleClear = () => {
     updateValue(undefined);
-  }, [updateValue]);
+  };
 
   // 프리셋 선택 시 값 변경
   const handleChangePreset = useCallback(
@@ -83,10 +83,29 @@ export function DatePicker({ className, presets = [], value, onChange, ...props 
   return (
     <div
       className={cn(
-        'focus-within:border-ring focus-within:ring-ring/50 flex max-h-9 w-fit items-center rounded-md border shadow-xs focus-within:ring-[3px]',
+        'focus-within:border-ring focus-within:ring-ring/50 flex max-h-9 w-fit items-center rounded-md border ps-2 shadow-xs focus-within:ring-[3px]',
         className,
       )}
     >
+      <input
+        type="date"
+        className="w-20 text-sm tracking-tighter focus-visible:outline-0 [&::-webkit-calendar-picker-indicator]:hidden"
+        value={displayValue ? formatISO9075(displayValue, { representation: 'date' }) : ''}
+        onChange={handleChangeDate}
+        aria-label="날짜 선택"
+      />
+      <Button
+        variant="ghost"
+        size="icon-sm"
+        className={cn(
+          'focus-visible:text-foreground rounded-full focus-visible:ring-0',
+          displayValue ? 'visible' : 'invisible',
+        )}
+        onClick={handleClear}
+        aria-label="날짜 초기화"
+      >
+        <XIcon className="text-muted-foreground" />
+      </Button>
       <Popover>
         <PopoverTrigger asChild>
           <Button variant="ghost" size="icon-sm" className="focus-visible:ring-0" aria-label="캘린더 열기">
@@ -118,27 +137,6 @@ export function DatePicker({ className, presets = [], value, onChange, ...props 
           />
         </PopoverContent>
       </Popover>
-
-      <input
-        type="date"
-        className="w-20 text-sm tracking-tighter focus-visible:outline-0 [&::-webkit-calendar-picker-indicator]:hidden"
-        value={displayValue ? formatISO9075(displayValue, { representation: 'date' }) : ''}
-        onChange={handleChangeDate}
-        aria-label="날짜 선택"
-      />
-
-      <Button
-        variant="ghost"
-        size="icon-sm"
-        className={cn(
-          'focus-visible:text-foreground rounded-full focus-visible:ring-0',
-          displayValue ? 'visible' : 'invisible',
-        )}
-        onClick={handleClear}
-        aria-label="날짜 초기화"
-      >
-        <XIcon className="text-muted-foreground" />
-      </Button>
     </div>
   );
 }

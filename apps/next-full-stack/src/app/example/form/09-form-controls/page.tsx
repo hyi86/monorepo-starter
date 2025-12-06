@@ -2,10 +2,11 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  DatePickerDefault,
-  DatePickerInput,
-  DatePickerInputMultiple,
-  RangePickerInput,
+  DatePicker,
+  DateTimePicker,
+  MultipleDatePicker,
+  RangePicker,
+  RangeTimePicker,
 } from '@monorepo-starter/ui/blocks/date-picker';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Checkbox } from '@monorepo-starter/ui/components/checkbox';
@@ -43,12 +44,16 @@ export default function FormDatePickerPage() {
       sliderDual: [5, 10],
       multiSelect: [],
       dateInput: '',
-      datePickerSingleDefault: undefined,
-      datePickerSingle: '',
-      datePickerMultiple: ['2024-01-01', '2024-01-02'],
+      datePickerSingle: undefined,
+      datePickerSingleTime: undefined,
+      datePickerMultiple: [new Date('2024-01-01'), new Date('2024-01-02')],
       datePickerRange: {
-        from: '',
-        to: '',
+        from: undefined,
+        to: undefined,
+      },
+      datePickerRangeTime: {
+        from: undefined,
+        to: undefined,
       },
     },
   });
@@ -84,7 +89,7 @@ export default function FormDatePickerPage() {
               <FormItem className="max-w-100">
                 <FormLabel>체크박스 1</FormLabel>
                 <FormControl>
-                  <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950">
+                  <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-aria-checked:border-blue-600 has-aria-checked:bg-blue-50 dark:has-aria-checked:border-blue-900 dark:has-aria-checked:bg-blue-950">
                     <Checkbox
                       id="toggle-2"
                       defaultChecked
@@ -114,7 +119,7 @@ export default function FormDatePickerPage() {
               <FormItem className="max-w-100">
                 <FormLabel>체크박스 2</FormLabel>
                 <FormControl>
-                  <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-green-600 has-[[aria-checked=true]]:bg-green-50 dark:has-[[aria-checked=true]]:border-green-900 dark:has-[[aria-checked=true]]:bg-green-950">
+                  <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-aria-checked:border-green-600 has-aria-checked:bg-green-50 dark:has-aria-checked:border-green-900 dark:has-aria-checked:bg-green-950">
                     <Checkbox
                       id="toggle-2"
                       defaultChecked
@@ -379,22 +384,6 @@ export default function FormDatePickerPage() {
             )}
           />
 
-          {/* Date Picker Single Default */}
-          <FormField
-            control={form.control}
-            name="datePickerSingleDefault"
-            render={({ field }) => (
-              <FormItem className="max-w-100">
-                <FormLabel>Date Picker Single</FormLabel>
-                <FormControl>
-                  <DatePickerDefault value={field.value} onChange={field.onChange} label="Date Picker Single Default" />
-                </FormControl>
-                <FormDescription>기본 날짜 선택 피커 입니다</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
           {/* Date Picker Single */}
           <FormField
             control={form.control}
@@ -403,9 +392,25 @@ export default function FormDatePickerPage() {
               <FormItem className="max-w-100">
                 <FormLabel>Date Picker Single</FormLabel>
                 <FormControl>
-                  <DatePickerInput value={field.value} onChange={field.onChange} />
+                  <DatePicker value={field.value} onChange={field.onChange} />
                 </FormControl>
                 <FormDescription>기본 날짜 선택 피커 입니다</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Date Picker Single Time */}
+          <FormField
+            control={form.control}
+            name="datePickerSingleTime"
+            render={({ field }) => (
+              <FormItem className="max-w-100">
+                <FormLabel>Date Picker Single Time</FormLabel>
+                <FormControl>
+                  <DateTimePicker value={field.value} onChange={field.onChange} />
+                </FormControl>
+                <FormDescription>기본 날짜 시간 선택 피커 입니다</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -419,9 +424,9 @@ export default function FormDatePickerPage() {
               <FormItem className="max-w-100">
                 <FormLabel>Date Picker Multiple</FormLabel>
                 <FormControl>
-                  <DatePickerInputMultiple value={field.value} onChange={field.onChange} />
+                  <MultipleDatePicker value={field.value} onChange={field.onChange} />
                 </FormControl>
-                <FormDescription>날짜 선택 피커 여러개 입니다</FormDescription>
+                <FormDescription>멀티 날짜 선택 피커 입니다</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -435,9 +440,25 @@ export default function FormDatePickerPage() {
               <FormItem className="max-w-100">
                 <FormLabel>Date Range Picker</FormLabel>
                 <FormControl>
-                  <RangePickerInput value={field.value} onChange={field.onChange} />
+                  <RangePicker value={field.value} onChange={field.onChange} />
                 </FormControl>
                 <FormDescription>날짜 범위 선택 피커 입니다</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Date Range Time Picker */}
+          <FormField
+            control={form.control}
+            name="datePickerRangeTime"
+            render={({ field }) => (
+              <FormItem className="max-w-100">
+                <FormLabel>Date Range Time Picker</FormLabel>
+                <FormControl>
+                  <RangeTimePicker value={field.value} onChange={field.onChange} />
+                </FormControl>
+                <FormDescription>날짜 범위 시간 선택 피커 입니다</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
