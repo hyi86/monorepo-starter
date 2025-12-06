@@ -109,7 +109,7 @@ export function MultipleDatePicker({ value, onChange, maxDisplayCount = 3 }: Mul
   return (
     <div
       className={cn(
-        'focus-within:border-ring focus-within:ring-ring/50 border-input relative flex min-h-8 w-fit items-center gap-1 rounded-md border py-0.5 pe-1 pr-2 shadow-xs focus-within:ring-[3px]',
+        'focus-within:border-ring focus-within:ring-ring/50 border-input relative flex min-h-8 w-fit items-center gap-1 rounded-md border py-0.5 shadow-xs focus-within:ring-[3px]',
       )}
     >
       <Popover>
@@ -139,16 +139,15 @@ export function MultipleDatePicker({ value, onChange, maxDisplayCount = 3 }: Mul
             }}
           />
         </PopoverContent>
+        {displayValue && displayValue.length > 0 && (
+          <>
+            {displayContent}
+            <Button variant="ghost" size="icon-sm" onClick={handleClear} aria-label="모든 날짜 제거" tabIndex={-1}>
+              <XIcon className="text-muted-foreground" />
+            </Button>
+          </>
+        )}
       </Popover>
-
-      {displayValue && displayValue.length > 0 && (
-        <>
-          {displayContent}
-          <Button variant="ghost" size="icon-sm" onClick={handleClear} aria-label="모든 날짜 제거" tabIndex={-1}>
-            <XIcon className="text-muted-foreground" />
-          </Button>
-        </>
-      )}
     </div>
   );
 }

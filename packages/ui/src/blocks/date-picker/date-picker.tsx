@@ -87,26 +87,26 @@ export function DatePicker({ className, presets = [], value, onChange, ...props 
         className,
       )}
     >
-      <input
-        type="date"
-        className="w-20 text-sm tracking-tighter focus-visible:outline-0 [&::-webkit-calendar-picker-indicator]:hidden"
-        value={displayValue ? formatISO9075(displayValue, { representation: 'date' }) : ''}
-        onChange={handleChangeDate}
-        aria-label="날짜 선택"
-      />
-      <Button
-        variant="ghost"
-        size="icon-sm"
-        className={cn(
-          'focus-visible:text-foreground rounded-full focus-visible:ring-0',
-          displayValue ? 'visible' : 'invisible',
-        )}
-        onClick={handleClear}
-        aria-label="날짜 초기화"
-      >
-        <XIcon className="text-muted-foreground" />
-      </Button>
       <Popover>
+        <input
+          type="date"
+          className="w-20 text-sm tracking-tighter focus-visible:outline-0 [&::-webkit-calendar-picker-indicator]:hidden"
+          value={displayValue ? formatISO9075(displayValue, { representation: 'date' }) : ''}
+          onChange={handleChangeDate}
+          aria-label="날짜 선택"
+        />
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          className={cn(
+            'focus-visible:text-foreground rounded-full focus-visible:ring-0',
+            displayValue ? 'visible' : 'invisible',
+          )}
+          onClick={handleClear}
+          aria-label="날짜 초기화"
+        >
+          <XIcon className="text-muted-foreground" />
+        </Button>
         <PopoverTrigger asChild>
           <Button variant="ghost" size="icon-sm" className="focus-visible:ring-0" aria-label="캘린더 열기">
             <CalendarIcon className="text-muted-foreground" />
