@@ -10,7 +10,7 @@ import { loggerMiddleware } from '~/shared/middleware/logger';
  * @see {@link https://nextjs.org/docs/app/building-your-application/routing/middleware#matching-paths 경로 매칭}
  * @see {@link https://nextjs.org/docs/app/building-your-application/routing/middleware#runtime 런타임}
  */
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   // 추가 예외 파일 (*worker.js)
   if (request.nextUrl.pathname.endsWith('worker.js')) {
     return NextResponse.next();
