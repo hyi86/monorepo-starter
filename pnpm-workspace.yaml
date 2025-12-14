@@ -4,23 +4,23 @@ packages:
 
 catalog:
   '@eslint/eslintrc': ^3.3.1
-  '@next/bundle-analyzer': 16.0.7
-  '@next/eslint-plugin-next': 16.0.7
-  '@next/mdx': 16.0.7
-  '@tailwindcss/postcss': ^4.1.17
-  '@tailwindcss/vite': ^4.1.17
-  '@types/node': ^24.10.1
+  '@next/bundle-analyzer': 16.0.10
+  '@next/eslint-plugin-next': 16.0.10
+  '@next/mdx': 16.0.10
+  '@tailwindcss/postcss': ^4.1.18
+  '@tailwindcss/vite': ^4.1.18
+  '@types/node': ^25.0.2
   '@types/react': 19.2.7
   '@types/react-dom': 19.2.3
   '@vitest/browser': ^4.0.15
   '@vitest/coverage-v8': ^4.0.15
-  eslint: ^9.39.1
-  lucide-react: 0.556.0
-  next: 16.0.7
-  react: 19.2.1
-  react-dom: 19.2.1
-  tailwindcss: ^4.1.17
-  type-fest: ^5.3.0
+  eslint: ^9.39.2
+  lucide-react: 0.561.0
+  next: 16.0.10
+  react: 19.2.3
+  react-dom: 19.2.3
+  tailwindcss: ^4.1.18
+  type-fest: ^5.3.1
   typescript: ^5.9.3
   vitest: ^4.0.15
   zod: 4.1.13

@@ -7,10 +7,6 @@
         "mcp"
       ]
     },
-    "Framelink Figma MCP": {
-      "command": "npx",
-      "args": ["-y", "figma-developer-mcp", "--figma-api-key=YOUR-KEY", "--stdio"]
-    },
     "next-devtools": {
       "command": "npx",
       "args": ["-y", "next-devtools-mcp@latest"]
