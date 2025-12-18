@@ -16,5 +16,8 @@
     "lib": "@monorepo-starter/ui/lib",
     "hooks": "@monorepo-starter/ui/hooks"
   },
-  "iconLibrary": "lucide"
+  "iconLibrary": "lucide",
+  "registries": {
+    "@coss": "https://coss.com/ui/r/{name}.json"
+  }
 }
