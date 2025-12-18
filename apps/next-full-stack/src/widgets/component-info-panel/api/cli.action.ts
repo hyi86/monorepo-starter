@@ -1,7 +1,6 @@
 'use server';
 
 import { openInEditorCommand } from '@monorepo-starter/utils/commands';
-import { devLog } from '@monorepo-starter/utils/console';
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -29,7 +28,7 @@ export async function getCodeFromFile(filePath: string) {
     const code = fs.readFileSync(filePath, 'utf-8');
     return code;
   } catch (error) {
-    devLog('error', error);
+    console.error(error);
     return '';
   }
 }
@@ -61,8 +60,7 @@ export async function saveCodeToFile(filePath: string, code: string) {
     const formattedCode = await prettier.format(code, { parser, printWidth: 120, singleQuote: true });
     fs.writeFileSync(filePath, formattedCode, 'utf-8');
   } catch (error) {
-    console.log(error);
-    devLog('error', error);
+    console.error(error);
   }
 }
 
@@ -78,7 +76,7 @@ export async function openInEditor(filePath: string) {
   try {
     execSync(openInEditorCommand(env.CODE_EDITOR, filePath, 1));
   } catch (error) {
-    devLog('error', error);
+    console.error(error);
   }
 }
 

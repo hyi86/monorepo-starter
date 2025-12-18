@@ -8,7 +8,6 @@ import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 import { ScrollArea } from '@monorepo-starter/ui/components/scroll-area';
 import { SortableItem } from '@monorepo-starter/ui/blocks/dnd/sortable-item';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { devLog } from '@monorepo-starter/utils/console';
 import { ComponentProps, useEffect, useState } from 'react';
 import { useImmer } from 'use-immer';
 

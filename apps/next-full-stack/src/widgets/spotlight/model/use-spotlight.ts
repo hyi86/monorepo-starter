@@ -61,7 +61,14 @@ export function useSpotlight() {
       // 커멘트 모달 토글
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        setOpenCommandDialog((open) => !open);
+        setOpenCommandDialog((open) => {
+          const newOpen = !open;
+          // 모달이 열릴 때만 검색어 초기화
+          if (newOpen) {
+            setSearch('');
+          }
+          return newOpen;
+        });
       }
 
       // 테마 변경 토글
@@ -74,13 +81,6 @@ export function useSpotlight() {
     document.addEventListener('keydown', down);
     return () => document.removeEventListener('keydown', down);
   }, [handleToggleTheme, handleToggleSidebar]);
-
-  // Spotlight 모달 닫힐 때 검색어 초기화
-  useEffect(() => {
-    if (openCommandDialog) {
-      setSearch('');
-    }
-  }, [openCommandDialog]);
 
   return {
     theme,

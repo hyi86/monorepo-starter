@@ -1,6 +1,5 @@
 import {
   AppSidebar,
-  CandlestickChart,
   ChartAreaInteractive,
   DataTable,
   SectionCards,
@@ -32,9 +31,6 @@ export default function Page() {
                 <ChartAreaInteractive />
               </div>
               <DataTable data={data} />
-              <div className="px-4 lg:px-6">
-                <CandlestickChart />
-              </div>
               <div className="px-4 lg:px-6">
                 <CalendarProvider>
                   <BigCalendar />

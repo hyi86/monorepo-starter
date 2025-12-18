@@ -1,6 +1,5 @@
 'use server';
 
-import { AppRoutes } from '.next/types/routes';
 import { devLog } from '@monorepo-starter/utils/console';
 import { revalidatePath } from 'next/cache';
 import { schema, type Schema } from './schema';
@@ -17,5 +16,5 @@ export async function formTestAction(data: Schema, formData: FormData) {
   devLog('info', 'formData');
   devLog('info', JSON.stringify(Object.fromEntries(formData), null, 2));
 
-  revalidatePath('/example/form/08-nested-list' as AppRoutes, 'page');
+  revalidatePath('/example/form/08-nested-list', 'page');
 }

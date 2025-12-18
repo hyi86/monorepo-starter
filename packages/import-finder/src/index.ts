@@ -1,4 +1,3 @@
-import { devLog, red } from '@monorepo-starter/utils/console';
 import FastGlob from 'fast-glob';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -58,7 +57,7 @@ export async function main() {
     try {
       fs.accessSync(workspace, fs.constants.F_OK);
     } catch {
-      devLog('error', `Workspace ${red(workspace)} not found`);
+      console.error(`Workspace ${workspace} not found`);
       return;
     }
   } else {
@@ -68,7 +67,7 @@ export async function main() {
 
   // pnpm-lock.yaml 에서 workspace 체크
   if (!lockFile.importers[workspace]) {
-    devLog('error', `Workspace ${red(workspace)} not found in pnpm-lock.yaml`);
+    console.error(`Workspace ${workspace} not found in pnpm-lock.yaml`);
     return;
   }
 
@@ -94,8 +93,8 @@ export async function main() {
    * --------------------------------
    */
 
-  devLog('info', `Workspace: ${workspace}`);
-  devLog('process', 'Start finding...');
+  console.log(`Workspace: ${workspace}`);
+  console.log('Start finding...');
 
   // ts-morph 프로젝트 생성
   const project = new Project({
@@ -118,11 +117,11 @@ export async function main() {
     // 트리구조 생성
     const tree = buildTree(recursiveResults);
     // 트리구조 출력 String 추가
-    result.push({ filePath: file, graph: renderTreeInTerminal(tree, true) });
+    result.push({ filePath: file, graph: renderTreeInTerminal(tree) });
   }
 
   result.forEach((r) => {
-    devLog('info', r.filePath + '\n' + r.graph);
+    console.log(r.filePath + '\n' + r.graph);
   });
 
   // fs.writeFileSync('result.json', JSON.stringify(result, null, 2));

@@ -2,7 +2,7 @@
 
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import * as React from 'react';
-import { DayButton, DayPicker, getDefaultClassNames } from 'react-day-picker';
+import { DayPicker, getDefaultClassNames, type DayButton } from 'react-day-picker';
 
 import { Button, buttonVariants } from '@monorepo-starter/ui/components/button';
 import { cn } from '@monorepo-starter/ui/lib/utils';

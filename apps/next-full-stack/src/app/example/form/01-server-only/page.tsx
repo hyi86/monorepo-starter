@@ -1,4 +1,3 @@
-import { AppRoutes } from '.next/types/routes';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Checkbox } from '@monorepo-starter/ui/components/checkbox';
 import { Input } from '@monorepo-starter/ui/components/input';
@@ -64,7 +63,7 @@ export default async function FormServerOnlyPage() {
       cookieStore.delete('server_action_basic_error');
     }
 
-    revalidatePath('/example/form/01-server-only' as AppRoutes);
+    revalidatePath('/example/form/01-server-only');
   }
 
   return (

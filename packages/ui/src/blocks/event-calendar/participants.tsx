@@ -1,4 +1,5 @@
 import { Button } from '@monorepo-starter/ui/components/button';
+import { MoreHorizontal } from 'lucide-react';
 
 export default function Participants() {
   return (
@@ -36,7 +37,7 @@ export default function Participants() {
         className="ring-background text-muted-foreground/80 dark:bg-background dark:hover:bg-background flex size-6 items-center justify-center rounded-full border-transparent text-xs shadow-none ring-1 dark:border-transparent"
         size="icon"
       >
-        <RiMoreFill className="size-4" size={16} />
+        <MoreHorizontal className="size-4" />
       </Button>
     </div>
   );

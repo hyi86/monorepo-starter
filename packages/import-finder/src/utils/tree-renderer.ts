@@ -1,4 +1,3 @@
-import { dim2, green, magenta, red, yellow } from '@monorepo-starter/utils/console';
 import { type RecursiveImportResult } from './import-finder';
 
 export type TreeNode = {
@@ -86,17 +85,13 @@ export function buildTree(results: RecursiveImportResult[]): TreeNode {
 /**
  * 파일 트리를 콘솔에 출력(Recursive)
  */
-export function renderTreeInTerminal(node: TreeNode, useTerminalColor: boolean = true) {
+export function renderTreeInTerminal(node: TreeNode) {
   let result = '';
 
   const renderTreeString = (node: TreeNode, prefix: string = '', isLast: boolean = true) => {
     const connector = isLast ? ' └─ ' : ' ├─ ';
 
-    if (useTerminalColor) {
-      result += `${prefix}${connector}${getFilePathText(node.filePath)} ${getCountText(node.count)}\n`;
-    } else {
-      result += `${prefix}${connector}${node.filePath}\n`;
-    }
+    result += `${prefix}${connector}${node.filePath}\n`;
 
     node.children.forEach((child, index) => {
       const isLastChild = index === node.children.length - 1;
@@ -110,34 +105,4 @@ export function renderTreeInTerminal(node: TreeNode, useTerminalColor: boolean =
   result = renderTreeString(node);
 
   return result.trim();
-}
-
-/**
- * count 에 따라 색상을 반환
- */
-function getCountText(count: number): string {
-  if (count > 5) {
-    return red(`(${count})`);
-  }
-
-  if (count > 2) {
-    return yellow(`(${count})`);
-  }
-
-  if (count > 0) {
-    return green(`(${count})`);
-  }
-
-  return dim2(`(${count})`);
-}
-
-/**
- * 파일 경로에 따른 구분
- */
-function getFilePathText(filePath: string): string {
-  if (filePath.startsWith('packages/ui/')) {
-    return magenta(filePath);
-  }
-
-  return filePath;
 }

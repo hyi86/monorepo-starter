@@ -67,7 +67,7 @@ export async function generateRsaKeyPair(): Promise<{
   const passphrase = '';
 
   /** @type {crypto.RSAKeyPairOptions<'pem', 'pem'>} */
-  const options: RSAKeyPairOptions<'pem', 'pem'> = {
+  const options: RSAKeyPairOptions = {
     modulusLength: 1024, // Key 길이
     publicKeyEncoding: {
       type: 'spki',
@@ -84,7 +84,7 @@ export async function generateRsaKeyPair(): Promise<{
   return new Promise((resolve, reject) => {
     crypto.generateKeyPair('rsa', options, (err, publicKey, privateKey) => {
       if (err) return reject(err);
-      resolve({ publicKey, privateKey });
+      resolve({ publicKey: publicKey.toString(), privateKey: privateKey.toString() });
     });
   });
 }

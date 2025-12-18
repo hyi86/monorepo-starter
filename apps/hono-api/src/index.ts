@@ -2,7 +2,6 @@ import 'dotenv/config';
 
 import { serve, type HttpBindings } from '@hono/node-server';
 import { serveStatic } from '@hono/node-server/serve-static';
-import { devLog, successColor } from '@monorepo-starter/utils/console';
 import { Hono } from 'hono';
 import { compress } from 'hono/compress';
 import { cors } from 'hono/cors';
@@ -41,14 +40,14 @@ serve(
     const protocol = 'http';
     const address = info.address === '::' ? 'localhost' : info.address;
 
-    devLog('info', 'Server is running on' + successColor(` ${protocol}://${address}:${info.port}`));
+    console.log('Server is running on' + ` ${protocol}://${address}:${info.port}`);
     log.info('Server is running on %s://%s:%d', protocol, address, info.port);
 
     inspectRoutes(app)
       .filter((route) => route.name === '[handler]')
       .map((route) => {
         const method = route.method;
-        devLog('info', successColor(route.method.padEnd(6)), `${protocol}://${address}:${info.port}${route.path}`);
+        console.log(route.method.padEnd(6), `${protocol}://${address}:${info.port}${route.path}`);
       });
   },
 );
