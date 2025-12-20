@@ -2,7 +2,7 @@
 
 전역적으로 사용가능한 `shadcn/ui` 기반의 컴포넌트 라이브러리.
 
-## Getting Started
+## 🚀 Getting Started
 
 ### In `Next.js` Project
 
@@ -74,9 +74,11 @@ Update `src/index.css`
 
 <br />
 
-## Update `shadcn/ui` Components
+## 🔄 Update `shadcn/ui` Components
 
 `shadcn/ui` 를 최신 버전으로 업데이트하는 방법
+
+> 최근 업데이트 날짜: 2025-12-21
 
 ```bash
 cd packages/ui

@@ -1,5 +1,5 @@
+import { clamp } from '@monorepo-starter/utils/number';
 import type { LiteralUnion } from 'type-fest';
-import { clamp } from '~/number';
 
 const RESET = '\x1b[0m';
 

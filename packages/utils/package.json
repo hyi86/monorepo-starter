@@ -5,20 +5,26 @@
   "type": "module",
   "description": "Common utils for monorepo projects",
   "exports": {
-    "./*": {
-      "types": "./dist/*.d.ts",
-      "default": "./dist/*.js"
-    }
+    "./array": "./src/array.ts",
+    "./ast": "./src/ast.ts",
+    "./commands": "./src/commands.ts",
+    "./console": "./src/console.ts",
+    "./date": "./src/date.ts",
+    "./diff": "./src/diff.ts",
+    "./dotenv": "./src/dotenv.ts",
+    "./encrypt": "./src/encrypt.ts",
+    "./file.client": "./src/file.client.ts",
+    "./fn": "./src/fn.ts",
+    "./jwt": "./src/jwt.ts",
+    "./math": "./src/math.ts",
+    "./number": "./src/number.ts",
+    "./string": "./src/string.ts",
+    "./tree": "./src/tree.ts"
   },
-  "files": [
-    "dist/**"
-  ],
   "scripts": {
-    "prepare": "pnpm build",
     "check-types": "tsc --noEmit",
     "lint": "eslint . --max-warnings 0",
-    "test": "vitest",
-    "build": "tsup"
+    "test": "vitest"
   },
   "dependencies": {
     "date-fns": "^4.1.0",
@@ -35,7 +41,7 @@
     "tsup": "^8.5.1",
     "type-fest": "catalog:",
     "typescript": "catalog:",
-    "vite-tsconfig-paths": "^6.0.2",
+    "vite-tsconfig-paths": "^6.0.3",
     "vitest": "catalog:"
   }
 }

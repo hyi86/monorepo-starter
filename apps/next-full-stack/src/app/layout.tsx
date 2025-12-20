@@ -7,7 +7,6 @@ import { UploaderStoreProvider } from '~/features/file-upload/model/uploader.con
 import { WebPushProvider } from '~/features/web-push/model/web-push.context';
 import { getLocale } from '~/shared/lib/i18n/locale';
 import { TanstackQueryProvider } from '~/shared/provider/query';
-import { ComponentInfoPanel } from '~/widgets/component-info-panel';
 import { SpotlightDialog } from '~/widgets/spotlight';
 
 import 'react-advanced-cropper/dist/style.css';
@@ -52,7 +51,6 @@ export default async function RootLayout(props: LayoutProps<'/'>) {
                 <WebPushProvider>
                   {props.children}
                   <SpotlightDialog />
-                  <ComponentInfoPanel />
                 </WebPushProvider>
               </UploaderStoreProvider>
             </TanstackQueryProvider>

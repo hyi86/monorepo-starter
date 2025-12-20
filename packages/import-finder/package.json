@@ -30,7 +30,7 @@
     "tsx": "^4.21.0",
     "type-fest": "catalog:",
     "typescript": "catalog:",
-    "vite-tsconfig-paths": "^6.0.2",
+    "vite-tsconfig-paths": "^6.0.3",
     "vitest": "catalog:",
     "yaml": "^2.8.2"
   }

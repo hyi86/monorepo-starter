@@ -29,8 +29,6 @@
   `File System`과 `Local SQLite DB`를 기반으로 하는 **Custom API Data Cache** 구현.
 - [`Large File Uploader`](./apps/next-full-stack/src/app/example/experimental/file-upload/page.tsx): 
   자체 **Large Multi-Chunk Streaming File Uploader** 구현.
-- [`Next Component Info Panel`](./apps/next-full-stack/src/features/component-info-panel/ui/ComponentInfoPanel.tsx): 
-  `Next.js` Component Tree 구조를 시각화하는 **Nextjs Component Visualizer**.
 - [`Authentication`](./apps/next-full-stack/src/app/example/auth/page.mdx): 
   `JWT Access/Refresh Token` 기반의 **Server-only Authentication System** 구축.
 - [`Internationalization`](./apps/next-full-stack/src/app/example/[lang]/page.tsx)

@@ -18,6 +18,6 @@
     "tailwindcss": "catalog:",
     "typescript": "catalog:",
     "vite": "^7.3.0",
-    "vite-tsconfig-paths": "^6.0.2"
+    "vite-tsconfig-paths": "^6.0.3"
   }
 }

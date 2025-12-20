@@ -1,5 +1,4 @@
 import crypto, { type RSAKeyPairOptions } from 'crypto';
-import { devLog } from '~/console';
 
 /**
  * 단방향 해시 (PBKDF2)
@@ -43,7 +42,7 @@ export function createTwoWayDecryption(text: string, salt: string) {
     const decrypted = decipher.update(encryptedText);
     return Buffer.concat([decrypted, decipher.final()]).toString();
   } catch (error) {
-    devLog('error', error);
+    console.error(error);
     return null;
   }
 }
