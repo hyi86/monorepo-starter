@@ -4,7 +4,7 @@ import { format } from '@monorepo-starter/utils/number';
 import parseDuration from 'parse-duration';
 import { apiHybridCache } from '~/shared/lib/api-cache/instance';
 
-export async function ExampleCacheData() {
+export default async function ExampleCacheDataPage() {
   const offset = 10;
   const limit = 20;
   const ttl = '20s';

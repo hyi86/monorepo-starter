@@ -88,6 +88,11 @@ pnpm dlx shadcn@canary add -a -o -y
 git restore src/components/checkbox.tsx
 # 코드 포맷팅
 pnpm -w run format "packages/ui/src/**/*.*"
+# registry directory 추가
+pnpm dlx shadcn@latest add @shadcn-editor/editor
+pnpm dlx shadcn@latest add @coss/number-field
+pnpm dlx shadcn@latest add @kibo-ui/tags
+pnpm dlx shadcn@latest add @kibo-ui/choicebox
 ```
 
 의존성 설치
