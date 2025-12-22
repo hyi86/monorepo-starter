@@ -67,22 +67,20 @@ export function Sheet({ rows: initialRows, columns }: { rows: Data[]; columns: C
   } = useSelection({ rowCount, columnCount: columnsState.length, isResizing });
 
   // 배치 업데이트 함수
-  const handleBatchCellEdit = useCallback(
-    (updates: Array<{ rowIndex: number; colIndex: number; newValue: string }>) => {
-      setRows((draft) => {
-        updates.forEach(({ rowIndex, colIndex, newValue }) => {
-          const index = rowIndex * columnsState.length + colIndex;
-          if (index < rows.length) {
-            const currentItem = draft[index];
-            if (currentItem && currentItem.value !== newValue) {
-              draft[index] = { ...currentItem, value: newValue };
-            }
+  // React Compiler가 자동으로 최적화하므로 useCallback 제거
+  const handleBatchCellEdit = (updates: Array<{ rowIndex: number; colIndex: number; newValue: string }>) => {
+    setRows((draft) => {
+      updates.forEach(({ rowIndex, colIndex, newValue }) => {
+        const index = rowIndex * columnsState.length + colIndex;
+        if (index < rows.length) {
+          const currentItem = draft[index];
+          if (currentItem && currentItem.value !== newValue) {
+            draft[index] = { ...currentItem, value: newValue };
           }
-        });
+        }
       });
-    },
-    [columnsState.length, rows.length],
-  );
+    });
+  };
 
   // 편집 훅
   const {

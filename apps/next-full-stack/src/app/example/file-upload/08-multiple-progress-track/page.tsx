@@ -90,7 +90,6 @@ const getFileIcon = (file: { file: File | { type: string; name: string } }) => {
   return <FileIcon className="size-5 opacity-60" />;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getFilePreview = (file: { file: File | { type: string; name: string; url?: string } }) => {
   const fileType = file.file instanceof File ? file.file.type : file.file.type;
   const fileName = file.file instanceof File ? file.file.name : file.file.name;
@@ -258,7 +257,7 @@ export default function Component() {
         onDrop={handleDrop}
         data-dragging={isDragging || undefined}
         data-files={files.length > 0 || undefined}
-        className="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 relative flex min-h-52 flex-col items-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors not-data-[files]:justify-center has-[input:focus]:ring-[3px]"
+        className="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 relative flex min-h-52 flex-col items-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors not-data-files:justify-center has-[input:focus]:ring-[3px]"
       >
         <input {...getInputProps()} className="sr-only" aria-label="Upload image file" />
         {files.length > 0 ? (

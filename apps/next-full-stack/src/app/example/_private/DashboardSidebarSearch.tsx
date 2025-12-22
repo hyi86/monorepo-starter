@@ -3,7 +3,7 @@
 import { CommandShortcut } from '@monorepo-starter/ui/components/command';
 import { Input } from '@monorepo-starter/ui/components/input';
 
-export function DashboardSidebarSearchInput() {
+export function DashboardSidebarSearch() {
   return (
     <div
       className="relative cursor-text"

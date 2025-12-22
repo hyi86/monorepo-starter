@@ -7,7 +7,7 @@ import { UploaderStoreProvider } from '~/features/file-upload/model/uploader.con
 import { WebPushProvider } from '~/features/web-push/model/web-push.context';
 import { getLocale } from '~/shared/lib/i18n/locale';
 import { TanstackQueryProvider } from '~/shared/provider/query';
-import { SpotlightDialog } from '~/widgets/spotlight';
+import { SpotlightDialog } from './_private/spotlight/SpotlightDialog';
 
 import 'react-advanced-cropper/dist/style.css';
 import './globals.css';

@@ -1,6 +1,7 @@
 import { SidebarInset, SidebarProvider } from '@monorepo-starter/ui/components/sidebar';
 import { type Metadata } from 'next';
-import { DashboardMain, DashboardSidebar } from '~/widgets/dashboard';
+import { DashboardMain } from './_private/DashboardMain';
+import { DashboardSidebar } from './_private/DashboardSidebar';
 
 export const metadata: Metadata = {
   title: 'Examples',

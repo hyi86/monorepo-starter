@@ -11,8 +11,8 @@ import { type TreeRoute } from '@monorepo-starter/utils/tree';
 import { CopyMinus, CopyPlus } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { useScrollToMenuObserver } from '../model/use-scroll-to-menu-observer';
-import { FileTreeMenuItem } from './file-tree-menu-item';
+import { FileTreeMenuItem } from './FileTreeMenuItem';
+import { useScrollToMenuObserver } from './use-scroll-to-menu-observer';
 
 export function FileTreeMenuGroup({ routes, folderPaths }: { routes: TreeRoute[]; folderPaths: string[] }) {
   const [openPaths, setOpenPaths] = useState<string[]>([...folderPaths]);

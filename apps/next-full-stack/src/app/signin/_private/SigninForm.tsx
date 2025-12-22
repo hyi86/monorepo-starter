@@ -6,7 +6,7 @@ import { Input } from '@monorepo-starter/ui/components/input';
 import { Label } from '@monorepo-starter/ui/components/label';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { signinAction } from '~/features/signin/api/signin.action';
+import { signinAction } from './signin.action';
 
 export function SigninForm({ callbackUrl }: { callbackUrl: string }) {
   const [loginId, setLoginId] = useState('');

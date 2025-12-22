@@ -4,7 +4,7 @@ import Fuse from 'fuse.js';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
-import { getAllRoutes } from '../lib/get-all-routes';
+import { getAllRoutes } from './routes.utils';
 
 export function useSpotlight() {
   const [openCommandDialog, setOpenCommandDialog] = useState(false);

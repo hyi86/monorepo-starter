@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback } from '@monorepo-starter/ui/components/avatar';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { UserRoundIcon } from 'lucide-react';
-import type { AuthorizationPayload } from '~/entities/user/lib/check-auth';
+import type { AuthorizationPayload } from '~/shared/lib/auth/check-auth';
 
 export function UserProfile({ payload }: { payload?: AuthorizationPayload }) {
   return (

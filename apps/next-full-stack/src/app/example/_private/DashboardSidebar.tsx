@@ -9,15 +9,15 @@ import {
 import { getAllFolderPaths } from '@monorepo-starter/utils/tree';
 import { NotebookPen } from 'lucide-react';
 import Link from 'next/link';
-import { checkAuthorization } from '~/entities/user/lib/check-auth';
-import { getAllRouteTree } from '~/widgets/dashboard/lib/all-routes';
-import { DashboardSidebarSearchInput } from './dashboard-sidebar-search-input';
-import { FileTreeMenuGroup } from './file-tree-menu-group';
-import { NavUser } from './nav-user';
+import { getAllRouteTree } from '~/app/example/_private/routes.utils';
+import { checkAuthorization } from '~/shared/lib/auth/check-auth';
+import { DashboardSidebarSearch } from './DashboardSidebarSearch';
+import { FileTreeMenuGroup } from './FileTreeMenuGroup';
+import { NavUser } from './NavUser';
 
-type Props = React.ComponentProps<typeof Sidebar>;
+type DashboardSidebarProps = React.ComponentProps<typeof Sidebar>;
 
-export async function DashboardSidebar({ ...props }: Props) {
+export async function DashboardSidebar({ ...props }: DashboardSidebarProps) {
   const { payload } = await checkAuthorization();
   const routeTree = getAllRouteTree();
   const folderPaths = getAllFolderPaths(routeTree);
@@ -36,7 +36,7 @@ export async function DashboardSidebar({ ...props }: Props) {
             </div>
           </Link>
         </SidebarMenuButton>
-        <DashboardSidebarSearchInput />
+        <DashboardSidebarSearch />
       </SidebarHeader>
       <SidebarContent className="**:data-[active='true']:bg-foreground/8">
         <FileTreeMenuGroup routes={routeTree} folderPaths={folderPaths} />

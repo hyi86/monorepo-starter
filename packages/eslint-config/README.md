@@ -11,7 +11,7 @@
 | Node.js based apps        | `base.js`            |
 | React based frontend apps | `react-internal.js`  |
 | Next.js based apps        | `next.js`            |
-| Next.js + FSD             | `next-fsd.js`        |
+| Next.js Extended apps     | `next-extend.js`     |
 
 먼저, 각 워크스페이스에서 패키지를 설치 합니다.
 
@@ -70,7 +70,7 @@ import { config } from '@monorepo-starter/eslint-config/next';
 export default config;
 ```
 
-### next-fsd.js
+### next-extend.js
 
 next.js 기반, FSD(Feature-Sliced Design) 아키텍처를 사용하는 워크스페이스에서 사용하는 설정 파일 입니다.  
 
@@ -79,7 +79,7 @@ touch eslint.config.mjs
 ```
 
 ```js
-import { config } from '@monorepo-starter/eslint-config/next-fsd';
+import { config } from '@monorepo-starter/eslint-config/next-extend';
 
 /** @type {import("eslint").Linter.Config} */
 export default config;

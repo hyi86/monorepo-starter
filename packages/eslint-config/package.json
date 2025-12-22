@@ -5,7 +5,7 @@
   "private": true,
   "exports": {
     "./base": "./base.js",
-    "./next-fsd": "./next-fsd.js",
+    "./next-extend": "./next-extend.js",
     "./next": "./next.js",
     "./react-internal": "./react-internal.js"
   },

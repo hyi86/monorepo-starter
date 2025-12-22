@@ -3,9 +3,13 @@
 import { Separator } from '@monorepo-starter/ui/components/separator';
 import { SidebarTrigger } from '@monorepo-starter/ui/components/sidebar';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { DashboardBreadcrumb } from './dashboard-breadcrumb';
+import { DashboardBreadcrumb } from './DashboardBreadcrumb';
 
-export function DashboardMain({ children }: { children: React.ReactNode }) {
+type DashboardMainProps = {
+  children: React.ReactNode;
+};
+
+export function DashboardMain({ children }: DashboardMainProps) {
   return (
     <div style={{ '--sidebar-header-height': '3.5rem' } as React.CSSProperties} className="flex size-full flex-col">
       <header

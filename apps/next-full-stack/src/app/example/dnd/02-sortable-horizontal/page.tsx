@@ -4,19 +4,16 @@ import { faker } from '@faker-js/faker/locale/ko';
 import { Sortable, SortableItem } from '@monorepo-starter/ui/blocks/dnd';
 import { ScrollArea, ScrollBar } from '@monorepo-starter/ui/components/scroll-area';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function ExampleDndSortableHorizontalPage() {
-  const [items, setItems] = useState<{ id: string; name: string }[]>([]);
-
-  useEffect(() => {
-    const initialItems = Array.from({ length: 8 }).map((_, index) => ({
+  // useState의 lazy initialization을 사용하여 초기 데이터 생성
+  const [items, setItems] = useState<{ id: string; name: string }[]>(() =>
+    Array.from({ length: 10 }).map((_, index) => ({
       id: `id-${index}`,
       name: faker.food.fruit(),
-    }));
-
-    setItems(initialItems);
-  }, []);
+    })),
+  );
 
   return (
     <div>

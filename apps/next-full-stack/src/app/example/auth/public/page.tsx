@@ -1,4 +1,4 @@
-import { checkAuthorization } from '~/entities/user/lib/check-auth';
+import { checkAuthorization } from '~/shared/lib/auth/check-auth';
 
 export default async function PublicPage() {
   const { isAuthenticated, payload } = await checkAuthorization();
