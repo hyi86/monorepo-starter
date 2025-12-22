@@ -3,9 +3,8 @@ import { Viewport, type Metadata } from 'next';
 import { ThemeProvider } from 'next-themes';
 import localFont from 'next/font/local';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
-import { UploaderStoreProvider } from '~/features/file-upload/model/uploader.context';
-import { WebPushProvider } from '~/features/web-push/model/web-push.context';
 import { getLocale } from '~/shared/lib/i18n/locale';
+import { WebPushProvider } from '~/shared/model/web-push.context';
 import { TanstackQueryProvider } from '~/shared/provider/query';
 import { SpotlightDialog } from './_private/spotlight/SpotlightDialog';
 
@@ -47,12 +46,10 @@ export default async function RootLayout(props: LayoutProps<'/'>) {
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <NuqsAdapter>
             <TanstackQueryProvider>
-              <UploaderStoreProvider>
-                <WebPushProvider>
-                  {props.children}
-                  <SpotlightDialog />
-                </WebPushProvider>
-              </UploaderStoreProvider>
+              <WebPushProvider>
+                {props.children}
+                <SpotlightDialog />
+              </WebPushProvider>
             </TanstackQueryProvider>
           </NuqsAdapter>
         </ThemeProvider>

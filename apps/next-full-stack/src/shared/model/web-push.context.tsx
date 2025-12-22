@@ -3,7 +3,7 @@
 import { createContext, ReactNode, useContext, useEffect, useState, useTransition } from 'react';
 import type { PushSubscription } from 'web-push';
 import { env } from '~/env';
-import { sendPushNotificationAction, subscribeAction, unsubscribeAction } from '~/features/web-push/api/webpush.action';
+import { sendPushNotificationAction, subscribeAction, unsubscribeAction } from '~/shared/action/web-push.action';
 
 type SendPushNotificationOptions = {
   title: string;
