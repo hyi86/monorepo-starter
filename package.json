@@ -28,8 +28,8 @@
     "prettier": "^3.7.4",
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "turbo": "^2.7.1",
+    "turbo": "^2.7.2",
     "typescript": "catalog:"
   },
-  "packageManager": "pnpm@10.17.0"
+  "packageManager": "pnpm@10.26.2"
 }
