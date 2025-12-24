@@ -11,6 +11,8 @@
     "prefix": ""
   },
   "iconLibrary": "lucide",
+  "menuColor": "default",
+  "menuAccent": "subtle",
   "aliases": {
     "components": "@monorepo-starter/ui/components",
     "utils": "@monorepo-starter/ui/lib/utils",
@@ -18,11 +20,11 @@
     "lib": "@monorepo-starter/ui/lib",
     "hooks": "@monorepo-starter/ui/hooks"
   },
-  "menuColor": "default",
-  "menuAccent": "subtle",
   "registries": {
     "@coss": "https://coss.com/ui/r/{name}.json",
     "@shadcn-editor": "https://shadcn-editor.vercel.app/r/{name}.json",
-    "@kibo-ui": "https://www.kibo-ui.com/r/{name}.json"
+    "@kibo-ui": "https://www.kibo-ui.com/r/{name}.json",
+    "@diceui": "https://diceui.com/r/{name}.json",
+    "@reui": "https://reui.io/r/{name}.json"
   }
 }

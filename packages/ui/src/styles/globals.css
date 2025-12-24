@@ -143,3 +143,10 @@
     background-position: 0% -1000%;
   }
 }
+
+@utility scrollbar-none {
+    scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
