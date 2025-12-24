@@ -186,5 +186,7 @@ export function useKeyboardNavigation({
     isEditing,
     copySelectedCells,
     pasteToSelectedCell,
+    undo,
+    redo,
   ]);
 }

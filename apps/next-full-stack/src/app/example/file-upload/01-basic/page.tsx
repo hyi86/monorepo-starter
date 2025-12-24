@@ -4,6 +4,7 @@ import { CircleUserRoundIcon } from 'lucide-react';
 
 import { Button } from '@monorepo-starter/ui/components/button';
 import { useFileUpload } from '@monorepo-starter/ui/hooks/use-file-upload';
+import Image from 'next/image';
 
 export default function Component() {
   const [{ files }, { removeFile, openFileDialog, getInputProps }] = useFileUpload({
@@ -22,7 +23,7 @@ export default function Component() {
           aria-label={previewUrl ? 'Preview of uploaded image' : 'Default user avatar'}
         >
           {previewUrl ? (
-            <img
+            <Image
               className="size-full object-cover"
               src={previewUrl}
               alt="Preview of uploaded image"

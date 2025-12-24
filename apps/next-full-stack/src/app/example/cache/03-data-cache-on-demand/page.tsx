@@ -1,4 +1,3 @@
-import { type AppRoutes } from '.next/types/routes';
 import { Badge } from '@monorepo-starter/ui/components/badge';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@monorepo-starter/ui/components/card';
@@ -31,7 +30,7 @@ export default async function DataCacheOnDemandPage() {
 
   async function handleRevalidatePath() {
     'use server';
-    revalidatePath('/example/cache/03-data-cache-on-demand' as AppRoutes, 'page');
+    revalidatePath('/example/cache/03-data-cache-on-demand', 'page');
   }
 
   return (

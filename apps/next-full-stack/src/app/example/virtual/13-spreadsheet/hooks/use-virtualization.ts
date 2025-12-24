@@ -21,6 +21,7 @@ export function useVirtualization({ rows, columns }: UseVirtualizationParams) {
   const rowCount = Math.floor(rows.length / columns.length);
 
   // 행 가상화
+  // eslint-disable-next-line react-hooks/incompatible-library
   const rowVirtualizer = useVirtualizer({
     count: rowCount,
     getScrollElement: () => parentRef.current,

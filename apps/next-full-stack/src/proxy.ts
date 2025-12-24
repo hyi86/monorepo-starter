@@ -24,6 +24,8 @@ export async function proxy(request: NextRequest) {
   const response = NextResponse.next();
 
   // 현재 페이지 URL 정보를 쿠키에 저장 (세션 쿠키 활용)
+  response.cookies.set('next-hostname', request.nextUrl.hostname, { httpOnly: true });
+  response.cookies.set('next-host', request.nextUrl.host, { httpOnly: true });
   response.cookies.set('next-pathname', request.nextUrl.pathname, { httpOnly: true });
   response.cookies.set('next-search', request.nextUrl.search, { httpOnly: true });
 

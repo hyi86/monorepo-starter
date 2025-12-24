@@ -9,6 +9,7 @@ export default function FixedColumnPage({ columns }: { columns: number[] }) {
   const [enabled, setEnabled] = useState(true);
   const count = columns.length;
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const columnVirtualizer = useVirtualizer({
     horizontal: true,
     count,

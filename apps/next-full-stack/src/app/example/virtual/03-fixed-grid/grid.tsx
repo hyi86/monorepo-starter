@@ -35,6 +35,7 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
   const bodyHeight = 400; // 본문 높이
   const [scrollTop, setScrollTop] = useState(0); // 스크롤 위치
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const rowVirtualizer = useVirtualizer({
     count: rowCount,
     getScrollElement: () => parentRef.current,
@@ -87,7 +88,7 @@ export default function FixedGridPage({ rows, columns }: { rows: Data[]; columns
       </div>
       <div className="relative flex border">
         {/* 고정된 인덱스 컬럼 */}
-        <div className="flex flex-shrink-0 flex-col" style={{ height: `${bodyHeight}px` }}>
+        <div className="flex shrink-0 flex-col" style={{ height: `${bodyHeight}px` }}>
           {/* 인덱스 컬럼 헤더 */}
           <div
             className="block border-b bg-gray-100 pt-1.5 text-center text-sm"

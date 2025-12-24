@@ -1,4 +1,5 @@
 import { Button } from '@monorepo-starter/ui/components/button';
+import type { Route } from 'next';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { cache, serialize } from './search-params';
@@ -36,13 +37,15 @@ export async function Server() {
           {/* 모든 파라미터를 한 번에 업데이트하는 링크 */}
           <Button asChild variant="outline">
             <Link
-              href={serialize(currentUrl, {
-                str: 'test', // 문자열 업데이트
-                int: 10, // 정수 업데이트
-                bool: true, // 불린 업데이트
-                literal: 'banana', // 리터럴 업데이트
-                float: 10.1, // 실수 업데이트
-              })}
+              href={
+                serialize(currentUrl, {
+                  str: 'test', // 문자열 업데이트
+                  int: 10, // 정수 업데이트
+                  bool: true, // 불린 업데이트
+                  literal: 'banana', // 리터럴 업데이트
+                  float: 10.1, // 실수 업데이트
+                }) as Route
+              }
             >
               Update Parameters
             </Link>
@@ -50,12 +53,12 @@ export async function Server() {
 
           {/* float 파라미터만 업데이트하는 링크 */}
           <Button asChild variant="outline">
-            <Link href={serialize(currentUrl, { float: 999 })}>{serialize(currentUrl, { float: 999 })}</Link>
+            <Link href={serialize(currentUrl, { float: 999 }) as Route}>{serialize(currentUrl, { float: 999 })}</Link>
           </Button>
 
           {/* 현재 URL로 리셋하는 링크 (모든 파라미터 제거) */}
           <Button asChild variant="outline">
-            <Link href={currentUrl}>{currentUrl}</Link>
+            <Link href={currentUrl as Route}>{currentUrl}</Link>
           </Button>
         </div>
       </div>

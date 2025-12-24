@@ -3,6 +3,7 @@
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Input } from '@monorepo-starter/ui/components/input';
 import { Search } from 'lucide-react';
+import type { Route } from 'next';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 import { searchParamsCache, serialize } from './search-params';
@@ -19,7 +20,7 @@ export function FuzzySearch({ currentUrl, allParams }: FuzzySearchProps) {
 
   const handleSearch = () => {
     startTransition(async () => {
-      router.push(serialize(currentUrl, { ...allParams, pageIndex: 1, search }));
+      router.push(serialize(currentUrl, { ...allParams, pageIndex: 1, search }) as Route);
     });
   };
 

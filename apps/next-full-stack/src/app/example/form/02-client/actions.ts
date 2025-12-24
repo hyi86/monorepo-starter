@@ -1,6 +1,5 @@
 'use server';
 
-import { AppRoutes } from '.next/types/routes';
 import { devLog } from '@monorepo-starter/utils/console';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
@@ -19,5 +18,5 @@ export async function submitAction(prevState: ErrorType | undefined, formData: F
 
   devLog('success', 'isValid', isValid);
 
-  revalidatePath('/example/form/02-client' as AppRoutes, 'page');
+  revalidatePath('/example/form/02-client', 'page');
 }

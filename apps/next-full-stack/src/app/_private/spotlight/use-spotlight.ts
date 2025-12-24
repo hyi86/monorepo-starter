@@ -1,9 +1,10 @@
 'use client';
 
 import Fuse from 'fuse.js';
+import type { Route } from 'next';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getAllRoutes } from './routes.utils';
 
 export function useSpotlight() {
@@ -12,18 +13,18 @@ export function useSpotlight() {
   const { setTheme, theme } = useTheme();
   const router = useRouter();
   const allRoutes = getAllRoutes();
-  const fuse = useMemo(() => new Fuse(allRoutes, { keys: ['name', 'path'], threshold: 0.3 }), []);
+  const fuse = useMemo(() => new Fuse(allRoutes, { keys: ['name', 'path'], threshold: 0.3 }), [allRoutes]);
 
   // 사이드바 토글(강제 키 이벤트 발생)
-  const handleToggleSidebar = () => {
+  const handleToggleSidebar = useCallback(() => {
     const event = new KeyboardEvent('keydown', { key: 'b', metaKey: true, bubbles: true });
     document.dispatchEvent(event);
-  };
+  }, []);
 
   // 테마 변경
-  const handleToggleTheme = () => {
+  const handleToggleTheme = useCallback(() => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
+  }, [theme, setTheme]);
 
   // 컴포넌트 정보 보기
   const handleViewComponentInfo = () => {
@@ -33,7 +34,7 @@ export function useSpotlight() {
   };
 
   // 링크 이동
-  const handleGoToPage = (path: string) => {
+  const handleGoToPage = (path: Route) => {
     router.push(path);
     setOpenCommandDialog(false);
   };
@@ -53,7 +54,7 @@ export function useSpotlight() {
       ];
     const results = fuse.search(search);
     return results.map((result) => result.item).slice(0, 5);
-  }, [search, fuse, allRoutes]);
+  }, [search, fuse]);
 
   // 명령어 키 이벤트 핸들러
   useEffect(() => {

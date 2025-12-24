@@ -1,4 +1,4 @@
-import { type Metadata } from 'next';
+import type { Metadata, Route } from 'next';
 import { redirect } from 'next/navigation';
 import { checkAuthorization } from '~/shared/lib/auth/check-auth';
 import { SigninForm } from './_private/SigninForm';
@@ -14,7 +14,7 @@ export default async function SigninPage(props: PageProps<'/signin'>) {
   const { isAuthenticated } = await checkAuthorization();
 
   if (isAuthenticated) {
-    return redirect(callbackUrl);
+    return redirect(callbackUrl as Route);
   }
 
   return (

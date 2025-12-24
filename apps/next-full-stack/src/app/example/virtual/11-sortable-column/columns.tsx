@@ -32,6 +32,7 @@ export default function FixedRowPage({ rows: initialRows }: { rows: Data[] }) {
   const [rows, setRows] = useState<Data[]>([]);
   const [activeId, setActiveId] = useState<Data['id'] | null>(null);
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const rowVirtualizer = useVirtualizer({
     horizontal: true,
     count: rows.length,

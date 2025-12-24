@@ -20,6 +20,7 @@ export default function VirtualDynamicGrid({ columns, data }: { data: Array<Arra
 
   const getColumnWidth = (index: number) => columns[index]?.width || 10;
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count: data.length,
     estimateSize: () => 80,

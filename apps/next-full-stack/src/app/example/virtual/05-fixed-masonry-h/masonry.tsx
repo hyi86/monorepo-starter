@@ -6,6 +6,7 @@ import { useRef } from 'react';
 export default function FixedMasonryHorizontal({ columns }: { columns: number[] }) {
   const parentRef = useRef<HTMLDivElement>(null);
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const columnVirtualizer = useVirtualizer({
     horizontal: true,
     count: columns.length,

@@ -11,6 +11,7 @@ export default function VirtualDynamicRow({ sentences }: { sentences: string[] }
 
   const count = sentences.length;
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     count,
     getScrollElement: () => parentRef.current,

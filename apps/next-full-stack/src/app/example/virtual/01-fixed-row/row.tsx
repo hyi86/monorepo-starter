@@ -22,6 +22,7 @@ export default function FixedRowPage({ rows }: { rows: Row[] }) {
     `,
   );
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const rowVirtualizer = useVirtualizer({
     count,
     getScrollElement: () => virtualContainerRef.current,

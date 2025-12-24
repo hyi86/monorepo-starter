@@ -3,6 +3,7 @@
 import { Button } from '@monorepo-starter/ui/components/button';
 import { useFileUpload } from '@monorepo-starter/ui/hooks/use-file-upload';
 import { AlertCircleIcon, ImageIcon, UploadIcon, XIcon } from 'lucide-react';
+import Image from 'next/image';
 
 // Create some dummy initial files
 const initialFiles = [
@@ -62,7 +63,7 @@ export default function Component() {
         onDrop={handleDrop}
         data-dragging={isDragging || undefined}
         data-files={files.length > 0 || undefined}
-        className="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 relative flex min-h-52 flex-col items-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors not-data-[files]:justify-center has-[input:focus]:ring-[3px]"
+        className="border-input data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 relative flex min-h-52 flex-col items-center overflow-hidden rounded-xl border border-dashed p-4 transition-colors not-data-files:justify-center has-[input:focus]:ring-[3px]"
       >
         <input {...getInputProps()} className="sr-only" aria-label="Upload image file" />
         {files.length > 0 ? (
@@ -78,7 +79,15 @@ export default function Component() {
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
               {files.map((file) => (
                 <div key={file.id} className="bg-accent relative aspect-square rounded-md">
-                  <img src={file.preview} alt={file.file.name} className="size-full rounded-[inherit] object-cover" />
+                  {file.preview && (
+                    <Image
+                      src={file.preview as string}
+                      alt={file.file.name}
+                      className="size-full rounded-[inherit] object-cover"
+                      width={100}
+                      height={100}
+                    />
+                  )}
                   <Button
                     onClick={() => removeFile(file.id)}
                     size="icon"

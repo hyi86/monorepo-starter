@@ -6,6 +6,7 @@ import { useRef } from 'react';
 export default function VirtualDynamicColumn({ sentences }: { sentences: string[] }) {
   const parentRef = useRef<HTMLDivElement | null>(null);
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const virtualizer = useVirtualizer({
     horizontal: true,
     count: sentences.length,

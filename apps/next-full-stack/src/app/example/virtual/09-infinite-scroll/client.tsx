@@ -26,6 +26,7 @@ export default function InfiniteScroll() {
 
   const parentRef = useRef<HTMLDivElement>(null);
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const rowVirtualizer = useVirtualizer({
     count: hasNextPage ? allRows.length + 1 : allRows.length,
     getScrollElement: () => parentRef.current,
@@ -43,7 +44,7 @@ export default function InfiniteScroll() {
     if (lastItem.index >= allRows.length - 1 && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
-  }, [hasNextPage, fetchNextPage, allRows.length, isFetchingNextPage, rowVirtualizer.getVirtualItems()]);
+  }, [rowVirtualizer, hasNextPage, fetchNextPage, isFetchingNextPage, allRows.length]);
 
   return (
     <div>

@@ -270,7 +270,7 @@ export function useTreeMenu({ routes }: { routes: string[] }) {
       tree.rebuildTree();
     };
     loadData();
-  }, []);
+  }, [routes, tree]);
 
   return {
     items,

@@ -11,6 +11,7 @@ import {
   CommandShortcut,
 } from '@monorepo-starter/ui/components/command';
 import { InfoIcon, MoonIcon, Sidebar, SunIcon } from 'lucide-react';
+import type { Route } from 'next';
 import { useSpotlight } from './use-spotlight';
 
 export function SpotlightDialog() {
@@ -39,7 +40,7 @@ export function SpotlightDialog() {
             {filteredRoutes
               .filter((_, index) => index <= 10)
               .map((route) => (
-                <CommandItem key={route.path} value={route.path} onSelect={() => handleGoToPage(route.path)}>
+                <CommandItem key={route.path} value={route.path} onSelect={() => handleGoToPage(route.path as Route)}>
                   <span className="font-mono">{route.name}</span>
                 </CommandItem>
               ))}

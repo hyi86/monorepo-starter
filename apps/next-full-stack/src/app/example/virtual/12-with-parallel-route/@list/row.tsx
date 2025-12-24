@@ -11,6 +11,7 @@ export default function FixedRowPage({ rows }: { rows: Row[] }) {
   const count = rows.length;
   const isMobile = useIsMobile();
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const rowVirtualizer = useVirtualizer({
     count,
     getScrollElement: () => parentRef.current,

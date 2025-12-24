@@ -3,6 +3,7 @@
 import { Button } from '@monorepo-starter/ui/components/button';
 import { useFileUpload } from '@monorepo-starter/ui/hooks/use-file-upload';
 import { AlertCircleIcon, ImageIcon, UploadIcon, XIcon } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Component() {
   const maxSizeMB = 2;
@@ -32,7 +33,7 @@ export default function Component() {
           <input {...getInputProps()} className="sr-only" aria-label="Upload image file" />
           {previewUrl ? (
             <div className="absolute inset-0 flex items-center justify-center p-4">
-              <img
+              <Image
                 src={previewUrl}
                 alt={files[0]?.file?.name || 'Uploaded image'}
                 className="mx-auto max-h-full rounded object-contain"

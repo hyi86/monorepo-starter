@@ -1,4 +1,3 @@
-import type { AppRoutes } from '.next/types/routes';
 import { AppSidebar } from '@monorepo-starter/ui/blocks/sidebar-basic/app-sidebar';
 import { AppSidebarContents } from '@monorepo-starter/ui/blocks/sidebar-basic/app-sidebar-contents';
 import {
@@ -28,7 +27,7 @@ export default function Page() {
             <BreadcrumbList>
               <BreadcrumbItem className="hidden md:block">
                 <BreadcrumbLink asChild>
-                  <Link href={'/blocks' as AppRoutes}>App Sidebar Example</Link>
+                  <Link href={'/blocks'}>App Sidebar Example</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator className="hidden md:block" />
@@ -44,7 +43,7 @@ export default function Page() {
             <div className="bg-muted/50 aspect-video rounded-xl" />
             <div className="bg-muted/50 aspect-video rounded-xl" />
           </div>
-          <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
+          <div className="bg-muted/50 min-h-screen flex-1 rounded-xl md:min-h-min" />
         </div>
       </SidebarInset>
     </SidebarProvider>

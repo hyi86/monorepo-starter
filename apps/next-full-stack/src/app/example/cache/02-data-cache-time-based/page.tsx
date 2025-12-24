@@ -1,4 +1,3 @@
-import { type AppRoutes } from '.next/types/routes';
 import { Badge } from '@monorepo-starter/ui/components/badge';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@monorepo-starter/ui/components/card';
@@ -22,8 +21,7 @@ export default async function DataCacheTimeBasedPage() {
   const cacheColor = isCached ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800';
 
   async function handleRevalidatePath() {
-    'use server';
-    revalidatePath('/example/cache/02-data-cache-time-based' as AppRoutes, 'page');
+    revalidatePath('/example/cache/02-data-cache-time-based', 'page');
   }
 
   return (

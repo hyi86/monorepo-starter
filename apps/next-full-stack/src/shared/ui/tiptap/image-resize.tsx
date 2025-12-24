@@ -14,7 +14,7 @@ import { Editor } from '@tiptap/core';
 import Image from '@tiptap/extension-image';
 import { type NodeViewProps, NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react';
 import { AlignCenter, AlignLeft, AlignRight, Columns2, Copy, Maximize, MoreVertical, Trash } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export const ImageExtension = Image.extend({
   addAttributes() {
@@ -70,31 +70,34 @@ function TiptapImage({ node, editor, selected, deleteNode, updateAttributes }: N
     }
   };
 
-  const resize = (event: MouseEvent) => {
-    if (!resizing) {
-      return;
-    }
+  const resize = useCallback(
+    (event: MouseEvent) => {
+      if (!resizing) {
+        return;
+      }
 
-    let dx = event.clientX - resizeInitialMouseX;
-    if (resizingPosition === 'left') {
-      dx = resizeInitialMouseX - event.clientX;
-    }
+      let dx = event.clientX - resizeInitialMouseX;
+      if (resizingPosition === 'left') {
+        dx = resizeInitialMouseX - event.clientX;
+      }
 
-    const newWidth = Math.max(resizeInitialWidth + dx, 150); // Minimum width: 150
-    const parentWidth = nodeRef.current?.parentElement?.offsetWidth || 0; // Get the parent element's width
+      const newWidth = Math.max(resizeInitialWidth + dx, 150); // Minimum width: 150
+      const parentWidth = nodeRef.current?.parentElement?.offsetWidth || 0; // Get the parent element's width
 
-    if (newWidth < parentWidth) {
-      updateAttributes({
-        width: newWidth,
-      });
-    }
-  };
+      if (newWidth < parentWidth) {
+        updateAttributes({
+          width: newWidth,
+        });
+      }
+    },
+    [resizing, resizeInitialMouseX, resizeInitialWidth, resizingPosition, updateAttributes],
+  );
 
-  const endResize = () => {
+  const endResize = useCallback(() => {
     setResizing(false);
     setResizeInitialMouseX(0);
     setResizeInitialWidth(0);
-  };
+  }, []);
 
   const handleTouchStart = (position: 'left' | 'right') => (event: React.TouchEvent) => {
     event.preventDefault();
@@ -112,35 +115,38 @@ function TiptapImage({ node, editor, selected, deleteNode, updateAttributes }: N
     }
   };
 
-  const handleTouchMove = (event: TouchEvent) => {
-    if (!resizing) {
-      return;
-    }
+  const handleTouchMove = useCallback(
+    (event: TouchEvent) => {
+      if (!resizing) {
+        return;
+      }
 
-    if (!event.touches[0]) {
-      return;
-    }
+      if (!event.touches[0]) {
+        return;
+      }
 
-    let dx = event.touches[0].clientX - resizeInitialMouseX;
-    if (resizingPosition === 'left') {
-      dx = resizeInitialMouseX - event.touches[0].clientX;
-    }
+      let dx = event.touches[0].clientX - resizeInitialMouseX;
+      if (resizingPosition === 'left') {
+        dx = resizeInitialMouseX - event.touches[0].clientX;
+      }
 
-    const newWidth = Math.max(resizeInitialWidth + dx, 150);
-    const parentWidth = nodeRef.current?.parentElement?.offsetWidth || 0;
+      const newWidth = Math.max(resizeInitialWidth + dx, 150);
+      const parentWidth = nodeRef.current?.parentElement?.offsetWidth || 0;
 
-    if (newWidth < parentWidth) {
-      updateAttributes({
-        width: newWidth,
-      });
-    }
-  };
+      if (newWidth < parentWidth) {
+        updateAttributes({
+          width: newWidth,
+        });
+      }
+    },
+    [resizing, resizeInitialMouseX, resizeInitialWidth, resizingPosition, updateAttributes],
+  );
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = useCallback(() => {
     setResizing(false);
     setResizeInitialMouseX(0);
     setResizeInitialWidth(0);
-  };
+  }, []);
 
   const duplicateContent = (editor: Editor) => {
     const { view } = editor;
@@ -171,7 +177,7 @@ function TiptapImage({ node, editor, selected, deleteNode, updateAttributes }: N
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [resizing, resizeInitialMouseX, resizeInitialWidth]);
+  }, [resize, handleTouchMove, endResize, handleTouchEnd]);
 
   if (!editor) {
     return null;
@@ -183,13 +189,14 @@ function TiptapImage({ node, editor, selected, deleteNode, updateAttributes }: N
       className={cn(
         'relative flex flex-col rounded border-2 border-transparent',
         selected ? 'border-blue-400 dark:border-blue-900' : '',
-        node.attrs.align === 'left' && 'left-0 -translate-x-0',
+        node.attrs.align === 'left' && 'left-0 translate-x-0',
         node.attrs.align === 'center' && 'left-1/2 -translate-x-1/2',
         node.attrs.align === 'right' && 'left-full -translate-x-full',
       )}
       style={{ width: node.attrs.width }}
     >
       <div className={cn('group relative flex flex-col rounded-md', resizing && '')}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           ref={imageRef}
           src={node.attrs.src}

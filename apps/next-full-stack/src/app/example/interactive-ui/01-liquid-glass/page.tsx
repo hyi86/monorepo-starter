@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React from 'react';
 
 // Types
@@ -66,10 +67,12 @@ const GlassDock: React.FC<{ icons: DockIcon[]; href?: string }> = ({ icons, href
   <GlassEffect href={href} className="rounded-3xl p-3 hover:rounded-4xl hover:p-4">
     <div className="flex items-center justify-center gap-2 overflow-hidden rounded-3xl p-3 px-0.5 py-0">
       {icons.map((icon, index) => (
-        <img
+        <Image
           key={index}
           src={icon.src}
           alt={icon.alt}
+          width={64}
+          height={64}
           className="h-16 w-16 cursor-pointer transition-all duration-700 hover:scale-110"
           style={{
             transformOrigin: 'center center',

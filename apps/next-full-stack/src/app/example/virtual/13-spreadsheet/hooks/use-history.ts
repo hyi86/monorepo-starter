@@ -88,7 +88,7 @@ export function useHistory({ rows, setRows }: { rows: Data[]; setRows: Updater<D
     });
 
     setCurrentIndex((prev) => prev + 1);
-  }, [prevRows, rows, currentIndex]);
+  }, [prevRows, rows, currentIndex, setHistory]);
 
   return {
     history,

@@ -1,6 +1,5 @@
 'use server';
 
-import { AppRoutes } from '.next/types/routes';
 import { devLog } from '@monorepo-starter/utils/console';
 import { revalidatePath } from 'next/cache';
 import { Schema, schema } from './schema';
@@ -12,5 +11,5 @@ export async function submitAction(data: Schema, formData: FormData) {
   devLog('success', 'isValid', isValid);
   devLog('info', 'formData', Object.fromEntries(formData));
 
-  revalidatePath('/example/form/04-with-hook-form' as AppRoutes, 'page');
+  revalidatePath('/example/form/04-with-hook-form', 'page');
 }

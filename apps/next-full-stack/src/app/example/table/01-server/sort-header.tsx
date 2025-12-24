@@ -1,5 +1,6 @@
 import { TableHead } from '@monorepo-starter/ui/components/table';
 import { ChevronDown, ChevronsUpDown, ChevronUp } from 'lucide-react';
+import type { Route } from 'next';
 import Link from 'next/link';
 import { type OrderByKey, parsers, searchParamsCache, serialize } from './search-params';
 
@@ -24,28 +25,32 @@ export function SortHeader({
         <div className="cursor-pointer">
           {orderBy === orderByDefault && sortDirection === sortDirectionDefault ? (
             <Link
-              href={serialize(currentUrl, {
-                orderBy: name,
-                sortDirection: sortDirectionDefault === 'asc' ? 'desc' : 'asc',
-                pageIndex,
-              })}
+              href={
+                serialize(currentUrl, {
+                  orderBy: name,
+                  sortDirection: sortDirectionDefault === 'asc' ? 'desc' : 'asc',
+                  pageIndex,
+                }) as Route
+              }
             >
               <ChevronsUpDown className="text-gray-400" size={16} />
             </Link>
           ) : (
             <>
               {orderBy === name && sortDirection === 'asc' && (
-                <Link href={serialize(currentUrl, { orderBy: name, sortDirection: 'desc', pageIndex })}>
+                <Link href={serialize(currentUrl, { orderBy: name, sortDirection: 'desc', pageIndex }) as Route}>
                   <ChevronDown size={16} />
                 </Link>
               )}
               {orderBy === name && sortDirection === 'desc' && (
-                <Link href={serialize(currentUrl, { orderBy: undefined, sortDirection: undefined, pageIndex })}>
+                <Link
+                  href={serialize(currentUrl, { orderBy: undefined, sortDirection: undefined, pageIndex }) as Route}
+                >
                   <ChevronUp size={16} />
                 </Link>
               )}
               {orderBy !== name && (
-                <Link href={serialize(currentUrl, { orderBy: name, sortDirection: 'asc', pageIndex })}>
+                <Link href={serialize(currentUrl, { orderBy: name, sortDirection: 'asc', pageIndex }) as Route}>
                   <ChevronsUpDown className="text-gray-400" size={16} />
                 </Link>
               )}

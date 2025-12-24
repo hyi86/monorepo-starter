@@ -1,5 +1,6 @@
 'use client';
 
+import { Route } from 'next';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 /**
@@ -19,7 +20,7 @@ export function useSigninUrl() {
     const loginUrl = new URL('/signin', window.location.origin);
     loginUrl.searchParams.append('callbackUrl', callbackUrl.toString());
 
-    router.push(loginUrl.toString());
+    router.push(loginUrl.toString() as Route);
   }
 
   return { handleClickSignin };

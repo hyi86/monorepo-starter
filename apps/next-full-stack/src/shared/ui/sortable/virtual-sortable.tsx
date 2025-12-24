@@ -26,9 +26,7 @@ export function VirtualSortable({
   const [ids, setIds] = useState<string[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  // TanStack Virtual의 useVirtualizer는 함수를 반환하므로 React Compiler가 자동으로 메모이제이션을 건너뜀
-  // 이는 정상적인 동작이며, useVirtualizer 자체가 내부적으로 최적화되어 있음
-  // React Compiler 경고는 무시해도 됨 - 컴파일러가 자동으로 이 부분을 건너뛰고 있음
+  // eslint-disable-next-line react-hooks/incompatible-library
   const rowVirtualizer = useVirtualizer({
     count: ids.length,
     getScrollElement: () => parentRef.current,

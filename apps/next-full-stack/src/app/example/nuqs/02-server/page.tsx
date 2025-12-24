@@ -1,3 +1,4 @@
+import type { Route } from 'next';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import type { SearchParams } from 'nuqs/server';
@@ -20,10 +21,12 @@ export default async function ExampleNuqsServerPage({ searchParams }: Props) {
       </pre>
 
       <div className="flex gap-1">
-        <Link href={serialize(currentUrl, { bool: true, int: 100, literal: 'banana', str: 'hello', float: 1.1 })}>
+        <Link
+          href={serialize(currentUrl, { bool: true, int: 100, literal: 'banana', str: 'hello', float: 1.1 }) as Route}
+        >
           Link
         </Link>
-        <Link href={serialize(currentUrl, { bool: false, int: 10 })}>Link2</Link>
+        <Link href={serialize(currentUrl, { bool: false, int: 10 }) as Route}>Link2</Link>
       </div>
     </div>
   );

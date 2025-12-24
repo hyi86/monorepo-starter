@@ -13,14 +13,8 @@ export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
 }
 
-export default async function AppLangLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: Promise<{ lang: Locale }>;
-}) {
-  const { lang } = await params;
+export default async function AppLangLayout(props: LayoutProps<'/example/[lang]'>) {
+  const { lang } = (await props.params) as { lang: Locale };
 
   if (!i18n.locales.includes(lang)) {
     notFound();
@@ -28,7 +22,7 @@ export default async function AppLangLayout({
 
   return (
     <Article className="p-4">
-      <AppLanguageProvider lang={lang}>{children}</AppLanguageProvider>
+      <AppLanguageProvider lang={lang}>{props.children}</AppLanguageProvider>
     </Article>
   );
 }

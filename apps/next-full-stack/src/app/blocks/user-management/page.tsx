@@ -640,6 +640,7 @@ export default function UserManagementPage() {
   const [isPermissionDialogOpen, setIsPermissionDialogOpen] = React.useState(false);
   const [selectedUser, setSelectedUser] = React.useState<User | undefined>();
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data,
     columns,

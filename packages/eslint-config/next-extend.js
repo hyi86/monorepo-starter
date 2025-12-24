@@ -17,7 +17,6 @@ export const config = [
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
-      'react-hooks/incompatible-library': 'off',
       'react-hooks/refs': 'off',
     },
   },

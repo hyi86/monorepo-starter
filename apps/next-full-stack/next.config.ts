@@ -6,6 +6,7 @@ import type { NextConfig } from 'next';
  * @see {@link https://nextjs.org/docs/app/api-reference/config/next-config-js NextConfig}
  */
 const nextConfig: NextConfig = {
+  reactCompiler: true,
   devIndicators: {
     position: 'top-right',
   },
@@ -23,6 +24,14 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'picsum.photos',
+      },
+      {
+        protocol: 'https',
+        hostname: 'parsefiles.back4app.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
       },
     ],
   },

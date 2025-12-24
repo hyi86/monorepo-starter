@@ -8,6 +8,7 @@ import {
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { TreeRoute } from '@monorepo-starter/utils/tree';
 import { ChevronRight, FileIcon, FolderIcon, FolderOpenIcon, SquareChevronDown } from 'lucide-react';
+import type { Route } from 'next';
 import Link from 'next/link';
 import { LinkIndicator } from './LinkIndicator';
 
@@ -30,7 +31,7 @@ export function FileTreeMenuItem({
       <SidebarMenuItem>
         <SidebarMenuButton size="sm" isActive={isActive} className={menuItemClassName} asChild>
           {item.hasPath ? (
-            <Link href={item.path} className="pl-8" prefetch={false}>
+            <Link href={item.path as Route} className="pl-8" prefetch={false}>
               <LinkIndicator>
                 <FileIcon className="size-4" />
               </LinkIndicator>
@@ -81,7 +82,7 @@ export function FileTreeMenuItem({
       </Collapsible>
       {item.hasPath && (
         <SidebarMenuAction asChild>
-          <Link href={item.path}>
+          <Link href={item.path as Route}>
             <SquareChevronDown className={cn(pathname === item.path && '-rotate-90')} />
           </Link>
         </SidebarMenuAction>

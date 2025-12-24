@@ -16,6 +16,7 @@ import {
   VideoIcon,
   XIcon,
 } from 'lucide-react';
+import Image from 'next/image';
 import { useState } from 'react';
 
 // Create some dummy initial files
@@ -90,12 +91,20 @@ const getFileIcon = (file: { file: File | { type: string; name: string } }) => {
   return <FileIcon className="size-5 opacity-60" />;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getFilePreview = (file: { file: File | { type: string; name: string; url?: string } }) => {
   const fileType = file.file instanceof File ? file.file.type : file.file.type;
   const fileName = file.file instanceof File ? file.file.name : file.file.name;
 
   const renderImage = (src: string) => (
-    <img src={src} alt={fileName} className="size-full rounded-t-[inherit] object-cover" />
+    <Image
+      src={src}
+      alt={fileName}
+      className="size-full rounded-t-[inherit] object-cover"
+      width={100}
+      height={100}
+      unoptimized
+    />
   );
 
   return (

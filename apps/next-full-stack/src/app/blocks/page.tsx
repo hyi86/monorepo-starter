@@ -1,4 +1,4 @@
-import type { AppRoutes } from '.next/types/routes';
+import type { Route } from 'next';
 import Link from 'next/link';
 
 export const metadata = {
@@ -6,7 +6,7 @@ export const metadata = {
 };
 
 export default function BlocksPage() {
-  const links: { href: AppRoutes; label: string }[] = [
+  const links: { href: Route; label: string }[] = [
     { href: '/blocks/user-management', label: 'User Management' },
     { href: '/blocks/dashboard', label: 'Dashboard' },
     { href: '/blocks/sidebar-01', label: 'Sidebar 01' },

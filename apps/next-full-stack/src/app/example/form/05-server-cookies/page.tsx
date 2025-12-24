@@ -1,4 +1,3 @@
-import { type AppRoutes } from '.next/types/routes';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Input } from '@monorepo-starter/ui/components/input';
 import { devLog } from '@monorepo-starter/utils/console';
@@ -20,7 +19,7 @@ export default async function ServerActionCookiePage() {
     }
 
     devLog('info', `formData.get('name'): ${formData.get('name')}`);
-    revalidatePath('/example/form/05-server-cookies' as AppRoutes, 'page');
+    revalidatePath('/example/form/05-server-cookies', 'page');
   }
 
   return (

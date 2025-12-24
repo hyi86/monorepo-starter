@@ -131,6 +131,7 @@ export default function TableClientBasic({ data: initialData }: { data: Data[] }
   };
 
   // Table Instance
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable(tableOptions);
 
   // Rows
@@ -198,7 +199,7 @@ export default function TableClientBasic({ data: initialData }: { data: Data[] }
     if (header) {
       setActiveHeader(header);
     }
-  }, [activeId]);
+  }, [table, activeId]);
 
   return (
     <div>

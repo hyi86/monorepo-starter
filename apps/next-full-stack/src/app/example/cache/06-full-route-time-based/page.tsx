@@ -1,4 +1,3 @@
-import { type AppRoutes } from '.next/types/routes';
 import { Badge } from '@monorepo-starter/ui/components/badge';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@monorepo-starter/ui/components/card';
@@ -22,7 +21,7 @@ export default async function FullRouteCacheRevalidatePage() {
 
   async function handleRevalidatePath() {
     'use server';
-    revalidatePath('/example/cache/06-full-route-time-based' as AppRoutes, 'page');
+    revalidatePath('/example/cache/06-full-route-time-based', 'page');
   }
 
   return (

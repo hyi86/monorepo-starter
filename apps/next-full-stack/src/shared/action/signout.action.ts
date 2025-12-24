@@ -1,5 +1,6 @@
 'use server';
 
+import type { Route } from 'next';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { isProtectedPath } from '~/shared/config/auth';
@@ -14,7 +15,7 @@ export async function signoutAction(redirectPath?: string) {
   cookieStore.delete('refresh-token');
 
   if (redirectPath) {
-    redirect(redirectPath);
+    redirect(redirectPath as Route);
   }
 
   // const pathname = '/';
@@ -26,5 +27,5 @@ export async function signoutAction(redirectPath?: string) {
   }
 
   const callbackUrl = (pathname + search) as string;
-  redirect(callbackUrl);
+  redirect(callbackUrl as Route);
 }

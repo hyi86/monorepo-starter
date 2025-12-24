@@ -6,6 +6,7 @@ import { useRef } from 'react';
 export default function FixedMasonryVertical({ rows }: { rows: number[] }) {
   const parentRef = useRef<HTMLDivElement>(null);
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
     getScrollElement: () => parentRef.current,

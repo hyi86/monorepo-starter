@@ -10,7 +10,6 @@ export default defineConfig({
     passWithNoTests: true,
     coverage: {
       provider: 'v8',
-      all: true,
       include: ['src/**/*.{ts,tsx}'],
       exclude: ['src/app-path-types.ts'],
       reporter: ['html'],
