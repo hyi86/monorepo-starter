@@ -227,7 +227,7 @@ export default function NextServerActionClientWithHookFormPage() {
             render={({ field }) => (
               <FormItem className="">
                 <FormLabel>박스 스위치</FormLabel>
-                <Label className="flex items-center gap-6 rounded-lg border p-4 has-[[data-state=checked]]:border-blue-600">
+                <Label className="has-data-state=checked:border-blue-600 flex items-center gap-6 rounded-lg border p-4">
                   <div className="flex flex-col gap-1">
                     <div className="font-medium">Share across devices</div>
                     <div className="text-muted-foreground text-sm font-normal">

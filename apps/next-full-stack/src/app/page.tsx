@@ -1,3 +1,4 @@
+import { Hello } from '@monorepo-starter/shared/common/hello';
 import { Button } from '@monorepo-starter/ui/components/button';
 import { Card, CardAction, CardFooter, CardHeader, CardTitle } from '@monorepo-starter/ui/components/card';
 import Link from 'next/link';
@@ -30,6 +31,7 @@ export default function Home() {
           </CardAction>
         </CardFooter>
       </Card>
+      <Hello />
     </div>
   );
 }

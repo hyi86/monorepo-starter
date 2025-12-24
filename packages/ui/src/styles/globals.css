@@ -2,10 +2,10 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 @import './tailwind-override.css';
-@plugin '@tailwindcss/typography';
-@config '../../tailwind.config.js';
+
 @custom-variant dark (&:is(.dark *));
 @source '../../../apps/**/*.{ts,tsx}';
+@source '../../../../packages/shared/**/*.{ts,tsx}';
 @source '../**/*.{ts,tsx}';
 
 @theme inline {

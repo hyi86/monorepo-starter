@@ -1,0 +1,15 @@
+{
+  "extends": "@monorepo-starter/typescript-config/react-library.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@monorepo-starter/shared/*": ["./src/*"],
+      "@monorepo-starter/ui/*": ["../../packages/ui/src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
