@@ -83,7 +83,7 @@ Update `src/index.css`
 ```bash
 cd packages/ui
 # Shadcn UI 최신 버전 설치(덮어쓰기)
-pnpm dlx shadcn@canary add -a -o -y
+pnpm dlx shadcn@latest add -a -o -y
 # 직접 수정한 컴포넌트는 복구
 git restore src/components/checkbox.tsx
 # 코드 포맷팅
