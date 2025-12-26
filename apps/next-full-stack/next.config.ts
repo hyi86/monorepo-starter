@@ -6,6 +6,7 @@ import type { NextConfig } from 'next';
  * @see {@link https://nextjs.org/docs/app/api-reference/config/next-config-js NextConfig}
  */
 const nextConfig: NextConfig = {
+  cacheComponents: true,
   reactCompiler: true,
   devIndicators: {
     position: 'top-right',

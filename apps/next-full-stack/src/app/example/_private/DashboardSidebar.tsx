@@ -9,6 +9,7 @@ import {
 import { getAllFolderPaths } from '@monorepo-starter/utils/tree';
 import { NotebookPen } from 'lucide-react';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import { getAllRouteTree } from '~/app/example/_private/routes.utils';
 import { checkAuthorization } from '~/shared/lib/auth/check-auth';
 import { DashboardSidebarSearch } from './DashboardSidebarSearch';
@@ -17,8 +18,16 @@ import { NavUser } from './NavUser';
 
 type DashboardSidebarProps = React.ComponentProps<typeof Sidebar>;
 
-export async function DashboardSidebar({ ...props }: DashboardSidebarProps) {
+/**
+ * NavUser를 렌더링하는 서버 컴포넌트 (Suspense 경계 내에서 실행)
+ * cookies()를 사용하므로 Suspense 경계 내에서 실행되어야 합니다.
+ */
+async function NavUserWrapper() {
   const { payload } = await checkAuthorization();
+  return <NavUser payload={payload} />;
+}
+
+export async function DashboardSidebar({ ...props }: DashboardSidebarProps) {
   const routeTree = getAllRouteTree();
   const folderPaths = getAllFolderPaths(routeTree);
 
@@ -42,7 +51,9 @@ export async function DashboardSidebar({ ...props }: DashboardSidebarProps) {
         <FileTreeMenuGroup routes={routeTree} folderPaths={folderPaths} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser payload={payload} />
+        <Suspense fallback={<NavUser payload={undefined} />}>
+          <NavUserWrapper />
+        </Suspense>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

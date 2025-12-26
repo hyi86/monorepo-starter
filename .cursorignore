@@ -34,7 +34,8 @@ test-results/
 Thumbs.db
 
 # IDE 설정
-.vscode/
+.vscode/*
+!.vscode/keybindings.json
 .idea/
 
 # Git

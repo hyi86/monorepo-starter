@@ -1,29 +1,37 @@
-# Next.js 캐싱 시스템 예제
+# Next.js 16 캐싱 시스템 예제
 
-Next.js의 다양한 캐싱 전략을 실습할 수 있는 예제 모음입니다.
+Next.js 16의 새로운 캐싱 기법을 실습할 수 있는 예제 모음입니다.
 
-## 📚 캐싱 종류
+## 📚 Next.js 16 캐싱 기법
 
-### 1. Data Cache (데이터 캐싱)
+### 1. fetch 자동 캐싱
 
-- **02-data-cache-time-based**: 시간 기반 데이터 캐시 (10초)
-- **03-data-cache-on-demand**: 태그 기반 데이터 캐시 (수동 무효화)
+- **[01-use-cache](/example/cache/01-use-cache)**: fetch API의 자동 캐싱과 revalidate 옵션
 
-### 2. Full Route Cache (전체 라우트 캐싱)
+### 2. React cache() 함수
 
-- **04-full-route-disabled**: 라우트 캐시 비활성화
-- **05-full-route-force-static**: 강제 정적 생성
-- **06-full-route-time-based**: 시간 기반 라우트 캐시 (15초)
+- **[02-react-cache](/example/cache/02-react-cache)**: React의 cache() 함수로 함수 결과 캐싱
 
-### 3. ISR (Incremental Static Regeneration)
+### 3. unstable_cache
 
-- **07-isr**: 기본 ISR (20초)
-- **08-isr-force-static**: 강제 정적 ISR
-- **09-isr-data-cache-revalidate**: 데이터 캐시와 ISR 조합 (10초)
+- **[03-unstable-cache](/example/cache/03-unstable-cache)**: Next.js의 unstable_cache API 사용
+
+### 4. fetch 캐싱 옵션
+
+- **[04-fetch-cache](/example/cache/04-fetch-cache)**: fetch의 next 옵션으로 캐시 제어
+
+### 5. 캐시 무효화
+
+- **[05-revalidate](/example/cache/05-revalidate)**: revalidateTag() / revalidatePath()로 캐시 무효화
+
+### 6. Request Memoization
+
+- **[06-request-memoization](/example/cache/06-request-memoization)**: 동일 요청 내 fetch 자동 메모이제이션
 
 ## 🎯 학습 목표
 
-- 각 캐싱 전략의 차이점 이해
+- Next.js 16의 새로운 캐싱 기능 이해
+- 각 캐싱 전략의 차이점과 사용 시나리오 파악
 - 실제 동작 확인 및 테스트
 - 성능 최적화 방법 습득
 
@@ -32,3 +40,4 @@ Next.js의 다양한 캐싱 전략을 실습할 수 있는 예제 모음입니�
 - 개발 환경에서는 일부 캐싱이 비활성화될 수 있습니다
 - 프로덕션 빌드에서 실제 캐싱 동작을 확인해보세요
 - 브라우저 개발자 도구의 Network 탭을 활용하여 캐시 상태를 모니터링하세요
+- 각 예제 페이지에서 실제 동작을 확인할 수 있습니다

@@ -26,14 +26,14 @@ export default function WebPushControlsPage() {
 
   if (!registration) {
     return (
-      <div className="not-prose p-8">
+      <div className="p-8">
         <p>Service Worker is not registered</p>
       </div>
     );
   }
 
   return (
-    <div className="not-prose flex flex-col gap-2 p-8">
+    <div className="flex flex-col gap-2 p-8">
       <h1>Simple Web Push Example</h1>
       <div className="flex gap-2">
         <Button

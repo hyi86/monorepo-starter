@@ -77,10 +77,7 @@ export default function FormDatePickerPage() {
       <h1>Date Picker Form</h1>
       <p>React Hook Form, Zod, Shadcn/UI, Next Server Action with Date Picker</p>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit, (errors) => console.log('errors', errors))}
-          className="not-prose space-y-8"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit, (errors) => console.log('errors', errors))} className="space-y-8">
           {/* Checkbox Box 1 */}
           <FormField
             control={form.control}

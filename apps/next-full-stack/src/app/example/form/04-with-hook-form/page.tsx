@@ -69,7 +69,7 @@ export default function NextServerActionClientWithHookFormPage() {
       </p>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit, onError)} className="not-prose space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit, onError)} className="space-y-6">
           {/* TextInput */}
           <FormField
             control={form.control}

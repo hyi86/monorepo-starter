@@ -83,7 +83,7 @@ export default async function TableServerControlsPage({ searchParams }: { search
                 <TableRow key={item.id}>
                   <TableCell>{item.id}</TableCell>
                   <TableCell>
-                    <div className="not-prose flex items-center gap-1.5">
+                    <div className="flex items-center gap-1.5">
                       <Image
                         src={item.profile?.avatar || ''}
                         alt={item.name}

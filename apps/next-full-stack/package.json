@@ -52,6 +52,7 @@
     "dexie-react-hooks": "^4.2.0",
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.45.1",
+    "es-hangul": "^2.3.8",
     "fast-sort": "^3.4.1",
     "fuse.js": "^7.1.0",
     "hast-util-to-jsx-runtime": "^2.3.6",

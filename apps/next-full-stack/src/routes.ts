@@ -1,5 +1,7 @@
+import type { Route } from 'next';
+
 export type AppPathRoutes = {
-  href: string;
+  href: Route | '/example/[...slug]' | '/example/[lang]/[num]' | '/example/virtual/12-with-parallel-route/[...slug]';
   linkTypes: string;
   isParallelRoute: boolean;
   isDynamicRoute: boolean;
@@ -20,13 +22,6 @@ export const appPathRoutes: AppPathRoutes[] = [
     isParallelRoute: false,
     isDynamicRoute: false,
     files: ['src/app/blocks/page.tsx'],
-  },
-  {
-    href: '/blocks/admin-menu-management',
-    linkTypes: '/blocks/admin-menu-management',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/blocks/admin-menu-management/page.tsx'],
   },
   {
     href: '/blocks/ag-grid',
@@ -62,20 +57,6 @@ export const appPathRoutes: AppPathRoutes[] = [
     isParallelRoute: false,
     isDynamicRoute: false,
     files: ['src/app/blocks/dashboard/page.tsx'],
-  },
-  {
-    href: '/blocks/feature-management',
-    linkTypes: '/blocks/feature-management',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/blocks/feature-management/page.tsx'],
-  },
-  {
-    href: '/blocks/permission-management',
-    linkTypes: '/blocks/permission-management',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/blocks/permission-management/page.tsx'],
   },
   {
     href: '/blocks/sidebar-01',
@@ -204,81 +185,46 @@ export const appPathRoutes: AppPathRoutes[] = [
     files: ['src/app/example/cache/page.mdx'],
   },
   {
-    href: '/example/cache/02-data-cache-time-based',
-    linkTypes: '/example/cache/02-data-cache-time-based',
+    href: '/example/cache/01-use-cache',
+    linkTypes: '/example/cache/01-use-cache',
     isParallelRoute: false,
     isDynamicRoute: false,
-    files: ['src/app/example/cache/02-data-cache-time-based/page.tsx'],
+    files: ['src/app/example/cache/01-use-cache/page.tsx'],
   },
   {
-    href: '/example/cache/03-data-cache-on-demand',
-    linkTypes: '/example/cache/03-data-cache-on-demand',
+    href: '/example/cache/02-react-cache',
+    linkTypes: '/example/cache/02-react-cache',
     isParallelRoute: false,
     isDynamicRoute: false,
-    files: ['src/app/example/cache/03-data-cache-on-demand/page.tsx'],
+    files: ['src/app/example/cache/02-react-cache/page.tsx'],
   },
   {
-    href: '/example/cache/04-full-route-disabled',
-    linkTypes: '/example/cache/04-full-route-disabled',
+    href: '/example/cache/03-unstable-cache',
+    linkTypes: '/example/cache/03-unstable-cache',
     isParallelRoute: false,
     isDynamicRoute: false,
-    files: ['src/app/example/cache/04-full-route-disabled/page.tsx'],
+    files: ['src/app/example/cache/03-unstable-cache/page.tsx'],
   },
   {
-    href: '/example/cache/05-full-route-force-static',
-    linkTypes: '/example/cache/05-full-route-force-static',
+    href: '/example/cache/04-fetch-cache',
+    linkTypes: '/example/cache/04-fetch-cache',
     isParallelRoute: false,
     isDynamicRoute: false,
-    files: ['src/app/example/cache/05-full-route-force-static/page.tsx'],
+    files: ['src/app/example/cache/04-fetch-cache/page.tsx'],
   },
   {
-    href: '/example/cache/06-full-route-time-based',
-    linkTypes: '/example/cache/06-full-route-time-based',
+    href: '/example/cache/05-revalidate',
+    linkTypes: '/example/cache/05-revalidate',
     isParallelRoute: false,
     isDynamicRoute: false,
-    files: ['src/app/example/cache/06-full-route-time-based/page.tsx'],
+    files: ['src/app/example/cache/05-revalidate/page.tsx'],
   },
   {
-    href: '/example/cache/07-isr',
-    linkTypes: '/example/cache/07-isr',
+    href: '/example/cache/06-request-memoization',
+    linkTypes: '/example/cache/06-request-memoization',
     isParallelRoute: false,
     isDynamicRoute: false,
-    files: ['src/app/example/cache/07-isr/page.tsx'],
-  },
-  {
-    href: '/example/cache/07-isr/[id]',
-    linkTypes: '/example/cache/07-isr/${string}',
-    isParallelRoute: false,
-    isDynamicRoute: true,
-    files: ['src/app/example/cache/07-isr/[id]/page.tsx'],
-  },
-  {
-    href: '/example/cache/08-isr-force-static',
-    linkTypes: '/example/cache/08-isr-force-static',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/cache/08-isr-force-static/page.tsx'],
-  },
-  {
-    href: '/example/cache/08-isr-force-static/[id]',
-    linkTypes: '/example/cache/08-isr-force-static/${string}',
-    isParallelRoute: false,
-    isDynamicRoute: true,
-    files: ['src/app/example/cache/08-isr-force-static/[id]/page.tsx'],
-  },
-  {
-    href: '/example/cache/09-isr-data-cache-revalidate',
-    linkTypes: '/example/cache/09-isr-data-cache-revalidate',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/cache/09-isr-data-cache-revalidate/page.tsx'],
-  },
-  {
-    href: '/example/cache/09-isr-data-cache-revalidate/[id]',
-    linkTypes: '/example/cache/09-isr-data-cache-revalidate/${string}',
-    isParallelRoute: false,
-    isDynamicRoute: true,
-    files: ['src/app/example/cache/09-isr-data-cache-revalidate/[id]/page.tsx'],
+    files: ['src/app/example/cache/06-request-memoization/page.tsx'],
   },
   {
     href: '/example/code-block',
@@ -384,13 +330,6 @@ export const appPathRoutes: AppPathRoutes[] = [
     isParallelRoute: false,
     isDynamicRoute: false,
     files: ['src/app/example/experimental/api-cache/page.tsx'],
-  },
-  {
-    href: '/example/experimental/file-upload',
-    linkTypes: '/example/experimental/file-upload',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/experimental/file-upload/page.tsx'],
   },
   {
     href: '/example/file-upload/01-basic',
@@ -652,7 +591,7 @@ export const appPathRoutes: AppPathRoutes[] = [
     files: ['src/app/example/route/intercepting/page.tsx'],
   },
   {
-    href: '/example/route/intercepting/photo/[id]',
+    href: '/example/route/intercepting',
     linkTypes: '/example/route/intercepting/photo/${string}',
     isParallelRoute: false,
     isDynamicRoute: true,
@@ -846,6 +785,13 @@ export const appPathRoutes: AppPathRoutes[] = [
     isParallelRoute: false,
     isDynamicRoute: false,
     files: ['src/app/example/virtual/13-spreadsheet/page.tsx'],
+  },
+  {
+    href: '/example/hangul',
+    linkTypes: '/example/hangul',
+    isParallelRoute: false,
+    isDynamicRoute: false,
+    files: ['src/app/example/hangul/page.tsx'],
   },
   {
     href: '/signin',
