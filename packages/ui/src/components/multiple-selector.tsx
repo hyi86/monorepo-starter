@@ -204,6 +204,20 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
     const [inputValue, setInputValue] = React.useState('');
     const debouncedSearchTerm = useDebounce(inputValue, delay || 500);
 
+    // 계산된 options 값 (arrayOptions에서 파생)
+    const computedOptions = React.useMemo(() => {
+      if (!arrayOptions || onSearch) {
+        return null;
+      }
+      return transToGroupOption(arrayOptions || [], groupBy);
+    }, [arrayOptions, groupBy, onSearch]);
+
+    // 이전 computedOptions 값을 추적하기 위한 ref
+    const prevComputedOptionsRef = React.useRef<GroupOption | null>(null);
+
+    // 이전 value prop 값을 추적하기 위한 ref
+    const prevValueRef = React.useRef<Option[] | undefined>(value);
+
     React.useImperativeHandle(
       ref,
       () => ({
@@ -274,21 +288,39 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
     }, [open]);
 
     useEffect(() => {
-      if (value) {
-        setSelected(value);
+      // value가 제공되지 않았거나 이전 값과 동일하면 업데이트하지 않음
+      if (!value || JSON.stringify(value) === JSON.stringify(prevValueRef.current)) {
+        prevValueRef.current = value;
+        return;
       }
+
+      // 비동기적으로 state 업데이트 (cascading renders 방지)
+      queueMicrotask(() => {
+        setSelected(value);
+      });
+
+      prevValueRef.current = value;
     }, [value]);
 
     useEffect(() => {
       /** If `onSearch` is provided, do not trigger options updated. */
-      if (!arrayOptions || onSearch) {
+      if (!computedOptions) {
         return;
       }
-      const newOption = transToGroupOption(arrayOptions || [], groupBy);
-      if (JSON.stringify(newOption) !== JSON.stringify(options)) {
-        setOptions(newOption);
+
+      // 이전 값과 비교하여 변경되었을 때만 업데이트
+      const prevComputed = prevComputedOptionsRef.current;
+      if (prevComputed && JSON.stringify(computedOptions) === JSON.stringify(prevComputed)) {
+        return;
       }
-    }, [arrayDefaultOptions, arrayOptions, groupBy, onSearch, options]);
+
+      // 비동기적으로 state 업데이트 (cascading renders 방지)
+      queueMicrotask(() => {
+        setOptions(computedOptions);
+      });
+
+      prevComputedOptionsRef.current = computedOptions;
+    }, [computedOptions]);
 
     useEffect(() => {
       /** sync search */

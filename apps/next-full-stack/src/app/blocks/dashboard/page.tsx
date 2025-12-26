@@ -5,7 +5,6 @@ import {
   SectionCards,
   SiteHeader,
 } from '@monorepo-starter/ui/blocks/dashboard-main';
-import { BigCalendar, CalendarProvider } from '@monorepo-starter/ui/blocks/event-calendar';
 import { SidebarInset, SidebarProvider } from '@monorepo-starter/ui/components/sidebar';
 import data from './data.json';
 
@@ -30,11 +29,6 @@ export default function Page() {
                 <ChartAreaInteractive />
               </div>
               <DataTable data={data} />
-              <div className="px-4 lg:px-6">
-                <CalendarProvider>
-                  <BigCalendar />
-                </CalendarProvider>
-              </div>
             </div>
           </div>
         </div>
