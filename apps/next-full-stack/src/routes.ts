@@ -698,13 +698,6 @@ export const appPathRoutes: AppPathRoutes[] = [
     files: ['src/app/example/table/02-client/page.tsx'],
   },
   {
-    href: '/example/tiptap/01-basic',
-    linkTypes: '/example/tiptap/01-basic',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/tiptap/01-basic/page.tsx'],
-  },
-  {
     href: '/example/tree/01-default',
     linkTypes: '/example/tree/01-default',
     isParallelRoute: false,

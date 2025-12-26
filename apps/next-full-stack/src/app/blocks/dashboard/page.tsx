@@ -6,7 +6,6 @@ import {
   SiteHeader,
 } from '@monorepo-starter/ui/blocks/dashboard-main';
 import { BigCalendar, CalendarProvider } from '@monorepo-starter/ui/blocks/event-calendar';
-import { SchemaVisualizer } from '@monorepo-starter/ui/blocks/schema-visualizer';
 import { SidebarInset, SidebarProvider } from '@monorepo-starter/ui/components/sidebar';
 import data from './data.json';
 
@@ -35,9 +34,6 @@ export default function Page() {
                 <CalendarProvider>
                   <BigCalendar />
                 </CalendarProvider>
-              </div>
-              <div className="px-4 lg:px-6">
-                <SchemaVisualizer />
               </div>
             </div>
           </div>

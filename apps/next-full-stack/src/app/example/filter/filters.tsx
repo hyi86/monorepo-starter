@@ -539,7 +539,7 @@ export default function Filters({
       {filters
         .filter((filter) => filter.value?.length > 0)
         .map((filter) => (
-          <div key={filter.id} className="flex items-center gap-[1px] text-xs">
+          <div key={filter.id} className="flex items-center gap-px text-xs">
             <div className="bg-muted flex shrink-0 items-center gap-1.5 rounded-l px-1.5 py-1">
               <FilterIcon type={filter.type} />
               {filter.type}

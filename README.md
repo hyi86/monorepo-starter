@@ -58,7 +58,6 @@
 - 🖍️ **Code Blocks**: 
   [`Shiki`](https://shiki.style)를 이용한 Code highlighting 과 [`Monaco Editor`](https://github.com/microsoft/monaco-editor)를 통한 **Real-time Code Editing** 기능을 제공합니다.
 - 📝 **WYSIWYG Editor**: 
-  [`Tiptap`](https://tiptap.dev)을 활용한 실시간 에디터를 제공합니다.
 - 📦 **Others**:
   - 🛟 **Env**: [`t3-env`](https://env.t3.gg): 환경 변수 관리를 위한 라이브러리
   - 📄 **Logging**: [`pino`](https://getpino.io): 로깅을 위한 라이브러리
