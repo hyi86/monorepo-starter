@@ -5,8 +5,8 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className="grid grid-cols-2 gap-4 p-8">
-      <div className="col-span-2">Home</div>
+    <div className="grid grid-cols-3 gap-4 p-8">
+      <div className="col-span-3">Home</div>
       <Card>
         <CardHeader>
           <CardTitle>Example Page</CardTitle>
@@ -31,7 +31,16 @@ export default function Home() {
           </CardAction>
         </CardFooter>
       </Card>
-      <Hello />
+      <Card>
+        <CardHeader>
+          <CardTitle>Docs Page</CardTitle>
+        </CardHeader>
+        <CardFooter>
+          <CardAction>
+            <Hello />
+          </CardAction>
+        </CardFooter>
+      </Card>
     </div>
   );
 }

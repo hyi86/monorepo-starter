@@ -20,6 +20,7 @@ export default function BlocksPage() {
     { href: '/blocks/sidebar-15', label: 'Sidebar 15' },
     { href: '/blocks/sidebar-16', label: 'Sidebar 16' },
     { href: '/blocks/ag-grid', label: 'Ag Grid' },
+    { href: '/blocks/shadcn', label: 'Shadcn' },
   ];
 
   return (
