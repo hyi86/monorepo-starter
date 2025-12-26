@@ -453,7 +453,22 @@ export default function FormDatePickerPage() {
               <FormItem className="max-w-100">
                 <FormLabel>Date Range Time Picker</FormLabel>
                 <FormControl>
-                  <RangeTimePicker value={field.value} onChange={field.onChange} />
+                  <RangeTimePicker
+                    presets={[
+                      {
+                        from: '+0d',
+                        to: '+0d',
+                        label: 'Today',
+                      },
+                      {
+                        from: '+1d',
+                        to: '+7d',
+                        label: 'Next 7 Days',
+                      },
+                    ]}
+                    value={field.value}
+                    onChange={field.onChange}
+                  />
                 </FormControl>
                 <FormDescription>날짜 범위 시간 선택 피커 입니다</FormDescription>
                 <FormMessage />
