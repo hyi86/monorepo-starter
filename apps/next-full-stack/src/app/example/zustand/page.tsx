@@ -1,3 +1,5 @@
+'use client';
+
 import { useCounterStore } from './_private/counter.context';
 
 export default function ZustandPage() {

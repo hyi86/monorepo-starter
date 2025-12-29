@@ -1,0 +1,76 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "workspaces": {
+    "apps/next-full-stack": {
+      "entry": ["src/app/**/*.{ts,tsx}", "!src/**/*.test.{ts,tsx}", "!src/**/*.spec.{ts,tsx}"],
+      "project": ["src/**/*.{ts,tsx}"]
+    },
+    "apps/docs": {
+      "entry": ["stories/**/*.stories.{ts,tsx}"],
+      "project": ["stories/**/*.{ts,tsx}", ".storybook/**/*.{ts,tsx}"]
+    },
+    "apps/e2e": {
+      "entry": ["src/**/*.spec.ts"],
+      "project": ["src/**/*.ts"]
+    },
+    "packages/shared": {
+      "entry": ["src/**/index.ts", "src/**/index.tsx"],
+      "project": ["src/**/*.{ts,tsx}"]
+    },
+    "packages/ui": {
+      "entry": ["src/**/*.{ts,tsx}", "!src/**/*.stories.tsx"],
+      "project": ["src/**/*.{ts,tsx}"]
+    },
+    "packages/utils": {
+      "entry": ["src/*.ts"],
+      "project": ["src/**/*.ts"]
+    },
+    "packages/eslint-config": {
+      "entry": ["*.js"],
+      "project": ["*.js"]
+    },
+    "packages/typescript-config": {
+      "entry": ["base.json", "nextjs.json", "react-library.json"],
+      "project": ["*.json"]
+    }
+  },
+  "ignore": [
+    "**/*.stories.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/vitest.config.ts",
+    "**/vitest.workspace.ts",
+    "**/tailwind.config.ts",
+    "**/postcss.config.mjs",
+    "**/next.config.ts",
+    "**/next-env.d.ts",
+    "**/playwright.config.ts",
+    "**/.storybook/**",
+    "**/.next/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/coverage/**",
+    "**/node_modules/**",
+    "**/steiger.config.js",
+    "**/public/sw.js",
+    "apps/wms/src/shared/fonts/index.ts",
+    "apps/oms/src/shared/fonts/index.ts",
+    "apps/saas/src/shared/fonts/index.ts",
+    "packages/shared/src/hello/**"
+  ],
+  "ignoreDependencies": [
+    "@saas-frontend/eslint-config",
+    "@saas-frontend/typescript-config",
+    "eslint",
+    "steiger",
+    "typescript",
+    "tailwindcss",
+    "postcss",
+    "playwright",
+    "cloudflared"
+  ],
+  "ignoreExportsUsedInFile": true,
+  "ignoreWorkspaces": []
+}

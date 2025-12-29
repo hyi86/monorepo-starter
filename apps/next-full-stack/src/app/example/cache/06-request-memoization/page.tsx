@@ -6,6 +6,8 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@monorepo-starter/ui/components/card';
 
+export const dynamic = 'force-dynamic';
+
 async function fetchUserData() {
   const res = await fetch('https://api.github.com/users/vercel', {
     next: { revalidate: 60 },

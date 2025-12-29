@@ -20,13 +20,13 @@ export const env = createEnv({
     // Code editor
     CODE_EDITOR: z.enum(['cursor', 'vscode', 'webstorm', 'intellij', 'neovim', 'sublimetext']).default('cursor'),
     // Tokens
-    ACCESS_TOKEN_SECRET: z.string(),
+    ACCESS_TOKEN_SECRET: z.string().optional(),
     ACCESS_TOKEN_SECRET_TIME: z
       .string()
       .refine((value) => parseDuration(value, 's') !== null)
       .default('15m'),
     ACCESS_TOKEN_COOKIE_NAME: z.string().default('access-token'),
-    REFRESH_TOKEN_SECRET: z.string(),
+    REFRESH_TOKEN_SECRET: z.string().optional(),
     REFRESH_TOKEN_SECRET_TIME: z
       .string()
       .refine((value) => parseDuration(value, 's') !== null)
@@ -35,10 +35,10 @@ export const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_URL: z.string().default('http://localhost:3000'),
-    NEXT_PUBLIC_VAPID_PUBLIC_KEY: z.string(),
-    NEXT_PUBLIC_VAPID_PRIVATE_KEY: z.string(),
+    NEXT_PUBLIC_VAPID_PUBLIC_KEY: z.string().optional(),
+    NEXT_PUBLIC_VAPID_PRIVATE_KEY: z.string().optional(),
     NEXT_PUBLIC_WEB_PUSH_EMAIL: z.string().default('example@example.com'),
-    NEXT_PUBLIC_AG_GRID_KEY: z.string(),
+    NEXT_PUBLIC_AG_GRID_KEY: z.string().optional(),
   },
   // For Next.js >= 13.4.4,
   experimental__runtimeEnv: {

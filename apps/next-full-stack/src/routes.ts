@@ -318,20 +318,6 @@ export const appPathRoutes: AppPathRoutes[] = [
     files: ['src/app/example/dnd/03-sortable-grid/page.tsx'],
   },
   {
-    href: '/example/experimental',
-    linkTypes: '/example/experimental',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/experimental/page.mdx'],
-  },
-  {
-    href: '/example/experimental/api-cache',
-    linkTypes: '/example/experimental/api-cache',
-    isParallelRoute: false,
-    isDynamicRoute: false,
-    files: ['src/app/example/experimental/api-cache/page.tsx'],
-  },
-  {
     href: '/example/file-upload/01-basic',
     linkTypes: '/example/file-upload/01-basic',
     isParallelRoute: false,
