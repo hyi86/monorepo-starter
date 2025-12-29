@@ -28,7 +28,7 @@
     "@vitejs/plugin-react": "^5.1.2",
     "@vitest/coverage-v8": "catalog:",
     "eslint": "catalog:",
-    "jsdom": "^27.3.0",
+    "jsdom": "^27.4.0",
     "type-fest": "catalog:",
     "vite-tsconfig-paths": "^6.0.3",
     "vitest": "catalog:"
