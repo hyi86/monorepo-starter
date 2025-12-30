@@ -8,7 +8,7 @@ const dbFilePath = path.join(rootPath, env.DB_FILE_NAME);
 
 export default defineConfig({
   out: './drizzle',
-  schema: './src/shared/database/schema.ts',
+  schema: './src/shared/lib/database/schema.ts',
   dialect: 'sqlite',
   dbCredentials: {
     url: dbFilePath,

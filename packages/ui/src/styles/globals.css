@@ -4,6 +4,7 @@
 @import './tailwind-override.css';
 
 @custom-variant dark (&:is(.dark *));
+
 @source '../../../apps/**/*.{ts,tsx}';
 @source '../../../../packages/shared/**/*.{ts,tsx}';
 @source '../**/*.{ts,tsx}';

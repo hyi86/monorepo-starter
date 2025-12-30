@@ -4,7 +4,7 @@ import { cache } from 'react';
 import { z } from 'zod';
 import { db } from '~/shared/lib/database/client';
 import { createRandomUser, toUnix } from '~/shared/lib/database/utils';
-import { usersTable } from '../../../shared/database/user.entity';
+import { usersTable } from '../../../shared/lib/database/user.entity';
 import { findUsersSchema, type User } from './user.schema';
 
 /**

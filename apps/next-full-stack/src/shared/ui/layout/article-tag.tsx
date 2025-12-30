@@ -5,5 +5,5 @@ import { cn } from '@monorepo-starter/ui/lib/utils';
  * @see {@link https://tailwindcss.com/docs/typography-plugin#default-styles}
  */
 export function Article({ children, className }: React.PropsWithChildren<{ className?: string }>) {
-  return <article className={cn('prose dark:prose-invert max-w-none', className)}>{children}</article>;
+  return <article className={cn('max-w-none', className)}>{children}</article>;
 }

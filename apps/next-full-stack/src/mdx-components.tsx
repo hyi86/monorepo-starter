@@ -4,7 +4,7 @@ import { Pre } from '~/shared/ui/layout/code-pre';
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    wrapper: ({ children }) => <div className={cn('prose prose-sm prose-zinc p-4')}>{children}</div>,
+    wrapper: ({ children }) => <div className={cn('max-w-none')}>{children}</div>,
     pre: async ({ children }) => {
       const metaRaw = children.props.metastring;
       const className = children.props.className;

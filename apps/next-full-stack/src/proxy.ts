@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { authMiddleware } from '~/shared/middleware/auth';
-import { i18nMiddleware } from '~/shared/middleware/i18n';
-import { loggerMiddleware } from '~/shared/middleware/logger';
+import { authMiddleware } from '~/shared/proxy/auth';
+import { i18nMiddleware } from '~/shared/proxy/i18n';
+import { loggerMiddleware } from '~/shared/proxy/logger';
 
 /**
  * Next Middleware

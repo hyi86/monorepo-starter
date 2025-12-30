@@ -1,6 +1,6 @@
 import { getTableColumns } from 'drizzle-orm';
 import z from 'zod';
-import { usersTable } from '../../../shared/database/user.entity';
+import { usersTable } from '../../../shared/lib/database/user.entity';
 
 export type User = typeof usersTable.$inferSelect;
 export type Gender = (typeof usersTable.gender.enumValues)[number];
