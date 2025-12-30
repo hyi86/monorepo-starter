@@ -243,10 +243,6 @@ export const appRoutes: AppRoutes[] = [
     path: '/example/form/11-grid-checkboxes',
   },
   {
-    name: 'example/image-edit/01-simple',
-    path: '/example/image-edit/01-simple',
-  },
-  {
     name: 'example/interactive-ui/01-liquid-glass',
     path: '/example/interactive-ui/01-liquid-glass',
   },
