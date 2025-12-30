@@ -56,8 +56,7 @@ export default config;
 
 ### next.js
 
-next.js 기반 워크스페이스에서 사용하는 설정 파일 입니다.  
-주로 Next.js 14 이상을 사용하는 워크스페이스에서 사용됩니다.
+next.js 기본
 
 ```bash
 touch eslint.config.mjs
@@ -72,7 +71,7 @@ export default config;
 
 ### next-extend.js
 
-next.js 기반, FSD(Feature-Sliced Design) 아키텍처를 사용하는 워크스페이스에서 사용하는 설정 파일 입니다.  
+next.js 확장
 
 ```bash
 touch eslint.config.mjs

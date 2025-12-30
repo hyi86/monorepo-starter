@@ -33,39 +33,3 @@ pnpx web-push generate-vapid-keys --json # 이 결과를 .env 파일에 추가
 # 4. 개발 서버 실행
 pnpm dev
 ```
-
-### Start local tunnel (cloudflared)
-
-`cloudflared`는 Cloudflare에서 제공하는 경량 Tunnel Client 서비스입니다.  
-서비스를 외부에 임시로 공개할 때 사용합니다.
-
-```bash
-# homebrew를 통해 cloudflared 설치
-brew install cloudflared
-
-# 개발 서버 실행
-pnpm dev # or pnpm start
-
-# cloudflared tunnel 실행
-cloudflared tunnel --url http://localhost:3001
-
-# cloudflared tunnel --url http://localhost:3001
-# 2025-08-29T08:13:18Z INF ...
-# 2025-08-29T08:13:22Z INF +--------------------------------------------------------------------------------------------+
-# 2025-08-29T08:13:22Z INF |  Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):  |
-# 2025-08-29T08:13:22Z INF |  https://aaaa-aaaa.trycloudflare.com                                        |
-# 2025-08-29T08:13:22Z INF +--------------------------------------------------------------------------------------------+
-# 2025-08-29T08:13:22Z INF ....
-```
-
-여기서, 랜덤으로 생성된  
-https://aaaa-aaaa.trycloudflare.com 이 접속가능한 도메인입니다.
-
-## Folder Structure & Rules
-
-[기본 FSD](https://feature-sliced.design/kr/docs/get-started/overview) 구조를 변형해서 사용하고 있습니다.  
-기본 FSD 구조에서 다음의 규칙을 추가하였습니다.
-
-- `pages`, `app` 레이어는 `app` 레이어로 통합해서 하나로 사용
-- 기본적인 흐름은, `app` > `widgets` > `features` > `entities` > `common` 순으로 이동
-  자세한 내용은 별도의 [문서를](../../docs/Custom-FSD-Guide.md) 참조하세요.

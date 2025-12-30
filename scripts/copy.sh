@@ -1,5 +1,5 @@
 #!/bin/bash
-source "$(dirname "${BASH_SOURCE[0]}")/ui-utils.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
 
 # ------------------------------------------------------------
 # 버전관리되는 파일만 복사하는 스크립트(`git` 으로 관리되는 파일)

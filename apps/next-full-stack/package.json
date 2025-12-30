@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "typegen": "next typegen",
+    "predev": "pnpm typegen",
     "dev": "PORT=3001 next dev",
     "prebuild": "sh ../../scripts/compress.sh ./public",
     "build": "next build",
@@ -12,11 +13,11 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "lint": "eslint",
-    "check-types": "next typegen && tsc --noEmit",
+    "precheck-types": "pnpm typegen",
+    "check-types": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:studio": "drizzle-kit studio",
-    "tunnel": "cloudflared tunnel --url http://localhost:3001"
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@ag-grid-community/locale": "^35.0.0",
