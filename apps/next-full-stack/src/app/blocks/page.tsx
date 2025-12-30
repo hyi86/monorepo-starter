@@ -7,7 +7,6 @@ export const metadata = {
 
 export default function BlocksPage() {
   const links: { href: Route; label: string }[] = [
-    { href: '/blocks/user-management', label: 'User Management' },
     { href: '/blocks/dashboard', label: 'Dashboard' },
     { href: '/blocks/sidebar-01', label: 'Sidebar 01' },
     { href: '/blocks/sidebar-02', label: 'Sidebar 02' },
@@ -19,7 +18,6 @@ export default function BlocksPage() {
     { href: '/blocks/sidebar-13', label: 'Sidebar 13' },
     { href: '/blocks/sidebar-15', label: 'Sidebar 15' },
     { href: '/blocks/sidebar-16', label: 'Sidebar 16' },
-    { href: '/blocks/ag-grid', label: 'Ag Grid' },
     { href: '/blocks/shadcn', label: 'Shadcn' },
   ];
 

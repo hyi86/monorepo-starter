@@ -6,8 +6,8 @@ import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { Suspense } from 'react';
 import { i18n } from '~/shared/config/i18n';
 import { getLocale } from '~/shared/lib/i18n/locale';
-import { WebPushProvider } from '~/shared/model/web-push.context';
 import { TanstackQueryProvider } from '~/shared/provider/query';
+import { WebPushProvider } from '~/shared/provider/web-push.context';
 import { SpotlightDialog } from './_private/spotlight/SpotlightDialog';
 
 import 'react-advanced-cropper/dist/style.css';

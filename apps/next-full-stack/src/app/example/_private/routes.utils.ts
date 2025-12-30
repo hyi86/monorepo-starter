@@ -1,12 +1,8 @@
 import { buildTree } from '@monorepo-starter/utils/tree';
-import { appPathRoutes } from '~/routes';
+import { appRoutes } from '~/routes';
 
 export function getAllRouteTree() {
-  const exampleRoutes = appPathRoutes
-    .filter((route) => !route.isDynamicRoute)
-    .filter((route) => route.href.startsWith('/example/'))
-    .map((route) => route.href);
-
+  const exampleRoutes = appRoutes.filter((route) => route.path.startsWith('/example/')).map((route) => route.path);
   const routeTree = buildTree(exampleRoutes)[0]?.children || [];
 
   // 커스텀 라우트 직접 추가

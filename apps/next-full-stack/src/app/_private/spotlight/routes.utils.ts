@@ -1,24 +1,7 @@
-import { kebabCase } from 'change-case';
-import { appPathRoutes } from '~/routes';
+import { appRoutes } from '~/routes';
 
 export function getAllRoutes() {
-  const allRoutes = appPathRoutes
-    .filter((item) => !item.isDynamicRoute && !item.isParallelRoute)
-    .map((item) => {
-      const pathList = item.href.split('/').filter(Boolean);
-
-      let name = '';
-      if (pathList.length === 0) {
-        name = 'home';
-      } else {
-        name = pathList.map((path) => kebabCase(path)).join('/');
-      }
-
-      return {
-        name,
-        path: item.href,
-      };
-    });
+  const allRoutes = appRoutes.map((item) => ({ name: item.name, path: item.path }));
 
   return allRoutes;
 }

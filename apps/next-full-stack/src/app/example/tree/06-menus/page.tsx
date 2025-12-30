@@ -23,12 +23,10 @@ import {
   SearchIcon,
   TrashIcon,
 } from 'lucide-react';
-import { appPathRoutes } from '~/routes';
+import { appRoutes } from '~/routes';
 import { useTreeMenu } from './use-tree-menu';
 
-const routes = appPathRoutes
-  .filter((route) => !route.isParallelRoute && !route.isDynamicRoute)
-  .map((route) => route.href);
+const routes = appRoutes.filter((route) => route.path.startsWith('/example/')).map((route) => route.path);
 
 export default function TreeFull() {
   const {

@@ -3,8 +3,7 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "typegen": "next typegen",
-    "predev": "pnpm typegen",
+    "predev": "next typegen",
     "dev": "PORT=3001 next dev",
     "prebuild": "sh ../../scripts/compress.sh ./public",
     "build": "next build",
@@ -13,7 +12,7 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "lint": "eslint",
-    "precheck-types": "pnpm typegen",
+    "precheck-types": "next typegen",
     "check-types": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",

@@ -2,6 +2,7 @@
  * NOTE: 환경변수 관리 파일 및 유틸리티 함수 - Edge Runtime, Node.js 환경에서 같이 사용(node 전용 함수 사용 불가)
  */
 import { createEnv } from '@t3-oss/env-nextjs';
+import { nanoid } from 'nanoid';
 import parseDuration from 'parse-duration'; // edge ok
 import { z } from 'zod'; // edge ok
 
@@ -20,13 +21,13 @@ export const env = createEnv({
     // Code editor
     CODE_EDITOR: z.enum(['cursor', 'vscode', 'webstorm', 'intellij', 'neovim', 'sublimetext']).default('cursor'),
     // Tokens
-    ACCESS_TOKEN_SECRET: z.string().optional(),
+    ACCESS_TOKEN_SECRET: z.string().default(nanoid(32)),
     ACCESS_TOKEN_SECRET_TIME: z
       .string()
       .refine((value) => parseDuration(value, 's') !== null)
       .default('15m'),
     ACCESS_TOKEN_COOKIE_NAME: z.string().default('access-token'),
-    REFRESH_TOKEN_SECRET: z.string().optional(),
+    REFRESH_TOKEN_SECRET: z.string().default(nanoid(32)),
     REFRESH_TOKEN_SECRET_TIME: z
       .string()
       .refine((value) => parseDuration(value, 's') !== null)
