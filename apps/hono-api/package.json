@@ -17,7 +17,7 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@faker-js/faker": "^10.1.0",
+    "@faker-js/faker": "^10.2.0",
     "@hono/node-server": "^1.19.7",
     "@hono/zod-validator": "^0.7.6",
     "@monorepo-starter/utils": "workspace:*",
