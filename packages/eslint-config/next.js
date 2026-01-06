@@ -1,8 +1,10 @@
 import js from '@eslint/js';
-import pluginNext from '@next/eslint-plugin-next';
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTs from 'eslint-config-next/typescript';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import pluginReact from 'eslint-plugin-react';
 import pluginReactHooks from 'eslint-plugin-react-hooks';
+import { globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import { config as baseConfig } from './base.js';
@@ -12,11 +14,20 @@ import { config as baseConfig } from './base.js';
  *
  * @type {import("eslint").Linter.Config[]}
  * */
-export const config = [
+export const nextJsConfig = [
   ...baseConfig,
   js.configs.recommended,
   eslintConfigPrettier,
   ...tseslint.configs.recommended,
+  ...nextVitals,
+  ...nextTs,
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    '.next/**',
+    'out/**',
+    'build/**',
+    'next-env.d.ts',
+  ]),
   {
     ...pluginReact.configs.flat.recommended,
     languageOptions: {
@@ -24,16 +35,6 @@ export const config = [
       globals: {
         ...globals.serviceworker,
       },
-    },
-  },
-  {
-    plugins: {
-      '@next/next': pluginNext,
-    },
-    rules: {
-      ...pluginNext.configs.recommended.rules,
-      ...pluginNext.configs['core-web-vitals'].rules,
-      '@next/next/no-img-element': 'off',
     },
   },
   {

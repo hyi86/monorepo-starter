@@ -7,12 +7,14 @@
     "./base": "./base.js",
     "./next-extend": "./next-extend.js",
     "./next": "./next.js",
+    "./next16": "./next16.js",
     "./react-internal": "./react-internal.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@next/eslint-plugin-next": "catalog:",
     "eslint": "catalog:",
+    "eslint-config-next": "catalog:",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-boundaries": "^5.3.1",
     "eslint-plugin-only-warn": "^1.1.0",
