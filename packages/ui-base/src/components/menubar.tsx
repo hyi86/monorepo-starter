@@ -1,3 +1,5 @@
+'use client';
+
 import { Menu as MenuPrimitive } from '@base-ui/react/menu';
 import { Menubar as MenubarPrimitive } from '@base-ui/react/menubar';
 import * as React from 'react';

@@ -1,3 +1,5 @@
+'use client';
+
 import { Separator as SeparatorPrimitive } from '@base-ui/react/separator';
 
 import { cn } from '@monorepo-starter/ui-base/lib/utils';

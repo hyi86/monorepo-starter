@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 
 import { cn } from '@monorepo-starter/ui-base/lib/utils';

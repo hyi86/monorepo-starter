@@ -1,5 +1,3 @@
-'use client';
-
 import { Switch as SwitchPrimitive } from '@base-ui/react/switch';
 
 import { cn } from '@monorepo-starter/ui-base/lib/utils';

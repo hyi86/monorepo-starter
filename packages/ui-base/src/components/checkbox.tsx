@@ -1,3 +1,5 @@
+'use client';
+
 import { Checkbox as CheckboxPrimitive } from '@base-ui/react/checkbox';
 
 import { cn } from '@monorepo-starter/ui-base/lib/utils';
