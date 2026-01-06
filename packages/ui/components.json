@@ -21,8 +21,6 @@
   "menuColor": "default",
   "menuAccent": "subtle",
   "registries": {
-    "@coss": "https://coss.com/ui/r/{name}.json",
-    "@shadcn-editor": "https://shadcn-editor.vercel.app/r/{name}.json",
     "@kibo-ui": "https://www.kibo-ui.com/r/{name}.json",
     "@diceui": "https://diceui.com/r/{name}.json",
     "@reui": "https://reui.io/r/{name}.json"

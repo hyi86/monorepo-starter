@@ -4,6 +4,9 @@ import { config } from '@monorepo-starter/eslint-config/react-internal';
 export default [
   ...config,
   {
-    rules: {},
+    rules: {
+      'react/prop-types': 'off',
+      'react-hooks/preserve-manual-memoization': 'off',
+    },
   },
 ];
