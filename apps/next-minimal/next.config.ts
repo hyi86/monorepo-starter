@@ -75,7 +75,7 @@ const nextConfig: NextConfig = {
   // productionBrowserSourceMaps: true,
 
   /** reactCompiler: React Compiler 활성화 (컴포넌트 렌더링 자동 최적화) */
-  reactCompiler: true,
+  // reactCompiler: true,
 
   /** reactMaxHeadersLength: React에서 생성되어 응답에 추가되는 헤더의 최대 길이 */
   // reactMaxHeadersLength: 8192,
