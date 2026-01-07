@@ -1,4 +1,4 @@
-import { SignJWT, jwtVerify } from 'jose'; // Edge runtime OK
+import { SignJWT, decodeJwt, jwtVerify } from 'jose'; // Edge runtime OK
 
 /**
  * 코드를 인코딩해서 반환
@@ -38,4 +38,15 @@ export async function generateToken({
 export async function verifyToken({ token, secret }: { token: string; secret: string }) {
   const { payload } = await jwtVerify(token, encodeSecret(secret));
   return payload;
+}
+
+/**
+ * 단순 토큰 파싱
+ */
+export function decodeToken(token: string) {
+  if (!token) {
+    return null;
+  }
+
+  return decodeJwt(token);
 }

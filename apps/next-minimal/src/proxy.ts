@@ -17,9 +17,11 @@ export async function proxy(request: NextRequest, event: NextFetchEvent) {
   response.cookies.set('next-pathname', pathname, serverCookieBaseOptions);
   response.cookies.set('next-search', search, serverCookieBaseOptions);
 
-  // 언어 설정
-  const locale = getLocale(request);
-  response.cookies.set('locale', locale, { ...serverCookieBaseOptions, maxAge: 60 * 60 * 24 }); // 1 days
+  // 언어 자동 설정
+  if (!request.cookies.get('locale')) {
+    const locale = getLocale(request);
+    response.cookies.set('locale', locale, { ...serverCookieBaseOptions, maxAge: 60 * 60 * 24 }); // 1 days
+  }
 
   // waitUntil은 응답 반환 후에도 백그라운드 작업을 계속 실행할 수 있게 함
   // 데이터 외부 전송, 캐시 업데이트 등
