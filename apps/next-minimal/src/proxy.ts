@@ -1,20 +1,21 @@
 import { delay } from '@monorepo-starter/utils/fn';
 import { type NextFetchEvent, type NextRequest, NextResponse } from 'next/server';
 import { gray, green } from 'picocolors';
-import { serverCookieBaseOptions } from './shared/cookies/config';
-import { getLocale } from './shared/i18n/locale';
+import { serverCookieBaseOptions } from '~/shared/cookies/config';
+import { getLocale } from '~/shared/i18n/locale';
 
 /**
  * @see {@link https://nextjs.org/docs/app/api-reference/file-conventions/proxy Proxy}
  */
 export async function proxy(request: NextRequest, event: NextFetchEvent) {
   const response = NextResponse.next();
+  const { host, hostname, pathname, search } = request.nextUrl;
 
   // 현재 페이지 URL 정보를 쿠키에 저장 (세션 쿠키 활용)
-  response.cookies.set('next-host', request.nextUrl.host, serverCookieBaseOptions); // localhost:3000
-  response.cookies.set('next-hostname', request.nextUrl.hostname, serverCookieBaseOptions); // localhost
-  response.cookies.set('next-pathname', request.nextUrl.pathname, serverCookieBaseOptions);
-  response.cookies.set('next-search', request.nextUrl.search, serverCookieBaseOptions);
+  response.cookies.set('next-host', host, serverCookieBaseOptions); // localhost:3000
+  response.cookies.set('next-hostname', hostname, serverCookieBaseOptions); // localhost
+  response.cookies.set('next-pathname', pathname, serverCookieBaseOptions);
+  response.cookies.set('next-search', search, serverCookieBaseOptions);
 
   // 언어 설정
   const locale = getLocale(request);
