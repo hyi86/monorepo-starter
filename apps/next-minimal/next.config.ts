@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
   // basePath: '',
 
   /** cacheComponents: 데이터 페칭을 프리렌더링에서 제외하고 런타임에 실행 (use cache와 함께 사용) */
-  cacheComponents: true,
+  // cacheComponents: true,
 
   /** cacheHandlers: use cache 지시어를 위한 커스텀 캐시 핸들러 설정 */
   // cacheHandlers: {},
