@@ -2,8 +2,8 @@
 
 import { ItemInstance } from '@headless-tree/core';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { Slot } from '@radix-ui/react-slot';
 import { ChevronDownIcon } from 'lucide-react';
+import { Slot } from 'radix-ui';
 import * as React from 'react';
 
 type TreeContextValue<T = any> = {
@@ -68,7 +68,7 @@ function TreeItem<T = any>({ item, className, asChild, children, ...props }: Omi
     '--tree-padding': `${item.getItemMeta().level * indent}px`,
   } as React.CSSProperties;
 
-  const Comp = asChild ? Slot : 'button';
+  const Comp = asChild ? Slot.Root : 'button';
 
   return (
     <TreeContext.Provider value={{ indent, currentItem: item }}>

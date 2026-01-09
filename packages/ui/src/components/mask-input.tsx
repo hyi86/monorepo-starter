@@ -2,7 +2,7 @@
 
 import { useComposedRefs } from '@monorepo-starter/ui/lib/compose-refs';
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { Slot } from '@radix-ui/react-slot';
+import { Slot } from 'radix-ui';
 import * as React from 'react';
 
 const PAST_YEARS_LIMIT = 120;
@@ -1323,7 +1323,7 @@ function MaskInput(props: MaskInputProps) {
     [maskPattern, onKeyDownProp, onValueChangeProp, transformOpts, mask, withoutMask],
   );
 
-  const InputPrimitive = asChild ? Slot : 'input';
+  const InputPrimitive = asChild ? Slot.Root : 'input';
 
   return (
     <InputPrimitive

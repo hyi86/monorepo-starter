@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@monorepo-starter/ui/lib/utils';
-import { Slot } from '@radix-ui/react-slot';
+import { Slot } from 'radix-ui';
 import * as React from 'react';
 
 // Types
@@ -77,7 +77,7 @@ type TimelineDateProps = React.HTMLAttributes<HTMLTimeElement> & {
 };
 
 function TimelineDate({ asChild = false, className, ...props }: TimelineDateProps) {
-  const Comp = asChild ? Slot : 'time';
+  const Comp = asChild ? Slot.Root : 'time';
 
   return (
     <Comp

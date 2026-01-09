@@ -7,7 +7,7 @@ import { useLazyRef } from '@monorepo-starter/ui/hooks/use-lazy-ref';
 import { useComposedRefs } from '@monorepo-starter/ui/lib/compose-refs';
 import { cn } from '@monorepo-starter/ui/lib/utils';
 import { useDirection } from '@radix-ui/react-direction';
-import { Slot } from '@radix-ui/react-slot';
+import { Slot } from 'radix-ui';
 import * as React from 'react';
 
 const ROOT_NAME = 'AngleSlider';
@@ -493,7 +493,7 @@ function AngleSlider(props: AngleSliderProps) {
     [propsRef, onSliderEnd],
   );
 
-  const RootPrimitive = asChild ? Slot : 'div';
+  const RootPrimitive = asChild ? Slot.Root : 'div';
 
   return (
     <StoreContext.Provider value={store}>
@@ -706,7 +706,7 @@ function AngleSliderThumb(props: AngleSliderThumbProps) {
     [props.onFocus, store, index],
   );
 
-  const ThumbPrimitive = asChild ? Slot : 'div';
+  const ThumbPrimitive = asChild ? Slot.Root : 'div';
 
   if (value === undefined) return null;
 
@@ -785,7 +785,7 @@ function AngleSliderValue(props: AngleSliderValueProps) {
     [center],
   );
 
-  const ValuePrimitive = asChild ? Slot : 'div';
+  const ValuePrimitive = asChild ? Slot.Root : 'div';
 
   return (
     <ValuePrimitive
