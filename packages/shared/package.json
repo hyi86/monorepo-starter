@@ -30,7 +30,7 @@
     "eslint": "catalog:",
     "jsdom": "^27.4.0",
     "type-fest": "catalog:",
-    "vite-tsconfig-paths": "^6.0.3",
+    "vite-tsconfig-paths": "^6.0.4",
     "vitest": "catalog:"
   },
   "peerDependencies": {
