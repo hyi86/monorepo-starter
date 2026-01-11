@@ -17,6 +17,7 @@
     "@monorepo-starter/utils": "workspace:*",
     "@next/env": "^16.1.1",
     "@t3-oss/env-nextjs": "^0.13.10",
+    "lucide-react": "catalog:",
     "nanoid": "^5.1.6",
     "negotiator": "^1.0.0",
     "next": "catalog:",

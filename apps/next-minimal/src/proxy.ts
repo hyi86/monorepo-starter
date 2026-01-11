@@ -6,8 +6,13 @@ import { blueBright, dim, green, red, underline, yellow } from 'picocolors';
 import { i18n, type Locale } from '~/shared/i18n/config';
 
 /**
+ * Next Middleware
+ *
+ * 추가 searchParams 파라미터
+ * - ?locale={locale} - 언어 수동 설정
+ * - ?signout - 로그아웃 처리
+ *
  * @see {@link https://nextjs.org/docs/app/api-reference/file-conventions/proxy Proxy}
- * @see {@link https://nextjs.org/docs/app/api-reference/file-conventions/proxy#execution-order 미들웨어 호출 순서}
  */
 export async function proxy(request: NextRequest) {
   const response = NextResponse.next();
@@ -17,26 +22,25 @@ export async function proxy(request: NextRequest) {
 
   /**
    * 다국어 처리
-   * 1) cookie에 locale 값이 있으면 그대로 사용
-   * 없으면 시스템 기본 언어 설정 후, cookie에 저장
-   * 2) ?locale={locale} 요청 시, 수동 언어 지정 - 이후에 리다이렉트 처리(같은 요청 재실행)
+   * 1) cookie 에 locale 값이 없으면, 시스템 기본 언어 설정 후, cookie에 저장
+   * 2) ?locale={locale} 요청 시, 지정된 locale 설정 후, 리다이렉트(요청 재실행)
    */
 
-  // 언어 자동 설정
+  // 1) 언어 자동 설정
   if (!request.cookies.get('locale')) {
     console.log(` │ ${yellow('언어 자동 설정')}`);
     const locale = getLocale(request);
     response.cookies.set('locale', locale, setCookieOptions({ maxAge: 60 * 60 * 24 }));
   }
 
-  // 언어 수동 설정 (?locale=ko) 요청 시, 수동 언어 지정 - 이후에 리다이렉트 처리(같은 요청 재실행)
+  // 2) 언어 수동 설정 (?locale=ko) 요청 시, 지정된 locale 설정 후, 리다이렉트(요청 재실행)
   if (nextUrl.searchParams.has('locale')) {
     console.log(` │ ${yellow('언어 수동 설정')}`);
     const locale = nextUrl.searchParams.get('locale');
     if (locale && i18n.locales.includes(locale as Locale)) {
       response.cookies.set('locale', locale, setCookieOptions({ maxAge: 60 * 60 * 24 }));
 
-      // locale 파라미터를 제거한 새로운 URL 생성
+      // locale searchParams를 제거한 새로운 URL 생성
       const newUrl = nextUrl.clone();
       newUrl.searchParams.delete('locale');
 
@@ -46,68 +50,86 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // 로그아웃 처리
-  if (nextUrl.pathname === '/signout') {
-    const callback = nextUrl.searchParams.get('callback') || '/signin';
+  /**
+   * 로그아웃 처리
+   * searchParams 에 signout 값이 있으면, 로그아웃 처리
+   */
+
+  if (nextUrl.searchParams.has('signout')) {
     response.cookies.delete('access-token');
     response.cookies.delete('refresh-token');
 
-    // 새로운 URL 생성
+    // signout searchParams를 제거한 새로운 URL 생성
     const newUrl = nextUrl.clone();
-    newUrl.pathname = callback;
-    newUrl.searchParams.delete('callback');
+    newUrl.searchParams.delete('signout');
 
-    console.log(` └ ${blueBright('로그아웃: ')} ${makeLoggerPath(newUrl)}`);
+    console.log(` │ ${red('로그아웃: ')} ${makeLoggerPath(newUrl)}`);
     return NextResponse.redirect(newUrl, { headers: response.headers });
   }
 
-  // 로그인 경로는 바로 응답 리턴
-  if (nextUrl.pathname.match(/^\/(signin|signup)$/)) {
-    console.log(` └ ${green('허용된 경로(응답):')} ${makeLoggerPath(nextUrl)}`);
-    return response;
-  }
+  const isAllowedPath = nextUrl.pathname.match(/^\/(signin|signup)$/);
 
-  // 엑세스 토큰 검증
-  const accessToken = request.cookies.get('access-token')?.value;
-  if (accessToken) {
-    console.log(` │ ${yellow('엑세스 토큰 검증')} ${dim(accessToken.slice(0, 20))}...`);
-    // 엑세스 토큰 검증 후, 정상이면 응답 리턴
-    const accessTokenValue = decodeToken(accessToken);
-    if (accessTokenValue) {
-      console.log(` └ ${green('엑세스 토큰 유효')}`);
-      return response;
-    } else {
-      response.cookies.delete('access-token');
-      console.log(` │ ${red('엑세스 토큰 유효하지 않음 - 삭제')}`);
-    }
-  } else {
-    console.log(` │ ${dim('엑세스 토큰 없음')}`);
-  }
+  /**
+   * 인증 확인
+   */
 
-  // 리프레시 토큰 검증
-  const refreshToken = request.cookies.get('refresh-token')?.value;
-  if (refreshToken) {
-    console.log(` │ ${yellow('리프레시 토큰 검증')} ${dim(refreshToken.slice(0, 20))}...`);
-    // 리프레시 토큰 검증 후, 정상이면 새로운 엑세스 토큰 생성 후, 쿠키에 저장 후 응답 리턴
-    const refreshTokenValue = decodeToken(refreshToken);
-    if (refreshTokenValue) {
-      const newAccessToken = await updateAccessToken(refreshTokenValue);
-      if (newAccessToken) {
-        response.cookies.set('access-token', newAccessToken, setCookieOptions({ maxAge: 60 * 15 })); // 15분
-        console.log(` └ ${green('리프레시 토큰 유효 - 엑세스 토큰 갱신')} ${makeLoggerPath(nextUrl)}`);
+  if (!isAllowedPath) {
+    /**
+     * 엑세스 토큰 검증
+     * 1) 엑세스 토큰 검증 후, 응답 리턴
+     * 2) 엑세스 토큰 없는 상태에서, 리프레시 토큰 검증 후, 새로운 엑세스 토큰 생성, 쿠키에 저장 후 응답
+     * 3) 모든 토큰이 없거나 비정상인 상태면 로그인 페이지로 리다이렉트
+     */
+
+    // 1) 엑세스 토큰 검증
+    const accessToken = request.cookies.get('access-token')?.value;
+    if (accessToken) {
+      console.log(` │ ${yellow('엑세스 토큰 검증')} ${dim(accessToken.slice(0, 20))}...`);
+      // 엑세스 토큰 검증 후, 정상이면 응답 리턴
+      const accessTokenValue = decodeToken(accessToken);
+      if (accessTokenValue) {
+        console.log(` └ ${green('엑세스 토큰 유효')}`);
         return response;
+      } else {
+        response.cookies.delete('access-token');
+        console.log(` │ ${red('엑세스 토큰 유효하지 않음 - 삭제')}`);
       }
+    } else {
+      console.log(` │ ${dim('엑세스 토큰 없음')}`);
     }
-  } else {
-    console.log(` │ ${dim('리프레시 토큰 없음')}`);
+
+    // 2) 리프레시 토큰 검증
+    const refreshToken = request.cookies.get('refresh-token')?.value;
+    if (refreshToken) {
+      console.log(` │ ${yellow('리프레시 토큰 검증')} ${dim(refreshToken.slice(0, 20))}...`);
+      // 리프레시 토큰 검증 후, 정상이면 새로운 엑세스 토큰 생성 후, 쿠키에 저장 후 응답 리턴
+      const refreshTokenValue = decodeToken(refreshToken);
+      if (refreshTokenValue) {
+        const newAccessToken = await updateAccessToken(refreshTokenValue);
+        if (newAccessToken) {
+          response.cookies.set('access-token', newAccessToken, setCookieOptions({ maxAge: 60 * 15 })); // 15분
+          console.log(` └ ${green('리프레시 토큰 유효 - 엑세스 토큰 갱신')} ${makeLoggerPath(nextUrl)}`);
+          return response;
+        }
+      }
+    } else {
+      console.log(` │ ${dim('리프레시 토큰 없음')}`);
+    }
+
+    // 3) 나머지는 모두 로그인 페이지로 리다이렉트
+    const loginUrl = request.nextUrl.clone();
+    loginUrl.pathname = '/signin';
+    loginUrl.searchParams.set('callback', nextUrl.pathname + nextUrl.search);
+    console.log(` └ ${blueBright('로그인 페이지로 리다이렉트:')} ${makeLoggerPath(loginUrl)}`);
+    return NextResponse.redirect(loginUrl, { headers: response.headers });
   }
 
-  // 나머지는 모두 로그인 페이지로 리다이렉트
-  const loginUrl = request.nextUrl.clone();
-  loginUrl.pathname = '/signin';
-  loginUrl.searchParams.set('callback', nextUrl.pathname + nextUrl.search);
-  console.log(` └ ${blueBright('로그인 페이지로 리다이렉트:')} ${makeLoggerPath(loginUrl)}`);
-  return NextResponse.redirect(loginUrl, { headers: response.headers });
+  /**
+   * 허용된 경로
+   * /signin, /signup 등 인증이 필요 없는 경로
+   */
+  console.log(` └ ${green('허용된 경로(응답):')} ${makeLoggerPath(nextUrl)}`);
+  return response;
 }
 
 export const config = {
