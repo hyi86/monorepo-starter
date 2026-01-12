@@ -3,7 +3,6 @@ import { decodeToken, generateToken } from '@monorepo-starter/utils/jwt';
 import Negotiator from 'negotiator';
 import { type NextRequest, NextResponse } from 'next/server';
 import { blueBright, dim, green, red, underline, yellow } from 'picocolors';
-import { i18n, type Locale } from '~/shared/i18n/config';
 
 /**
  * Next Middleware
@@ -35,9 +34,10 @@ export async function proxy(request: NextRequest) {
 
   // 2) 언어 수동 설정 (?locale=ko) 요청 시, 지정된 locale 설정 후, 리다이렉트(요청 재실행)
   if (nextUrl.searchParams.has('locale')) {
+    const availableLocales = getAvailableLocales();
     console.log(` │ ${yellow('언어 수동 설정')}`);
     const locale = nextUrl.searchParams.get('locale');
-    if (locale && i18n.locales.includes(locale as Locale)) {
+    if (locale && availableLocales.includes(locale as ReturnType<typeof getAvailableLocales>[number])) {
       response.cookies.set('locale', locale, setCookieOptions({ maxAge: 60 * 60 * 24 }));
 
       // locale searchParams를 제거한 새로운 URL 생성
@@ -149,18 +149,26 @@ export const config = {
 };
 
 /**
+ * 사용 가능한 언어 목록
+ */
+function getAvailableLocales() {
+  return ['ko', 'en', 'ja'] as const;
+}
+
+/**
  * 언어 자동 설정(다국어 처리) - 쿠키에 설정된 언어가 없으면 자동으로 언어 설정 후, 쿠키에 저장
  */
 function getLocale(request: NextRequest) {
+  const availableLocales = getAvailableLocales();
   // headers 객체를 일반 객체로 변환
   const negotiatorHeaders: Record<string, string> = {};
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
   // 사용 가능한 언어 목록
-  const locales = Array.from(i18n.locales);
+  const locales = Array.from(availableLocales);
   // 가장 적합한 언어 선택
   const languages = new Negotiator({ headers: negotiatorHeaders }).languages(locales);
   // 기본 언어 선택
-  const locale = matchLocale(languages, locales, i18n.defaultLocale) as Locale;
+  const locale = matchLocale(languages, locales, availableLocales[0]);
 
   return locale;
 }

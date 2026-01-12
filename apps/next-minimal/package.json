@@ -9,13 +9,13 @@
     "check-types": "tsc --noEmit",
     "lint": "eslint",
     "test": "vitest run",
-    "typegen": "next typegen"
+    "typegen": "next typegen",
+    "analyze": "next experimental-analyze"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.7.5",
     "@monorepo-starter/ui": "workspace:*",
     "@monorepo-starter/utils": "workspace:*",
-    "@next/env": "^16.1.1",
     "@t3-oss/env-nextjs": "^0.13.10",
     "lucide-react": "catalog:",
     "nanoid": "^5.1.6",
