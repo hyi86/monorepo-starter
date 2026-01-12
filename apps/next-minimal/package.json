@@ -17,6 +17,7 @@
     "@monorepo-starter/ui": "workspace:*",
     "@monorepo-starter/utils": "workspace:*",
     "@t3-oss/env-nextjs": "^0.13.10",
+    "date-fns": "^4.1.0",
     "lucide-react": "catalog:",
     "nanoid": "^5.1.6",
     "negotiator": "^1.0.0",

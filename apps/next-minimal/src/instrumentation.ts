@@ -10,6 +10,6 @@ export function register() {
 
 export const onRequestError: Instrumentation.onRequestError = async (err, request, context) => {
   console.error('🚨 Error:', err);
-  console.error('🚨 Request:', request);
-  console.error('🚨 Context:', context);
+  console.error('🚨 Request:', request.path);
+  console.error('🚨 Context:', context.routePath);
 };

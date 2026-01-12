@@ -5,6 +5,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { connection } from 'next/server';
 import { Suspense } from 'react';
+import { env } from '~/env';
 
 export default async function SigninPage({ searchParams }: PageProps<'/signin'>) {
   await connection();
@@ -17,13 +18,13 @@ export default async function SigninPage({ searchParams }: PageProps<'/signin'>)
     const newAccessToken = await generateToken({
       userId: 'test',
       expiresIn: '15m',
-      secret: 'test',
+      secret: env.ACCESS_TOKEN_SECRET,
     });
 
     const newRefreshToken = await generateToken({
       userId: 'test',
       expiresIn: '1d',
-      secret: 'test',
+      secret: env.ACCESS_TOKEN_SECRET,
     });
 
     cookieStore.set('access-token', newAccessToken, { maxAge: 60 * 15 });

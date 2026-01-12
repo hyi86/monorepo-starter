@@ -1,11 +1,14 @@
 import { createEnv } from '@t3-oss/env-nextjs';
+import { nanoid } from 'nanoid';
 import { z } from 'zod';
 
 export const env = createEnv({
   // STANDALONE 빌드시 또는 test 환경에서 Skip
   skipValidation:
     (process.env.NODE_ENV === 'production' && process.env.STANDALONE === '1') || process.env.NODE_ENV === 'test',
-  server: {},
+  server: {
+    ACCESS_TOKEN_SECRET: z.string().default(nanoid(32)),
+  },
   client: {
     NEXT_PUBLIC_URL: z.string().default('http://localhost:3000'),
   },
