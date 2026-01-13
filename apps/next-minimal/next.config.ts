@@ -102,7 +102,7 @@ const nextConfig: NextConfig = {
   // trailingSlash: false,
 
   /** transpilePackages: 로컬 패키지 또는 외부 의존성의 자동 트랜스파일 및 번들링 */
-  transpilePackages: ['@monorepo-starter/ui', '@monorepo-starter/utils', '@t3-oss/env-nextjs', '@t3-oss/env-core'],
+  transpilePackages: ['@monorepo-starter/ui-base', '@monorepo-starter/utils', '@t3-oss/env-nextjs', '@t3-oss/env-core'],
 
   /** turbopack: Turbopack 옵션 설정 */
   // experimental: { turbopack: {} },

@@ -23,8 +23,8 @@
     "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "catalog:",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
+    "@types/react": "catalog:reactLatest",
+    "@types/react-dom": "catalog:reactLatest",
     "@vitejs/plugin-react": "^5.1.2",
     "@vitest/coverage-v8": "catalog:",
     "eslint": "catalog:",
@@ -34,8 +34,8 @@
     "vitest": "catalog:"
   },
   "peerDependencies": {
-    "next": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:"
+    "next": "catalog:nextLatest",
+    "react": "catalog:reactLatest",
+    "react-dom": "catalog:reactLatest"
   }
 }

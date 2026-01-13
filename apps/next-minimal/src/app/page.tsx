@@ -1,4 +1,4 @@
-import { Button } from '@monorepo-starter/ui/components/button';
+import { Button } from '@monorepo-starter/ui-base/components/button';
 import { format } from 'date-fns';
 import { LogOutIcon } from 'lucide-react';
 import { cookies } from 'next/headers';
@@ -24,11 +24,15 @@ export default async function Home() {
         <pre>{decodedAccessToken?.exp && format(new Date(decodedAccessToken.exp * 1000), 'yyyy-MM-dd HH:mm:ss')}</pre>
         <pre>{decodedRefreshToken?.exp && format(new Date(decodedRefreshToken.exp * 1000), 'yyyy-MM-dd HH:mm:ss')}</pre>
       </div>
-      <Button asChild variant="destructive">
-        <Link href={'?signout'}>
-          <LogOutIcon /> Logout
-        </Link>
-      </Button>
+      <Button
+        variant="destructive"
+        nativeButton={false}
+        render={
+          <Link href={'?signout'}>
+            <LogOutIcon /> Logout
+          </Link>
+        }
+      />
     </div>
   );
 }

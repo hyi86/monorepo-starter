@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@monorepo-starter/utils": "workspace:*",
-    "zustand": "^5.0.9"
+    "zustand": "^5.0.10"
   },
   "devDependencies": {
     "@tailwindcss/vite": "catalog:",

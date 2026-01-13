@@ -8,7 +8,7 @@
     ],
     "paths": {
       "~/*": ["./src/*"],
-      "@monorepo-starter/ui/*": ["../../packages/ui/src/*"],
+      "@monorepo-starter/ui-base/*": ["../../packages/ui-base/src/*"],
     }
   },
   "include": [

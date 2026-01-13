@@ -4,29 +4,33 @@ packages:
 
 catalog:
   '@eslint/eslintrc': ^3.3.1
-  '@next/bundle-analyzer': 16.1.1
-  '@next/eslint-plugin-next': 16.1.1
-  '@next/mdx': 16.1.1
   '@tailwindcss/postcss': ^4.1.18
   '@tailwindcss/vite': ^4.1.18
-  '@types/node': 25.0.6
-  '@types/react': 19.2.8
-  '@types/react-dom': 19.2.3
-  '@vitest/browser': ^4.0.16
-  '@vitest/coverage-v8': 4.0.16
-  eslint: 9.39.2
-  eslint-config-next: 16.1.1
-  lucide-react: 0.562.0
-  next: 16.1.1
-  react: 19.2.3
-  react-dom: 19.2.3
+  '@types/node': ^25.0.8
+  '@vitest/browser': ^4.0.17
+  '@vitest/coverage-v8': ^4.0.17
+  eslint: ^9.39.2
+  lucide-react: ^0.562.0
   tailwindcss: ^4.1.18
-  type-fest: 5.3.1
-  typescript: 5.9.3
-  vite: 7.3.1
-  vite-tsconfig-paths: 6.0.4
-  vitest: 4.0.16
-  zod: 4.3.5
+  type-fest: ^5.4.0
+  typescript: ^5
+  vite: ^7.3.1
+  vite-tsconfig-paths: ^6.0.4
+  vitest: ^4.0.17
+  zod: ^4.3.5
+
+catalogs:
+  nextLatest:
+    '@next/bundle-analyzer': 16.1.1
+    '@next/eslint-plugin-next': 16.1.1
+    '@next/mdx': 16.1.1
+    eslint-config-next: 16.1.1
+    next: 16.1.1
+  reactLatest:
+    react: ^19.2.3
+    react-dom: ^19.2.3
+    '@types/react': ^19.2.8
+    '@types/react-dom': ^19.2.3
 
 ignoredBuiltDependencies:
   - '@parcel/watcher'

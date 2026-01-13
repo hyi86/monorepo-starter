@@ -1,5 +1,5 @@
-import { Button } from '@monorepo-starter/ui/components/button';
-import { Input } from '@monorepo-starter/ui/components/input';
+import { Button } from '@monorepo-starter/ui-base/components/button';
+import { Input } from '@monorepo-starter/ui-base/components/input';
 import { Route } from 'next';
 import { redirect } from 'next/navigation';
 import { connection } from 'next/server';

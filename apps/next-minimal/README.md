@@ -59,7 +59,7 @@ docker run -p 3000:3000 next-minimal
 
 ### 모노레포 통합
 
-- `@monorepo-starter/ui` - 공유 UI 컴포넌트 패키지
+- `@monorepo-starter/ui-base` - 공유 UI 컴포넌트 패키지
 - `@monorepo-starter/utils` - 공유 유틸리티 함수
 - `@monorepo-starter/eslint-config` - 공유 ESLint 설정
 - `@monorepo-starter/typescript-config` - 공유 TypeScript 설정
