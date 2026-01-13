@@ -16,6 +16,7 @@ export default async function Home() {
 
   const decodedAccessToken = await verifyToken({ token: accessToken, secret: env.ACCESS_TOKEN_SECRET });
   const decodedRefreshToken = await verifyToken({ token: refreshToken, secret: env.ACCESS_TOKEN_SECRET });
+
   return (
     <div>
       <main>Main</main>

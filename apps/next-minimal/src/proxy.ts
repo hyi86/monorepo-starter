@@ -8,8 +8,8 @@ import { blueBright, dim, green, red, underline, yellow } from 'picocolors';
  * Next Middleware
  *
  * 추가 searchParams 파라미터
- * - ?locale={locale} - 언어 수동 설정
- * - ?signout - 로그아웃 처리
+ * - locale={locale} - 언어 수동 설정
+ * - signout - 로그아웃 처리
  *
  * @see {@link https://nextjs.org/docs/app/api-reference/file-conventions/proxy Proxy}
  */
@@ -17,7 +17,7 @@ export async function proxy(request: NextRequest) {
   const response = NextResponse.next();
   const nextUrl = request.nextUrl;
 
-  console.log(` ┌ ${green('프록시 시작')} ${makeLoggerPath(nextUrl)}`);
+  console.log(` ┌ Start ${green('proxy.ts')} ${makeLoggerPath(nextUrl)}`);
 
   /**
    * 다국어 처리
@@ -27,7 +27,7 @@ export async function proxy(request: NextRequest) {
 
   // 1) 언어 자동 설정
   if (!request.cookies.get('locale')) {
-    console.log(` │ ${yellow('언어 자동 설정')}`);
+    console.log(` │ Set ${yellow('auto locale')}`);
     const locale = getLocale(request);
     response.cookies.set('locale', locale, setCookieOptions({ maxAge: 60 * 60 * 24 }));
   }
@@ -35,7 +35,7 @@ export async function proxy(request: NextRequest) {
   // 2) 언어 수동 설정 (?locale=ko) 요청 시, 지정된 locale 설정 후, 리다이렉트(요청 재실행)
   if (nextUrl.searchParams.has('locale')) {
     const availableLocales = getAvailableLocales();
-    console.log(` │ ${yellow('언어 수동 설정')}`);
+    console.log(` │ Set ${yellow('manual locale')}`);
     const locale = nextUrl.searchParams.get('locale');
     if (locale && availableLocales.includes(locale as ReturnType<typeof getAvailableLocales>[number])) {
       response.cookies.set('locale', locale, setCookieOptions({ maxAge: 60 * 60 * 24 }));
@@ -45,7 +45,7 @@ export async function proxy(request: NextRequest) {
       newUrl.searchParams.delete('locale');
 
       // searchParams가 제거된 URL로 리다이렉트 (쿠키 포함)
-      console.log(` └ ${blueBright('리다이렉트: ')} ${makeLoggerPath(newUrl)}`);
+      console.log(` └ Redirect to ${blueBright(makeLoggerPath(newUrl))}`);
       return NextResponse.redirect(newUrl, { headers: response.headers });
     }
   }
@@ -63,7 +63,7 @@ export async function proxy(request: NextRequest) {
     const newUrl = nextUrl.clone();
     newUrl.searchParams.delete('signout');
 
-    console.log(` │ ${red('로그아웃: ')} ${makeLoggerPath(newUrl)}`);
+    console.log(` │ Logout to ${red(makeLoggerPath(newUrl))}`);
     return NextResponse.redirect(newUrl, { headers: response.headers });
   }
 
@@ -84,43 +84,43 @@ export async function proxy(request: NextRequest) {
     // 1) 엑세스 토큰 검증
     const accessToken = request.cookies.get('access-token')?.value;
     if (accessToken) {
-      console.log(` │ ${yellow('엑세스 토큰 검증')} ${dim(accessToken.slice(0, 20))}...`);
+      console.log(` │ Verify ${yellow('access token')} ${dim(accessToken.slice(0, 20))}...`);
       // 엑세스 토큰 검증 후, 정상이면 응답 리턴
       const accessTokenValue = decodeToken(accessToken);
       if (accessTokenValue) {
-        console.log(` └ ${green('엑세스 토큰 유효')}`);
+        console.log(` └ Valid ${green('access token')}`);
         return response;
       } else {
         response.cookies.delete('access-token');
-        console.log(` │ ${red('엑세스 토큰 유효하지 않음 - 삭제')}`);
+        console.log(` │ Invalid ${red('access token')}`);
       }
     } else {
-      console.log(` │ ${dim('엑세스 토큰 없음')}`);
+      console.log(` │ No ${dim('access token')}`);
     }
 
     // 2) 리프레시 토큰 검증
     const refreshToken = request.cookies.get('refresh-token')?.value;
     if (refreshToken) {
-      console.log(` │ ${yellow('리프레시 토큰 검증')} ${dim(refreshToken.slice(0, 20))}...`);
+      console.log(` │ Verify ${yellow('refresh token')} ${dim(refreshToken.slice(0, 20))}...`);
       // 리프레시 토큰 검증 후, 정상이면 새로운 엑세스 토큰 생성 후, 쿠키에 저장 후 응답 리턴
       const refreshTokenValue = decodeToken(refreshToken);
       if (refreshTokenValue) {
         const newAccessToken = await updateAccessToken(refreshTokenValue);
         if (newAccessToken) {
           response.cookies.set('access-token', newAccessToken, setCookieOptions({ maxAge: 60 * 15 })); // 15분
-          console.log(` └ ${green('리프레시 토큰 유효 - 엑세스 토큰 갱신')} ${makeLoggerPath(nextUrl)}`);
+          console.log(` └ Valid ${green('refresh token')}, update ${green('access token')} ${makeLoggerPath(nextUrl)}`);
           return response;
         }
       }
     } else {
-      console.log(` │ ${dim('리프레시 토큰 없음')}`);
+      console.log(` │ No ${dim('refresh token')}`);
     }
 
     // 3) 나머지는 모두 로그인 페이지로 리다이렉트
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = '/signin';
     loginUrl.searchParams.set('callback', nextUrl.pathname + nextUrl.search);
-    console.log(` └ ${blueBright('로그인 페이지로 리다이렉트:')} ${makeLoggerPath(loginUrl)}`);
+    console.log(` └ Redirect to ${blueBright('login page')} ${makeLoggerPath(loginUrl)}`);
     return NextResponse.redirect(loginUrl, { headers: response.headers });
   }
 
@@ -128,7 +128,7 @@ export async function proxy(request: NextRequest) {
    * 허용된 경로
    * /signin, /signup 등 인증이 필요 없는 경로
    */
-  console.log(` └ ${green('허용된 경로(응답):')} ${makeLoggerPath(nextUrl)}`);
+  console.log(` └ Allowed path ${green('response')} ${makeLoggerPath(nextUrl)}`);
   return response;
 }
 
