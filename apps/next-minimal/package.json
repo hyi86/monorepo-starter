@@ -22,6 +22,8 @@
     "nanoid": "^5.1.6",
     "negotiator": "^1.0.0",
     "next": "catalog:",
+    "next-intl": "^4.7.0",
+    "parse-duration": "^2.1.5",
     "picocolors": "^1.1.1",
     "react": "catalog:",
     "react-dom": "catalog:",

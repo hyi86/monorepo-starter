@@ -7,7 +7,7 @@ export const env = createEnv({
   skipValidation:
     (process.env.NODE_ENV === 'production' && process.env.STANDALONE === '1') || process.env.NODE_ENV === 'test',
   server: {
-    ACCESS_TOKEN_SECRET: z.string().default(nanoid(16)),
+    TOKEN_SECRET_KEY: z.string().default(nanoid(16)),
   },
   client: {
     NEXT_PUBLIC_URL: z.string().default('http://localhost:3000'),
